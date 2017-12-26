@@ -23,6 +23,12 @@ public class GameLauncher : MonoBehaviour
         fpsHelper = fpsHelperObj.AddComponent<FPSHelper>();
         GameObject.DontDestroyOnLoad(fpsHelperObj);
 #endif
+
+#if BUILD_DEBUG_LOG || UNITY_EDITOR
+        Debug.logger.logEnabled = true;
+#else
+        Debug.logger.logEnabled = false;
+#endif
     }
 
     // Use this for initialization
