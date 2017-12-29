@@ -60,15 +60,30 @@ public class ResourceMgr
             callback(fileName, textAsset.text);
     }
 
+    /// <summary>
+    /// 支持从Resources以外目录读取
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="fileName"></param>
+    /// <param name="callback"></param>
     public void LoadText(string path, string fileName, Action<string, byte[]> callback)
     {
-#if UNITY_ANDROID && !UNITY_EDITOR
 
-#endif
+#if UNITY_ANDROID && !UNITY_EDITOR
+        WWW www = new WWW(path);
+        while (!www.isDone)
+        {
+        }
+        if (null != callback)
+        {
+            callback(fileName,www.bytes);
+        }
+#else
         //支持从Resources以外目录读取
         var bytes = File.ReadAllBytes(path);
         if (null!=callback)
             callback(fileName, bytes);
+#endif
     }
 
     /// <summary>

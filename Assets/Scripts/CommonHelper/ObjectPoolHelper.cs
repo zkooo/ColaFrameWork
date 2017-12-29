@@ -5,10 +5,7 @@ using UnityEngine;
 
 public static class ObjectPoolHelper
 {
-    public static void func()
-    {
 
-    }
 }
 
 /// <summary>
