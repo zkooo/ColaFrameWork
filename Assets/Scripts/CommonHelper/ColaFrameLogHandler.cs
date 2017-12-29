@@ -18,7 +18,7 @@ public class ColaFrameLogHandler : ILogHandler {
 
     public void LogFormat(LogType logType, Object context, string format, params object[] args)
     {
-        throw new NotImplementedException();
+        Debug.LogError(context.ToString());
     }
 
     public void LogException(Exception exception, Object context)
