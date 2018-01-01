@@ -26,6 +26,7 @@ public class GameLauncher : MonoBehaviour
 
 #if BUILD_DEBUG_LOG || UNITY_EDITOR
         Debug.logger.logEnabled = true;
+        Debug.logger.logHandler = new ColaFrameLogHandler();
 #else
         Debug.logger.logEnabled = false;
 #endif
