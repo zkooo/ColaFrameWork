@@ -30,18 +30,50 @@ public class UIBase
     /// <summary>
     /// UI界面的层级
     /// </summary>
-    public int Layer { get; set; }
+    public int Layer
+    {
+        get { return this.Panel.layer; }
+        set { this.Panel.layer = value; }
+    }
 
+    /// <summary>
+    ///  UI的显隐状态
+    /// </summary>
     public bool IsShow { get { return Panel.activeSelf; } }
 
-    private UICreateType uiCreateType = UICreateType.Res;
+    /// <summary>
+    /// UI的类型
+    /// </summary>
+    protected UIType uiType;
+
+    /// <summary>
+    /// UI的创建方法
+    /// </summary>
+    protected UICreateType uiCreateType = UICreateType.Res;
+
+    protected UIBase(int resId, UIType uiType)
+    {
+        this.uiType = uiType;
+        ResId = resId;
+        this.uiCreateType = UICreateType.Res;
+    }
+
+    protected UIBase(GameObject panel, GameObject parent, UIType uiType)
+    {
+        this.uiType = uiType;
+        this.ResId = 0;
+        this.Panel = panel;
+        this.Panel.transform.SetParent(parent.transform);
+        this.Name = panel.name;
+        this.uiCreateType = UICreateType.Go;
+    }
 
     /// <summary>
     /// 打开一个UI界面
     /// </summary>
     public virtual void Open()
     {
-        
+        this.Create();
     }
 
     /// <summary>
@@ -49,7 +81,7 @@ public class UIBase
     /// </summary>
     public virtual void Close()
     {
-        
+        this.Destroy();
     }
 
     /// <summary>
@@ -58,7 +90,7 @@ public class UIBase
     /// <param name="isShow"></param>UI的是否显示
     public virtual void OnShow(bool isShow)
     {
-        
+
     }
 
     /// <summary>
@@ -66,7 +98,20 @@ public class UIBase
     /// </summary>
     public virtual void Create()
     {
-        
+        if (UICreateType.Res == uiCreateType)
+        {
+            if (null != this.Panel)
+            {
+                GameObject.Destroy(Panel);
+            }
+
+        }
+        else if (UICreateType.Go == uiCreateType)
+        {
+
+        }
+
+        this.OnCreate();
     }
 
     /// <summary>
@@ -74,7 +119,7 @@ public class UIBase
     /// </summary>
     public virtual void OnCreate()
     {
-        
+        this.OnShow(IsShow);
     }
 
     /// <summary>
@@ -82,7 +127,7 @@ public class UIBase
     /// </summary>
     public virtual void Destroy()
     {
-        
+        this.OnDestroy();
     }
 
     /// <summary>
@@ -90,15 +135,16 @@ public class UIBase
     /// </summary>
     public virtual void OnDestroy()
     {
-        
+
     }
 
     /// <summary>
     /// 设置一个UI界面的显隐
     /// </summary>
     /// <param name="isActive"></param>UI界面是否显示
-    public virtual void SetActive(bool isActive)
+    public void SetActive(bool isActive)
     {
-        
+        this.Panel.SetActive(isActive);
+        this.OnShow(isActive);
     }
 }
