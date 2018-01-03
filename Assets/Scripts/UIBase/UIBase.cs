@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EventType = ColaFrame.EventType;
 
 /// <summary>
 /// UI基类
 /// </summary>
-public class UIBase
+public class UIBase:IEventHandler
 {
     /// <summary>
     /// 当前的UI界面GameObject
@@ -51,11 +52,23 @@ public class UIBase
     /// </summary>
     protected UICreateType uiCreateType = UICreateType.Res;
 
+    /// <summary>
+    /// 消息-回调函数字典，接收到消息后调用字典中的回调方法
+    /// </summary>
+    protected Dictionary<string, MsgHandler> msgHanderDic;
+
+    /// <summary>
+    /// 消息传递过来的数据
+    /// </summary>
+    protected EventData eventData;
+
     protected UIBase(int resId, UIType uiType)
     {
         this.uiType = uiType;
         ResId = resId;
         this.uiCreateType = UICreateType.Res;
+
+        InitRegisterHandler();
     }
 
     protected UIBase(GameObject panel, GameObject parent, UIType uiType)
@@ -66,6 +79,8 @@ public class UIBase
         this.Panel.transform.SetParent(parent.transform);
         this.Name = panel.name;
         this.uiCreateType = UICreateType.Go;
+
+        InitRegisterHandler();
     }
 
     /// <summary>
@@ -127,6 +142,11 @@ public class UIBase
     /// </summary>
     public virtual void Destroy()
     {
+        if (null != Panel)
+        {
+            GameObject.Destroy(Panel);
+        }
+        Panel = null;
         this.OnDestroy();
     }
 
@@ -146,5 +166,74 @@ public class UIBase
     {
         this.Panel.SetActive(isActive);
         this.OnShow(isActive);
+    }
+
+    /// <summary>
+    /// 刷新UI界面
+    /// </summary>
+    /// <param name="eventData"></param>消息数据
+    public virtual void UpdateUI(EventData eventData)
+    {
+        if(null == eventData)return;
+        this.eventData = eventData;
+    }
+
+    /// <summary>
+    /// 处理消息的函数的实现
+    /// </summary>
+    /// <param name="gameEvent"></param>事件
+    /// <returns></returns>是否处理成功
+    public bool HandleMessage(GameEvent evt)
+    {
+        bool handled = false;
+        if (EventType.UIMsg == evt.EventType)
+        {
+            if (null != msgHanderDic)
+            {
+                EventData eventData = evt.Para as EventData;
+                if (null != eventData && msgHanderDic.ContainsKey(eventData.Cmd))
+                {
+                    msgHanderDic[eventData.Cmd](eventData);
+                    handled = true;
+                }
+            }
+        }
+        return handled;
+    }
+
+    /// <summary>
+    /// 是否处理了该消息的函数的实现
+    /// </summary>
+    /// <returns></returns>是否处理
+    public bool IsHasHandler(GameEvent evt)
+    {
+        bool handled = false;
+        if (EventType.UIMsg == evt.EventType)
+        {
+            if (null != msgHanderDic)
+            {
+                EventData eventData = evt.Para as EventData;
+                if (null != eventData && msgHanderDic.ContainsKey(eventData.Cmd))
+                {
+                    handled = true;
+                }
+            }
+        }
+        return handled;
+    }
+
+    /// <summary>
+    /// 初始化消息监听
+    /// </summary>
+    protected void InitRegisterHandler()
+    {
+        msgHanderDic = null;
+        GameEventMgr.GetInstance().RegisterHandler(this, EventType.UIMsg);
+        msgHanderDic = new Dictionary<string, MsgHandler>()
+        {
+            {Name+"Open",data=>Open()},
+            {Name+"Close",data=>Close()},
+            {Name+"UpdateUI",data=>UpdateUI(data)},
+        };
     }
 }
