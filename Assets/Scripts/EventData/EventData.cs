@@ -62,6 +62,10 @@ namespace ColaFrame
         /// 跳转系统的消息
         /// </summary>
         ChangeSys = 2,
+        /// <summary>
+        /// UI界面消息
+        /// </summary>
+        UIMsg = 3,
     }
 }
 

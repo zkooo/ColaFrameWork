@@ -96,7 +96,6 @@ public class GameEventMgr
                 handlerDic[(int) type].Remove(handler);
             }
         }
-
     }
 
     /// <summary>
@@ -137,6 +136,5 @@ public class GameEventMgr
                 }
             }
         }
-
     }
 }
