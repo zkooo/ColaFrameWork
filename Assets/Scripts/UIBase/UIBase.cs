@@ -6,7 +6,7 @@ using EventType = ColaFrame.EventType;
 /// <summary>
 /// UI基类
 /// </summary>
-public class UIBase:IEventHandler
+public class UIBase : IEventHandler
 {
     /// <summary>
     /// 当前的UI界面GameObject
@@ -174,7 +174,7 @@ public class UIBase:IEventHandler
     /// <param name="eventData"></param>消息数据
     public virtual void UpdateUI(EventData eventData)
     {
-        if(null == eventData)return;
+        if (null == eventData) return;
         this.eventData = eventData;
     }
 
@@ -235,5 +235,37 @@ public class UIBase:IEventHandler
             {Name+"Close",data=>Close()},
             {Name+"UpdateUI",data=>UpdateUI(data)},
         };
+    }
+
+    /// <summary>
+    /// 注册一个UI界面上的消息
+    /// </summary>
+    /// <param name="evt"></param>
+    /// <param name="msgHandler"></param>
+    public void RegisterEvent(string evt, MsgHandler msgHandler)
+    {
+        if (null != msgHandler && null != msgHanderDic)
+        {
+            if (!msgHanderDic.ContainsKey(evt))
+            {
+                msgHanderDic.Add(Name + evt, msgHandler);
+            }
+            else
+            {
+                Debug.LogWarning(string.Format("消息{0}重复注册！",evt));
+            }
+        }
+    }
+
+    /// <summary>
+    /// 取消注册一个UI界面上的消息
+    /// </summary>
+    /// <param name="evt"></param>
+    public void UnRegisterEvent(string evt)
+    {
+        if (null != msgHanderDic)
+        {
+            msgHanderDic.Remove(Name + evt);
+        }
     }
 }
