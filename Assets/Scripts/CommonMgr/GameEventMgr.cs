@@ -39,7 +39,7 @@ public class GameEventMgr
     {
         for (int i = 0; i < eventTypes.Length; i++)
         {
-            RegisterHandler(eventTypes[i],handler);
+            RegisterHandler(eventTypes[i], handler);
         }
     }
 
@@ -52,9 +52,9 @@ public class GameEventMgr
     {
         if (null != handler)
         {
-            if (!handlerDic.ContainsKey((int) type))
+            if (!handlerDic.ContainsKey((int)type))
             {
-                handlerDic.Add((int)type,new List<IEventHandler>());
+                handlerDic.Add((int)type, new List<IEventHandler>());
             }
             if (!handlerDic[(int)type].Contains(handler))
             {
@@ -91,9 +91,9 @@ public class GameEventMgr
         for (int i = 0; i < types.Length; i++)
         {
             type = types[i];
-            if (handlerDic.ContainsKey((int) type) && handlerDic[(int) type].Contains(handler))
+            if (handlerDic.ContainsKey((int)type) && handlerDic[(int)type].Contains(handler))
             {
-                handlerDic[(int) type].Remove(handler);
+                handlerDic[(int)type].Remove(handler);
             }
         }
     }
@@ -107,7 +107,7 @@ public class GameEventMgr
         bool eventHandle = false;
 
         List<IEventHandler> handlers;
-        if (null != gameEvent && handlerDic.TryGetValue((int) gameEvent.EventType, out handlers))
+        if (null != gameEvent && handlerDic.TryGetValue((int)gameEvent.EventType, out handlers))
         {
             for (int i = 0; i < handlers.Count; i++)
             {
@@ -130,11 +130,52 @@ public class GameEventMgr
                         case EventType.ServerMsg:
                             break;
                         default:
-                            Debug.LogError("消息未处理，类型："+gameEvent.EventType);
+                            Debug.LogError("消息未处理，类型：" + gameEvent.EventType);
                             break;
                     }
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// 分发事件
+    /// </summary>
+    /// <param name="evt"></param>分发的消息名称
+    /// <param name="eventType"></param>消息事件类型
+    /// <param name="para"></param>参数
+    public void DispatchEvent(string evt, EventType eventType = EventType.UIMsg, params object[] para)
+    {
+        GameEvent gameEvent = new GameEvent();
+        gameEvent.EventType = eventType;
+        EventData eventData = new EventData();
+        eventData.Cmd = evt;
+        if (null != para)
+        {
+            for (int i = 0; i < para.Length; i++)
+            {
+                eventData.ParaList.Add(para[i]);
+            }
+        }
+        gameEvent.Para = eventData;
+
+        this.DispatchEvent(gameEvent);
+    }
+
+    /// <summary>
+    /// 分发事件
+    /// </summary>
+    /// <param name="evt"></param>分发的消息名称
+    /// <param name="eventType"></param>消息事件类型
+    public void DispatchEvent(string evt, EventType eventType = EventType.UIMsg)
+    {
+        GameEvent gameEvent = new GameEvent();
+        gameEvent.EventType = eventType;
+        EventData eventData = new EventData();
+        eventData.Cmd = evt;
+        eventData.ParaList = null;
+        gameEvent.Para = eventData;
+
+        this.DispatchEvent(gameEvent);
     }
 }
