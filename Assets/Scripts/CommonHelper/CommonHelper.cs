@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// 通用工具类
 /// 提供一些常用功能的接口
 /// </summary>
-public class CommonHelper
+public static class CommonHelper
 {
 
     /// <summary>
@@ -228,13 +228,10 @@ public class CommonHelper
     /// <param name="obj"></param>父物体节点
     /// <param name="childPath"></param>子物体路径+子物体名称
     /// <returns></returns>
-    public static GameObject FindChild(GameObject obj, string childPath)
+    public static GameObject FindChildByPath(GameObject obj, string childPath)
     {
-        int pos = childPath.IndexOf("/");
-        if (-1 == pos)
-        {
-            return 
-        }
+        if (null == obj) return null;
+        return obj.transform.Find(childPath).gameObject;
     }
 
     /// <summary>
@@ -276,7 +273,7 @@ public class CommonHelper
     /// 获取资源管理器
     /// </summary>
     /// <returns></returns>
-    public ResourceMgr GetResourceMgr()
+    public static ResourceMgr GetResourceMgr()
     {
         return ResourceMgr.GetInstance();
     }
