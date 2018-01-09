@@ -228,6 +228,7 @@ public class LocalDataMgr
     /// <typeparam name="T"></typeparam>
     public void ClearDataMap<T>() where T : class, ILocalDataMapBase
     {
+        //todo:暂时不支持重新加载startLoadDic中的数据表，以后完善
         if (null == dataMap) return;
         if (dataMap.ContainsKey(typeof(T)))
         {

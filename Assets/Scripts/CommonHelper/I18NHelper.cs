@@ -65,7 +65,8 @@ public class I18NHelper
     /// </summary>
     public void ReloadI18NConfig()
     {
-        LocalDataMgr.ClearLocalDataMap<I18NDataMap>();
-        i18NDataMap = LocalDataMgr.GetLocalDataMap<I18NDataMap>();
+        //todo:暂时不支持重新加载startLoadDic中的数据表，以后完善
+        //LocalDataMgr.ClearLocalDataMap<I18NDataMap>();
+        //i18NDataMap = LocalDataMgr.GetLocalDataMap<I18NDataMap>();
     }
 }
