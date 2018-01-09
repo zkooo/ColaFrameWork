@@ -45,8 +45,7 @@ public class LocalDataMgr
     /// <summary>
     /// 资源加载完成后的回调
     /// </summary>
-    //private Action callback;
-
+    private Action callback;
 
     public static LocalDataMgr GetInstance()
     {
@@ -224,6 +223,19 @@ public class LocalDataMgr
     }
 
     /// <summary>
+    /// 清除某一类型的数据集
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public void ClearDataMap<T>() where T : class, ILocalDataMapBase
+    {
+        if (null == dataMap) return;
+        if (dataMap.ContainsKey(typeof(T)))
+        {
+            dataMap.Remove(typeof(T));
+        }
+    }
+
+    /// <summary>
     ///  获取数据集类，如果数据集不存在，则懒加载（静态方法，方便调用）
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -231,6 +243,15 @@ public class LocalDataMgr
     public static T GetLocalDataMap<T>() where T : class, ILocalDataMapBase
     {
         return GetInstance().GetDataMap<T>();
+    }
+
+    /// <summary>
+    /// 清除某一类型的数据集（静态方法，方便调用）
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public static void ClearLocalDataMap<T>() where T : class, ILocalDataMapBase
+    {
+        GetInstance().ClearDataMap<T>();
     }
 
     /// <summary>

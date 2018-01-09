@@ -65,6 +65,7 @@ public class I18NHelper
     /// </summary>
     public void ReloadI18NConfig()
     {
+        LocalDataMgr.ClearLocalDataMap<I18NDataMap>();
         i18NDataMap = LocalDataMgr.GetLocalDataMap<I18NDataMap>();
     }
 }
