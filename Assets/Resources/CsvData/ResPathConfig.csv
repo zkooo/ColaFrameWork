@@ -1,0 +1,4 @@
+ID索引,资源路径,是否bundle
+int,string,int
+备用,Resources下路径或者bundle路径,0：Resources;1:bundle
+100,Arts/Gui/Prefabs/uiLoginPanel.prefab,0

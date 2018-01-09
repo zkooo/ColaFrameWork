@@ -6,11 +6,22 @@ using System.Text;
 /// <summary>
 /// 资源路径信息类
 /// </summary>
-class ResPathData:LocalDataBase
+[Serializable]
+class ResPathData :LocalDataBase
 {
+    public string resPath;
+    public int resType;
     public override void InitWithStr(string strData, char splitChar = ',')
     {
-        throw new NotImplementedException();
+        //去除最后的\r
+        if (strData.EndsWith("\r"))
+        {
+            strData = strData.Substring(0, strData.Length - 1);
+        }
+        string[] strs = strData.Split(splitChar);
+        id = this.GetInt(strs[0]);
+        resPath = strs[1];
+        resType = this.GetInt(strs[2]);
     }
 }
 

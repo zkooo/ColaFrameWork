@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// I18N单条数据
 /// </summary>
+[Serializable]
 public class I18NData : LocalDataBase
 {
     public string desStr;
