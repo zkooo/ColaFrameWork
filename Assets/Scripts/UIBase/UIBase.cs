@@ -142,6 +142,7 @@ public class UIBase : IEventHandler
     /// </summary>
     public virtual void Destroy()
     {
+        this.UnRegisterHandler();
         if (null != Panel)
         {
             GameObject.Destroy(Panel);
@@ -223,7 +224,7 @@ public class UIBase : IEventHandler
     }
 
     /// <summary>
-    /// 初始化消息监听
+    /// 初始化注册消息监听
     /// </summary>
     protected void InitRegisterHandler()
     {
@@ -235,6 +236,20 @@ public class UIBase : IEventHandler
             {Name+"Close",data=>Close()},
             {Name+"UpdateUI",data=>UpdateUI(data)},
         };
+    }
+
+    /// <summary>
+    /// 取消注册该UI监听的所有消息
+    /// </summary>
+    protected void UnRegisterHandler()
+    {
+        GameEventMgr.GetInstance().UnRegisterHandler(this);
+
+        if (null != msgHanderDic)
+        {
+            msgHanderDic.Clear();
+            msgHanderDic = null;
+        }
     }
 
     /// <summary>

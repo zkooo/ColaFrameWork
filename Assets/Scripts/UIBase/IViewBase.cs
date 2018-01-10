@@ -24,7 +24,7 @@ public enum UIType : byte
 }
 
 /// <summary>
-/// UI的创建方法
+/// UI的创建形式
 /// </summary>
 public enum UICreateType : byte
 {
