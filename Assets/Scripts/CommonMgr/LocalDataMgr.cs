@@ -61,6 +61,7 @@ public class LocalDataMgr
         startLoadDic = new Dictionary<string, Type>()
         {
             {"Language",typeof(I18NDataMap) },
+            {"ResPathConfig",typeof(ResPathDataMap) },
         };
         name2TypeDic = new Dictionary<string, Type>()
         {
@@ -256,7 +257,7 @@ public class LocalDataMgr
     }
 
     /// <summary>
-    /// 加载指定文件名的数据同步
+    /// 加载指定文件名的数据（同步）
     /// </summary>
     /// <param name="fileName"></param>
     /// <param name="callback"></param>

@@ -31,8 +31,27 @@ class ResPathData :LocalDataBase
 /// </summary>
 class ResPathDataMap : ILocalDataMapBase
 {
+    public Dictionary<int,ResPathData> resPathDataList = new Dictionary<int, ResPathData>();
+
     public void SetMapCsv(string[] rows)
     {
-        throw new NotImplementedException();
+        resPathDataList.Clear();
+
+        for (int i = 3; i < rows.Length; i++)
+        {
+            ResPathData data = new ResPathData();
+            data.InitWithStr(rows[i]);
+            resPathDataList.Add(data.id,data);
+        }
+    }
+
+    public ResPathData GetDataById(int id)
+    {
+        ResPathData data = null;
+        if (null != resPathDataList)
+        {
+            resPathDataList.TryGetValue(id, out data);
+        }
+        return data;
     }
 }
