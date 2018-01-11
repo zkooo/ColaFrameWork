@@ -223,15 +223,48 @@ public static class CommonHelper
     }
 
     /// <summary>
-    /// 根据路径查找子物体
+    /// 根据路径查找物体(可以是自己本身/子物体/父节点)
     /// </summary>
     /// <param name="obj"></param>父物体节点
     /// <param name="childPath"></param>子物体路径+子物体名称
     /// <returns></returns>
     public static GameObject FindChildByPath(GameObject obj, string childPath)
     {
-        if (null == obj) return null;
+        if (null == obj)
+        {
+            Debug.LogWarning(string.Format("FindChildByPath方法传入的根节点为空！"));
+            return null;
+        }
+        if ("." == childPath) return obj;
+        if (".." == childPath)
+        {
+            Transform parentTransform = obj.transform.parent;
+            return parentTransform == null ? null : parentTransform.gameObject;
+        }
         return obj.transform.Find(childPath).gameObject;
+    }
+
+    /// <summary>
+    /// 根据路径查找物体上的某个类型的组件(可以是自己本身/子物体/父节点)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj"></param>
+    /// <param name="childPath"></param>
+    /// <returns></returns>
+    public static T GetComponentByPath<T>(GameObject obj, string childPath) where T : Component
+    {
+        GameObject childObj = FindChildByPath(obj, childPath);
+        if (null == childObj)
+        {
+            return null;
+        }
+        T component = childObj.GetComponent<T>();
+        if (null == component)
+        {
+            Debug.LogWarning(String.Format("没有在路径:{0}上找到组件:{1}!",childPath,typeof(T)));
+            return null;
+        }
+        return component;
     }
 
     /// <summary>
