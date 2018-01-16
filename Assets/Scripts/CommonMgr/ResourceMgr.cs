@@ -41,7 +41,7 @@ public class ResourceMgr
 
     private ResourceMgr()
     {
-        GameObject resourceMgrObj = new GameObject();
+        GameObject resourceMgrObj = new GameObject("ResourceMgrObj");
         GameObject.DontDestroyOnLoad(resourceMgrObj);
 
         resourceLoader = resourceMgrObj.AddComponent<ResourceLoader>();
