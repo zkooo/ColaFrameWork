@@ -19,8 +19,12 @@ public class ResourceInfo
     /// 资源的生存时间 -2 永久存在 -1 当前 大于0则按时间删除
     /// </summary>
     public int RemainSec;
-}
 
+    /// <summary>
+    /// 资源的类型
+    /// </summary>
+    public Type ResourceType;
+}
 
 /// <summary>
 /// 资源管理器
@@ -29,6 +33,21 @@ public class ResourceMgr
 {
     private static ResourceMgr instance;
     private ResourceLoader resourceLoader;
+
+    /// <summary>
+    /// 资源ID与实际资源的映射表
+    /// </summary>
+    private Dictionary<int, ResourceInfo> id2ResourceDic;
+
+    /// <summary>
+    /// 需要清理的资源列表
+    /// </summary>
+    private List<int> resClearList;
+
+    /// <summary>
+    /// 用于计时的变量
+    /// </summary>
+    private float timeCount = 0f;
 
     public static ResourceMgr GetInstance()
     {
@@ -41,10 +60,13 @@ public class ResourceMgr
 
     private ResourceMgr()
     {
-        GameObject resourceMgrObj = new GameObject("ResourceMgrObj");
-        GameObject.DontDestroyOnLoad(resourceMgrObj);
+        GameObject resourceLoaderObj = new GameObject("ResourceLoaderObj");
+        GameObject.DontDestroyOnLoad(resourceLoaderObj);
 
-        resourceLoader = resourceMgrObj.AddComponent<ResourceLoader>();
+        timeCount = 0f;
+        resClearList = new List<int>();
+        resourceLoader = resourceLoaderObj.AddComponent<ResourceLoader>();
+        id2ResourceDic = new Dictionary<int, ResourceInfo>();
     }
 
     /// <summary>
@@ -100,5 +122,50 @@ public class ResourceMgr
             if (null != callback)
                 callback(fileName, textAsset.text);
         });
+    }
+
+    /// <summary>
+    /// 模拟 Update
+    /// </summary>
+    /// <param name="deltaTime"></param>
+    public void Update(float deltaTime)
+    {
+        if (null != instance)
+        {
+            timeCount += deltaTime;
+            if (timeCount >= 1f)
+            {
+                timeCount = 0;
+                using (var enumator = id2ResourceDic.GetEnumerator())
+                {
+                    while (enumator.MoveNext())
+                    {
+                        if (enumator.Current.Value.RemainSec > 0)
+                        {
+                            enumator.Current.Value.RemainSec--;
+                        }
+                        if (enumator.Current.Value.RemainSec <= 0)
+                        {
+                            resClearList.Add(enumator.Current.Key);
+                        }
+                    }
+                }
+                RemoveResList(resClearList);
+                resClearList.Clear();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 清理列表中对应ID的资源
+    /// </summary>
+    /// <param name="removeList"></param>需要清理的资源对应的ID列表
+    private void RemoveResList(List<int> removeList)
+    {
+        if(null == removeList || 0 == removeList.Count)return;
+        for (int i = 0; i < removeList.Count; i++)
+        {
+            id2ResourceDic.Remove(removeList[i]);
+        }
     }
 }

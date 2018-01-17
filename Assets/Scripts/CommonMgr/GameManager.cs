@@ -25,6 +25,11 @@ public class GameManager
     /// </summary>
     private LevelMgr levelMgr;
 
+    /// <summary>
+    /// 资源管理器
+    /// </summary>
+    private ResourceMgr resourceMgr;
+
     private GameManager()
     {
 
@@ -63,6 +68,10 @@ public class GameManager
         if (null != subSysMgr)
         {
             subSysMgr.Update(deltaTime);
+        }
+        if (null != resourceMgr)
+        {
+            resourceMgr.Update(deltaTime);
         }
     }
 
