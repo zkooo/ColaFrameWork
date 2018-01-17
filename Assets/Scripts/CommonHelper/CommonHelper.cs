@@ -81,7 +81,7 @@ public static class CommonHelper
     /// <param name="id"></param>
     /// <param name="parent"></param>
     /// <returns></returns>
-    public static GameObject InstantiateGoByPath(int id, GameObject parent)
+    public static GameObject InstantiateGoByID(int id, GameObject parent)
     {
         ResourceMgr resourceMgr = ResourceMgr.GetInstance();
         GameObject prefab = null;
@@ -163,7 +163,7 @@ public static class CommonHelper
     }
 
     /// <summary>
-    /// 获取某个物体下子物体上所有的组件
+    /// 获取某个物体下子物体上某种类型的所有组件
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="go"></param>
