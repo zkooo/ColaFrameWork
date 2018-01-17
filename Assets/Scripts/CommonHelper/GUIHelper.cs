@@ -99,7 +99,7 @@ public class GUIHelper
     /// 返回UI画布的根节点
     /// </summary>
     /// <returns></returns>
-    public GameObject GetUIRootObj()
+    public static GameObject GetUIRootObj()
     {
         UGUICreate();
         return uiRootObj;
@@ -109,7 +109,7 @@ public class GUIHelper
     /// 返回相机节点
     /// </summary>
     /// <returns></returns>
-    public GameObject GetUICameraObj()
+    public static GameObject GetUICameraObj()
     {
         UGUICreate();
         return uiCameraObj;
@@ -119,7 +119,7 @@ public class GUIHelper
     /// 返回UI画布
     /// </summary>
     /// <returns></returns>
-    public Canvas GetUIRoot()
+    public static Canvas GetUIRoot()
     {
         UGUICreate();
         return uiRoot;
@@ -129,7 +129,7 @@ public class GUIHelper
     /// 返回UI相机
     /// </summary>
     /// <returns></returns>
-    public Camera GetUICamera()
+    public static Camera GetUICamera()
     {
         UGUICreate();
         return uiCamera;
@@ -139,7 +139,7 @@ public class GUIHelper
     /// 返回3D物体的根节点
     /// </summary>
     /// <returns></returns>
-    public GameObject Get3DRootObj()
+    public static GameObject Get3DRootObj()
     {
         UGUICreate();
         return ui3DRootObj;
