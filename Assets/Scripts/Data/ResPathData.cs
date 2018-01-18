@@ -9,8 +9,21 @@ using System.Text;
 [Serializable]
 class ResPathData :LocalDataBase
 {
+    /// <summary>
+    /// 资源的路径
+    /// </summary>
     public string resPath;
+    
+    /// <summary>
+    /// 资源的种类
+    /// </summary>
     public int resType;
+
+    /// <summary>
+    /// 资源的持有时间
+    /// </summary>
+    public int resWaitSec;
+
     public override void InitWithStr(string strData, char splitChar = ',')
     {
         //去除最后的\r
@@ -22,6 +35,7 @@ class ResPathData :LocalDataBase
         id = this.GetInt(strs[0]);
         resPath = strs[1];
         resType = this.GetInt(strs[2]);
+        resWaitSec = this.GetInt(strs[3]);
     }
 }
 
