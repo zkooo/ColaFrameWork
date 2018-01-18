@@ -49,6 +49,11 @@ public class ResourceMgr
     /// </summary>
     private float timeCount = 0f;
 
+    /// <summary>
+    /// 资源路径信息
+    /// </summary>
+    private ResPathDataMap resPathDataMap;
+
     public static ResourceMgr GetInstance()
     {
         if (null == instance)
@@ -67,6 +72,11 @@ public class ResourceMgr
         resClearList = new List<int>();
         resourceLoader = resourceLoaderObj.AddComponent<ResourceLoader>();
         id2ResourceDic = new Dictionary<int, ResourceInfo>();
+    }
+
+    public void Init()
+    {
+       Debug.Log("资源加载完毕！初始化ResourceMgr");
     }
 
     /// <summary>

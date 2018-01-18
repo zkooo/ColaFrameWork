@@ -20,7 +20,7 @@ class ResPathData :LocalDataBase
     public int resType;
 
     /// <summary>
-    /// 资源的持有时间
+    /// 资源的生存时间
     /// </summary>
     public int resWaitSec;
 

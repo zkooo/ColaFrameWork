@@ -49,13 +49,16 @@ public class GameManager
     /// </summary>
     public void InitGameCore(GameObject gameObject)
     {
+        //初始化各种管理器
+        subSysMgr = new SubSysMgr();
+        resourceMgr = ResourceMgr.GetInstance();
         gameLauncherObj = gameObject;
         LocalDataMgr.GetInstance().LoadStartConfig(() =>
         {
-            
+            resourceMgr.Init();
         });
 
-        gameObject.AddComponent<LevelMgr>();
+        levelMgr = gameObject.AddComponent<LevelMgr>();
     }
 
 
