@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Object=UnityEngine.Object;
+using Object = UnityEngine.Object;
 
 /// <summary>
 /// 资源信息
@@ -16,7 +16,7 @@ public class ResourceInfo
     public Object Res;
 
     /// <summary>
-    /// 资源的生存时间 -2 永久存在 -1 当前 大于0则按时间删除
+    /// 资源的生存时间 -2 永久存在 -1 当前系统 大于0则按时间删除
     /// </summary>
     public int RemainSec;
 
@@ -103,7 +103,7 @@ public class ResourceMgr
 #else
         //支持从Resources以外目录读取
         var bytes = File.ReadAllBytes(path);
-        if (null!=callback)
+        if (null != callback)
             callback(fileName, bytes);
 #endif
     }
@@ -162,10 +162,51 @@ public class ResourceMgr
     /// <param name="removeList"></param>需要清理的资源对应的ID列表
     private void RemoveResList(List<int> removeList)
     {
-        if(null == removeList || 0 == removeList.Count)return;
+        if (null == removeList || 0 == removeList.Count) return;
         for (int i = 0; i < removeList.Count; i++)
         {
             id2ResourceDic.Remove(removeList[i]);
         }
+    }
+
+    /// <summary>
+    /// 强制清除全部资源
+    /// </summary>
+    public void ClearAllResourcesForce()
+    {
+        id2ResourceDic.Clear();
+        Resources.UnloadUnusedAssets();
+        //清理bundle
+    }
+
+    /// <summary>
+    /// 向资源缓存池中添加资源
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="resId"></param>
+    /// <param name="type"></param>
+    private void AddResource(Object obj, int resId, Type type)
+    {
+        if (null != obj)
+        {
+            ResourceInfo resourceInfo = new ResourceInfo();
+            resourceInfo.Res = obj;
+            resourceInfo.RemainSec = -1;
+            resourceInfo.ResourceType = type;
+            //todo:读表或者其他方式进行RemainSec的处理
+
+            id2ResourceDic[resId] = resourceInfo;
+        }
+    }
+
+    /// <summary>
+    /// 向资源缓存池中添加资源(泛型接口)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj"></param>
+    /// <param name="resId"></param>
+    private void AddResource<T>(Object obj, int resId) where T : Object
+    {
+        AddResource(obj,resId,typeof(T));
     }
 }
