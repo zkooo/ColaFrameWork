@@ -14,6 +14,10 @@ public class SubSysMgr : IEventHandler
     /// </summary>
     private Dictionary<int, SubSysBase> subSysList;
 
+    /// <summary>
+    /// 当前打开的系统
+    /// </summary>
+    private SubSysBase curSubSys;
 
     public SubSysMgr()
     {

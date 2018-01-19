@@ -76,7 +76,8 @@ public class ResourceMgr
 
     public void Init()
     {
-       Debug.Log("资源加载完毕！初始化ResourceMgr");
+        Debug.Log("资源加载完毕！初始化ResourceMgr");
+        resPathDataMap = LocalDataMgr.GetLocalDataMap<ResPathDataMap>();
     }
 
     /// <summary>
@@ -203,8 +204,10 @@ public class ResourceMgr
             resourceInfo.Res = obj;
             resourceInfo.RemainSec = -1;
             resourceInfo.ResourceType = type;
-            //todo:读表或者其他方式进行RemainSec的处理
-
+            if (null != resPathDataMap)
+            {
+                resourceInfo.RemainSec = resPathDataMap.GetDataById(resId).resWaitSec;
+            }
             id2ResourceDic[resId] = resourceInfo;
         }
     }
@@ -217,6 +220,22 @@ public class ResourceMgr
     /// <param name="resId"></param>
     private void AddResource<T>(Object obj, int resId) where T : Object
     {
-        AddResource(obj,resId,typeof(T));
+        AddResource(obj, resId, typeof(T));
+    }
+
+    /// <summary>
+    /// 获取资源缓存池中的资源
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="resID"></param>
+    /// <returns></returns>
+    public T GetCacheResById<T>(int resID) where T : Object
+    {
+        T resObj = null;
+        if (null != id2ResourceDic)
+        {
+            resObj = id2ResourceDic[resID].Res as T;
+        }
+        return resObj;
     }
 }
