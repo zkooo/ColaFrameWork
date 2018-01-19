@@ -310,4 +310,13 @@ public static class CommonHelper
     {
         return ResourceMgr.GetInstance();
     }
+
+    /// <summary>
+    /// 获取系统管理器
+    /// </summary>
+    /// <returns></returns>
+    public static SubSysMgr GetSubSysMgr()
+    {
+        return GameManager.GetInstance().GetSubSysMgr();
+    }
 }

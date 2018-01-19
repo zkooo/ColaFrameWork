@@ -110,4 +110,18 @@ public class GameManager
     {
 
     }
+
+    /// <summary>
+    /// 获取系统管理器
+    /// </summary>
+    /// <returns></returns>
+    public SubSysMgr GetSubSysMgr()
+    {
+        if (null != subSysMgr)
+        {
+            return subSysMgr;
+        }
+        Debug.LogWarning("subSysMgr构造异常");
+        return null;
+    }
 }
