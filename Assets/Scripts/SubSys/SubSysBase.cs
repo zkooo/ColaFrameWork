@@ -10,7 +10,10 @@ using EventType = ColaFrame.EventType;
 /// </summary>
 public enum SubSysType : byte
 {
-
+    /// <summary>
+    /// 登录系统
+    /// </summary>
+    Login = 1,
 }
 
 /// <summary>
@@ -39,7 +42,6 @@ public abstract class SubSysBase : IEventHandler
 
     public virtual void EnterSys()
     {
-
         RegisterHander();
     }
 
