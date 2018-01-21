@@ -152,6 +152,7 @@ public class GameEventMgr
         eventData.Cmd = evt;
         if (null != para)
         {
+            eventData.ParaList = new List<object>();
             for (int i = 0; i < para.Length; i++)
             {
                 eventData.ParaList.Add(para[i]);
