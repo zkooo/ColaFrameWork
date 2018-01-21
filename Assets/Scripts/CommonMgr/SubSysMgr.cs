@@ -22,6 +22,9 @@ public class SubSysMgr : IEventHandler
     public SubSysMgr()
     {
         subSysList = new Dictionary<int, SubSysBase>();
+        /*------------------注册子系统---------------------*/
+        SubSysBase subSys = new LoginSys();
+        subSysList.Add((int)subSys.subSysType,subSys);
 
         GameEventMgr.GetInstance().RegisterHandler(this,EventType.ChangeSys,EventType.ServerMsg,EventType.SystemMsg);
     }
