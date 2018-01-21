@@ -12,20 +12,12 @@ public class UIMgr
     /// </summary>
     private Dictionary<Type, UIBase> uiList;
 
-    private UIMgr()
+    public UIMgr()
     {
-        uiList = new Dictionary<Type, UIBase>()
-        {
-            
-        };
-    }
+        uiList = new Dictionary<Type, UIBase>();
 
-    public static UIMgr GetInstance()
-    {
-        if (null == instance)
-        {
-            instance = new UIMgr();
-        }
-        return instance;
+        /*---------------UI界面控制脚本添加-------------------*/
+        UIBase ui = new UILogin(100,UIType.Common);
+        uiList.Add(typeof(UILogin),ui);
     }
 }

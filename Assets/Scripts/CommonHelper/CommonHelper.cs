@@ -319,4 +319,13 @@ public static class CommonHelper
     {
         return GameManager.GetInstance().GetSubSysMgr();
     }
+
+    /// <summary>
+    /// 获取UI管理器
+    /// </summary>
+    /// <returns></returns>
+    public static UIMgr GetUIMgr()
+    {
+        return GameManager.GetInstance().GetUIMgr();
+    }
 }

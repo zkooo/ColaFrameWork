@@ -30,6 +30,11 @@ public class GameManager
     /// </summary>
     private ResourceMgr resourceMgr;
 
+    /// <summary>
+    /// UI管理器
+    /// </summary>
+    private UIMgr uiMgr;
+
     private GameManager()
     {
 
@@ -50,6 +55,7 @@ public class GameManager
     public void InitGameCore(GameObject gameObject)
     {
         //初始化各种管理器
+        uiMgr = new UIMgr();
         subSysMgr = new SubSysMgr();
         resourceMgr = ResourceMgr.GetInstance();
         gameLauncherObj = gameObject;
@@ -122,6 +128,20 @@ public class GameManager
             return subSysMgr;
         }
         Debug.LogWarning("subSysMgr构造异常");
+        return null;
+    }
+
+    /// <summary>
+    /// 获取UI管理器
+    /// </summary>
+    /// <returns></returns>
+    public UIMgr GetUIMgr()
+    {
+        if (null != uiMgr)
+        {
+            return uiMgr;
+        }
+        Debug.LogWarning("uisMgr构造异常");
         return null;
     }
 }

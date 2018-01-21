@@ -62,7 +62,7 @@ public class UIBase : IEventHandler
     /// </summary>
     protected EventData eventData;
 
-    protected UIBase(int resId, UIType uiType)
+    public UIBase(int resId, UIType uiType)
     {
         this.uiType = uiType;
         ResId = resId;
@@ -71,7 +71,7 @@ public class UIBase : IEventHandler
         InitRegisterHandler();
     }
 
-    protected UIBase(GameObject panel, GameObject parent, UIType uiType)
+    public UIBase(GameObject panel, GameObject parent, UIType uiType)
     {
         this.uiType = uiType;
         this.ResId = 0;
