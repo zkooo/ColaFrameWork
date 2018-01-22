@@ -55,8 +55,6 @@ public class GameManager
     public void InitGameCore(GameObject gameObject)
     {
         //初始化各种管理器
-        uiMgr = new UIMgr();
-        subSysMgr = new SubSysMgr();
         resourceMgr = ResourceMgr.GetInstance();
         gameLauncherObj = gameObject;
         LocalDataMgr.GetInstance().LoadStartConfig(() =>
@@ -64,6 +62,8 @@ public class GameManager
             resourceMgr.Init();
         });
 
+        uiMgr = new UIMgr();
+        subSysMgr = new SubSysMgr();
         levelMgr = gameObject.AddComponent<LevelMgr>();
     }
 
