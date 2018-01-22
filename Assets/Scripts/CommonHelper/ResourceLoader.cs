@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using Object =UnityEngine.Object;
 
@@ -43,7 +45,7 @@ public class ResourceLoader : MonoBehaviour {
 #if UNITY_EDITOR
         return AssetDatabase.LoadAssetAtPath(path, type);
 #else
-        return null
+        return null;
 #endif
     }
 
