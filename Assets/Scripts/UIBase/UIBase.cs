@@ -40,7 +40,7 @@ public class UIBase : IEventHandler
     /// <summary>
     ///  UI的显隐状态
     /// </summary>
-    public bool IsShow { get { return Panel.activeSelf; } }
+    public bool IsShow { get { return Panel != null && Panel.activeSelf; } }
 
     /// <summary>
     /// UI的类型
@@ -68,7 +68,6 @@ public class UIBase : IEventHandler
         ResId = resId;
         this.uiCreateType = UICreateType.Res;
         this.Name = CommonHelper.GetResourceMgr().GetResNameById(resId);
-        Debug.LogWarning(this.Name);
         InitRegisterHandler();
     }
 

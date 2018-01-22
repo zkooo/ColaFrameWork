@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UILogin : UIBase
 {
@@ -46,6 +47,11 @@ public class UILogin : UIBase
     {
         base.Open();
         Debug.LogWarning("UI登录系统打开");
+        Debug.LogWarning(this.Name);
+        GameObject root = GameObject.Find("Canvas");
+       // Text debugText = CommonHelper.GetComponentByName<Text>(root, "Text");
+        Text debugText = CommonHelper.GetComponentByPath<Text>(root,"Text");
+        debugText.text = this.Name;
     }
 
     public override void UpdateUI(EventData eventData)
