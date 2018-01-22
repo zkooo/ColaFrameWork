@@ -208,6 +208,10 @@ public class ResourceMgr
             {
                 resourceInfo.RemainSec = resPathDataMap.GetDataById(resId).resWaitSec;
             }
+            else
+            {
+                Debug.LogWarning("resPathDataMap初始化错误！");
+            }
             id2ResourceDic[resId] = resourceInfo;
         }
     }
@@ -237,5 +241,26 @@ public class ResourceMgr
             resObj = id2ResourceDic[resID].Res as T;
         }
         return resObj;
+    }
+
+    /// <summary>
+    /// 根据资源ID获取对应资源的名字(不包含路径和拓展名的纯名字)
+    /// </summary>
+    /// <returns></returns>
+    public string GetResNameById(int resID)
+    {
+        if (null != resPathDataMap)
+        {
+            ResPathData data = resPathDataMap.GetDataById(resID);
+            if (null != data)
+            {
+                string fullPathName = data.resPath;
+                return Path.GetFileNameWithoutExtension(fullPathName);
+            }
+            Debug.LogWarning(string.Format("resPathDataMap 键{0}对应的值为空！",resID));
+            return string.Empty;
+        }
+        Debug.LogWarning("resPathDataMap初始化错误！");
+        return string.Empty;
     }
 }

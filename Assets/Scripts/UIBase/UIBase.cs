@@ -67,7 +67,8 @@ public class UIBase : IEventHandler
         this.uiType = uiType;
         ResId = resId;
         this.uiCreateType = UICreateType.Res;
-
+        this.Name = CommonHelper.GetResourceMgr().GetResNameById(resId);
+        Debug.LogWarning(this.Name);
         InitRegisterHandler();
     }
 
