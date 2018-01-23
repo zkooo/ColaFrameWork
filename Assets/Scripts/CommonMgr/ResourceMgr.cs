@@ -249,15 +249,30 @@ public class ResourceMgr
     /// <returns></returns>
     public string GetResNameById(int resID)
     {
+        string fullName = GetResPathById(resID);
+        if (!string.IsNullOrEmpty(fullName))
+        {
+            return Path.GetFileNameWithoutExtension(fullName);
+        }
+        Debug.LogWarning(string.Format("获取资源ID为：{0}的资源名称出错！",resID));
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// 根据资源ID获取对应资源的路径
+    /// </summary>
+    /// <param name="resID"></param>
+    /// <returns></returns>
+    public string GetResPathById(int resID)
+    {
         if (null != resPathDataMap)
         {
             ResPathData data = resPathDataMap.GetDataById(resID);
             if (null != data)
             {
-                string fullPathName = data.resPath;
-                return Path.GetFileNameWithoutExtension(fullPathName);
+                return data.resPath;
             }
-            Debug.LogWarning(string.Format("resPathDataMap 键{0}对应的值为空！",resID));
+            Debug.LogWarning(string.Format("resPathDataMap 键{0}对应的值为空！", resID));
             return string.Empty;
         }
         Debug.LogWarning("resPathDataMap初始化错误！");
