@@ -278,4 +278,53 @@ public class ResourceMgr
         Debug.LogWarning("resPathDataMap初始化错误！");
         return string.Empty;
     }
+
+
+    /// <summary>
+    /// 根据资源ID获取对应资源，缓存池中没有则懒加载(同步方法)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="resID"></param>
+    /// <returns></returns>
+    public T GetResourceById<T>(int resID) where T : Object
+    {
+        string fullName = GetResPathById(resID);
+        if (string.IsNullOrEmpty(fullName))
+        {
+            Debug.LogWarning(string.Format("加载资源ID为：{0}的资源出错！资源路径不存在！", resID));
+        }
+        else
+        {
+            //先去缓存池中找，如果没有再懒加载
+            T obj = GetCacheResById<T>(resID);
+            if (null == obj)
+            {
+                obj = GetResourceByPath<T>(fullName);
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 根据资源路径获取对应资源，不存在则懒加载(同步方法)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="resPath"></param>
+    /// <returns></returns>
+    private T GetResourceByPath<T>(string resPath) where T : Object
+    {
+        T resObj = null;
+        if (string.IsNullOrEmpty(resPath))
+        {
+            Debug.LogWarning(string.Format("加载资源路径为：{0}的资源出错！资源路径不存在！", resPath));
+        }
+        else
+        {
+        }
+        if (null == resObj)
+        {
+            Debug.LogWarning(string.Format("加载资源失败！路径:{0}",resPath));
+        }
+        return resObj;
+    }
 }
