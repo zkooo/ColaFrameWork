@@ -7,17 +7,17 @@ using System.Text;
 /// 资源路径信息类
 /// </summary>
 [Serializable]
-class ResPathData :LocalDataBase
+public class ResPathData :LocalDataBase
 {
     /// <summary>
     /// 资源的路径
     /// </summary>
     public string resPath;
-    
+
     /// <summary>
-    /// 资源的种类
+    /// 资源的加载模式(0:Resources;1:bundle)
     /// </summary>
-    public int resType;
+    public int resLoadMode;
 
     /// <summary>
     /// 资源的生存时间
@@ -34,7 +34,7 @@ class ResPathData :LocalDataBase
         string[] strs = strData.Split(splitChar);
         id = this.GetInt(strs[0]);
         resPath = strs[1];
-        resType = this.GetInt(strs[2]);
+        resLoadMode = this.GetInt(strs[2]);
         resWaitSec = this.GetInt(strs[3]);
     }
 }
@@ -43,7 +43,7 @@ class ResPathData :LocalDataBase
 /// <summary>
 /// ResPathData的数据集类
 /// </summary>
-class ResPathDataMap : ILocalDataMapBase
+public class ResPathDataMap : ILocalDataMapBase
 {
     public Dictionary<int,ResPathData> resPathDataList = new Dictionary<int, ResPathData>();
 

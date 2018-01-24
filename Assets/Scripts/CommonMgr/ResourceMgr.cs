@@ -254,7 +254,7 @@ public class ResourceMgr
         {
             return Path.GetFileNameWithoutExtension(fullName);
         }
-        Debug.LogWarning(string.Format("获取资源ID为：{0}的资源名称出错！",resID));
+        Debug.LogWarning(string.Format("获取资源ID为：{0}的资源名称出错！", resID));
         return string.Empty;
     }
 
@@ -279,6 +279,25 @@ public class ResourceMgr
         return string.Empty;
     }
 
+    /// <summary>
+    /// 根据资源ID获取对应资源配置信息
+    /// </summary>
+    /// <param name="resID"></param>
+    /// <returns></returns>
+    public ResPathData GetResPathDataById(int resID)
+    {
+        if (null != resPathDataMap)
+        {
+            var data = resPathDataMap.GetDataById(resID);
+            if (null != data)
+            {
+                return data;
+            }
+            Debug.LogWarning(string.Format("resPathDataMap 键{0}对应的值为空！", resID));
+        }
+        Debug.LogWarning("resPathDataMap初始化错误！");
+        return null;
+    }
 
     /// <summary>
     /// 根据资源ID获取对应资源，缓存池中没有则懒加载(同步方法)
@@ -288,21 +307,27 @@ public class ResourceMgr
     /// <returns></returns>
     public T GetResourceById<T>(int resID) where T : Object
     {
-        string fullName = GetResPathById(resID);
-        if (string.IsNullOrEmpty(fullName))
+        T resObj = null;
+        //先去缓存池中找，如果没有再懒加载
+        resObj = GetCacheResById<T>(resID);
+
+        if (null == resObj)
         {
-            Debug.LogWarning(string.Format("加载资源ID为：{0}的资源出错！资源路径不存在！", resID));
-        }
-        else
-        {
-            //先去缓存池中找，如果没有再懒加载
-            T obj = GetCacheResById<T>(resID);
-            if (null == obj)
+            ResPathData data = GetResPathDataById(resID);
+            if (null != data)
             {
-                obj = GetResourceByPath<T>(fullName,);
+                if (string.IsNullOrEmpty(data.resPath))
+                {
+                    Debug.LogWarning(string.Format("加载资源ID为：{0}的资源出错！资源路径不存在！", resID));
+                }
+                else
+                {
+                    resObj = GetResourceByPath<T>(data.resPath,data.resLoadMode);
+                    AddResource(resObj,resID,typeof(T));
+                }
             }
         }
-        return null;
+        return resObj;
     }
 
     /// <summary>
@@ -312,7 +337,7 @@ public class ResourceMgr
     /// <param name="resPath"></param>
     /// <param name="resLoadType"></param>
     /// <returns></returns>
-    private T GetResourceByPath<T>(string resPath,int resLoadType) where T : Object
+    private T GetResourceByPath<T>(string resPath, int resLoadMode) where T : Object
     {
         T resObj = null;
         if (string.IsNullOrEmpty(resPath))
@@ -321,10 +346,11 @@ public class ResourceMgr
         }
         else
         {
+            
         }
         if (null == resObj)
         {
-            Debug.LogWarning(string.Format("加载资源失败！路径:{0}",resPath));
+            Debug.LogWarning(string.Format("加载资源失败！路径:{0}", resPath));
         }
         return resObj;
     }
