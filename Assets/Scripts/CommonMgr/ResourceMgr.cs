@@ -214,6 +214,10 @@ public class ResourceMgr
             }
             id2ResourceDic[resId] = resourceInfo;
         }
+        else
+        {
+            Debug.LogWarning(string.Format("添加ID为{0}的资源到缓存池失败!",resId));
+        }
     }
 
     /// <summary>
@@ -236,7 +240,7 @@ public class ResourceMgr
     public T GetCacheResById<T>(int resID) where T : Object
     {
         T resObj = null;
-        if (null != id2ResourceDic)
+        if (null != id2ResourceDic && id2ResourceDic.ContainsKey(resID))
         {
             resObj = id2ResourceDic[resID].Res as T;
         }
@@ -346,7 +350,14 @@ public class ResourceMgr
         }
         else
         {
-            
+            if (0 == resLoadMode)
+            {
+                resObj = resourceLoader.Load<T>(resPath);
+            }
+            else if (1 == resLoadMode)
+            {
+                //todo:从bundle加载资源
+            }
         }
         if (null == resObj)
         {
