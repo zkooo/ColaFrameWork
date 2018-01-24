@@ -299,7 +299,7 @@ public class ResourceMgr
             T obj = GetCacheResById<T>(resID);
             if (null == obj)
             {
-                obj = GetResourceByPath<T>(fullName);
+                obj = GetResourceByPath<T>(fullName,);
             }
         }
         return null;
@@ -310,8 +310,9 @@ public class ResourceMgr
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="resPath"></param>
+    /// <param name="resLoadType"></param>
     /// <returns></returns>
-    private T GetResourceByPath<T>(string resPath) where T : Object
+    private T GetResourceByPath<T>(string resPath,int resLoadType) where T : Object
     {
         T resObj = null;
         if (string.IsNullOrEmpty(resPath))
