@@ -95,7 +95,7 @@ public static class CommonHelper
             go.name = prefab.name;
             if (null != parent)
             {
-                go.transform.parent = parent.transform;
+                go.transform.SetParent(parent.transform, false);
             }
             go.transform.localScale = prefab.transform.localScale;
             go.transform.localPosition = prefab.transform.localPosition;
@@ -123,7 +123,7 @@ public static class CommonHelper
         obj.name = prefab.name;
         if (null != parent)
         {
-            obj.transform.parent = parent.transform;
+            obj.transform.SetParent(parent.transform, false);
         }
         obj.transform.localPosition = prefab.transform.localPosition;
         obj.transform.localRotation = prefab.transform.localRotation;

@@ -119,7 +119,7 @@ public class UIBase : IEventHandler
             {
                 GameObject.Destroy(Panel);
             }
-
+            this.Panel = CommonHelper.InstantiateGoByID(ResId, GUIHelper.GetUIRootObj());
         }
         else if (UICreateType.Go == uiCreateType)
         {
