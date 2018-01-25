@@ -57,7 +57,7 @@ public class GUIHelper
             uiCamera=uiCameraObj.AddComponent<Camera>();
             uiCamera.depth = 6;
             uiCamera.backgroundColor = Color.black;
-            uiCamera.cullingMask = uiLayer;
+            uiCamera.cullingMask = LayerMask.GetMask("UI");
             uiCamera.clearFlags = CameraClearFlags.Depth;
 
             //使用2D相机
