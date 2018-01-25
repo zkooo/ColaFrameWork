@@ -37,7 +37,7 @@ public class ResourceMgr
     /// <summary>
     /// 资源ID与实际资源的映射表
     /// </summary>
-    private Dictionary<int, ResourceInfo> id2ResourceDic;
+    public Dictionary<int, ResourceInfo> id2ResourceDic;
 
     /// <summary>
     /// 需要清理的资源列表
@@ -76,7 +76,6 @@ public class ResourceMgr
 
     public void Init()
     {
-        Debug.Log("资源加载完毕！初始化ResourceMgr");
         resPathDataMap = LocalDataMgr.GetLocalDataMap<ResPathDataMap>();
     }
 
@@ -177,6 +176,7 @@ public class ResourceMgr
         for (int i = 0; i < removeList.Count; i++)
         {
             id2ResourceDic.Remove(removeList[i]);
+            Debug.LogWarning(string.Format("清理ID为{0}的资源",removeList[i]));
         }
     }
 
@@ -263,7 +263,7 @@ public class ResourceMgr
     }
 
     /// <summary>
-    /// 根据资源ID获取对应资源的路径
+    /// 根据资源ID获取对应资源的完整路径(包含拓展名)
     /// </summary>
     /// <param name="resID"></param>
     /// <returns></returns>
@@ -280,6 +280,24 @@ public class ResourceMgr
             return string.Empty;
         }
         Debug.LogWarning("resPathDataMap初始化错误！");
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// 返回不包含拓展名的资源路径(用于资源加载)
+    /// </summary>
+    /// <param name="path"></param>完整的资源路径
+    /// <returns></returns>
+    public string GetResPathWithExtension(string path)
+    {
+        if (null != path)
+        {
+            string[] ss = path.Split('.');
+            if (null != ss[0])
+            {
+                return ss[0];
+            }
+        }
         return string.Empty;
     }
 
@@ -320,13 +338,14 @@ public class ResourceMgr
             ResPathData data = GetResPathDataById(resID);
             if (null != data)
             {
-                if (string.IsNullOrEmpty(data.resPath))
+                string resPath = GetResPathWithExtension(data.resPath);
+                if (string.IsNullOrEmpty(resPath))
                 {
                     Debug.LogWarning(string.Format("加载资源ID为：{0}的资源出错！资源路径不存在！", resID));
                 }
                 else
                 {
-                    resObj = GetResourceByPath<T>(data.resPath,data.resLoadMode);
+                    resObj = GetResourceByPath<T>(resPath, data.resLoadMode);
                     AddResource(resObj,resID,typeof(T));
                 }
             }
