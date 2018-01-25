@@ -88,8 +88,19 @@ public static class CommonHelper
 
         if (null != resourceMgr)
         {
-           // prefab = resourceMgr.
-            return prefab;
+            prefab = resourceMgr.GetResourceById<GameObject>(id);
+            if (null == prefab) return null;
+            GameObject go = GameObject.Instantiate(prefab);
+            if (null == go) return null;
+            go.name = prefab.name;
+            if (null != parent)
+            {
+                go.transform.parent = parent.transform;
+            }
+            go.transform.localScale = prefab.transform.localScale;
+            go.transform.localPosition = prefab.transform.localPosition;
+            go.transform.localRotation = prefab.transform.localRotation;
+            return go;
         }
         else
         {
@@ -106,15 +117,17 @@ public static class CommonHelper
     /// <returns></returns>
     public static GameObject InstantiateGoByPrefab(GameObject prefab, GameObject parent)
     {
-        GameObject obj = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        if (null == prefab) return null;
+        GameObject obj = GameObject.Instantiate(prefab);
+        if (null == obj) return null;
         obj.name = prefab.name;
         if (null != parent)
         {
             obj.transform.parent = parent.transform;
         }
-        obj.transform.localPosition = Vector3.zero;
-        obj.transform.localRotation = Quaternion.identity;
-        obj.transform.localScale = Vector3.one;
+        obj.transform.localPosition = prefab.transform.localPosition;
+        obj.transform.localRotation = prefab.transform.localRotation;
+        obj.transform.localScale = prefab.transform.localScale;
         return obj;
     }
 
@@ -261,7 +274,7 @@ public static class CommonHelper
         T component = childObj.GetComponent<T>();
         if (null == component)
         {
-            Debug.LogWarning(String.Format("没有在路径:{0}上找到组件:{1}!",childPath,typeof(T)));
+            Debug.LogWarning(String.Format("没有在路径:{0}上找到组件:{1}!", childPath, typeof(T)));
             return null;
         }
         return component;

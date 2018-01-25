@@ -37,7 +37,7 @@ public class ResourceMgr
     /// <summary>
     /// 资源ID与实际资源的映射表
     /// </summary>
-    public Dictionary<int, ResourceInfo> id2ResourceDic;
+    private Dictionary<int, ResourceInfo> id2ResourceDic;
 
     /// <summary>
     /// 需要清理的资源列表
