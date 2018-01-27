@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 public static class SpriteAssetHelper
 {
-    [MenuItem("Asset/Create Or Update Sprite Asset")]
+    [MenuItem("Assets/Create Or Update Sprite Asset")]
     public static void Execute()
     {
         Object obj = Selection.activeObject;
@@ -61,6 +61,22 @@ public static class SpriteAssetHelper
     /// <returns></returns>
     public static List<SpriteAssetInfo> GetSpriteAssetInfos(Texture2D texture2D)
     {
+        List<SpriteAssetInfo> spriteAssetInfos = new List<SpriteAssetInfo>();
+        string filePath = AssetDatabase.GetAssetPath(texture2D);
+        Object[] objs = AssetDatabase.LoadAllAssetsAtPath(filePath);
 
+        for (int i = 0; i < objs.Length; i++)
+        {
+            if (objs[i].GetType() == typeof(Sprite))
+            {
+                SpriteAssetInfo spriteAssetInfo = new SpriteAssetInfo();
+                Sprite sprite = objs[i] as Sprite;
+                spriteAssetInfo.id = i;
+                spriteAssetInfo.name = sprite.name;
+                spriteAssetInfo.sprite = sprite;
+                spriteAssetInfos.Add(spriteAssetInfo);
+            }
+        }
+        return spriteAssetInfos;
     }
 }
