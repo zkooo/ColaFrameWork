@@ -31,6 +31,16 @@ public class UILogin : UIBase
     public override void OnCreate()
     {
         base.OnCreate();
+        GameObject okBtn = CommonHelper.FindChildByPath(this.Panel, "bottom/okBtn");
+        Image titleImage = CommonHelper.GetComponentByPath<Image>(this.Panel, "logo");
+        CommonHelper.AddBtnMsg(okBtn, (obj) =>
+        {
+            if (obj.name == "okBtn")
+            {
+                Debug.LogWarning("点击了OK按钮");
+                CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
+            }
+        });
     }
 
     public override void OnDestroy()
