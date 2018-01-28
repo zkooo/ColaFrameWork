@@ -154,7 +154,7 @@ public class ResourceMgr
                         {
                             enumator.Current.Value.RemainSec--;
                         }
-                        if (enumator.Current.Value.RemainSec <= 0)
+                        if (enumator.Current.Value.RemainSec == 0)
                         {
                             resClearList.Add(enumator.Current.Key);
                         }
