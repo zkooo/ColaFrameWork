@@ -341,4 +341,29 @@ public static class CommonHelper
     {
         return GameManager.GetInstance().GetUIMgr();
     }
+
+    /// <summary>
+    /// 设置一个Image组件的Sprite为某个图集中的图片
+    /// </summary>
+    /// <param name="atlasID"></param>图集的资源ID
+    /// <param name="image"></param>要设置的Image组件
+    /// <param name="spriteName"></param>图集中对应的Sprite的名称
+    /// <param name="isGray"></param>是否设置为灰度显示
+    public static void SetImageSpriteFromAtlas(int atlasID, Image image, string spriteName, bool isGray)
+    {
+        GameObject atlasObj = ResourceMgr.GetInstance().GetResourceById<GameObject>(atlasID);
+        if (null != atlasObj)
+        {
+            SpriteAsset spriteAsset = atlasObj.GetComponent<SpriteAsset>();
+            if (null != spriteAsset)
+            {
+                Sprite sprite = spriteAsset.GetSpriteByName(spriteName);
+                if (null != sprite && null != image)
+                {
+                    image.sprite = sprite;
+                    //todo:设置Sprite为灰度图片
+                }
+            }
+        }
+    }
 }
