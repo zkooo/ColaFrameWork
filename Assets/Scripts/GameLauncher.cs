@@ -10,6 +10,7 @@ public class GameLauncher : MonoBehaviour
     private GameManager gameManager;
     private GameObject fpsHelperObj;
     private FPSHelper fpsHelper;
+    private LogHelper logHelper;
 
     void Awake()
     {
@@ -40,6 +41,14 @@ public class GameLauncher : MonoBehaviour
 
 #if WETEST_SDK
         gameObject.AddComponent<WeTest.U3DAutomation.U3DAutomationBehaviour>();
+#endif
+
+#if OUTPUT_LOG
+        GameObject logHelperObj = new GameObject("LogHelperObj");
+        logHelper = logHelperObj.AddComponent<LogHelper>();
+        GameObject.DontDestroyOnLoad(logHelperObj);
+
+        Application.logMessageReceived += logHelper.LogCallback;
 #endif
     }
 
