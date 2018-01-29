@@ -37,6 +37,10 @@ public class GameLauncher : MonoBehaviour
         Debug.logger.logEnabled = false;
 #endif
 #endif
+
+#if WETEST_SDK
+        gameObject.AddComponent<WeTest.U3DAutomation.U3DAutomationBehaviour>();
+#endif
     }
 
     // Use this for initialization
