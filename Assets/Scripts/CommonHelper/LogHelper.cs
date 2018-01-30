@@ -21,9 +21,9 @@ public class LogHelper : MonoBehaviour
     /// <summary>
     /// 日志文件的名称
     /// </summary>
-    public static string fileName ="gamelog.txt";
+    public static string fileName = "gamelog.txt";
 
-    private void Start()
+    private void Awake()
     {
         outputPath = Path.Combine(Application.persistentDataPath, "logs");
         filePath = Path.Combine(outputPath, fileName);
@@ -31,6 +31,11 @@ public class LogHelper : MonoBehaviour
         {
             File.Delete(filePath);
         }
+        using (File.Create(filePath))
+        {
+        }
+
+        LogSysInfo();
     }
 
     /// <summary>
@@ -41,7 +46,8 @@ public class LogHelper : MonoBehaviour
     /// <param name="type"></param>
     public void LogCallback(string condition, string stackTrace, LogType type)
     {
-        
+        //todo:这里可以加一些过滤条件
+        LogFileReport(condition,stackTrace,type);
     }
 
     /// <summary>
@@ -55,5 +61,41 @@ public class LogHelper : MonoBehaviour
             string logContent = string.Format("{0:G}: {1}", System.DateTime.Now, message);
             sw.Write(logContent);
         }
+    }
+
+    /// <summary>
+    /// LogFileReport的内部实现
+    /// </summary>
+    /// <param name="condition"></param>
+    /// <param name="stackTrace"></param>
+    /// <param name="type"></param>
+    private void LogFileReport(string condition, string stackTrace, LogType type)
+    {
+        switch (type)
+        {
+            case LogType.Log:
+                WriteLog(string.Format("[log] {0}", condition));
+                break;
+            case LogType.Warning:
+                WriteLog(string.Format("[warning] {0}", condition));
+                break;
+            case LogType.Exception:
+                WriteLog(string.Format("[exception] {0}:\n{1}", condition, stackTrace));
+                break;
+            case LogType.Error:
+                WriteLog(string.Format("[error] {0}:\n{1}", condition, stackTrace));
+                break;
+            default:
+                WriteLog(string.Format("[unknow] {0}", condition));
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 向日志中记录当前设备系统信息
+    /// </summary>
+    private void LogSysInfo()
+    {
+        WriteLog(string.Format(string.Format("[{0}] {1}", "sysinfo", CommonHelper.GetDeviceInfo())));
     }
 }
