@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,6 +42,19 @@ public class UILogin : UIBase
                 CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
             }
         });
+        Debug.LogError("执行Login系统OnCreate");
+
+        string ss = "kk123";
+
+        try
+        {
+            int.Parse(ss);
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+            throw;
+        }
     }
 
     public override void OnDestroy()

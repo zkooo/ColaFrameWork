@@ -6,12 +6,14 @@ using EventType = ColaFrame.EventType;
 public class LoginSys : SubSysBase {
     public LoginSys() : base(SubSysType.Login)
     {
+        Debug.Log("执行Login系统构造函数");
     }
 
     public override void EnterSys()
     {
         base.EnterSys();
-        GameEventMgr.GetInstance().DispatchEvent("uiLoginPanelOpen",EventType.UIMsg,new List<string>(){"测试数据"});
+        GameEventMgr.GetInstance().DispatchEvent("uiLoginPanelOpen", EventType.UIMsg);
+        Debug.LogWarning("进入了Login系统");
     }
 
     public override void ExitSys()
