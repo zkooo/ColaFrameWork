@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 /// <summary>
@@ -27,12 +28,13 @@ public class LogHelper : MonoBehaviour
     {
         outputPath = Path.Combine(Application.persistentDataPath, "logs");
         filePath = Path.Combine(outputPath, fileName);
+        if (!Directory.Exists(outputPath))
+        {
+            Directory.CreateDirectory(outputPath);
+        }
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
-        }
-        using (File.Create(filePath))
-        {
         }
 
         LogSysInfo();
@@ -47,7 +49,7 @@ public class LogHelper : MonoBehaviour
     public void LogCallback(string condition, string stackTrace, LogType type)
     {
         //todo:这里可以加一些过滤条件
-        LogFileReport(condition,stackTrace,type);
+        LogFileReport(condition, stackTrace, type);
     }
 
     /// <summary>
@@ -56,7 +58,7 @@ public class LogHelper : MonoBehaviour
     /// <param name="message"></param>
     private static void WriteLog(string message)
     {
-        using (StreamWriter sw = File.AppendText(filePath))
+        using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.UTF8))
         {
             string logContent = string.Format("{0:G}: {1}", System.DateTime.Now, message);
             sw.Write(logContent);
@@ -74,19 +76,19 @@ public class LogHelper : MonoBehaviour
         switch (type)
         {
             case LogType.Log:
-                WriteLog(string.Format("[log] {0}", condition));
+                WriteLog(string.Format("[log] {0} \r\n", condition));
                 break;
             case LogType.Warning:
-                WriteLog(string.Format("[warning] {0}", condition));
+                WriteLog(string.Format("[warning] {0} \r\n", condition));
                 break;
             case LogType.Exception:
-                WriteLog(string.Format("[exception] {0}:\n{1}", condition, stackTrace));
+                WriteLog(string.Format("[exception] {0}: \r\n{1}", condition, stackTrace));
                 break;
             case LogType.Error:
-                WriteLog(string.Format("[error] {0}:\n{1}", condition, stackTrace));
+                WriteLog(string.Format("[error] {0}: \r\n{1}", condition, stackTrace));
                 break;
             default:
-                WriteLog(string.Format("[unknow] {0}", condition));
+                WriteLog(string.Format("[unknow] {0} \r\n", condition));
                 break;
         }
     }
