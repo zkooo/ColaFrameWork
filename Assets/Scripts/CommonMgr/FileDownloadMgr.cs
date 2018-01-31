@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.IO;
 using System.Net;
-using FlowGroup.Crypto;
+using System.Security.Cryptography;
 
 namespace Downloader
 {
@@ -43,7 +43,7 @@ namespace Downloader
 	}
 
 	/// <summary>
-	/// task info of DownloadManager
+	/// task info of DownloadMgr
 	/// </summary>
 	public struct DownloadTaskInfo
 	{
@@ -83,9 +83,9 @@ namespace Downloader
 	/// <summary>
 	/// A file download manager to manage downloading state of serveral task
 	/// </summary>
-	public class DownloadManager : IDisposable
+	public class DownloadMgr : IDisposable
 	{
-		public DownloadManager(String rootDir)
+		public DownloadMgr(String rootDir)
 		{
 			m_rootDir = rootDir;
 		}
@@ -408,7 +408,7 @@ namespace Downloader
 
 			if (File.Exists(activeTaskSnapshot.localPath))	//local file exist, check whether already finished
 			{
-				if (!FileDownloader.IsFileInProgress(activeTaskSnapshot.localPath))
+				if (!FileDownloadHelper.IsFileInProgress(activeTaskSnapshot.localPath))
 				{
 					Int64 fileSize;
 					if (CalcFileMd5AndSize(activeTaskSnapshot.localPath, out fileSize) == activeTaskSnapshot.md5)
@@ -431,18 +431,18 @@ namespace Downloader
 				}
 			}
 
-			FileDownloader downloader = new FileDownloader();
+			FileDownloadHelper downloadHelper = new FileDownloadHelper();
 
 			Boolean bCanceled = false;
 
-			downloader.ProgressChanged += (sender, arg) =>
+			downloadHelper.ProgressChanged += (sender, arg) =>
 				{
 					//update task status
 					lock (m_lock)
 					{
 						if (!activeTask.status.CanPause())	//stopped
 						{
-							downloader.Cancel();
+							downloadHelper.Cancel();
 							bCanceled = true;
 						}
 						else
@@ -453,7 +453,7 @@ namespace Downloader
 					}
 				};
 
-			downloader.DownloadComplete += (sender, arg) =>
+			downloadHelper.DownloadComplete += (sender, arg) =>
 				{
 				};
 
@@ -461,7 +461,7 @@ namespace Downloader
 			{
 				Directory.CreateDirectory(m_rootDir);
 
-				downloader.Download(activeTask.url, activeTask.localPath);
+				downloadHelper.Download(activeTask.url, activeTask.localPath);
 				if (!bCanceled)
 				{
 					Int64 fileSize;

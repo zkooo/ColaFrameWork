@@ -16,7 +16,7 @@ namespace Downloader
     /// <summary>
     /// Downloads and resumes files from HTTP, FTP, and File (file://) URLS
     /// </summary>
-    public class FileDownloader
+    public class FileDownloadHelper
     {
         // Block size to download is by default ???.
         private const int downloadBlockSize = 1024 * 32;
@@ -306,7 +306,7 @@ namespace Downloader
 		}
 		private static FingerPrint LoadFingerPrint(String destFileName)
 		{
-			String fingerPrintFileName = FileDownloader.MakeFingerPrintFilePath(destFileName);
+			String fingerPrintFileName = FileDownloadHelper.MakeFingerPrintFilePath(destFileName);
 
 			if (!File.Exists(fingerPrintFileName))	//记录文件尚未创建
 				return new FingerPrint { timeStamp="", fileSize=0 };
@@ -342,7 +342,7 @@ namespace Downloader
 
 		private static void SaveFingerPrint(String destFileName, FingerPrint fingerPrint)
 		{
-			String fingerPrintFileName = FileDownloader.MakeFingerPrintFilePath(destFileName);
+			String fingerPrintFileName = FileDownloadHelper.MakeFingerPrintFilePath(destFileName);
 
 			SecurityElement finger_print = new SecurityElement("finger_print");
 
@@ -354,12 +354,12 @@ namespace Downloader
 
 		private static void DeleteFingerPrint(String destFileName)
 		{
-			File.Delete(FileDownloader.MakeFingerPrintFilePath(destFileName));
+			File.Delete(FileDownloadHelper.MakeFingerPrintFilePath(destFileName));
 		}
 
 		private static void DeleteDestFile(String destFileName)
 		{
-			File.Delete(FileDownloader.MakeFingerPrintFilePath(destFileName));
+			File.Delete(FileDownloadHelper.MakeFingerPrintFilePath(destFileName));
 
 			File.Delete(destFileName);
 		}
