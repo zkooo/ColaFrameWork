@@ -42,7 +42,10 @@
 > 待补充  
 
 * 游戏自动化测试  
-> 框架中集成了WETEST_SDK，通过使用[GAutomator](https://github.com/Tencent/GAutomator)实现Unity手游的UI自动化测试。
+> 框架中集成了WETEST_SDK，通过使用[GAutomator](https://github.com/Tencent/GAutomator)实现Unity手游的UI自动化测试。  
+
+* DebugLog与日志  
+> 待补充  
 
 
 
