@@ -39,13 +39,11 @@ public class CameraAdapter : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("******************1" + gameObject.name);
         defaultExcute = false;
     }
-    // Use this for initialization
+
     void Start()
     {
-        Debug.Log("******************2" + gameObject.name);
         SetRefreshCameraRect();
     }
 
