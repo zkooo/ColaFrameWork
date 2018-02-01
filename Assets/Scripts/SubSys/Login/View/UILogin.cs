@@ -38,23 +38,9 @@ public class UILogin : UIBase
         {
             if (obj.name == "okBtn")
             {
-                Debug.LogWarning("点击了OK按钮");
                 CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
             }
         });
-        Debug.LogError("执行Login系统OnCreate");
-
-        string ss = "kk123";
-
-        try
-        {
-            int.Parse(ss);
-        }
-        catch (Exception e)
-        {
-            Debug.LogException(e);
-            throw;
-        }
     }
 
     public override void OnDestroy()
