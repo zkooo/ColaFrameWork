@@ -65,7 +65,7 @@ public class GUIHelper
             uiCamera.orthographic = true;
             uiCamera.nearClipPlane = -1000f;
             uiCamera.farClipPlane = 1000f;
-            //uiCameraObj.AddComponent<CameraAdapter>();
+            uiCameraObj.AddComponent<CameraAdapter>();
 
             Canvas uguiRoot = uiRootObj.AddComponent<Canvas>();
             uguiRoot.renderMode = RenderMode.ScreenSpaceCamera;
