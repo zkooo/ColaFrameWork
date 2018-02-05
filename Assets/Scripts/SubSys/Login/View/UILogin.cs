@@ -41,6 +41,12 @@ public class UILogin : UIBase
                 CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
             }
         });
+
+        GameObject bg = CommonHelper.FindChildByPath(this.Panel, "bg");
+        CommonHelper.AddBtnMsg(bg, (obj) =>
+        {
+            CommonHelper.SetImageSpriteFromAtlas(2001,titleImage, "airfightSheet_5",false);
+        });
     }
 
     public override void OnDestroy()
