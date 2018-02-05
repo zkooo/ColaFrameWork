@@ -150,11 +150,11 @@ public class HUDText : MonoBehaviour {
         Entry ne = new Entry();
         //ne.root = GameObject.Instantiate(UGUIPateTextComponent.hudTextPrefab) as GameObject;
         ne.root.name = "HUD";
-        GameObject label = ne.root.transform.FindChild("canvasgroup/textroot/text").gameObject;
+        GameObject label = ne.root.transform.Find("canvasgroup/textroot/text").gameObject;
         ne.label = label.GetComponent<Text>();
 
-        ne.effectImage = ne.root.transform.FindChild("canvasgroup/effect").GetComponent<Image>();
-        ne.critImage = ne.root.transform.FindChild("canvasgroup/crit").GetComponent<Image>();
+        ne.effectImage = ne.root.transform.Find("canvasgroup/effect").GetComponent<Image>();
+        ne.critImage = ne.root.transform.Find("canvasgroup/crit").GetComponent<Image>();
 
         if (ne.animRoot == null)
         {
