@@ -122,6 +122,7 @@ public static class GUIHelper
 
             collider.size = new Vector3(1, 1, 10);
             collider.center = new Vector3(0, 0, 5);
+            collider.isTrigger = true;
             rigidbody.mass = 0;
             rigidbody.useGravity = false;
 
