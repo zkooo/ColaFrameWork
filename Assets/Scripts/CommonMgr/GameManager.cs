@@ -141,7 +141,7 @@ public class GameManager
         {
             return uiMgr;
         }
-        Debug.LogWarning("uisMgr构造异常");
+        Debug.LogWarning("uiMgr构造异常");
         return null;
     }
 }
