@@ -20,4 +20,22 @@ public class UIMgr
         UIBase ui = new UILogin(100,UIType.Common);
         uiList.Add(typeof(UILogin),ui);
     }
+
+    /// <summary>
+    /// 根据UI的Type，打开一个UI界面，并返回界面是否打开成功
+    /// </summary>
+    /// <param name="uiType"></param>
+    /// <returns></returns>
+    public bool OpenUIWithReturn(Type uiType)
+    {
+        if (null != uiList)
+        {
+            if (uiList.ContainsKey(uiType))
+            {
+                uiList[uiType].Open();
+                return uiList[uiType].IsShow;
+            }
+        }
+        return false;
+    }
 }
