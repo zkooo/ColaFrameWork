@@ -1,4 +1,4 @@
-Shader "Fairy Tails/MobileUIBlur" {
+Shader "ColaFrameWork/MobileUIBlur" {
 	Properties {
 		_MainTex ("Base (RGB)", 2D) = "white" {}
 		_Size("Blur", Range(0, 8)) =1
