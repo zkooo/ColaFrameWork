@@ -134,7 +134,7 @@ public static class GUIHelper
                                      LayerMask.GetMask("Grass") + LayerMask.GetMask("Ground");
             mainCamera.layerCullSpherical = true;
             mainCameraObj.AddComponent<AudioListener>();
-            //mainCameraObj.AddComponent<CameraTouchController>();
+            mainCameraObj.AddComponent<CameraTouchController>();
             mainCameraObj.transform.SetParent(mainCameraRootObj.transform,false);
         }
     }
@@ -180,7 +180,7 @@ public static class GUIHelper
     }
 
     /// <summary>
-    /// 获取UI主相机
+    /// 获取主相机
     /// </summary>
     /// <returns></returns>
     public static Camera GetMainCamera()
@@ -190,7 +190,7 @@ public static class GUIHelper
     }
 
     /// <summary>
-    /// 获取UI主相机节点
+    /// 获取主相机节点
     /// </summary>
     /// <returns></returns>
     public static GameObject GetMainGameObj()
