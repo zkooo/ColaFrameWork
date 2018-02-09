@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
@@ -110,7 +112,7 @@ Shader "Fairy Tails/Player_OutLine" {
                 float3 worldNorm = normalize(unity_WorldToObject[0].xyz * v.normal.x + unity_WorldToObject[1].xyz * v.normal.y + unity_WorldToObject[2].xyz * v.normal.z);
 				worldNorm = mul((float3x3)UNITY_MATRIX_V, worldNorm);
 				o.cap.xy = worldNorm.xy * 0.5 + 0.5;
-                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
                 TRANSFER_VERTEX_TO_FRAGMENT(o)
                 return o;
             }
@@ -191,7 +193,7 @@ Shader "Fairy Tails/Player_OutLine" {
                  o.uv0 = v.texcoord0;
                 //float4 SAG = tex2Dlod(_SAGMap,float4(TRANSFORM_TEX(o.uv0 .rg, _SAGMap),0.0,0));
 				//o.pos = mul(UNITY_MATRIX_MVP, float4(v.vertex.xyz + v.normal*(_OutWidth*0.00285*SAG.g),1));
-                o.pos = mul(UNITY_MATRIX_MVP, float4(v.vertex.xyz + v.normal*(_OutWidth*0.00285),1));
+                o.pos = UnityObjectToClipPos(float4(v.vertex.xyz + v.normal*(_OutWidth*0.00285),1));
                 o.pos.z += 0.00001;
                 return o;                
             }
