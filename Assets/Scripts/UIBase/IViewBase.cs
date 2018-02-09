@@ -16,10 +16,10 @@ public interface IViewBase
 public interface IViewManager
 {
     /// <summary>
-    /// UI管理器，打开某种类型的UI
+    /// UI管理器，打开某种类型的UI,并返回界面是否打开成功
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    void Open(string uiType);
+    bool Open(string uiType);
 
     /// <summary>
     /// UI管理器，关闭某种类型的UI

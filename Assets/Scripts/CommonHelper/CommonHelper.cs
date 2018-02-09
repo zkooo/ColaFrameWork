@@ -394,4 +394,33 @@ public static class CommonHelper
         stringBuilder.Append(string.Format("SupportedRenderTargetCount: {0} \r\n", SystemInfo.supportedRenderTargetCount));
         return stringBuilder.ToString();
     }
+
+    /// <summary>
+    /// 检测一个功能模块是否开启
+    /// </summary>
+    /// <param name="funcName"></param>
+    /// <param name="isTips"></param>
+    /// <returns></returns>
+    public static CheckFuncResult CheckFuncOpen(string funcName, bool isTips)
+    {
+        //todo:做些检查工作
+        CheckFuncResult result = CheckFuncResult.False;
+        if (CheckFuncResult.True != result && isTips)
+        {
+            switch (result)
+            {
+                case CheckFuncResult.False:
+                    break;
+                case CheckFuncResult.LevelLimit:
+                    break;
+                case CheckFuncResult.TimeLimit:
+                    break;
+                case CheckFuncResult.None:
+                    break;
+                default:
+                    break;
+            }
+        }
+        return result;
+    }
 }

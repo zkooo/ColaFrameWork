@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalDefine : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+/// <summary>
+/// 检查功能开启结果枚举
+/// </summary>
+public enum CheckFuncResult : byte
+{
+    False = 0,
+    True = 1,
+    LevelLimit = 2,
+    TimeLimit = 3,
+    None = 4,
 }

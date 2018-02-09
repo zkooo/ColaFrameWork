@@ -69,39 +69,65 @@ public class UIMgr : IViewManager
         }
     }
 
-    public void Open(string uiType)
+    public bool Open(string uiType)
     {
-        throw new NotImplementedException();
+        if (null != uiList && uiList.ContainsKey(uiType))
+        {
+            uiList[uiType].Open();
+            return uiList[uiType].IsShow;
+        }
+        return false;
     }
 
     public void Close(string uiType)
     {
-        throw new NotImplementedException();
+        if (null != uiList && uiList.ContainsKey(uiType))
+        {
+            uiList[uiType].Close();
+        }
     }
 
     public void Destroy(string uiType)
     {
-        throw new NotImplementedException();
+        if (null != uiList && uiList.ContainsKey(uiType))
+        {
+            uiList[uiType].Destroy();
+        }
     }
 
     public void UpdateUI(string uiType, EventData eventData)
     {
-        throw new NotImplementedException();
+        if (null != uiList && uiList.ContainsKey(uiType))
+        {
+            uiList[uiType].UpdateUI(eventData);
+        }
     }
 
     public UIBase GetViewByType(string uiType)
     {
-        throw new NotImplementedException();
+        if (null != uiList && uiList.ContainsKey(uiType))
+        {
+            return uiList[uiType];
+        }
+        Debug.LogWarning(string.Format("UIMgr中不包含类型为{0}的UI", uiType));
+        return null;
     }
 
     public void AddView(string uiType, UIBase ui)
     {
-        throw new NotImplementedException();
+        if (null != uiList && !uiList.ContainsKey(uiType))
+        {
+            uiList.Add(uiType, ui);
+        }
+        Debug.LogWarning(string.Format("添加类型为{0}的UI到UIMgr中失败！", uiType));
     }
 
     public void RemoveViewByType(string uiType)
     {
-        throw new NotImplementedException();
+        if (null != uiList && uiList.ContainsKey(uiType))
+        {
+            uiList.Remove(uiType);
+        }
     }
 
     public bool OpenUIWithReturn(string uiType)
