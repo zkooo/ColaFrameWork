@@ -19,45 +19,52 @@ public interface IViewManager
     /// UI管理器，打开某种类型的UI
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    void Open<T>();
+    void Open(string uiType);
 
     /// <summary>
     /// UI管理器，关闭某种类型的UI
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    void Close<T>();
+    void Close(string uiType);
 
     /// <summary>
     /// UI管理器，销毁某种类型的UI
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    void Destroy<T>();
+    void Destroy(string uiType);
 
     /// <summary>
     /// UI管理器，刷新某种类型的UI
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="eventData"></param>
-    void UpdateUI<T>(EventData eventData);
+    void UpdateUI(string uiType,EventData eventData);
 
     /// <summary>
     /// UI管理器，获取某种类型的UI
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    T GetViewByType<T>() where T:UIBase;
+    UIBase GetViewByType(string uiType);
 
     /// <summary>
     /// UI管理器，将一个UI加入到UI管理器中参与管理
     /// </summary>
     /// <param name="ui"></param>
-    void AddView(UIBase ui);
+    void AddView(string uiType,UIBase ui);
 
     /// <summary>
     /// UI管理器，从UI管理器中移除某个UI，使其不再参与管理
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    void RemoveViewByType<T>() where T : UIBase;
+    void RemoveViewByType(string uiType) ;
+
+    /// <summary>
+    /// UI管理器，打开某种类型的UI,并返回界面是否打开成功,带有功能开启检查
+    /// </summary>
+    /// <param name="uiType"></param>
+    /// <returns></returns>
+    bool OpenUIWithReturn(string uiType);
 }
 
 /// <summary>
