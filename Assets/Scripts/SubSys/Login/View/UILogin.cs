@@ -41,7 +41,6 @@ public class UILogin : UIBase
                 CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
             }
         });
-        GUIHelper.GetMainCamera();
     }
 
     public override void OnDestroy()

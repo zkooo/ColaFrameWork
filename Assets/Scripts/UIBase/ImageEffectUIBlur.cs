@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,27 +17,43 @@ public class ImageEffectUIBlur : MonoBehaviour
     /// <summary>
     /// 最终渲染出来的临时Texture效果图
     /// </summary>
-    private RenderTexture tempRtLowB = null;
+    private RenderTexture finalTexture = null;
 
     /// <summary>
     /// 主相机
     /// </summary>
     private Camera mainCamera;
 
-    //最终渲染出来的临时Texture效果图
-    public RenderTexture TempRtLowB
+    /// <summary>
+    /// 渲染效果所用到的材质
+    /// </summary>
+    private Material material;
+
+    /// <summary>
+    /// 最终渲染出来的临时Texture效果图
+    /// </summary>
+    public RenderTexture FinalTexture
     {
         get
         {
             bool state = false;
             if (false == EnableUIBlur)
             {
-
+                StartCoroutine(ImageEffectUIBlur.DelayInvoke(() =>
+                {
+                    if (state)
+                    {
+                        if (isOpen)
+                        {
+                            mainCamera.enabled = false;
+                        }
+                    }
+                }, 0.1f));
             }
             EnableUIBlur = true;
             isOpen = true;
             state = true;
-            return tempRtLowB;
+            return finalTexture;
         }
         set
         {
@@ -45,8 +62,8 @@ public class ImageEffectUIBlur : MonoBehaviour
                 mainCamera.enabled = true;
                 EnableUIBlur = false;
                 isOpen = false;
-                //RenderTexture.ReleaseTemporary(tempRtLowB);
-                //tempRtLowB = null;
+                //RenderTexture.ReleaseTemporary(finalTexture);
+                //finalTexture = null;
             }
         }
     }
@@ -66,6 +83,22 @@ public class ImageEffectUIBlur : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 渲染效果所用到的材质
+    /// </summary>
+    public Material EffectMaterial
+    {
+        get
+        {
+            if (null == material)
+            {
+                material = new Material(EffecShader);
+                material.hideFlags = HideFlags.HideAndDontSave;
+            }
+            return material;
+        }
+    }
+
     void Awake()
     {
         mainCamera = GUIHelper.GetMainCamera();
@@ -75,12 +108,60 @@ public class ImageEffectUIBlur : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        if (!SystemInfo.supportsImageEffects)
+        {
+            enabled = false;
+            Debug.LogWarning("该设备上不支持ImageEffects！");
+            return;
+        }
+        if (!effectShader || !effectShader.isSupported)
+        {
+            enabled = false;
+        }
+        enabled = true;
+        EnableUIBlur = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnApplicationQuit()
     {
+        if (material)
+        {
+            DestroyImmediate(material);
+            RenderTexture.ReleaseTemporary(finalTexture);
+            finalTexture = null;
+        }
+    }
 
+    private void OnDisable()
+    {
+        //if (material)
+        //{
+        //    DestroyImmediate(material);
+        //    RenderTexture.ReleaseTemporary(finalTexture);
+        //    finalTexture = null;
+        //}
+    }
+
+    private void OnRenderImage(RenderTexture source, RenderTexture destination)
+    {
+        if (EnableUIBlur)
+        {
+            if (null == finalTexture)
+            {
+                finalTexture = RenderTexture.GetTemporary(source.width / 2, source.height / 2, 0,
+                    RenderTextureFormat.Default);
+            }
+            RenderTexture tempRenderTexture = RenderTexture.GetTemporary(source.width / 2, source.height / 2, 0, RenderTextureFormat.Default);
+            Graphics.Blit(source, tempRenderTexture, EffectMaterial, 0);
+            Graphics.Blit(tempRenderTexture, FinalTexture, EffectMaterial, 1);
+            RenderTexture.ReleaseTemporary(tempRenderTexture);
+            EnableUIBlur = false;
+        }
+    }
+
+    public static IEnumerator DelayInvoke(Action action, float interval)
+    {
+        yield return new WaitForSeconds(interval);
+        action();
     }
 }
