@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIMgr
+/// <summary>
+/// UI统一管理器
+/// </summary>
+public class UIMgr : IViewManager
 {
     private static UIMgr instance;
 
     /// <summary>
     /// 用于存储所有的UI的字典
     /// </summary>
-    private Dictionary<Type, UIBase> uiList;
+    private Dictionary<string, UIBase> uiList;
 
     /// <summary>
     /// 用于存储参与点击其他地方关闭面板管理的UI的列表
@@ -24,31 +27,13 @@ public class UIMgr
 
     public UIMgr()
     {
-        uiList = new Dictionary<Type, UIBase>();
+        uiList = new Dictionary<string, UIBase>();
         outTouchList = new List<UIBase>();
         removeList = new List<UIBase>();
 
         /*---------------UI界面控制脚本添加-------------------*/
         UIBase ui = new UILogin(100, UIType.Common);
-        uiList.Add(typeof(UILogin), ui);
-    }
-
-    /// <summary>
-    /// 根据UI的Type，打开一个UI界面，并返回界面是否打开成功
-    /// </summary>
-    /// <param name="uiType"></param>
-    /// <returns></returns>
-    public bool OpenUIWithReturn(Type uiType)
-    {
-        if (null != uiList)
-        {
-            if (uiList.ContainsKey(uiType))
-            {
-                uiList[uiType].Open();
-                return uiList[uiType].IsShow;
-            }
-        }
-        return false;
+        uiList.Add("UILogin", ui);
     }
 
     /// <summary>
@@ -82,5 +67,45 @@ public class UIMgr
         {
             outTouchList.Remove(removeList[i]);
         }
+    }
+
+    public void Open(string uiType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Close(string uiType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Destroy(string uiType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UpdateUI(string uiType, EventData eventData)
+    {
+        throw new NotImplementedException();
+    }
+
+    public UIBase GetViewByType(string uiType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddView(string uiType, UIBase ui)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RemoveViewByType(string uiType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool OpenUIWithReturn(string uiType)
+    {
+        throw new NotImplementedException();
     }
 }
