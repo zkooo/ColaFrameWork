@@ -40,6 +40,11 @@ public static class GUIHelper
     /// </summary>
     private static GameObject mainCameraObj;
 
+    /// <summary>
+    /// 模型描边相机节点
+    /// </summary>
+    private static GameObject modelOutlineCameraObj;
+
 
     private static void UGUICreate()
     {
@@ -98,7 +103,7 @@ public static class GUIHelper
         }
     }
 
-    public static void CreateMainCamera()
+    private static void CreateMainCamera()
     {
         if (null == mainCameraObj)
         {
@@ -138,6 +143,16 @@ public static class GUIHelper
             mainCameraObj.transform.SetParent(mainCameraRootObj.transform,false);
         }
     }
+
+    private static void CreateModelOutlineCamera()
+    {
+        if (null == modelOutlineCameraObj)
+        {
+            modelOutlineCameraObj = new GameObject("ModelOutlineCamera");
+            modelOutlineCameraObj.AddComponent<ImageEffectUIBlur>();
+        }
+    }
+
 
     /// <summary>
     /// 返回UI画布的根节点
@@ -197,5 +212,15 @@ public static class GUIHelper
     {
         CreateMainCamera();
         return mainCameraObj;
+    }
+
+    /// <summary>
+    /// 获取模型描边相机节点
+    /// </summary>
+    /// <returns></returns>
+    public static GameObject GetModelOutlineCameraObj()
+    {
+        CreateModelOutlineCamera();
+        return modelOutlineCameraObj;
     }
 }
