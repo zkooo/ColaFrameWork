@@ -132,6 +132,11 @@ public class UIMgr : IViewManager
 
     public bool OpenUIWithReturn(string uiType)
     {
-        throw new NotImplementedException();
+        CheckFuncResult result = CommonHelper.CheckFuncOpen(uiType, true);
+        if (CheckFuncResult.True == result)
+        {
+            return Open(uiType);
+        }
+        return false;
     }
 }
