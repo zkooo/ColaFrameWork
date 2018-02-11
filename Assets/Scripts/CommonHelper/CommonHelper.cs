@@ -255,7 +255,8 @@ public static class CommonHelper
             Transform parentTransform = obj.transform.parent;
             return parentTransform == null ? null : parentTransform.gameObject;
         }
-        return obj.transform.Find(childPath).gameObject;
+        Transform transform = obj.transform.Find(childPath);
+        return null != transform ? transform.gameObject : null;
     }
 
     /// <summary>
