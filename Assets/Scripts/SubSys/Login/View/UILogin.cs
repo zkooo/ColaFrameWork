@@ -22,6 +22,7 @@ public class UILogin : UIBase
     public override void Create()
     {
         base.Create();
+        ShowUIBlur();
     }
 
     public override void Destroy()

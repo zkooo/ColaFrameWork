@@ -114,15 +114,15 @@ public class ImageEffectUIBlur : MonoBehaviour
             Debug.LogWarning("该设备上不支持ImageEffects！");
             return;
         }
-        if (!effectShader || !effectShader.isSupported)
-        {
-            enabled = false;
-        }
+        //if (!effectShader || !effectShader.isSupported)
+        //{
+        //    enabled = false;
+        //}
         enabled = true;
         EnableUIBlur = true;
     }
 
-    private void OnApplicationQuit()
+    void OnApplicationQuit()
     {
         if (material)
         {
@@ -132,7 +132,7 @@ public class ImageEffectUIBlur : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         //if (material)
         //{
@@ -142,7 +142,7 @@ public class ImageEffectUIBlur : MonoBehaviour
         //}
     }
 
-    private void OnRenderImage(RenderTexture source, RenderTexture destination)
+    void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         if (EnableUIBlur)
         {
