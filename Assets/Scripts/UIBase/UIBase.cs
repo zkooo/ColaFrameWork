@@ -283,4 +283,12 @@ public class UIBase : IEventHandler
             msgHanderDic.Remove(Name + evt);
         }
     }
+
+    /// <summary>
+    /// 显示UI背景模糊
+    /// </summary>
+    public void ShowUIBlur()
+    {
+        CommonHelper.GetUIMgr().ShowUIBlur(this);
+    }
 }
