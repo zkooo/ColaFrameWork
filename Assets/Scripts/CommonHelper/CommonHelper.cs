@@ -246,7 +246,7 @@ public static class CommonHelper
     {
         if (null == obj)
         {
-            Debug.LogWarning(string.Format("FindChildByPath方法传入的根节点为空！"));
+            Debug.LogWarning("FindChildByPath方法传入的根节点为空！");
             return null;
         }
         if ("." == childPath) return obj;

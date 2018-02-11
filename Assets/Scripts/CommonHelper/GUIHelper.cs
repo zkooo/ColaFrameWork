@@ -45,7 +45,12 @@ public static class GUIHelper
     /// </summary>
     private static GameObject modelOutlineCameraObj;
 
-
+    /// <summary>
+    /// 场景相机的culling mask
+    /// </summary>
+    public static int DefaultSceneCullMask = LayerMask.GetMask("Default") + LayerMask.GetMask("Water") + LayerMask.GetMask("Terrain") +
+                                             LayerMask.GetMask("Building") + LayerMask.GetMask("SmallBuilding") + LayerMask.GetMask("Sky") +
+                                             LayerMask.GetMask("Grass") + LayerMask.GetMask("Ground");
     private static void UGUICreate()
     {
         if (null == uiRootObj)
@@ -134,13 +139,11 @@ public static class GUIHelper
             mainCamera.backgroundColor = Color.black;
             mainCamera.nearClipPlane = 1;
             mainCamera.farClipPlane = 1000;
-            mainCamera.cullingMask = LayerMask.GetMask("Default") + LayerMask.GetMask("Water") + LayerMask.GetMask("Terrain") +
-                                     LayerMask.GetMask("Building") + LayerMask.GetMask("SmallBuilding") + LayerMask.GetMask("Sky") +
-                                     LayerMask.GetMask("Grass") + LayerMask.GetMask("Ground");
+            mainCamera.cullingMask = DefaultSceneCullMask;
             mainCamera.layerCullSpherical = true;
             mainCameraObj.AddComponent<AudioListener>();
             mainCameraObj.AddComponent<CameraTouchController>();
-            mainCameraObj.transform.SetParent(mainCameraRootObj.transform,false);
+            mainCameraObj.transform.SetParent(mainCameraRootObj.transform, false);
         }
     }
 
@@ -149,7 +152,11 @@ public static class GUIHelper
         if (null == modelOutlineCameraObj)
         {
             modelOutlineCameraObj = new GameObject("ModelOutlineCamera");
+            Camera camera = modelOutlineCameraObj.AddComponent<Camera>();
+            camera.cullingMask = DefaultSceneCullMask;
             modelOutlineCameraObj.AddComponent<ImageEffectUIBlur>();
+            camera.Render();
+            camera.enabled = false;
         }
     }
 
