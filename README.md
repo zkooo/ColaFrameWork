@@ -83,7 +83,24 @@ public abstract class LocalDataBase
 }
 
 ```
-**LocalDataBase** 该抽象类提供了一些基本的数据类型转换方法，id字段用来存储索引id，InitWithStr接口用来解析数据，将数据表中的单行文本传入到该接口以后，通过splitChar标识将数据进行拆分、解析。框架中已经包含了**I18NData**解析类，编写其他数据解析类时可以参考此类。
+**LocalDataBase** 该抽象类提供了一些基本的数据类型转换方法，id字段用来存储索引id，InitWithStr接口用来解析数据，将数据表中的单行文本传入到该接口以后，通过splitChar标识将数据进行拆分、解析。框架中已经包含了**I18NData**解析类，编写其他数据解析类时可以参考此类。  
+
+数据集合类都应实现 **ILocalDataMapBase** 接口(DataMap，数据集合的接口，实现该接口用于管理LocalDataBase)  
+```C#
+/// <summary>
+/// DataMap，数据集合的接口，实现该接口用于管理LocalDataBase
+/// </summary>
+public interface ILocalDataMapBase
+{
+    /// <summary>
+    /// 对多行字符串进行处理，保存成LocalDataBase集合
+    /// </summary>
+    /// <param name="rows"></param>
+    void SetMapCsv(string[] rows);
+}
+```  
+**ILocalDataMapBase** 接口内只有一个 **void SetMapCsv(string[] rows)** 抽象方法，该方法用来对多行字符串进行处理，保存成LocalDataBase集合。
+框架中已经包含了**I18NDataMap**数据集合类，编写其他数据集合类时可以参考此类。  
 
 * 事件/消息处理中心(Controller层)    
 
