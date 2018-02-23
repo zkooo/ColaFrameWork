@@ -12,15 +12,53 @@ public class CameraTouchController : MonoBehaviour
     public readonly float X_SCALE = 1.0f;
     public readonly float Y_SCALE = 0.25f;
 
+    private Vector2 preMousePos = new Vector2(0, 0);
+    private bool isMouseDrag = false;
+    private bool isTouchDrag = false;
+
+    private HashSet<int> validFingers = new HashSet<int>();
+    private HashSet<int> cache = new HashSet<int>();
+    private Dictionary<int, Touch> fingerToTouches = new Dictionary<int, Touch>();
+    private float lastZoomDistance = 0f;
     private CameraTouchController instance;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public CameraTouchController Instance
+    {
+        get { return instance; }
+    }
+
+    /// <summary>
+    /// 位置归一化
+    /// </summary>
+    /// <param name="mousePos"></param>
+    /// <returns></returns>
+    public static Vector2 MouseToNormal(Vector2 mousePos)
+    {
+        mousePos.Set(mousePos.x / Screen.width, mousePos.y / Screen.height);
+        return mousePos;
+    }
+
+    public bool isDrag
+    {
+        get { return isMouseDrag || isTouchDrag; }
+    }
+
+    void Awake()
+    {
+        instance = this;
+    }
+
+
+
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
