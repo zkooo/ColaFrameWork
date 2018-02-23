@@ -7,7 +7,9 @@ public delegate void TimerEnd(int timerID);
 
 public delegate void RepeatTimerEvent(int timerID);
 
-
+/// <summary>
+/// 附加在gameobject上用于计时的脚本
+/// </summary>
 public class TimerBehavior : MonoBehaviour
 {
     private TimerEnd timerEnd;

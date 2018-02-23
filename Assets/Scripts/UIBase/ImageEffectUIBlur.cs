@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 根据相机照射的内容实时生成快速模糊的UI背景
+/// </summary>
 public class ImageEffectUIBlur : MonoBehaviour
 {
     /// <summary>
