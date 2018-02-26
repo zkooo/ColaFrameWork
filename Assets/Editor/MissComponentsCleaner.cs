@@ -28,6 +28,40 @@ public class MissComponentsCleaner
         }
         var components = obj.GetComponents<Component>();
         SerializedObject serializedObject = new SerializedObject(obj);
+        SerializedProperty props = serializedObject.FindProperty("m_Component");
+        int offset = 0;
+        for (int j = 0; j < components.Length; j++)
+        {
+            if (null == components[j])
+            {
+                props.DeleteArrayElementAtIndex(j - offset);
+                offset++;
+                Debug.LogWarning(string.Format("移除丢失组件:{0}", obj.name));
+            }
+        }
+        serializedObject.ApplyModifiedProperties();
     }
 
+    [MenuItem("ColaFramework/Cleaner/ResetAll预制")]
+    public static void PrefabApply()
+    {
+        GameObject[] objs = Selection.gameObjects;
+        for (int i = 0; i < objs.Length; i++)
+        {
+            EditorUtility.DisplayProgressBar("Reset组件...", "Apply组件:" + objs[i].name, i / (float)objs.Length);
+            SavePrefabObj(objs[i]);
+        }
+        EditorUtility.ClearProgressBar();
+    }
+
+    private static void SavePrefabObj(GameObject go)
+    {
+        Object prefabParent = PrefabUtility.GetPrefabParent(go);
+        if (null == prefabParent)
+        {
+            Debug.LogError("Can not find prefab from obj:" + go.name);
+            return;
+        }
+        PrefabUtility.ReplacePrefab(go, prefabParent, ReplacePrefabOptions.ConnectToPrefab);
+    }
 }
