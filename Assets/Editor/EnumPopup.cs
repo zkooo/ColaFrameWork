@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace SSSTools.TriggleDesign
+namespace ColaFrame
 {
     /// <summary>
     /// 触发器编辑器通用枚举选择框
     /// </summary>
-    public class SSSTriggerEnumPopup : EditorWindow
+    public class EnumPopup : EditorWindow
     {
-        private static SSSTriggerEnumPopup window;
+        private static EnumPopup window;
         private string searchEnum = "";
         private string searchName = "";
         private bool isSearchMode = false;
@@ -24,12 +24,12 @@ namespace SSSTools.TriggleDesign
 
         public static void PopUp(EditorWindow parentWindow, int order, IEnumSelecter enumSelecter)
         {
-            window = EditorWindow.GetWindow(typeof(SSSTriggerEnumPopup), true, "参数选择栏") as SSSTriggerEnumPopup;
+            window = EditorWindow.GetWindow(typeof(EnumPopup), true, "参数选择栏") as EnumPopup;
             window.minSize = minResolution;
             window.Show();
-            SSSTriggerEnumPopup.enumSelecter = enumSelecter;
-            SSSTriggerEnumPopup.parentWindow = parentWindow;
-            SSSTriggerEnumPopup.order = order;
+            EnumPopup.enumSelecter = enumSelecter;
+            EnumPopup.parentWindow = parentWindow;
+            EnumPopup.order = order;
         }
 
         private void OnGUI()
@@ -121,3 +121,4 @@ namespace SSSTools.TriggleDesign
     }
 
 }
+

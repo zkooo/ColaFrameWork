@@ -48,17 +48,13 @@ public class CameraTouchController : MonoBehaviour
         instance = this;
     }
 
-
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-
+        if (null == GUIHelper.GetMainCamera())
+        {
+            return;
+        }
+        var mainCamera = GUIHelper.GetMainCamera();
     }
 }
