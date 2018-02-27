@@ -13,6 +13,7 @@ namespace ColaFrame
         private static AlertDialog window;
         private string alertText;
         private Color defaultColor;
+        private Color textColor;
         private Dictionary<AlertLevel, Color> textColorDic = new Dictionary<AlertLevel, Color>()
         {
             {AlertLevel.Info, Color.white },
@@ -34,7 +35,7 @@ namespace ColaFrame
         {
             this.alertText = alertText;
             defaultColor = GUI.color;
-            GUI.color = textColorDic[alertLevel];
+            textColor = textColorDic[alertLevel];
         }
 
         private void OnGUI()
@@ -44,7 +45,7 @@ namespace ColaFrame
 
         private void DrawEditorGUI()
         {
-            GUI.color = Color.red;
+            GUI.color = textColor;
             GUILayout.Space(12);
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(alertText);
