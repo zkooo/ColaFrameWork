@@ -20,9 +20,9 @@ public class CameraTouchController : MonoBehaviour
     private HashSet<int> cache = new HashSet<int>();
     private Dictionary<int, Touch> fingerToTouches = new Dictionary<int, Touch>();
     private float lastZoomDistance = 0f;
-    private CameraTouchController instance;
+    private static CameraTouchController instance;
 
-    public CameraTouchController Instance
+    public static CameraTouchController Instance
     {
         get { return instance; }
     }
