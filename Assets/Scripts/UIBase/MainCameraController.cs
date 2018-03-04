@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCameraController : CameraCtrlBase {
+public class MainCameraController : CameraCtrlBase
+{
 
     private float _minPitch = -10;                          //最小仰角(相机朝向目标的最小角度)
     private float _maxPitch = 75;                           //最大仰角
@@ -46,7 +47,9 @@ public class MainCameraController : CameraCtrlBase {
         {
             if (!_joystick)
             {
-                GameObject go = GUIRoot.GetUGUIRootObj().FindChild("ui_set_main_v1/Nested_Main_Joystick/Landscape/ui_main_joystick/Joystick");
+
+
+                GameObject go = CommonHelper.FindChildByPath(GUIHelper.GetUIRootObj(), "ui_set_main_v1/Nested_Main_Joystick/Landscape/ui_main_joystick/Joystick");
                 _joystick = go ? go.GetComponent<VirtualJoystick>() : null;
             }
             return _joystick;
@@ -211,17 +214,17 @@ public class MainCameraController : CameraCtrlBase {
         get { return _distance; }
     }
 
-    public ECCameraShake cameraShaker
-    {
-        get { return ECGame.Instance.MainCamera.cameraShaker; }
-        set { ECGame.Instance.MainCamera.cameraShaker = value; }
-    }
+    //public ECCameraShake cameraShaker
+    //{
+    //    get { return ECGame.Instance.MainCamera.cameraShaker; }
+    //    set { ECGame.Instance.MainCamera.cameraShaker = value; }
+    //}
 
-    public ECCameraPush cameraPush
-    {
-        get { return ECGame.Instance.MainCamera.cameraPush; }
-        set { ECGame.Instance.MainCamera.cameraPush = value; }
-    }
+    //public ECCameraPush cameraPush
+    //{
+    //    get { return ECGame.Instance.MainCamera.cameraPush; }
+    //    set { ECGame.Instance.MainCamera.cameraPush = value; }
+    //}
 
     public override void OnSetTouchDeltaX(float val)
     {
