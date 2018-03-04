@@ -16,7 +16,7 @@ public struct VisibleRange
     public int to;
 }
 
-//[Obsolete("使用lua版的吧")]
+
 public class UITableView : MonoBehaviour {
 
     private ScrollRect scroll;
