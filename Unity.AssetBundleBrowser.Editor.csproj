@@ -5,9 +5,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DCCC8426-23CD-8817-0145-A12C31CC003F}</ProjectGuid>
+    <ProjectGuid>{01B441AF-88CF-005F-B176-75F0E9BDF74E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>Unity.AssetBundleBrowser.Editor</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
@@ -288,26 +288,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="ColaFrameWork.csproj">
-      <Project>{393D1C2E-4AA5-E095-6BB3-80D560F767E7}</Project>
-      <Name>ColaFrameWork</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AssetBundleBrowser.Editor.csproj">
-      <Project>{01B441AF-88CF-005F-B176-75F0E9BDF74E}</Project>
-      <Name>Unity.AssetBundleBrowser.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AssetBundleBrowser.Editor.Tests.csproj">
-      <Project>{A3508170-68E2-3FF1-61EC-B37CE2EA610E}</Project>
-      <Name>Unity.AssetBundleBrowser.Editor.Tests</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\Editor\AlertDialog.cs" />
-    <Compile Include="Assets\Editor\EnumPopup.cs" />
-    <Compile Include="Assets\Editor\JoystickGameObjectCreator.cs" />
-    <Compile Include="Assets\Editor\MissComponentsCleaner.cs" />
-    <Compile Include="Assets\Editor\SpriteAssetHelper.cs" />
-    <Compile Include="Assets\Scripts\UIBase\UITableView\Editor\TableViewMenu.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleBrowserMain.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleBuildTab.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleDataSource\ABDataSource.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleDataSource\ABDataSourceProvider.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleDataSource\AssetDatabaseABDataSource.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleManageTab.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleModel\ABModel.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleModel\ABModelAssetInfo.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleModel\ABModelBundleInfo.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetBundleTree.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\AssetListTree.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\BundleDetailList.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\InspectTab\AssetBundleInspectTab.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\InspectTab\AssetBundleRecord.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\InspectTab\InspectSingleBundle.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\InspectTab\InspectTreeView.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\MessageList.cs" />
+    <Compile Include="Assets\Editor\AssetBundlesBrowser\Editor\MessageSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Protocol\占位文件勿删.txt" />
