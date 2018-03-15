@@ -99,7 +99,7 @@ public interface ILocalDataMapBase
 }
 ```  
 **ILocalDataMapBase** 接口内只有一个 **void SetMapCsv(string[] rows)** 抽象方法，该方法用来对多行字符串进行处理，保存成LocalDataBase集合。
-框架中已经包含了**I18NDataMap**数据集合类，编写其他数据集合类时可以参考此类。  
+框架中已经包含了**I18NDataMap**数据集合类，编写其他数据集合类时可以参考此类。  
 
 #### 事件/消息处理中心(Controller层)    
 
@@ -129,6 +129,9 @@ public interface ILocalDataMapBase
 
 #### DebugLog与日志  
 待补充  
+
+#### 网络通信与协议  
+待补充
 
 
 
