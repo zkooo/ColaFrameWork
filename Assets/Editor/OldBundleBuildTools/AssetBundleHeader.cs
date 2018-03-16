@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-public class ECAssetBundleHeader
+public class AssetBundleHeader
 {
 	[Flags]
     public enum BundleOption

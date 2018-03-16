@@ -7,15 +7,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-public class ExportAssetBundles
+public class ExportAssetBundlesHelper
 {
 
-    static public BuildTarget CurBuildTarget = BuildTarget.StandaloneWindows;
-    static public bool CheckModify = false;
-    static public Dictionary<string, bool> ResPathMap = new Dictionary<string, bool>();
-    const int min_sep_bundle_size = 1000 * 1024;
-    const int min_compress_bundle_size = 2000 * 1024;
-    const int min_audio_clip_bundel_size = 256 * 1024;
+    public static BuildTarget CurBuildTarget = BuildTarget.StandaloneWindows;
+    public static bool CheckModify = false;
+    public static Dictionary<string, bool> ResPathMap = new Dictionary<string, bool>();
+    private const int min_sep_bundle_size = 1000 * 1024;
+    private const int min_compress_bundle_size = 2000 * 1024;
+    private const int min_audio_clip_bundel_size = 256 * 1024;
 
     [MenuItem("Assets/PNG生成Alpha通道数据")]
     static void PNGGenAlphaTex()
@@ -97,15 +97,15 @@ public class ExportAssetBundles
         string path = EditorUtility.SaveFolderPanel("Save Resource", "", "");
         if (path.Length != 0)
         {
-            Debug.LogWarning("start_build_time =" + System.DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") ); 
-			List<AssetBundleBuildParam> buildParamList = new List<AssetBundleBuildParam>();
+            Debug.LogWarning("start_build_time =" + System.DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"));
+            List<AssetBundleBuildParam> buildParamList = new List<AssetBundleBuildParam>();
 
             Object[] selection = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
             foreach (Object sel in selection)
             {
-				string assetPath = AssetDatabase.GetAssetPath(sel);
-				if (!Directory.Exists(assetPath))
-					buildParamList.Add(new AssetBundleBuildParam(assetPath));          
+                string assetPath = AssetDatabase.GetAssetPath(sel);
+                if (!Directory.Exists(assetPath))
+                    buildParamList.Add(new AssetBundleBuildParam(assetPath));
             }
 
 
@@ -127,19 +127,19 @@ public class ExportAssetBundles
         }
     }
 
-    static List<AssetBundleBuildParam> PopAssetBundles( List<AssetBundleBuildParam> buildParamList, int count )
+    static List<AssetBundleBuildParam> PopAssetBundles(List<AssetBundleBuildParam> buildParamList, int count)
     {
         List<AssetBundleBuildParam> popList = new List<AssetBundleBuildParam>();
-        for( int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
-            if( i < buildParamList.Count)
+            if (i < buildParamList.Count)
             {
                 popList.Add(buildParamList[i]);
             }
         }
 
         int realCount = popList.Count;
-        if( realCount > 0 )
+        if (realCount > 0)
         {
             buildParamList.RemoveRange(0, realCount);
         }
@@ -153,178 +153,178 @@ public class ExportAssetBundles
         string path = EditorUtility.SaveFolderPanel("Save Resource", "", "");
         if (path.Length != 0)
         {
-			List<AssetBundleBuildParam> buildParamList = new List<AssetBundleBuildParam>();
+            List<AssetBundleBuildParam> buildParamList = new List<AssetBundleBuildParam>();
 
             Object[] selection = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
             foreach (Object sel in selection)
             {
-				string assetPath = AssetDatabase.GetAssetPath(sel);
-				if (!Directory.Exists(assetPath))
-					buildParamList.Add(new AssetBundleBuildParam(assetPath, true));          
+                string assetPath = AssetDatabase.GetAssetPath(sel);
+                if (!Directory.Exists(assetPath))
+                    buildParamList.Add(new AssetBundleBuildParam(assetPath, true));
             }
 
-			BuildAssetBundles(path, buildParamList.ToArray());
+            BuildAssetBundles(path, buildParamList.ToArray());
         }
     }
-	
-	/// <summary>
-	/// BuildAssetBundles 所用参数
-	/// </summary>
-	public class AssetBundleBuildParam
-	{
-		/// <summary>
-		/// 要生成 Asset Bundle 的 asset 文件路径
-		/// </summary>
-		public string assetPath;
-		/// <summary>
-		/// 是否生成一个包
-		/// </summary>
-		public bool buildOneBundle;
-		///// <summary>
-		///// ECAssetBundleHeader 相关选项
-		///// </summary>
-		//public ECAssetBundleHeader.BundleOption bundleOption;
 
-		public AssetBundleBuildParam(string assetPath, bool buildOneBundle)
-		{
-			this.assetPath = assetPath;
-			this.buildOneBundle = buildOneBundle;
-		}
+    /// <summary>
+    /// BuildAssetBundles 所用参数
+    /// </summary>
+    public class AssetBundleBuildParam
+    {
+        /// <summary>
+        /// 要生成 Asset Bundle 的 asset 文件路径
+        /// </summary>
+        public string assetPath;
+        /// <summary>
+        /// 是否生成一个包
+        /// </summary>
+        public bool buildOneBundle;
+        ///// <summary>
+        ///// ECAssetBundleHeader 相关选项
+        ///// </summary>
+        //public ECAssetBundleHeader.BundleOption bundleOption;
 
-		public AssetBundleBuildParam(string assetPath) : this(assetPath, false)
-		{
-		}
-	}
+        public AssetBundleBuildParam(string assetPath, bool buildOneBundle)
+        {
+            this.assetPath = assetPath;
+            this.buildOneBundle = buildOneBundle;
+        }
 
-	public class AssetBundleBuildParamCollecter
-	{
-		public List<AssetBundleBuildParam> m_list = new List<AssetBundleBuildParam>();
-		private void Add(string assetPath, bool buildOneBundle)
-		{
-			m_list.Add(new AssetBundleBuildParam(assetPath, buildOneBundle));
-		}
-		public void Add(string assetPath)
-		{
-			Add(assetPath, false);
-		}
-		public void AddBuildOneBundle(string assetPath)
-		{
-			Add(assetPath, true);
-		}
+        public AssetBundleBuildParam(string assetPath) : this(assetPath, false)
+        {
+        }
+    }
 
-		public AssetBundleBuildParam[] ToArray()
-		{
-			return m_list.ToArray();
-		}
-	}
+    public class AssetBundleBuildParamCollecter
+    {
+        public List<AssetBundleBuildParam> m_list = new List<AssetBundleBuildParam>();
+        private void Add(string assetPath, bool buildOneBundle)
+        {
+            m_list.Add(new AssetBundleBuildParam(assetPath, buildOneBundle));
+        }
+        public void Add(string assetPath)
+        {
+            Add(assetPath, false);
+        }
+        public void AddBuildOneBundle(string assetPath)
+        {
+            Add(assetPath, true);
+        }
 
-	static string ListToString<T>(IEnumerable<T> list)
-	{
-		StringBuilder strBuilder = new StringBuilder();
-		foreach (var item in list)
-		{
-			strBuilder.AppendLine(item.ToString());
-		}
-		return strBuilder.ToString();
-	}
+        public AssetBundleBuildParam[] ToArray()
+        {
+            return m_list.ToArray();
+        }
+    }
 
-	static void SaveAssetBundleOutputFile(ECAssetBundleHeader header, string assetBundleFilePath, string outputFilePath)
-	{
-		string outputFileDir = Path.GetDirectoryName(outputFilePath);
-		Directory.CreateDirectory(outputFileDir);
+    static string ListToString<T>(IEnumerable<T> list)
+    {
+        StringBuilder strBuilder = new StringBuilder();
+        foreach (var item in list)
+        {
+            strBuilder.AppendLine(item.ToString());
+        }
+        return strBuilder.ToString();
+    }
+
+    static void SaveAssetBundleOutputFile(AssetBundleHeader header, string assetBundleFilePath, string outputFilePath)
+    {
+        string outputFileDir = Path.GetDirectoryName(outputFilePath);
+        Directory.CreateDirectory(outputFileDir);
 
         var oldOutputFileInfo = new FileInfo(outputFilePath);
-		if (oldOutputFileInfo.Exists)
-			oldOutputFileInfo.IsReadOnly = false;
+        if (oldOutputFileInfo.Exists)
+            oldOutputFileInfo.IsReadOnly = false;
         using (FileStream fs = File.Open(outputFilePath, FileMode.Create, FileAccess.Write))
         {
-			header.Save(fs);
-			byte[] bundleContent = File.ReadAllBytes(assetBundleFilePath);
-			fs.Write(bundleContent, 0, bundleContent.Length);
+            header.Save(fs);
+            byte[] bundleContent = File.ReadAllBytes(assetBundleFilePath);
+            fs.Write(bundleContent, 0, bundleContent.Length);
         }
-	}
+    }
 
-	/// <summary>
-	/// 批量生成 Asset Bundle 后清空缓存目录
-	/// </summary>
-	/// <param name="outputPath">生成路径</param>
-	/// <param name="buildParams">要生成哪些文件</param>
-	public static void BuildAssetBundles(string outputPath, IEnumerable<AssetBundleBuildParam> buildParams)
-	{
-		string tempDir = "_assetbundletemp_";
-		BuildAssetBundles(outputPath, buildParams, tempDir);
-		Directory.Delete(tempDir, true);
-	}
+    /// <summary>
+    /// 批量生成 Asset Bundle 后清空缓存目录
+    /// </summary>
+    /// <param name="outputPath">生成路径</param>
+    /// <param name="buildParams">要生成哪些文件</param>
+    public static void BuildAssetBundles(string outputPath, IEnumerable<AssetBundleBuildParam> buildParams)
+    {
+        string tempDir = "_assetbundletemp_";
+        BuildAssetBundles(outputPath, buildParams, tempDir);
+        Directory.Delete(tempDir, true);
+    }
 
-	/// <summary>
-	/// 批量生成 Asset Bundle，多次生成使用同样的缓存目录可以提高生成效率
-	/// </summary>
-	/// <param name="outputPath">生成路径</param>
-	/// <param name="buildParams">要生成哪些文件</param>
-	/// <param name="cacheDir">缓存目录。多次生成使用同样的缓存目录可以提高生成效率</param>
+    /// <summary>
+    /// 批量生成 Asset Bundle，多次生成使用同样的缓存目录可以提高生成效率
+    /// </summary>
+    /// <param name="outputPath">生成路径</param>
+    /// <param name="buildParams">要生成哪些文件</param>
+    /// <param name="cacheDir">缓存目录。多次生成使用同样的缓存目录可以提高生成效率</param>
     public static void BuildAssetBundles(string outputPath, IEnumerable<AssetBundleBuildParam> buildParams, string cacheDir)
-	{
-		//收集需打的包
-		Dictionary<string, AssetBundleBuild> buildsMap = new Dictionary<string, AssetBundleBuild>();
-		foreach (var buildParam in buildParams)
-		{
-            if( buildParam.assetPath == "Resources/unity_builtin_extra" )
+    {
+        //收集需打的包
+        Dictionary<string, AssetBundleBuild> buildsMap = new Dictionary<string, AssetBundleBuild>();
+        foreach (var buildParam in buildParams)
+        {
+            if (buildParam.assetPath == "Resources/unity_builtin_extra")
             {
                 continue;
             }
-			if (buildParam.buildOneBundle)
-				CollectOneAssetBundleBuilds(buildParam.assetPath, buildsMap);
-			else
-				CollectSeperateAssetBundleBuilds(buildParam.assetPath, buildsMap);
-		}
-		AssetBundleBuild[] buildsList = new AssetBundleBuild[buildsMap.Count];
-		buildsMap.Values.CopyTo(buildsList, 0);
-		//按 assetBundleName 排序
-		{
-			string[] buildsSortKeyList = new string[buildsList.Length];
-			for (int i=0; i<buildsList.Length; ++i)
-			{
-				buildsSortKeyList[i] = buildsList[i].assetBundleName;
-			}
-			System.Array.Sort(buildsSortKeyList, buildsList);
-		}
+            if (buildParam.buildOneBundle)
+                CollectOneAssetBundleBuilds(buildParam.assetPath, buildsMap);
+            else
+                CollectSeperateAssetBundleBuilds(buildParam.assetPath, buildsMap);
+        }
+        AssetBundleBuild[] buildsList = new AssetBundleBuild[buildsMap.Count];
+        buildsMap.Values.CopyTo(buildsList, 0);
+        //按 assetBundleName 排序
+        {
+            string[] buildsSortKeyList = new string[buildsList.Length];
+            for (int i = 0; i < buildsList.Length; ++i)
+            {
+                buildsSortKeyList[i] = buildsList[i].assetBundleName;
+            }
+            System.Array.Sort(buildsSortKeyList, buildsList);
+        }
 
-		//打包非压缩版
-		string uncompressedCacheDir = cacheDir + "/uncompressed/assets";
-		Directory.CreateDirectory(uncompressedCacheDir);
+        //打包非压缩版
+        string uncompressedCacheDir = cacheDir + "/uncompressed/assets";
+        Directory.CreateDirectory(uncompressedCacheDir);
 
         AssetBundleManifest uncompressedManifest = BuildPipeline.BuildAssetBundles(uncompressedCacheDir, buildsList, BuildAssetBundleOptions.UncompressedAssetBundle, EditorUserBuildSettings.activeBuildTarget);
-		var uncompressedAllBundles = uncompressedManifest.GetAllAssetBundles();
+        var uncompressedAllBundles = uncompressedManifest.GetAllAssetBundles();
 
-		HashSet<string> needCompressBundleNameSet = new HashSet<string>();
+        HashSet<string> needCompressBundleNameSet = new HashSet<string>();
 
-		foreach (string bundleName in uncompressedAllBundles)
-		{
-			bool needCompress;
-			ECAssetBundleHeader header;
-			DetermineAssetBundleOption(uncompressedManifest, bundleName, cacheDir, out needCompress, out header);
+        foreach (string bundleName in uncompressedAllBundles)
+        {
+            bool needCompress;
+            AssetBundleHeader header;
+            DetermineAssetBundleOption(uncompressedManifest, bundleName, cacheDir, out needCompress, out header);
 
-			if (needCompress)
-			{
-				needCompressBundleNameSet.Add(bundleName);
-				continue;
-			}
+            if (needCompress)
+            {
+                needCompressBundleNameSet.Add(bundleName);
+                continue;
+            }
 
-			string assetBundleFilePath = Path.Combine(uncompressedCacheDir, bundleName);
-			string outputFilePath = Path.Combine(outputPath, bundleName+".u3dext");
-			SaveAssetBundleOutputFile(header, assetBundleFilePath, outputFilePath);
-		}
+            string assetBundleFilePath = Path.Combine(uncompressedCacheDir, bundleName);
+            string outputFilePath = Path.Combine(outputPath, bundleName + ".u3dext");
+            SaveAssetBundleOutputFile(header, assetBundleFilePath, outputFilePath);
+        }
 
-		//输出非压缩版
+        //输出非压缩版
 
-        if(needCompressBundleNameSet.Count <= 0 )
+        if (needCompressBundleNameSet.Count <= 0)
         {
             Debug.Log("BuildAssetBundles complete");
             return;
         }
 
         AssetBundleBuild[] compresseBuildsList = new AssetBundleBuild[needCompressBundleNameSet.Count];
-        int j  = 0;
+        int j = 0;
         for (int i = 0; i < buildsList.Length; ++i)
         {
             if (needCompressBundleNameSet.Contains(buildsList[i].assetBundleName))
@@ -338,121 +338,121 @@ public class ExportAssetBundles
             }
         }
 
-		//打包压缩版
-		string compressedCacheDir = cacheDir + "/compressed/assets";
-		Directory.CreateDirectory(compressedCacheDir);
+        //打包压缩版
+        string compressedCacheDir = cacheDir + "/compressed/assets";
+        Directory.CreateDirectory(compressedCacheDir);
         AssetBundleManifest compressedManifest = BuildPipeline.BuildAssetBundles(compressedCacheDir, compresseBuildsList, BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
-		var compressedAllBundles = compressedManifest.GetAllAssetBundles();
+        var compressedAllBundles = compressedManifest.GetAllAssetBundles();
 
-		{	//验证一致性
-			bool match = (uncompressedAllBundles.Length == compressedAllBundles.Length);
-			if (match)
-			{
-				for (int i=0; i<uncompressedAllBundles.Length; ++i)
-				{
-					if (uncompressedAllBundles[i] != compressedAllBundles[i])
-					{
-						match = false;
-						break;
-					}
-				}
-			}
-			if (!match)
-			{
-				Debug.LogErrorFormat("uncompressedManifest and compressedManifest does not match");
-				Debug.Log("uncompressed: " + ListToString(uncompressedAllBundles));
-				Debug.Log("compressed: " + ListToString(compressedAllBundles));
-			}
-		}
+        {   //验证一致性
+            bool match = (uncompressedAllBundles.Length == compressedAllBundles.Length);
+            if (match)
+            {
+                for (int i = 0; i < uncompressedAllBundles.Length; ++i)
+                {
+                    if (uncompressedAllBundles[i] != compressedAllBundles[i])
+                    {
+                        match = false;
+                        break;
+                    }
+                }
+            }
+            if (!match)
+            {
+                Debug.LogErrorFormat("uncompressedManifest and compressedManifest does not match");
+                Debug.Log("uncompressed: " + ListToString(uncompressedAllBundles));
+                Debug.Log("compressed: " + ListToString(compressedAllBundles));
+            }
+        }
 
-		//输出压缩版
-		foreach (string bundleName in compressedAllBundles)
-		{
-			if (!needCompressBundleNameSet.Contains(bundleName))
-				continue;
+        //输出压缩版
+        foreach (string bundleName in compressedAllBundles)
+        {
+            if (!needCompressBundleNameSet.Contains(bundleName))
+                continue;
 
-			bool needCompress;
-			ECAssetBundleHeader header;
-			DetermineAssetBundleOption(compressedManifest, bundleName, cacheDir, out needCompress, out header);
+            bool needCompress;
+            AssetBundleHeader header;
+            DetermineAssetBundleOption(compressedManifest, bundleName, cacheDir, out needCompress, out header);
 
-			if (!needCompress)
-			{
-				throw new System.Exception("conflict needCompress value");
-			}
+            if (!needCompress)
+            {
+                throw new System.Exception("conflict needCompress value");
+            }
 
-			string assetBundleFilePath = Path.Combine(compressedCacheDir, bundleName);
-			string outputFilePath = Path.Combine(outputPath, bundleName+".u3dext");
-			SaveAssetBundleOutputFile(header, assetBundleFilePath, outputFilePath);
-		}
+            string assetBundleFilePath = Path.Combine(compressedCacheDir, bundleName);
+            string outputFilePath = Path.Combine(outputPath, bundleName + ".u3dext");
+            SaveAssetBundleOutputFile(header, assetBundleFilePath, outputFilePath);
+        }
 
-		Debug.Log("BuildAssetBundles complete");
-	}
+        Debug.Log("BuildAssetBundles complete");
+    }
 
-	private static string[] GetDependencies(string assetPath)
-	{
-		string[] deppaths = AssetDatabase.GetDependencies(new string[] { assetPath });
-		
-		//排除假依赖
-		Object asset = AssetDatabase.LoadMainAssetAtPath(assetPath);
-		Object[] depobjs = EditorUtility.CollectDependencies(new Object[] { asset });
-		
-		// path => is_real_dep
-		Dictionary<string, bool> deppathMap = new Dictionary<string, bool>();
-		foreach (var deppath in deppaths)
-		{
-			deppathMap[deppath] = false;
-		}
-		foreach (var depobj in depobjs)
-		{
-			var deppath = AssetDatabase.GetAssetPath(depobj);
-			if (deppathMap.ContainsKey(deppath))
-				deppathMap[deppath] = true;
-		}
+    private static string[] GetDependencies(string assetPath)
+    {
+        string[] deppaths = AssetDatabase.GetDependencies(new string[] { assetPath });
 
-		List<string> depList = new List<string>();
-		foreach (var item in deppathMap)
-		{
-			if (item.Value)
-				depList.Add(item.Key);
-		}
+        //排除假依赖
+        Object asset = AssetDatabase.LoadMainAssetAtPath(assetPath);
+        Object[] depobjs = EditorUtility.CollectDependencies(new Object[] { asset });
 
-		if (deppaths.Length != depList.Count)	//测试用，可删除
-		{
-			Debug.LogFormat("asset has fake dependencies: {0}", assetPath);
-		}
+        // path => is_real_dep
+        Dictionary<string, bool> deppathMap = new Dictionary<string, bool>();
+        foreach (var deppath in deppaths)
+        {
+            deppathMap[deppath] = false;
+        }
+        foreach (var depobj in depobjs)
+        {
+            var deppath = AssetDatabase.GetAssetPath(depobj);
+            if (deppathMap.ContainsKey(deppath))
+                deppathMap[deppath] = true;
+        }
 
-		return depList.ToArray();
-	}
+        List<string> depList = new List<string>();
+        foreach (var item in deppathMap)
+        {
+            if (item.Value)
+                depList.Add(item.Key);
+        }
+
+        if (deppaths.Length != depList.Count)   //测试用，可删除
+        {
+            Debug.LogFormat("asset has fake dependencies: {0}", assetPath);
+        }
+
+        return depList.ToArray();
+    }
 
     private static string AssetPathToBundleName(string assetpath)
     {
-		string assetpathLower = assetpath.ToLower();
+        string assetpathLower = assetpath.ToLower();
         if (assetpathLower == "assets")
             return "";
 
         if (assetpathLower.StartsWith("assets/"))
             return assetpathLower.Substring("assets/".Length);
-		else
-			throw new System.Exception("invalid asset path: " + assetpath);
+        else
+            throw new System.Exception("invalid asset path: " + assetpath);
     }
 
 
-	private static ECAssetBundleHeader.DepInfo[] CalcNormalDeps(string assetBundleName, Object asset, AssetBundleManifest manifest)
-	{
-		string[] depBundleNames = manifest.GetDirectDependencies(assetBundleName);
-		var deps = new ECAssetBundleHeader.DepInfo[depBundleNames.Length];
+    private static AssetBundleHeader.DepInfo[] CalcNormalDeps(string assetBundleName, Object asset, AssetBundleManifest manifest)
+    {
+        string[] depBundleNames = manifest.GetDirectDependencies(assetBundleName);
+        var deps = new AssetBundleHeader.DepInfo[depBundleNames.Length];
 
-		for (int n = 0; n < depBundleNames.Length; n++)
-		{
-			deps[n].name = "";
-			deps[n].path = depBundleNames[n]+".u3dext";
-		}
-		return deps;
-	}
+        for (int n = 0; n < depBundleNames.Length; n++)
+        {
+            deps[n].name = "";
+            deps[n].path = depBundleNames[n] + ".u3dext";
+        }
+        return deps;
+    }
 
-	private static ECAssetBundleHeader.DepInfo[] CalcMaterialDeps(string assetBundleName, Material material, AssetBundleManifest manifest)
-	{
-		string[] depBundleNames = manifest.GetDirectDependencies(assetBundleName);
+    private static AssetBundleHeader.DepInfo[] CalcMaterialDeps(string assetBundleName, Material material, AssetBundleManifest manifest)
+    {
+        string[] depBundleNames = manifest.GetDirectDependencies(assetBundleName);
         if (material.shader != null)
         {
             List<string> pnames = new List<string>();
@@ -469,7 +469,7 @@ public class ExportAssetBundles
                 }
             }
 
-            List<ECAssetBundleHeader.DepInfo> deplist = new List<ECAssetBundleHeader.DepInfo>();
+            List<AssetBundleHeader.DepInfo> deplist = new List<AssetBundleHeader.DepInfo>();
             foreach (var depBundleName in depBundleNames)
             {
                 bool findtex = false;
@@ -486,9 +486,9 @@ public class ExportAssetBundles
                             string texBundleName = AssetPathToBundleName(texpath);
                             if (texBundleName == depBundleName)
                             {
-                                ECAssetBundleHeader.DepInfo info = new ECAssetBundleHeader.DepInfo();
+                                AssetBundleHeader.DepInfo info = new AssetBundleHeader.DepInfo();
                                 info.name = texname;
-                                info.path = depBundleName+".u3dext";
+                                info.path = depBundleName + ".u3dext";
                                 deplist.Add(info);
                                 findtex = true;
                             }
@@ -498,141 +498,141 @@ public class ExportAssetBundles
 
                 if (!findtex)
                 {
-                    ECAssetBundleHeader.DepInfo info = new ECAssetBundleHeader.DepInfo();
+                    AssetBundleHeader.DepInfo info = new AssetBundleHeader.DepInfo();
                     info.name = "";
-                    info.path = depBundleName+".u3dext";
+                    info.path = depBundleName + ".u3dext";
                     deplist.Add(info);
                 }
             }
 
             return deplist.ToArray();
-		}
-		else
-		{
-			return CalcNormalDeps(assetBundleName, material, manifest);
-		}
-	}
+        }
+        else
+        {
+            return CalcNormalDeps(assetBundleName, material, manifest);
+        }
+    }
 
-	private static void DetermineAssetBundleOption(AssetBundleManifest manifest, string assetBundleName, string cacheDir, out bool needCompress, out ECAssetBundleHeader header)
-	{
-		Object asset = AssetDatabase.LoadMainAssetAtPath("assets/" + assetBundleName);
+    private static void DetermineAssetBundleOption(AssetBundleManifest manifest, string assetBundleName, string cacheDir, out bool needCompress, out AssetBundleHeader header)
+    {
+        Object asset = AssetDatabase.LoadMainAssetAtPath("assets/" + assetBundleName);
 
-		needCompress = false;
-		header = new ECAssetBundleHeader();
+        needCompress = false;
+        header = new AssetBundleHeader();
 
-		//确定 needCompress, SepFile
-		if (asset is Font)
-		{
-			header.option |= ECAssetBundleHeader.BundleOption.SepFile;
-		}
-		else
-		{
-			FileInfo fi = new FileInfo(cacheDir + "/uncompressed/assets/" + assetBundleName);
+        //确定 needCompress, SepFile
+        if (asset is Font)
+        {
+            header.option |= AssetBundleHeader.BundleOption.SepFile;
+        }
+        else
+        {
+            FileInfo fi = new FileInfo(cacheDir + "/uncompressed/assets/" + assetBundleName);
 
-			if (asset is AudioClip)
-			{
-				if (fi.Length > min_audio_clip_bundel_size)
-					header.option |= ECAssetBundleHeader.BundleOption.SepFile;
-			}
-			else
-			{
-				if (fi.Length > min_compress_bundle_size)
-					needCompress = true;
-			}
-		}
+            if (asset is AudioClip)
+            {
+                if (fi.Length > min_audio_clip_bundel_size)
+                    header.option |= AssetBundleHeader.BundleOption.SepFile;
+            }
+            else
+            {
+                if (fi.Length > min_compress_bundle_size)
+                    needCompress = true;
+            }
+        }
 
-		//确定其他选项
-		string[] depBundleNames = manifest.GetDirectDependencies(assetBundleName);
-		System.Array.Sort(depBundleNames);
+        //确定其他选项
+        string[] depBundleNames = manifest.GetDirectDependencies(assetBundleName);
+        System.Array.Sort(depBundleNames);
         if (asset is Material)
         {
-            header.specialType = ECAssetBundleHeader.BundleSpecialType.Material;
+            header.specialType = AssetBundleHeader.BundleSpecialType.Material;
 
             header.deps = CalcMaterialDeps(assetBundleName, asset as Material, manifest);
         }
-		else
-		{
-			if (asset is Texture)
-			{
-				header.option |= ECAssetBundleHeader.BundleOption.ManuallyResolve;
-				header.specialType = ECAssetBundleHeader.BundleSpecialType.Texture;
-			}
-			else if (asset is Shader)
-			{
-				header.option |= ECAssetBundleHeader.BundleOption.DonotRelease;
-			}
-			else if (asset is MonoScript)
-			{
-				header.option |= ECAssetBundleHeader.BundleOption.DonotRelease;
-			}
-			else if (asset is Font)
-			{
-				header.option |= ECAssetBundleHeader.BundleOption.DonotRelease;
-			}
+        else
+        {
+            if (asset is Texture)
+            {
+                header.option |= AssetBundleHeader.BundleOption.ManuallyResolve;
+                header.specialType = AssetBundleHeader.BundleSpecialType.Texture;
+            }
+            else if (asset is Shader)
+            {
+                header.option |= AssetBundleHeader.BundleOption.DonotRelease;
+            }
+            else if (asset is MonoScript)
+            {
+                header.option |= AssetBundleHeader.BundleOption.DonotRelease;
+            }
+            else if (asset is Font)
+            {
+                header.option |= AssetBundleHeader.BundleOption.DonotRelease;
+            }
 
-			header.deps = CalcNormalDeps(assetBundleName, asset, manifest);
-		}
-	}
+            header.deps = CalcNormalDeps(assetBundleName, asset, manifest);
+        }
+    }
 
-	private static string UnifyPath(string path)
-	{
-		return path.ToLower().Replace('\\', '/');
-	}
+    private static string UnifyPath(string path)
+    {
+        return path.ToLower().Replace('\\', '/');
+    }
 
-	private static void CollectSeperateAssetBundleBuilds(string assetPath, Dictionary<string, AssetBundleBuild> buildsMap)
-	{
-		if (!CollectAssetBuildBuildNoDependencies(assetPath, buildsMap))
-			return;
+    private static void CollectSeperateAssetBundleBuilds(string assetPath, Dictionary<string, AssetBundleBuild> buildsMap)
+    {
+        if (!CollectAssetBuildBuildNoDependencies(assetPath, buildsMap))
+            return;
 
-		string[] deppaths = GetDependencies(assetPath);
-		foreach (var deppath in deppaths)
-		{
-			CollectAssetBuildBuildNoDependencies(deppath, buildsMap);
-		}
-	}
+        string[] deppaths = GetDependencies(assetPath);
+        foreach (var deppath in deppaths)
+        {
+            CollectAssetBuildBuildNoDependencies(deppath, buildsMap);
+        }
+    }
 
-	private static void CollectOneAssetBundleBuilds(string assetPath, Dictionary<string, AssetBundleBuild> buildsMap)
-	{
-		if (!CollectAssetBuildBuildNoDependencies(assetPath, buildsMap))
-			return;
+    private static void CollectOneAssetBundleBuilds(string assetPath, Dictionary<string, AssetBundleBuild> buildsMap)
+    {
+        if (!CollectAssetBuildBuildNoDependencies(assetPath, buildsMap))
+            return;
 
-		string[] deppaths = GetDependencies(assetPath);
-		foreach (var deppath in deppaths)
-		{
-			if (buildsMap.ContainsKey(UnifyPath(deppath)))	//快速排除
-				continue;
+        string[] deppaths = GetDependencies(assetPath);
+        foreach (var deppath in deppaths)
+        {
+            if (buildsMap.ContainsKey(UnifyPath(deppath)))  //快速排除
+                continue;
 
-			Object dep = AssetDatabase.LoadMainAssetAtPath(deppath);
+            Object dep = AssetDatabase.LoadMainAssetAtPath(deppath);
             if (dep is Texture || dep is Shader || dep is MonoScript || dep is Font)		//这些类型不打到一个包中
             {
-				CollectSeperateAssetBundleBuilds(assetPath, buildsMap);
-			}
-		}
-	}
+                CollectSeperateAssetBundleBuilds(assetPath, buildsMap);
+            }
+        }
+    }
 
-	/// <summary>
-	/// 收集单一 Asset 不考虑其依赖
-	/// </summary>
-	/// <param name="assetPath"></param>
-	/// <param name="buildsMap"></param>
-	/// <returns>是否需收集，false 表示跳过</returns>
-	private static bool CollectAssetBuildBuildNoDependencies(string assetPath, Dictionary<string, AssetBundleBuild> buildsMap)
-	{
-		string assetPathUnified = UnifyPath(assetPath);
-		if (buildsMap.ContainsKey(assetPathUnified))
-			return false;
+    /// <summary>
+    /// 收集单一 Asset 不考虑其依赖
+    /// </summary>
+    /// <param name="assetPath"></param>
+    /// <param name="buildsMap"></param>
+    /// <returns>是否需收集，false 表示跳过</returns>
+    private static bool CollectAssetBuildBuildNoDependencies(string assetPath, Dictionary<string, AssetBundleBuild> buildsMap)
+    {
+        string assetPathUnified = UnifyPath(assetPath);
+        if (buildsMap.ContainsKey(assetPathUnified))
+            return false;
 
-		Object asset = AssetDatabase.LoadMainAssetAtPath(assetPath);
-		if (asset is MonoScript || assetPath.EndsWith(".cs"))
-			return false;
+        Object asset = AssetDatabase.LoadMainAssetAtPath(assetPath);
+        if (asset is MonoScript || assetPath.EndsWith(".cs"))
+            return false;
 
-		AssetBundleBuild build = new AssetBundleBuild();
-		build.assetBundleName = AssetPathToBundleName(assetPathUnified);
-		build.assetNames = new string[] { assetPath };
-		buildsMap[assetPathUnified] = build;
+        AssetBundleBuild build = new AssetBundleBuild();
+        build.assetBundleName = AssetPathToBundleName(assetPathUnified);
+        build.assetNames = new string[] { assetPath };
+        buildsMap[assetPathUnified] = build;
 
-		return true;
-	}
+        return true;
+    }
 
     public static void BuildToOneBundle(Object realass, string path, bool recursive)
     {
@@ -643,7 +643,7 @@ public class ExportAssetBundles
         }
 
         int AssetCount = 0;
-        List<ECAssetBundleHeader.DepInfo> ls = new List<ECAssetBundleHeader.DepInfo>();
+        List<AssetBundleHeader.DepInfo> ls = new List<AssetBundleHeader.DepInfo>();
         string asspath = AssetDatabase.GetAssetPath(realass);
 
         if (recursive)
@@ -674,7 +674,7 @@ public class ExportAssetBundles
                     if (!texpath.ToLower().EndsWith(".asset") && !string.IsNullOrEmpty(texpath))
                     {
                         BuildToOneBundle(dep, path, false);
-                        ECAssetBundleHeader.DepInfo info = new ECAssetBundleHeader.DepInfo();
+                        AssetBundleHeader.DepInfo info = new AssetBundleHeader.DepInfo();
                         info.name = "";
                         string realname = ConvertFileName(texpath) + ".u3dext";
                         info.path = realname.ToLower();
@@ -705,7 +705,7 @@ public class ExportAssetBundles
         option |= BuildAssetBundleOptions.UncompressedAssetBundle;
 
         bool suc = BuildPipeline.BuildAssetBundleExplicitAssetNames(new Object[] { realass }, new string[] { "1" }, outfile,
-                            option, ExportAssetBundles.CurBuildTarget);
+                            option, ExportAssetBundlesHelper.CurBuildTarget);
 
         // do not compress font
         bool ForceSep = realass is Font;
@@ -723,7 +723,7 @@ public class ExportAssetBundles
             {
                 option = BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.CompleteAssets | BuildAssetBundleOptions.CollectDependencies;
                 suc = BuildPipeline.BuildAssetBundleExplicitAssetNames(new Object[] { realass }, new string[] { "1" }, outfile,
-                                    option, ExportAssetBundles.CurBuildTarget);
+                                    option, ExportAssetBundlesHelper.CurBuildTarget);
                 Debug.LogWarning("Big bundle: " + outfile + " Origin Size: " + fi.Length);
             }
         }
@@ -737,11 +737,11 @@ public class ExportAssetBundles
             string outfile2 = outpath + "/" + Path.GetFileName(asspath) + ".u3dext";
             using (FileStream fs = File.Open(outfile2, FileMode.Create, FileAccess.Write))
             {
-                ECAssetBundleHeader bh = new ECAssetBundleHeader();
+                AssetBundleHeader bh = new AssetBundleHeader();
                 if (ForceSep || NeedSep)
-                    bh.option |= ECAssetBundleHeader.BundleOption.SepFile;
+                    bh.option |= AssetBundleHeader.BundleOption.SepFile;
                 if (realass is Shader || realass is MonoScript || realass is Font)
-                    bh.option |= ECAssetBundleHeader.BundleOption.DonotRelease;
+                    bh.option |= AssetBundleHeader.BundleOption.DonotRelease;
                 bh.deps = ls.ToArray();
                 bh.Save(fs);
                 fs.Write(content, 0, content.Length);
@@ -1021,7 +1021,7 @@ public class ExportAssetBundles
         option |= BuildAssetBundleOptions.UncompressedAssetBundle;
 
         bool suc = BuildPipeline.BuildAssetBundleExplicitAssetNames(new Object[] { realass }, new string[] { "1" }, outfile,
-                            option, ExportAssetBundles.CurBuildTarget);
+                            option, ExportAssetBundlesHelper.CurBuildTarget);
 
         Debug.Log("src file: " + asspath + " " + depcount);
 
@@ -1047,7 +1047,7 @@ public class ExportAssetBundles
                 {
                     option = BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.CompleteAssets | BuildAssetBundleOptions.CollectDependencies;
                     suc = BuildPipeline.BuildAssetBundleExplicitAssetNames(new Object[] { realass }, new string[] { "1" }, outfile,
-                                        option, ExportAssetBundles.CurBuildTarget);
+                                        option, ExportAssetBundlesHelper.CurBuildTarget);
                     Debug.LogWarning("Big bundle: " + outfile + " Origin Size: " + fi.Length);
                 }
             }
@@ -1055,19 +1055,19 @@ public class ExportAssetBundles
             byte[] content = File.ReadAllBytes(outfile);
             string outfile2 = outpath + "/" + Path.GetFileName(asspath) + ".u3dext";
             _depmap[outfile2.ToLower()] = 1;
-			var oldFileInfo = new FileInfo(outfile2);
-			if (oldFileInfo.Exists)
-				oldFileInfo.IsReadOnly = false;
+            var oldFileInfo = new FileInfo(outfile2);
+            if (oldFileInfo.Exists)
+                oldFileInfo.IsReadOnly = false;
             using (FileStream fs = File.Open(outfile2, FileMode.Create, FileAccess.Write))
             {
-                ECAssetBundleHeader bh = new ECAssetBundleHeader();
+                AssetBundleHeader bh = new AssetBundleHeader();
                 bool bDefault = true;
                 if (ForceSep || NeedSep)
-                    bh.option |= ECAssetBundleHeader.BundleOption.SepFile;
+                    bh.option |= AssetBundleHeader.BundleOption.SepFile;
 
                 if (realass is Material)
                 {
-                    bh.specialType = ECAssetBundleHeader.BundleSpecialType.Material;
+                    bh.specialType = AssetBundleHeader.BundleSpecialType.Material;
 
                     Material mt = realass as Material;
 
@@ -1088,7 +1088,7 @@ public class ExportAssetBundles
                             }
                         }
 
-                        List<ECAssetBundleHeader.DepInfo> deplist = new List<ECAssetBundleHeader.DepInfo>();
+                        List<AssetBundleHeader.DepInfo> deplist = new List<AssetBundleHeader.DepInfo>();
                         foreach (var realsub in realsubs)
                         {
                             bool findtex = false;
@@ -1107,7 +1107,7 @@ public class ExportAssetBundles
 
                                         if (realpath == realsub)
                                         {
-                                            ECAssetBundleHeader.DepInfo info = new ECAssetBundleHeader.DepInfo();
+                                            AssetBundleHeader.DepInfo info = new AssetBundleHeader.DepInfo();
                                             info.name = texname;
                                             info.path = realsub;
                                             deplist.Add(info);
@@ -1119,7 +1119,7 @@ public class ExportAssetBundles
 
                             if (!findtex)
                             {
-                                ECAssetBundleHeader.DepInfo info = new ECAssetBundleHeader.DepInfo();
+                                AssetBundleHeader.DepInfo info = new AssetBundleHeader.DepInfo();
                                 info.name = "";
                                 info.path = realsub;
                                 deplist.Add(info);
@@ -1131,25 +1131,25 @@ public class ExportAssetBundles
                 }
                 else if (realass is Texture)
                 {
-                    bh.option |= ECAssetBundleHeader.BundleOption.ManuallyResolve;
-                    bh.specialType = ECAssetBundleHeader.BundleSpecialType.Texture;
+                    bh.option |= AssetBundleHeader.BundleOption.ManuallyResolve;
+                    bh.specialType = AssetBundleHeader.BundleSpecialType.Texture;
                 }
                 else if (realass is Shader)
                 {
-                    bh.option |= ECAssetBundleHeader.BundleOption.DonotRelease;
+                    bh.option |= AssetBundleHeader.BundleOption.DonotRelease;
                 }
                 else if (realass is MonoScript)
                 {
-                    bh.option |= ECAssetBundleHeader.BundleOption.DonotRelease;
+                    bh.option |= AssetBundleHeader.BundleOption.DonotRelease;
                 }
                 else if (realass is Font)
                 {
-                    bh.option |= ECAssetBundleHeader.BundleOption.DonotRelease;
+                    bh.option |= AssetBundleHeader.BundleOption.DonotRelease;
                 }
 
                 if (bDefault)
                 {
-                    bh.deps = new ECAssetBundleHeader.DepInfo[realsubs.Count];
+                    bh.deps = new AssetBundleHeader.DepInfo[realsubs.Count];
 
                     for (int n = 0; n < realsubs.Count; n++)
                     {
@@ -1200,18 +1200,18 @@ public class ExportAssetBundles
             // Build the resource file from the active selection.
             Object[] selection = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
 
-			AssetBundleBuildParamCollecter bundleCollector = new AssetBundleBuildParamCollecter();
+            AssetBundleBuildParamCollecter bundleCollector = new AssetBundleBuildParamCollecter();
             foreach (Object sel in selection)
             {
                 BuildOneEquip(sel, path, bundleCollector);
             }
-			BuildAssetBundles(path, bundleCollector.ToArray());
+            BuildAssetBundles(path, bundleCollector.ToArray());
             Selection.objects = selection;
         }
     }
 
 
-    public static void BuildOneEquipByPath( string asspath, string path, AssetBundleBuildParamCollecter bundleCollector )
+    public static void BuildOneEquipByPath(string asspath, string path, AssetBundleBuildParamCollecter bundleCollector)
     {
         string meshassetname = asspath + ".asset";
         Object meshasset = AssetDatabase.LoadMainAssetAtPath(asspath);
@@ -1309,7 +1309,7 @@ public class ExportAssetBundles
             return;
         }
 
-		bundleCollector.Add(meshassetname);
+        bundleCollector.Add(meshassetname);
 
         string lowMeshAssertName = meshassetname.Replace("_m_", "_l_");
 
@@ -1328,8 +1328,8 @@ public class ExportAssetBundles
             {
                 if (mat)
                 {
-					string matAssetPath = AssetDatabase.GetAssetPath(mat);
-					bundleCollector.Add(matAssetPath);
+                    string matAssetPath = AssetDatabase.GetAssetPath(mat);
+                    bundleCollector.Add(matAssetPath);
                     strTemp = matAssetPath;
                     strTemp = ConvertFileName(strTemp) + ".u3dext";
                     str += "\"" + strTemp + "\",\n";
@@ -1354,7 +1354,7 @@ public class ExportAssetBundles
         Object.DestroyImmediate(inst);
         strTemp = ConvertFileName(asspath);
         strTemp = path + "/" + strTemp + ".lua";
-		Directory.CreateDirectory(Path.GetDirectoryName(strTemp));
+        Directory.CreateDirectory(Path.GetDirectoryName(strTemp));
         File.WriteAllBytes(strTemp, System.Text.Encoding.UTF8.GetBytes(str));
     }
 }
