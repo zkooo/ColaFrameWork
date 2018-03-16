@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AssetBundleBuilder : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+/// <summary>
+/// 新版的打Bundle工具
+/// </summary>
+public class AssetBundleBuilder
+{
 }
