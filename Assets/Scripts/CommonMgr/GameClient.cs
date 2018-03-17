@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Game客户端Module类，处理很多核心逻辑
+/// Game客户端Module类，处理一些核心逻辑
 /// </summary>
 public class GameClient
 {

@@ -40,12 +40,12 @@ public class FPSHelper : MonoBehaviour
     {
         GUI.color = new Color(0, 1, 0);
         GUI.skin.label.fontSize = 20;
-        GUI.Label(new Rect(Screen.width - 330, 0, 330, 300), "MemoryAllocated:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetTotalAllocatedMemory())
-                                                             + "  MemoryReserved:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetTotalReservedMemory())
-                                                             + " MemoryUnusedReserved:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetTotalUnusedReservedMemory())
-                                                             + "  usedHeapSize:" + GetMemoryMB(UnityEngine.Profiling.Profiler.usedHeapSize)
-                                                             + "  MonoHeapSize:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetMonoHeapSize())
-                                                             + "  MonoUsedSize:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetMonoUsedSize())
+        GUI.Label(new Rect(Screen.width - 330, 0, 330, 300), "MemoryAllocated:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong())
+                                                             + "  MemoryReserved:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetTotalReservedMemoryLong())
+                                                             + " MemoryUnusedReserved:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetTotalUnusedReservedMemoryLong())
+                                                             + "  usedHeapSize:" + GetMemoryMB(UnityEngine.Profiling.Profiler.usedHeapSizeLong)
+                                                             + "  MonoHeapSize:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetMonoHeapSizeLong())
+                                                             + "  MonoUsedSize:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetMonoUsedSizeLong())
         );
         string versionStr = GameClient.GetClientVersion();
         versionStr = System.String.Format("版本号:{0}", versionStr);
@@ -67,7 +67,7 @@ public class FPSHelper : MonoBehaviour
 
     }
 
-    private string GetMemoryMB(uint curSize)
+    private string GetMemoryMB(long curSize)
     {
         float mbSize = curSize / (1024f * 1024f);
         return mbSize.ToString("f2") + "MB";
