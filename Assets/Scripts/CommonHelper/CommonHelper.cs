@@ -424,4 +424,19 @@ public static class CommonHelper
         }
         return result;
     }
+
+    /// <summary>
+    /// 将世界坐标转化UGUI坐标
+    /// </summary>
+    /// <param name="gameCamera"></param>
+    /// <param name="canvas"></param>
+    /// <param name="worldPos"></param>
+    /// <returns></returns>
+    public static Vector2 WorldToUIPoint(Camera gameCamera, Canvas canvas, Vector3 worldPos)
+    {
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
+            gameCamera.WorldToScreenPoint(worldPos), canvas.worldCamera, out pos);
+        return pos;
+    }
 }
