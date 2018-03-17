@@ -439,4 +439,12 @@ public static class CommonHelper
             gameCamera.WorldToScreenPoint(worldPos), canvas.worldCamera, out pos);
         return pos;
     }
+
+
+    public static Vector3 UIToWorldPoint(Camera gameCamera, Canvas canvas, Vector2 screenPos)
+    {
+        Vector3 pos;
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(canvas.transform as RectTransform, screenPos, gameCamera, out pos);
+        return pos;
+    }
 }
