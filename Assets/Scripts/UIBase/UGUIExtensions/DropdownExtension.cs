@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace UnityEngine.UI.Extensions
 {
+    /// <summary>
+    /// 下拉选择框DropDown拓展版
+    /// </summary>
     public class DropdownExtension : Dropdown
     {
         public Image openMark;
