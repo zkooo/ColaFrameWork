@@ -17,7 +17,7 @@ public class ExportAssetBundlesHelper
     private const int min_compress_bundle_size = 2000 * 1024;
     private const int min_audio_clip_bundel_size = 256 * 1024;
 
-    [MenuItem("Assets/PNG生成Alpha通道数据")]
+    [MenuItem("Assets/OldBundleTools/PNG生成Alpha通道数据")]
     static void PNGGenAlphaTex()
     {
         Object[] selection = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
@@ -42,7 +42,7 @@ public class ExportAssetBundlesHelper
         }
     }
 
-    [MenuItem("Assets/Build AssetBundle From Selection")]
+    [MenuItem("Assets/OldBundleTools/Build AssetBundle From Selection")]
     static void ExportResource()
     {
         CurBuildTarget = EditorUserBuildSettings.activeBuildTarget;
@@ -67,7 +67,7 @@ public class ExportAssetBundlesHelper
         }
     }
 
-    [MenuItem("Assets/打成一个包")]
+    [MenuItem("Assets/OldBundleTools/打成一个包")]
     static void BuildOneBundle()
     {
         ExportResourceToOneBundle();
@@ -91,7 +91,7 @@ public class ExportAssetBundlesHelper
         }
     }
 
-    [MenuItem("Assets/Build AssetBundle From Selection In Unity 5")]
+    [MenuItem("Assets/OldBundleTools/Build AssetBundle From Selection In Unity 5")]
     static void ExportResourceInUnity5()
     {
         string path = EditorUtility.SaveFolderPanel("Save Resource", "", "");
@@ -147,7 +147,7 @@ public class ExportAssetBundlesHelper
         return popList;
     }
 
-    [MenuItem("Assets/Build AssetBundle To One Bundle From Selection In Unity 5")]
+    [MenuItem("Assets/OldBundleTools/Build AssetBundle To One Bundle From Selection In Unity 5")]
     static void ExportResourceToOneBundleInUnity5()
     {
         string path = EditorUtility.SaveFolderPanel("Save Resource", "", "");
@@ -1166,13 +1166,13 @@ public class ExportAssetBundlesHelper
         }
     }
 
-    [MenuItem("Assets/输出装备文件")]
+    [MenuItem("Assets/OldBundleTools/输出装备文件")]
     static void ExportEquip()
     {
         _ExportEquip();
     }
 
-    [MenuItem("Assets/输出动作文件")]
+    [MenuItem("Assets/OldBundleTools/输出动作文件")]
     static void ExportAnim()
     {
         string targetPath = Application.dataPath + "/AnimationClip";
