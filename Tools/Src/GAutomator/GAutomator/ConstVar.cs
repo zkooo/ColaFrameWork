@@ -13,7 +13,6 @@ namespace GAutomator
     class ConstVar
     {
         public static string autoTestPath = System.Environment.CurrentDirectory.Remove(System.Environment.CurrentDirectory.LastIndexOf(@"\") + 1);
-        //public static string autoTestPath = @"D:\fgame_rep\dev_proj\trunk\tools\GAutomator\autotest\";
         public static string unityLogPath = autoTestPath + "logs\\unity_log.txt";
         public static string recordTextPath = autoTestPath + "records";
         public static string saveTextPath = autoTestPath + "bin\\player_info.txt";
