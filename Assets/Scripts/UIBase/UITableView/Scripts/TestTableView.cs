@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestTableView : MonoBehaviour {
+public class TestTableView : MonoBehaviour
+{
 
     private UITableView tableView;
 
     public int CellCount = 10;
 
     public GameObject cellPrefab = null;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         InitTableView();
-	}
+    }
 
     void InitTableView()
     {
         tableView = GetComponent<UITableView>();
+        tableView.SetTotalCellCallback(TotalCellCount);
         tableView.SetCellByIndexCallback(GetCellByIndex);
-        tableView.Reload(100);
+        tableView.Reload(true);
+        //tableView.Reload(100);
     }
 
     /// <summary>
@@ -39,7 +43,7 @@ public class TestTableView : MonoBehaviour {
     UITableViewCell GetCellByIndex(int index)
     {
         UITableViewCell cell = tableView.GetReUseCell();
-        if(cell == null)
+        if (cell == null)
         {
             GameObject go = Instantiate(cellPrefab) as GameObject;
             cell = go.GetComponent<UITableViewCell>();
@@ -49,9 +53,10 @@ public class TestTableView : MonoBehaviour {
         label.text = "cell_" + index;
         return cell;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

@@ -25,7 +25,8 @@ public struct VisibleRange
 /// <summary>
 /// 高度定制可重用Tableview组件
 /// </summary>
-public class UITableView : MonoBehaviour {
+public class UITableView : MonoBehaviour
+{
 
     private ScrollRect scroll;
     private bool isHorizontal;
@@ -57,7 +58,7 @@ public class UITableView : MonoBehaviour {
 
     private List<UITableViewCell> reUseCells = new List<UITableViewCell>();
     private List<UITableViewCell> inUseCells = new List<UITableViewCell>();
-    private List<Vector2> cellPosList        = new List<Vector2>();
+    private List<Vector2> cellPosList = new List<Vector2>();
 
     private List<int> reUseTags = new List<int>();
     private List<int> newInUseTags = new List<int>();
@@ -151,13 +152,13 @@ public class UITableView : MonoBehaviour {
     /// </summary>
     /// <param name="totalCount"></param>
     /// <param name="stayThere"></param>
-    public void Reload(int totalCount,bool stayThere = true)
+    public void Reload(int totalCount, bool stayThere = true)
     {
         Init();
         this.cellTotal = totalCount;
         this.isNeedReload = true;
         this.isOnUsing = true;
-        if(!stayThere)
+        if (!stayThere)
             this.SetToTop();
     }
 
@@ -175,7 +176,7 @@ public class UITableView : MonoBehaviour {
             this.SetToTop();
     }
 
-    
+
     public void SetToTop()
     {
         Vector2 pos = this.contentRT.anchoredPosition;
@@ -189,7 +190,7 @@ public class UITableView : MonoBehaviour {
         this.isDirty = true;
     }
 
-    
+
     public void SetToBot()
     {
         Vector2 pos = this.contentRT.anchoredPosition;
@@ -238,13 +239,13 @@ public class UITableView : MonoBehaviour {
         this.isDirty = true;
     }
 
-    
+
     private void InitTableData()
     {
         Reset();
         if (this.totalCellCallback != null)
             this.cellTotal = this.totalCellCallback();
-        if(this.numPerRowOrCol == 0)
+        if (this.numPerRowOrCol == 0)
         {
             this.numPerRowOrCol = 1;
         }
@@ -258,9 +259,9 @@ public class UITableView : MonoBehaviour {
     private void Reset()
     {
         //this.cellTotal = 0;
-        this.curVisibleRange.from = 0;this.curVisibleRange.to = -1;
-        this.newVisibleRange.from = 0;this.newVisibleRange.to = -1;
-        for(int i = 0; i < this.inUseCells.Count;i++)
+        this.curVisibleRange.from = 0; this.curVisibleRange.to = -1;
+        this.newVisibleRange.from = 0; this.newVisibleRange.to = -1;
+        for (int i = 0; i < this.inUseCells.Count; i++)
         {
             UITableViewCell cell = this.inUseCells[i];
             this.HideCell(cell);
@@ -275,12 +276,12 @@ public class UITableView : MonoBehaviour {
             cell.cacheTransform.anchoredPosition = new Vector2(1000, 1000);
     }
 
-    
+
     void LateUpdate()
     {
         if (this.isOnShowing) return;
         if (this.isNeedReload) this.Reload();
-        if(this.isDirty)
+        if (this.isDirty)
         {
             this.newVisibleRange = this.CalcVisibleRange();
             if (this.newVisibleRange.to - this.newVisibleRange.from >= 0) this.RefreshVisibleCell();
@@ -288,7 +289,7 @@ public class UITableView : MonoBehaviour {
         }
     }
 
-    
+
     void RefreshVisibleCell()
     {
         if (this.curVisibleRange.from == this.newVisibleRange.from && this.curVisibleRange.to == this.newVisibleRange.to)
@@ -301,16 +302,16 @@ public class UITableView : MonoBehaviour {
         reUseTags.Clear();
         newInUseTags.Clear();
 
-        for(int i = curFrom;i <= curTo; i++)
+        for (int i = curFrom; i <= curTo; i++)
         {
-            if(i < newFrom || i > newTo)
+            if (i < newFrom || i > newTo)
             {
                 reUseTags.Add(i);
             }
         }
-        for (int i = newFrom;i <= newTo;i++)
+        for (int i = newFrom; i <= newTo; i++)
         {
-            if(i < curFrom || i > curTo)
+            if (i < curFrom || i > curTo)
             {
                 newInUseTags.Add(i);
             }
@@ -323,13 +324,13 @@ public class UITableView : MonoBehaviour {
 
     }
 
-    
+
     void CollectReUseCells(List<int> _reUseTags)
     {
-        for(int i = 0; i < _reUseTags.Count;i++)
+        for (int i = 0; i < _reUseTags.Count; i++)
         {
             UITableViewCell cell = this.inUseCells[_reUseTags[i]];
-            if(cell != null)
+            if (cell != null)
             {
                 this.reUseCells.Add(cell);
                 this.inUseCells[_reUseTags[i]] = null;
@@ -343,7 +344,7 @@ public class UITableView : MonoBehaviour {
         if (this.cellByIndexCallback == null)
             return;
         if (this.isOnShowing) return;
-        for(int i = 0; i < newUseTag.Count;i++)
+        for (int i = 0; i < newUseTag.Count; i++)
         {
             this.ShowCellByTag(newUseTag[i]);
             this.isOnShowing = false;
@@ -371,7 +372,7 @@ public class UITableView : MonoBehaviour {
             }
 
             cell.cacheTransform.anchoredPosition = pos;
-            if(tag < this.inUseCells.Count)
+            if (tag < this.inUseCells.Count)
             {
                 this.inUseCells[tag] = cell;
             }
@@ -379,7 +380,7 @@ public class UITableView : MonoBehaviour {
             {
                 this.inUseCells.Add(cell);
             }
-            
+
         }
         else
         {
@@ -388,13 +389,13 @@ public class UITableView : MonoBehaviour {
 
     }
 
-    
+
     void ResetContent()
     {
         float contentWidth = this.scroll.viewport.rect.width;
         float contentHeight = this.scroll.viewport.rect.height;
         float contentOffset = 0;
-        if(this.isHorizontal)
+        if (this.isHorizontal)
         {
             float width = Mathf.Ceil(this.cellTotal * 1.0f / this.numPerRowOrCol) * (this.cellSize.x + this.spacing.x) + this.padding.left + this.padding.right;
             if (width > contentWidth)
@@ -405,10 +406,11 @@ public class UITableView : MonoBehaviour {
             }
             else
                 this.isOverflow = false;
-        }else
+        }
+        else
         {
             float height = Mathf.Ceil(this.cellTotal * 1.0f / this.numPerRowOrCol) * (this.cellSize.y + this.spacing.y) + this.padding.top + this.padding.bottom;
-            if(height > contentHeight)
+            if (height > contentHeight)
             {
                 contentOffset = height - contentHeight;
                 contentHeight = height;
@@ -429,7 +431,7 @@ public class UITableView : MonoBehaviour {
     /// <returns></returns>
     VisibleRange CalcVisibleRange()
     {
-        if((this.cellSize.x < 0.01f )|| (this.cellSize.y < 0.01f) || (this.cellTotal == 0))
+        if ((this.cellSize.x < 0.01f) || (this.cellSize.y < 0.01f) || (this.cellTotal == 0))
         {
             return new VisibleRange() { from = 0, to = -1 };
         }
@@ -440,12 +442,12 @@ public class UITableView : MonoBehaviour {
 
         int tagTemp = 0;
         Vector2 pos;
-        if(this.isHorizontal)
+        if (this.isHorizontal)
         {
             if (this.curVisibleRange.from == 0) this.isIncreased = true;
             if (this.isIncreased)
             {
-                for(int i= this.curVisibleRange.from; i < this.cellTotal;i++ )
+                for (int i = this.curVisibleRange.from; i < this.cellTotal; i++)
                 {
                     pos = this.cellPosList[i];
                     if (pos.x + this.cellSize.x > startPos)
@@ -453,12 +455,12 @@ public class UITableView : MonoBehaviour {
                         startTag = i;
                         break;
                     }
-                        
+
                 }
             }
             else
             {
-                for(int i = this.curVisibleRange.from; i >= 0;i--)//??
+                for (int i = this.curVisibleRange.from; i >= 0; i--)//??
                 {
                     pos = this.cellPosList[i];
                     if (pos.x + this.cellSize.x > startPos)
@@ -470,7 +472,7 @@ public class UITableView : MonoBehaviour {
                 }
             }
 
-            if(this.curVisibleRange.to == -1)
+            if (this.curVisibleRange.to == -1)
             {
                 tagTemp = startTag;
                 this.isIncreased = true;
@@ -480,9 +482,9 @@ public class UITableView : MonoBehaviour {
                 tagTemp = this.curVisibleRange.to;
             }
 
-            if(this.isIncreased)
+            if (this.isIncreased)
             {
-                for(int i = tagTemp;i < this.cellTotal;i++)
+                for (int i = tagTemp; i < this.cellTotal; i++)
                 {
                     pos = this.cellPosList[i];
                     if (pos.x < endPos)
@@ -491,15 +493,15 @@ public class UITableView : MonoBehaviour {
                     }
                     else
                         break;
-                       
+
                 }
             }
             else
             {
-                for(int i = tagTemp;i >= 0;i--)
+                for (int i = tagTemp; i >= 0; i--)
                 {
                     pos = this.cellPosList[i];
-                    if(pos.x <= endPos)
+                    if (pos.x <= endPos)
                     {
                         endTag = i;
                         break;
@@ -507,21 +509,23 @@ public class UITableView : MonoBehaviour {
                 }
             }
 
-        }else//垂直滑动
+        }
+        else//垂直滑动
         {
             if (this.curVisibleRange.from == 0) this.isIncreased = true;
-            if(this.isIncreased)
+            if (this.isIncreased)
             {
-                for(int i = this.curVisibleRange.from;i < this.cellTotal;i++)
+                for (int i = this.curVisibleRange.from; i < this.cellTotal; i++)
                 {
                     pos = this.cellPosList[i];
-                    if(pos.y - this.cellSize.y < startPos - 0.01f)
+                    if (pos.y - this.cellSize.y < startPos - 0.01f)
                     {
                         startTag = i;
                         break;
-                    } 
+                    }
                 }
-            }else
+            }
+            else
             {
                 for (int i = this.curVisibleRange.from; i >= 0; i--)
                 {
@@ -535,7 +539,7 @@ public class UITableView : MonoBehaviour {
                         break;
 
                     }
-                       
+
                 }
             }
 
@@ -547,7 +551,7 @@ public class UITableView : MonoBehaviour {
             {
                 tagTemp = this.curVisibleRange.to;
             }
-            if(this.isIncreased)
+            if (this.isIncreased)
             {
                 for (int i = tagTemp; i < this.cellTotal; i++)
                 {
@@ -555,9 +559,10 @@ public class UITableView : MonoBehaviour {
                     if (pos.y - 0.01f > endPos)
                     {
                         endTag = i;
-                       
-                    }else
-                        break; 
+
+                    }
+                    else
+                        break;
 
                 }
             }
@@ -573,7 +578,7 @@ public class UITableView : MonoBehaviour {
                     }
                 }
             }
-            
+
 
         }
         //Debug.Log("visibleRange: " + startTag + " " + endTag);
@@ -585,7 +590,7 @@ public class UITableView : MonoBehaviour {
     /// </summary>
     void CalcViewRectPos()
     {
-        if(this.isHorizontal)
+        if (this.isHorizontal)
         {
             this.viewStartPos = -(this.contentRT.anchoredPosition.x) / this.scaleFactor.x;
             this.viewEndPos = (this.viewStartPos + this.viewRT.rect.width / this.scaleFactor.y);
@@ -597,11 +602,11 @@ public class UITableView : MonoBehaviour {
         }
     }
 
-    
+
     bool IsNeedDirtyByScrolling()
     {
         //Debug.Log("IsNeedDirtyByScrolling viisblerange: " + this.curVisibleRange.from + " " + this.curVisibleRange.to);
-        if(this.isIncreased)
+        if (this.isIncreased)
         {
             if (this.curVisibleRange.to + 1 == this.cellTotal) return false;
             if (this.isHorizontal)
@@ -627,49 +632,51 @@ public class UITableView : MonoBehaviour {
     void CalcAllCellPos()
     {
         this.cellPosList.Clear();
-        for(int i = 0; i < this.cellTotal;i++)
+        for (int i = 0; i < this.cellTotal; i++)
         {
             this.cellPosList.Add(this.CalcCellPosition(i));
         }
     }
 
-    
+
     Vector2 CalcCellPosition(int tag)
     {
         float x = 0;
         float y = 0;
-        if(this.isHorizontal)
+        if (this.isHorizontal)
         {
-            x = this.padding.left + (Mathf.Ceil((tag+1) * 1.0f / this.numPerRowOrCol) - 1) * (this.cellSize.x + this.spacing.x);
+            x = this.padding.left + (Mathf.Ceil((tag + 1) * 1.0f / this.numPerRowOrCol) - 1) * (this.cellSize.x + this.spacing.x);
             y = -(this.cellAlignOffset + this.padding.top + (tag % this.numPerRowOrCol) * (this.cellSize.y + this.spacing.y));
         }
         else
         {
             x = (this.cellAlignOffset + this.padding.left + (tag % this.numPerRowOrCol) * (this.cellSize.x + this.spacing.x));
-            y = -(this.padding.top + (Mathf.Ceil((tag+1) * 1.0f / this.numPerRowOrCol) - 1) * (this.cellSize.y + this.spacing.y));
+            y = -(this.padding.top + (Mathf.Ceil((tag + 1) * 1.0f / this.numPerRowOrCol) - 1) * (this.cellSize.y + this.spacing.y));
         }
         return new Vector2(x, y);
     }
 
-    
-    float CalcCellAlignOffset(bool isHorizontal,CellAlign align)
+
+    float CalcCellAlignOffset(bool isHorizontal, CellAlign align)
     {
         float offset = 0f, cellHold = 0f, contentHold = 0f;
         if (isHorizontal)
         {
             cellHold = this.padding.top + this.cellSize.y * this.numPerRowOrCol + this.spacing.y * (this.numPerRowOrCol - 1) + this.padding.bottom;
             contentHold = this.contentRT.rect.height;
-        }else
+        }
+        else
         {
             cellHold = this.padding.left + this.cellSize.x * this.numPerRowOrCol + this.spacing.x * (this.numPerRowOrCol - 1) + this.padding.right;
             contentHold = this.contentRT.rect.width;
         }
         if (this.cellAlign == CellAlign.LeftOrTop)
             offset = 0;
-        else if(this.cellAlign == CellAlign.Center)
+        else if (this.cellAlign == CellAlign.Center)
         {
             offset = (contentHold - cellHold) / 2f;
-        }else
+        }
+        else
         {
             Debug.LogError("UITableView CellAlign wrong: " + this.cellAlign);
         }
@@ -681,9 +688,9 @@ public class UITableView : MonoBehaviour {
     {
         if (this.isDirty) return;
         if (this.isOnShowing) return;
-        if(this.isOverflow)
+        if (this.isOverflow)
         {
-            if(this.isHorizontal)
+            if (this.isHorizontal)
             {
                 if (Mathf.Abs(this.lastDirtyRate - scrollRate.x) < this.scrollMinRate) return;
                 this.isIncreased = this.lastDirtyRate < scrollRate.x;
