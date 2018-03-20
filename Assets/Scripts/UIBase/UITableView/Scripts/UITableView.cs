@@ -4,19 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Cell的对齐方式
+/// </summary>
 public enum CellAlign
 {
     LeftOrTop,
     Center
 }
 
+/// <summary>
+/// 可见区域的范围
+/// </summary>
 public struct VisibleRange
 {
     public int from;
     public int to;
 }
 
-
+/// <summary>
+/// 高度定制可重用Tableview组件
+/// </summary>
 public class UITableView : MonoBehaviour {
 
     private ScrollRect scroll;
@@ -138,6 +146,11 @@ public class UITableView : MonoBehaviour {
         return this.inUseCells[index];
     }
 
+    /// <summary>
+    /// 刷新TableView
+    /// </summary>
+    /// <param name="totalCount"></param>
+    /// <param name="stayThere"></param>
     public void Reload(int totalCount,bool stayThere = true)
     {
         Init();
@@ -145,6 +158,20 @@ public class UITableView : MonoBehaviour {
         this.isNeedReload = true;
         this.isOnUsing = true;
         if(!stayThere)
+            this.SetToTop();
+    }
+
+
+    /// <summary>
+    /// 刷新TableView
+    /// </summary>
+    /// <param name="stayThere"></param>
+    public void Reload(bool stayThere = true)
+    {
+        Init();
+        this.isNeedReload = true;
+        this.isOnUsing = true;
+        if (!stayThere)
             this.SetToTop();
     }
 
