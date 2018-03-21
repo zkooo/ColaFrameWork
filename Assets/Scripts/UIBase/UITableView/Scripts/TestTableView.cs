@@ -47,16 +47,19 @@ public class TestTableView : MonoBehaviour
         {
             GameObject go = Instantiate(cellPrefab) as GameObject;
             cell = go.GetComponent<UITableViewCell>();
+            cell.gameObject = go;
+            cell.extenParams["Label"] = CommonHelper.GetComponentByPath<Text>(go, "Text");
         }
         cell.index = index;
-        Text label = cell.transform.GetComponentInChildren<Text>();
-        label.text = "cell_" + index;
+        //Text label = cell.transform.GetComponentInChildren<Text>();
+        //label.text = "cell_" + index;
+        Refresh(cell, index);
         return cell;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Refresh(UITableViewCell cell, int index)
     {
-
+        Text text = cell.extenParams["Label"] as Text;
+        text.text = "cell_" + index;
     }
 }

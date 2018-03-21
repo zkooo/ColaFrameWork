@@ -10,6 +10,8 @@ public class UITableViewCell : MonoBehaviour
     [HideInInspector]
     public RectTransform cacheTransform;
     [HideInInspector]
+    public GameObject gameObject;
+    [HideInInspector]
     public Dictionary<string, Component> extenParams;
 
     void Awake()
@@ -28,7 +30,13 @@ public class UITableViewCell : MonoBehaviour
             extenParams.Clear();
         }
         extenParams = null;
+        gameObject = null;
     }
 
+
+}
+
+public class MyCell : UITableViewCell
+{
 
 }
