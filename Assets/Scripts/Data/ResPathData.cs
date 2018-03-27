@@ -51,7 +51,7 @@ public class ResPathDataMap : ILocalDataMapBase
     {
         resPathDataList.Clear();
 
-        for (int i = 3; i < rows.Length; i++)
+        for (int i = 4; i < rows.Length; i++)
         {
             ResPathData data = new ResPathData();
             data.InitWithStr(rows[i]);

@@ -42,7 +42,7 @@ public class I18NDataMap : ScriptableObject,ILocalDataMapBase
     {
         I18NDataList.Clear();
 
-        for (int i = 3; i < rows.Length; i++)
+        for (int i = 4; i < rows.Length; i++)
         {
             I18NData data = new I18NData();
             data.InitWithStr(rows[i]);
