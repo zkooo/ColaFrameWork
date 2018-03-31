@@ -11,6 +11,7 @@ public class GameLauncher : MonoBehaviour
     private GameObject fpsHelperObj;
     private FPSHelper fpsHelper;
     private LogHelper logHelper;
+    private InputMgr inputMgr;
 
     void Awake()
     {
@@ -18,6 +19,9 @@ public class GameLauncher : MonoBehaviour
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         DontDestroyOnLoad(gameObject);
+
+        //加入输入输出管理器
+        inputMgr = gameObject.AddComponent<InputMgr>();
 
 #if SHOW_FPS
         fpsHelperObj = new GameObject("FpsHelperObj");
