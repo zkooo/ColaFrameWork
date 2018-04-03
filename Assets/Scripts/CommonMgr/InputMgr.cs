@@ -7,38 +7,34 @@ using UnityEngine;
 /// </summary>
 public class InputMgr : MonoBehaviour
 {
-    private bool isQuit = false;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	    if (Input.GetKey(KeyCode.Escape))
-	    {
-	        isQuit = true;
-	    }
-	}
-
-    private void OnGUI()
+    // Use this for initialization
+    void Start()
     {
-        if (isQuit)
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (Input.GetKey(KeyCode.Escape))
         {
-            GUI.Box(new Rect(0,0,200,100),"确定要退出游戏？");
-
-            if (GUI.Button(new Rect(20, 50, 70, 30), "确定"))
-            {
-                Application.Quit();
-            }
-
-            if (GUI.Button(new Rect(110, 50, 70, 30), "取消"))
-            {
-                isQuit = false;
-            }
+            ConfirmQuit();
         }
+    }
+
+    /// <summary>
+    /// 退出游戏前确认对话框
+    /// </summary>
+    public void ConfirmQuit()
+    {
+
+#if UNITY_ANDROID
+        var jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        var jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+        jo.Call("ShowConfirmDialog");
+#endif
     }
 
 

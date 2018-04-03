@@ -93,6 +93,11 @@ public class GameLauncher : MonoBehaviour
         gameManager.OnApplicationFocus(focus);
     }
 
+    public void ApplicationQuit(string exitCode = "0")
+    {
+        gameManager.ApplicationQuit();
+    }
+
     IEnumerator InitGameCore()
     {
         yield return new WaitForEndOfFrame();

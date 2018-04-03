@@ -144,4 +144,13 @@ public class GameManager
         Debug.LogWarning("uiMgr构造异常");
         return null;
     }
+
+    /// <summary>
+    /// 退出游戏
+    /// </summary>
+    public void ApplicationQuit()
+    {
+        Application.Quit();
+    }
+
 }
