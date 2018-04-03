@@ -1,6 +1,11 @@
-package org.msxher.cola;
+package com.msxher.ColaFrameWork;
 
 import java.util.logging.Logger;
+
+import org.msxher.cola.R;
+
+import com.unity3d.player.UnityPlayer;
+import com.unity3d.player.UnityPlayerActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,15 +21,17 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
-public class ColaMainActivity extends Activity implements OnClickListener{
+public class ColaMainActivity extends UnityPlayerActivity {
 
+	private String receiveObj = "GameLauncher";
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cola_main);
-        
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(this);
+//        setContentView(R.layout.activity_cola_main);
+//        
+//        Button button = (Button) findViewById(R.id.button);
+//        button.setOnClickListener(this);
     }
 
     @Override
@@ -46,23 +53,21 @@ public class ColaMainActivity extends Activity implements OnClickListener{
         return super.onOptionsItemSelected(item);
     }
 
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.button:
-			Log.d("Cloa", "-1111111111111");
-			ShowConfirmDialog();
-			break;
-
-		default:
-			break;
-		}
-	}
+//	@Override
+//	public void onClick(View v) {
+//		// TODO Auto-generated method stub
+//		switch (v.getId()) {
+//		case R.id.button:
+//			ShowConfirmDialog();
+//			break;
+//
+//		default:
+//			break;
+//		}
+//	}
     
 	
 	public void ShowConfirmDialog(){
-		Log.d("Cloa", "0000000000");
 		 Builder builder = new AlertDialog.Builder(this);
 		 builder.setTitle("Cola提示");
 		 builder.setMessage("确定退出Cola游戏？");
@@ -72,8 +77,8 @@ public class ColaMainActivity extends Activity implements OnClickListener{
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Toast.makeText(getApplicationContext(),"点击了确定",Toast.LENGTH_SHORT).show();
-				Log.d("Cola", "1111111111");
+				//Toast.makeText(getApplicationContext(),"点击了确定",Toast.LENGTH_SHORT).show();
+				UnityPlayer.UnitySendMessage(receiveObj, "ApplicationQuit","0");
 			}
 		});
 		 
@@ -81,7 +86,7 @@ public class ColaMainActivity extends Activity implements OnClickListener{
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Toast.makeText(getApplicationContext(),"点击了取消",Toast.LENGTH_SHORT).show();				
+				//Toast.makeText(getApplicationContext(),"点击了取消",Toast.LENGTH_SHORT).show();				
 			}
 		});
 		 builder.setCancelable(true);

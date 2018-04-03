@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="org.msxher.cola.ColaMainActivity" >
+    tools:context="com.msxher.ColaFrameWork.ColaMainActivity" >
 
     <Button
         android:id="@+id/button"
