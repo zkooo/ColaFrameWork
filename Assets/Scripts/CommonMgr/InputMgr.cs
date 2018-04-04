@@ -31,9 +31,12 @@ public class InputMgr : MonoBehaviour
     {
 
 #if UNITY_ANDROID
-        var jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        var jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
-        jo.Call("ShowConfirmDialog");
+        //var jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        //var jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+        //jo.Call("ShowConfirmDialog");
+        var jc = new AndroidJavaClass("com.msxher.ColaFrameWork.ColaMainActivity");
+        var jo = jc.GetStatic<AndroidJavaObject>("GetInstance");
+        jo.Call("ShowConfirmDialog","");
 #endif
     }
 
