@@ -23,7 +23,8 @@ import android.widget.Toast;
 
 public class ColaMainActivity extends UnityPlayerActivity {
 
-	private String receiveObj = "GameLauncher";
+	private static String receiveObj = "GameLauncher";
+	private static ColaMainActivity instance;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class ColaMainActivity extends UnityPlayerActivity {
 //        
 //        Button button = (Button) findViewById(R.id.button);
 //        button.setOnClickListener(this);
+        instance=this;
     }
 
     @Override
@@ -66,8 +68,12 @@ public class ColaMainActivity extends UnityPlayerActivity {
 //		}
 //	}
     
+	public static ColaMainActivity GetInstance() {
+		return instance;
+	}
 	
-	public void ShowConfirmDialog(){
+	
+	public void ShowConfirmDialog(String str){
 		 Builder builder = new AlertDialog.Builder(this);
 		 builder.setTitle("Cola提示");
 		 builder.setMessage("确定退出Cola游戏？");
