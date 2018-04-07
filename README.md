@@ -16,9 +16,10 @@
 
 #### 数据节点管理   
 
-策划使用Excel表进行数据的配置，然后通过[转表工具](https://github.com/XINCGer/Unity3DTraining/tree/master/XlsxTools/xls2csv)(位于ColaFrameWork\Tools\XlsxTools\xls2csv目录下，内有详细的使用指南)将Excel表转为csv结构的数据结构供客户端读取。  
-每一份csv数据表，都应对应一个数据解析类以及一个数据集合类，其中数据解析类用于解析并存储csv中的单条数据（一行），数据集合类将存储多个数据解析类的对象。  
-数据解析类都应继承自 **LocalDataBase** (本地数据表中的单条数据的抽象基类)：  
+##### CSV&C#版数据节点管理
+策划使用Excel表进行数据的配置，然后通过[转表工具](https://github.com/XINCGer/Unity3DTraining/tree/master/XlsxTools/xls2csv)(位于ColaFrameWork\Tools\XlsxTools\xls2csv目录下，内有详细的使用指南)将Excel表转为csv结构的数据结构供客户端读取。  
+每一份csv数据表，都应对应一个数据解析类以及一个数据集合类，其中数据解析类用于解析并存储csv中的单条数据（一行），数据集合类将存储多个数据解析类的对象。  
+数据解析类都应继承自 **LocalDataBase** (本地数据表中的单条数据的抽象基类)：  
 ```C#
 /// <summary>
 /// 本地数据表中的单条数据的抽象基类
@@ -101,7 +102,8 @@ public interface ILocalDataMapBase
 **ILocalDataMapBase** 接口内只有一个 **void SetMapCsv(string[] rows)** 抽象方法，该方法用来对多行字符串进行处理，保存成LocalDataBase集合。
 框架中已经包含了**I18NDataMap**数据集合类，编写其他数据集合类时可以参考此类。  
 
-#### 事件/消息处理中心(Controller层)    
+##### Lua&LuaConfig版数据结构管理  
+#### 事件/消息处理中心(Controller层)    
 
 待补充  
 
