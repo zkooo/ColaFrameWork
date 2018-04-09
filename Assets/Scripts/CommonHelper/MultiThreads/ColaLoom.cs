@@ -12,6 +12,9 @@ using UnityEngine;
 public class ColaLoom : MonoBehaviour
 {
 
+    /// <summary>
+    /// 支持开启的最大线程数
+    /// </summary>
     public static int maxThreads = 8;
     private static int numThreads;
     private static ColaLoom _current;
