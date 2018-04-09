@@ -11,23 +11,21 @@ public class LoomTest : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    //gameObject.AddComponent<ColaLoom>();
-	    _text = this.transform.Find("Text").GetComponent<Text>();
-	    //ColaLoom.RunAsync(UpdateUI);
-        Thread _thread = new Thread(UpdateUI);
-        _thread.Start();
-	}
+        gameObject.AddComponent<ColaLoom>();
+        _text = this.transform.Find("Text").GetComponent<Text>();
+        ColaLoom.RunAsync(UpdateUI);
+    }
 
     private void UpdateUI()
     {
-        //ColaLoom.QueueOnMainThread(() =>
-        //{
-        //    TimeHelper.SetRepeatTimer(()=>
-        //    {
-        //        this._text.text = Time.realtimeSinceStartup.ToString();
-        //    }, 1);
-        //});
+        ColaLoom.QueueOnMainThread(() =>
+        {
+            this._text.text = Time.realtimeSinceStartup.ToString();
+            TimeHelper.SetRepeatTimer(() =>
+            {
+                this._text.text = Time.realtimeSinceStartup.ToString();
+            }, 1);
+        });
 
-        this._text.text = Time.realtimeSinceStartup.ToString();
     }
 }
