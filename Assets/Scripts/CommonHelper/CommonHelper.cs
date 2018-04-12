@@ -289,6 +289,7 @@ public static class CommonHelper
     /// <param name="childName"></param>子物体名称
     /// <param name="isRecursice"></param>是否递归查找
     /// <returns></returns>
+    [Obsolete("已弃用,建议使用FindChildByPath")]
     public static GameObject FindChildDirect(GameObject obj, string childName, bool isRecursice)
     {
         if ("." == childName) return obj;
@@ -350,8 +351,8 @@ public static class CommonHelper
     /// <param name="atlasID"></param>图集的资源ID
     /// <param name="image"></param>要设置的Image组件
     /// <param name="spriteName"></param>图集中对应的Sprite的名称
-    /// <param name="isGray"></param>是否设置为灰度显示
-    public static void SetImageSpriteFromAtlas(int atlasID, Image image, string spriteName, bool isGray)
+    /// <param name="keepNativeSize"></param>是否保持原始尺寸
+    public static void SetImageSpriteFromAtlas(int atlasID, Image image, string spriteName, bool keepNativeSize)
     {
         GameObject atlasObj = ResourceMgr.GetInstance().GetResourceById<GameObject>(atlasID);
         if (null != atlasObj)
@@ -363,7 +364,7 @@ public static class CommonHelper
                 if (null != sprite && null != image)
                 {
                     image.sprite = sprite;
-                    //todo:设置Sprite为灰度图片
+                    //todo:设置Sprite为原始尺寸
                 }
             }
         }
@@ -441,10 +442,33 @@ public static class CommonHelper
     }
 
 
+    /// <summary>
+    /// 将UGUI坐标转化世界坐标
+    /// </summary>
+    /// <param name="gameCamera"></param>
+    /// <param name="canvas"></param>
+    /// <param name="screenPos"></param>
+    /// <returns></returns>
     public static Vector3 UIToWorldPoint(Camera gameCamera, Canvas canvas, Vector2 screenPos)
     {
         Vector3 pos;
         RectTransformUtility.ScreenPointToWorldPointInRectangle(canvas.transform as RectTransform, screenPos, gameCamera, out pos);
         return pos;
+    }
+
+    /// <summary>
+    /// 获取一个Transform组建下所有处于Active状态的子物体的数量
+    /// </summary>
+    /// <param name="transform"></param>
+    /// <returns></returns>
+    public static int ActivedChildCount(this Transform transform)
+    {
+        int childCount = 0;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+                childCount++;
+        }
+        return childCount;
     }
 }
