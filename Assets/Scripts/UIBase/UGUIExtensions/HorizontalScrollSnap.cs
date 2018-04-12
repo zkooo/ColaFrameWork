@@ -1,11 +1,8 @@
-
-using LuaInterface;
 /// Credit BinaryX 
 /// Sourced from - http://forum.unity3d.com/threads/scripts-useful-4-6-scripts-collection.264161/page-2#post-1945602
 /// Updated by ddreaper - removed dependency on a custom ScrollRect script. Now implements drag interfaces and standard Scroll Rect.
 using System;
 using UnityEngine.EventSystems;
-using LuaInterface;
 
 namespace UnityEngine.UI.Extensions
 {
@@ -64,11 +61,15 @@ namespace UnityEngine.UI.Extensions
             }
         }
 
-        private LUACALLBACKFUNC _OnPageChanged;
+        private Action onPageChanged;
 
-        public void RegisterOnScrollEnd(LUACALLBACKFUNC callBack)
+        /// <summary>
+        /// 滑动结束时，页面变化的回调
+        /// </summary>
+        /// <param name="callBack"></param>
+        public void RegisterOnScrollEnd(Action callBack)
         {
-            this._OnPageChanged = callBack;
+            this.onPageChanged = callBack;
         }
 
         // Use this for initialization
@@ -227,20 +228,9 @@ namespace UnityEngine.UI.Extensions
                         ? true
                         : false;
                 }
-            if (_OnPageChanged != null && wLua.L != null)
+            if (onPageChanged != null )
             {
-                if (_OnPageChanged.funcRef == LUAREF.LUA_NOREF || _OnPageChanged.funcRef == LUAREF.LUA_NOREF)
-                {
-                    Debug.LogWarning("_OnPageChanged.funcRef 方法不存在");
-                    return;
-                }
-                Int32 oldTop = LuaDLL.lua_gettop(wLua.L.L);
-                LuaDLL.lua_rawgeti(wLua.L.L, LuaIndexes.LUA_REGISTRYINDEX, _OnPageChanged.funcRef);
-                LuaDLL.lua_pushinteger(wLua.L.L, _currentScreen);
-                //LuaDLL.luaL_unref(wLua.L.L, LuaIndexes.LUA_REGISTRYINDEX, _OnPageChanged.funcRef);
-                wLua.L.Call(1);
-                //LuaDLL.lua_pop(wLua.L.L, 1);   //pop t
-                LuaDLL.lua_settop(wLua.L.L, oldTop);
+                onPageChanged();
             }
         }
 
@@ -322,11 +312,11 @@ namespace UnityEngine.UI.Extensions
                 return;
             }
             _scroll_rect.horizontalNormalizedPosition = 0;
-            GO.transform.SetParent(_screensContainer,false);
+            GO.transform.SetParent(_screensContainer, false);
             GO.transform.SetAsLastSibling();
             DistributePages();
 
-            _scroll_rect.horizontalNormalizedPosition = (float)(_currentScreen) / (float) (_screens - 1);
+            _scroll_rect.horizontalNormalizedPosition = (float)(_currentScreen) / (float)(_screens - 1);
         }
 
         /// <summary>

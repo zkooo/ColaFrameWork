@@ -1,5 +1,3 @@
-
-using LuaInterface;
 /// Credit BinaryX 
 /// Sourced from - http://forum.unity3d.com/threads/scripts-useful-4-6-scripts-collection.264161/page-2#post-1945602
 /// Updated by ddreaper - removed dependency on a custom ScrollRect script. Now implements drag interfaces and standard Scroll Rect.
@@ -59,15 +57,15 @@ namespace UnityEngine.UI.Extensions
             }
         }
 
-        private LUACALLBACKFUNC _OnPageChanged;
+        private Action onPageChanged;
 
         /// <summary>
         /// 滑动结束时，页面变化的回调
         /// </summary>
         /// <param name="callBack"></param>
-        public void RegisterOnScrollEnd(LUACALLBACKFUNC callBack)
+        public void RegisterOnScrollEnd(Action callBack)
         {
-            this._OnPageChanged = callBack;
+            this.onPageChanged = callBack;
         }
 
 
@@ -93,10 +91,10 @@ namespace UnityEngine.UI.Extensions
             int childCount = gameObject.GetComponent<ScrollRect>().content.childCount;
             if (1 < childCount)
             {
-                StartingScreen = childCount-1;
+                StartingScreen = childCount - 1;
             }
 
-             _currentScreen = StartingScreen;
+            _currentScreen = StartingScreen;
 
 
             _scroll_rect.verticalNormalizedPosition = (float)(_currentScreen - 1) / (float)(_screens - 1);
@@ -237,20 +235,9 @@ namespace UnityEngine.UI.Extensions
                         ? true
                         : false;
                 }
-            if (_OnPageChanged != null && wLua.L != null)
+            if (onPageChanged != null)
             {
-                if (_OnPageChanged.funcRef == LUAREF.LUA_NOREF || _OnPageChanged.funcRef == LUAREF.LUA_NOREF)
-                {
-                    Debug.LogWarning("_OnPageChanged.funcRef 方法不存在");
-                    return ;
-                }
-                Int32 oldTop = LuaDLL.lua_gettop(wLua.L.L);
-                LuaDLL.lua_rawgeti(wLua.L.L, LuaIndexes.LUA_REGISTRYINDEX, _OnPageChanged.funcRef);
-                LuaDLL.lua_pushinteger(wLua.L.L, _currentScreen);
-                //LuaDLL.luaL_unref(wLua.L.L, LuaIndexes.LUA_REGISTRYINDEX, _OnPageChanged.funcRef);
-                wLua.L.Call(1);
-                //LuaDLL.lua_pop(wLua.L.L, 1);   //pop t
-                LuaDLL.lua_settop(wLua.L.L, oldTop);
+                onPageChanged();
             }
         }
 
@@ -272,7 +259,7 @@ namespace UnityEngine.UI.Extensions
 
             _dimension = currentYPosition + _offset * -1;
 
-            _screensContainer.GetComponent<RectTransform>().offsetMax = new Vector2(0f,_dimension);
+            _screensContainer.GetComponent<RectTransform>().offsetMax = new Vector2(0f, _dimension);
 
             _screens = _screensContainer.childCount;
 
@@ -318,9 +305,9 @@ namespace UnityEngine.UI.Extensions
         /// <param name="GO">GameObject to add to the ScrollSnap</param>
         public void AddChild(GameObject GO)
         {
-            if ( _scroll_rect ==null)
+            if (_scroll_rect == null)
             {
-               return;
+                return;
             }
             _scroll_rect.verticalNormalizedPosition = 0;
             GO.transform.SetParent(_screensContainer);
@@ -403,14 +390,7 @@ namespace UnityEngine.UI.Extensions
 
         void OnDestroy()
         {
-            if (_OnPageChanged != null && wLua.L!=null)
-            {
-                LuaDLL.luaL_unref(
-                    wLua.L.L,
-                    LuaIndexes.LUA_REGISTRYINDEX,
-                    _OnPageChanged.funcRef);
-                _OnPageChanged = null;
-            }
+            onPageChanged = null;
         }
         #region Interfaces
         public void OnBeginDrag(PointerEventData eventData)
@@ -459,9 +439,9 @@ namespace UnityEngine.UI.Extensions
                 {
                     _lerp = true;
                     _lerp_target = FindClosestFrom(_screensContainer.localPosition, _positions);
-                        _currentScreen = GetPageforPosition(_lerp_target);
+                    _currentScreen = GetPageforPosition(_lerp_target);
                 }
-               
+
             }
         }
 
