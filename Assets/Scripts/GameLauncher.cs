@@ -7,14 +7,26 @@ using UnityEngine;
 /// </summary>
 public class GameLauncher : MonoBehaviour
 {
+    /// <summary>
+    /// 存放资源的可读写路径
+    /// </summary>
+    public string AssetPath;
+
+    private GameLauncher instance;
     private GameManager gameManager;
     private GameObject fpsHelperObj;
     private FPSHelper fpsHelper;
     private LogHelper logHelper;
     private InputMgr inputMgr;
 
+    public GameLauncher Instance
+    {
+        get { return instance; }
+    }
+
     void Awake()
     {
+        instance = this;
         gameManager = GameManager.GetInstance();
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
