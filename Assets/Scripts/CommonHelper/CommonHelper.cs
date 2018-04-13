@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using Def = GloablDefine;
 
 /// <summary>
 /// 通用工具类
@@ -411,6 +412,21 @@ public static class CommonHelper
                 rawImage.SetNativeSize();
             }
         }
+    }
+
+    /// <summary>
+    /// 设置一个Image是否变灰
+    /// </summary>
+    /// <param name="image"></param>
+    /// <param name="isGray"></param>
+    public static void SetImageGray(Image image, bool isGray)
+    {
+        if (null == image)
+        {
+            Debug.LogWarning("需要指定一个Image");
+            return;
+        }
+        image.color = isGray ? Def.ColorBlack : Def.ColorWhite;
     }
 
     /// <summary>

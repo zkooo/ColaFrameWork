@@ -28,3 +28,17 @@ public enum CheckFuncResult : byte
     /// </summary>
     None = 4,
 }
+
+/// <summary>
+/// 公共定义数据
+/// </summary>
+public static class GloablDefine
+{
+    public static Color ColorWhite = Color.white;
+    public static Color ColorRed = Color.red;
+    public static Color ColorGreen = Color.green;
+    public static Color ColorBlue = Color.blue;
+    public static Color ColorBlack = Color.black;
+    public static Color ColorYellow = Color.yellow;
+    public static Color ColorGray = Color.gray;
+}
