@@ -138,7 +138,7 @@ public static class CommonHelper
     /// <typeparam name="T"></typeparam>组件的类型
     /// <param name="go"></param>要添加组件的物体
     /// <returns></returns>
-    public static T AddSingleComponent<T>(GameObject go) where T : Component
+    public static T AddSingleComponent<T>(this GameObject go) where T : Component
     {
         if (null != go)
         {
@@ -160,7 +160,7 @@ public static class CommonHelper
     /// <param name="go"></param>父物体
     /// <param name="name"></param>子物体的名称
     /// <returns></returns>
-    public static T GetComponentByName<T>(GameObject go, string name) where T : Component
+    public static T GetComponentByName<T>(this GameObject go, string name) where T : Component
     {
         T[] components = go.GetComponentsInChildren<T>(true);
         if (components != null)
@@ -182,7 +182,7 @@ public static class CommonHelper
     /// <typeparam name="T"></typeparam>
     /// <param name="go"></param>
     /// <returns></returns>
-    public static T[] GetComponentsByName<T>(GameObject go) where T : Component
+    public static T[] GetComponentsByName<T>(this GameObject go) where T : Component
     {
         T[] components = go.GetComponentsInChildren<T>(true);
 
@@ -195,7 +195,7 @@ public static class CommonHelper
     /// <param name="go"></param>
     /// <param name="childName"></param>
     /// <returns></returns>
-    public static GameObject GetGameObjectByName(GameObject go, string childName)
+    public static GameObject GetGameObjectByName(this GameObject go, string childName)
     {
         GameObject ret = null;
         if (go != null)
@@ -222,7 +222,7 @@ public static class CommonHelper
     /// <param name="go"></param>
     /// <param name="childName"></param>
     /// <returns></returns>
-    public static List<GameObject> GetGameObjectsByName(GameObject go, string childName)
+    public static List<GameObject> GetGameObjectsByName(this GameObject go, string childName)
     {
         List<GameObject> list = new List<GameObject>();
         Transform[] objChildren = go.GetComponentsInChildren<Transform>(true);
@@ -242,7 +242,7 @@ public static class CommonHelper
     /// <param name="obj"></param>父物体节点
     /// <param name="childPath"></param>子物体路径+子物体名称
     /// <returns></returns>
-    public static GameObject FindChildByPath(GameObject obj, string childPath)
+    public static GameObject FindChildByPath(this GameObject obj, string childPath)
     {
         if (null == obj)
         {
@@ -266,7 +266,7 @@ public static class CommonHelper
     /// <param name="obj"></param>
     /// <param name="childPath"></param>
     /// <returns></returns>
-    public static T GetComponentByPath<T>(GameObject obj, string childPath) where T : Component
+    public static T GetComponentByPath<T>(this GameObject obj, string childPath) where T : Component
     {
         GameObject childObj = FindChildByPath(obj, childPath);
         if (null == childObj)
