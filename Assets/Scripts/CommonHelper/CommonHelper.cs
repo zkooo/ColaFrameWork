@@ -354,6 +354,21 @@ public static class CommonHelper
     /// <param name="keepNativeSize"></param>是否保持原始尺寸
     public static void SetImageSpriteFromAtlas(int atlasID, Image image, string spriteName, bool keepNativeSize)
     {
+        if (null == image)
+        {
+            Debug.LogWarning("需要指定一个image");
+            return;
+        }
+        if (string.IsNullOrEmpty(spriteName))
+        {
+            Debug.LogWarning("需要指定一个SpriteName");
+            return;
+        }
+
+        if (image.overrideSprite && image.overrideSprite.name == spriteName)
+        {
+            return;
+        }
         GameObject atlasObj = ResourceMgr.GetInstance().GetResourceById<GameObject>(atlasID);
         if (null != atlasObj)
         {
@@ -361,11 +376,39 @@ public static class CommonHelper
             if (null != spriteAsset)
             {
                 Sprite sprite = spriteAsset.GetSpriteByName(spriteName);
-                if (null != sprite && null != image)
+                if (null != sprite)
                 {
-                    image.sprite = sprite;
-                    //todo:设置Sprite为原始尺寸
+                    image.overrideSprite = sprite;
+                    if (keepNativeSize)
+                    {
+                        image.SetNativeSize();
+                    }
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 设置一个RawImage的Texture
+    /// </summary>
+    /// <param name="rawImage"></param>
+    /// <param name="resID"></param>
+    /// <param name="keepNativeSize"></param>
+    public static void SetRawImage(RawImage rawImage, int resID, bool keepNativeSize)
+    {
+        if (null == rawImage)
+        {
+            Debug.LogWarning("需要指定RawImage");
+            return;
+        }
+
+        Texture2D texture2D = ResourceMgr.GetInstance().GetResourceById<Texture2D>(resID);
+        if (null != texture2D)
+        {
+            rawImage.texture = texture2D;
+            if (keepNativeSize)
+            {
+                rawImage.SetNativeSize();
             }
         }
     }
