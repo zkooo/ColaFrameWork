@@ -430,6 +430,30 @@ public static class CommonHelper
     }
 
     /// <summary>
+    /// RawImage置灰
+    /// </summary>
+    /// <param name="rawImage"></param>
+    /// <param name="isGray"></param>
+    public static void SetRawImageGray(RawImage rawImage, bool isGray)
+    {
+        if (null == rawImage)
+        {
+            Debug.LogWarning("需要指定一个RawImage");
+            return;
+        }
+        if (isGray)
+        {
+            Material grayMat = ResourceMgr.GetInstance().GetResourceById<Material>(300001);
+            rawImage.material = grayMat;
+            rawImage.color = Def.ColorBlack;
+        }
+        else
+        {
+            rawImage.material = null;
+            rawImage.color = Def.ColorWhite;
+        }
+    }
+    /// <summary>
     /// 获取当前运行的设备平台信息
     /// </summary>
     /// <returns></returns>
