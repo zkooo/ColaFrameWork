@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 /// <summary>
@@ -12,14 +13,14 @@ public class GameLauncher : MonoBehaviour
     /// </summary>
     public string AssetPath;
 
-    private GameLauncher instance;
+    private static GameLauncher instance;
     private GameManager gameManager;
     private GameObject fpsHelperObj;
     private FPSHelper fpsHelper;
     private LogHelper logHelper;
     private InputMgr inputMgr;
 
-    public GameLauncher Instance
+    public static GameLauncher Instance
     {
         get { return instance; }
     }
@@ -66,6 +67,7 @@ public class GameLauncher : MonoBehaviour
 
         Application.logMessageReceived += logHelper.LogCallback;
 #endif
+        InitPath();
     }
 
     // Use this for initialization
@@ -114,5 +116,24 @@ public class GameLauncher : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         gameManager.InitGameCore(gameObject);
+    }
+
+    /// <summary>
+    /// 初始化一些路径
+    /// </summary>
+    private void InitPath()
+    {
+        if (string.IsNullOrEmpty(AssetPath))
+        {
+#if UNITY_IPHONE
+            AssetPath = Application.temporaryCachePath;
+#else
+            AssetPath = Application.persistentDataPath;
+#endif
+        }
+        else if (AssetPath.StartsWith("./") || AssetPath.StartsWith("../"))
+        {
+            AssetPath = Application.dataPath + "/" + AssetPath;
+        }
     }
 }
