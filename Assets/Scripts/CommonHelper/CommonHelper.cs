@@ -426,7 +426,7 @@ public static class CommonHelper
             Debug.LogWarning("需要指定一个Image");
             return;
         }
-        image.color = isGray ? Def.ColorBlack : Def.ColorWhite;
+        image.color = isGray ? Def.ColorGray : Def.ColorWhite;
     }
 
     /// <summary>
