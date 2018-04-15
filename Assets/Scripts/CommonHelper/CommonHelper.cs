@@ -554,4 +554,9 @@ public static class CommonHelper
         }
         return childCount;
     }
+
+    public static string GetAssetPath()
+    {
+        return GameLauncher.Instance.AssetPath;
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,6 +43,10 @@ public class UILogin : UIBase
                 CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
             }
         });
+
+        //测试可读写路径
+        Debug.LogWarning("可读写路径：" + CommonHelper.GetAssetPath());
+        File.WriteAllText(CommonHelper.GetAssetPath()+"/a.txt", "测试文本\r\n测试文本\r\n测试文本\r\n");
     }
 
     public override void OnDestroy()
