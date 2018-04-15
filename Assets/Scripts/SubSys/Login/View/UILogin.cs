@@ -44,9 +44,13 @@ public class UILogin : UIBase
             }
         });
 
-        //测试可读写路径
-        Debug.LogWarning("可读写路径：" + CommonHelper.GetAssetPath());
-        File.WriteAllText(CommonHelper.GetAssetPath()+"/a.txt", "测试文本\r\n测试文本\r\n测试文本\r\n");
+        //Dragable组件，和一些Image通用接口测试
+        var dragObj = new GameObject("DragObj");
+        var _image = dragObj.AddComponent<Image>();
+        CommonHelper.SetImageSpriteFromAtlas(2001,_image, "airfightSheet_4",true);
+        CommonHelper.SetImageGray(_image,true);
+        dragObj.AddComponent<Dragable>();
+        dragObj.transform.SetParent(GUIHelper.GetUIRootObj().transform,false);
     }
 
     public override void OnDestroy()

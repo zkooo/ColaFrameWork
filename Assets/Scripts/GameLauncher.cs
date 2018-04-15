@@ -28,11 +28,11 @@ public class GameLauncher : MonoBehaviour
     void Awake()
     {
         instance = this;
+        InitPath();
         gameManager = GameManager.GetInstance();
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         DontDestroyOnLoad(gameObject);
-
         //加入输入输出管理器
         inputMgr = gameObject.AddComponent<InputMgr>();
 
@@ -67,7 +67,7 @@ public class GameLauncher : MonoBehaviour
 
         Application.logMessageReceived += logHelper.LogCallback;
 #endif
-        InitPath();
+        
     }
 
     // Use this for initialization
