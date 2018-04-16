@@ -44,13 +44,15 @@ public class UILogin : UIBase
             }
         });
 
-        //Dragable组件，和一些Image通用接口测试
-        var dragObj = new GameObject("DragObj");
-        var _image = dragObj.AddComponent<Image>();
-        CommonHelper.SetImageSpriteFromAtlas(2001,_image, "airfightSheet_4",true);
-        CommonHelper.SetImageGray(_image,true);
-        dragObj.AddComponent<Dragable>();
-        dragObj.transform.SetParent(GUIHelper.GetUIRootObj().transform,false);
+        //Texture相关接口测试
+        GameObject _texture = new GameObject("Texture");
+        var rawImage = _texture.AddComponent<RawImage>();
+        CommonHelper.SetRawImage(rawImage, 400001,true);
+        _texture.transform.SetParent(GUIHelper.GetUIRootObj().transform,false);
+        _texture.transform.position =
+        CommonHelper.UIToWorldPoint(GUIHelper.GetUICamera(), GUIHelper.GetUIRoot(), new Vector2(100, 100));
+        CommonHelper.SetRawImageGray(rawImage,true);
+
     }
 
     public override void OnDestroy()
