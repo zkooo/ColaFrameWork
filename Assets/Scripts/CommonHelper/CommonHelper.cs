@@ -555,6 +555,10 @@ public static class CommonHelper
         return childCount;
     }
 
+    /// <summary>
+    /// 获取资源路径(可读写)
+    /// </summary>
+    /// <returns></returns>
     public static string GetAssetPath()
     {
         return GameLauncher.Instance.AssetPath;
