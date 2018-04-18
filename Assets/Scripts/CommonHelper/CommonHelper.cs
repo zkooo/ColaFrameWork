@@ -524,21 +524,6 @@ public static class CommonHelper
         return pos;
     }
 
-
-    /// <summary>
-    /// 将UGUI坐标转化世界坐标
-    /// </summary>
-    /// <param name="gameCamera"></param>
-    /// <param name="canvas"></param>
-    /// <param name="screenPos"></param>
-    /// <returns></returns>
-    public static Vector3 UIToWorldPoint(Camera gameCamera, Canvas canvas, Vector2 screenPos)
-    {
-        Vector3 pos;
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(canvas.transform as RectTransform, screenPos, gameCamera, out pos);
-        return pos;
-    }
-
     /// <summary>
     /// 获取一个Transform组建下所有处于Active状态的子物体的数量
     /// </summary>
