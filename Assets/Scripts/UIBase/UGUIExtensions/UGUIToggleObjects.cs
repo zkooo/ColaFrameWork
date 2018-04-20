@@ -5,6 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// UGUI版的UIToggleObjects 用于控制Toggle显示/隐藏一组物体
 /// </summary>
+[RequireComponent(typeof(Toggle))]
 public class UGUIToggleObjects : MonoBehaviour
 {
     [Tooltip("Toggle激活时需要显示的物体列表")]
