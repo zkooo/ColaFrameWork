@@ -26,11 +26,17 @@ public class UIMgr : IViewManager
     /// </summary>
     private List<UIBase> removeList;
 
+    /// <summary>
+    /// 存储统一隐藏/恢复显示的UI列表
+    /// </summary>
+    private List<UIBase> recordList;
+
     public UIMgr()
     {
         uiList = new Dictionary<string, UIBase>();
         outTouchList = new List<UIBase>();
         removeList = new List<UIBase>();
+        recordList = new List<UIBase>();
 
         /*---------------UI界面控制脚本添加-------------------*/
         UIBase ui = new UILogin(100, UIType.Common);
@@ -139,6 +145,14 @@ public class UIMgr : IViewManager
             return Open(uiType);
         }
         return false;
+    }
+
+    /// <summary>
+    /// 记录并隐藏除了指定类型的当前显示的所有UI；
+    /// </summary>
+    public void StashAndHideAllUI(string uiType)
+    {
+
     }
 
     /// <summary>
