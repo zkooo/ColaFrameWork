@@ -548,4 +548,26 @@ public static class CommonHelper
     {
         return GameLauncher.Instance.AssetPath;
     }
+
+    /// <summary>
+    /// 判断一个string数组中是否包含某个string
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="strList"></param>
+    /// <returns></returns>
+    public static bool IsArrayContainString(string key, params string[] strList)
+    {
+        if (null == key || null == strList)
+        {
+            return false;
+        }
+        for (int i= 0; i < strList.Length; i++)
+        {
+            if (strList[i].Equals(key))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
