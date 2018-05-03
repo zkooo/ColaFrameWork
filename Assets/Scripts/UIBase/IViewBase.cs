@@ -68,9 +68,9 @@ public interface IViewManager
 }
 
 /// <summary>
-/// UI的类型枚举
+/// UI界面等级枚举
 /// </summary>
-public enum UIType : byte
+public enum UILevel : byte
 {
     Top = 0,
     Level1 = 1,

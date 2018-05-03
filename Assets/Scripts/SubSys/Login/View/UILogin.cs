@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class UILogin : UIBase
 {
-    public UILogin(int resId, UIType uiType) : base(resId, uiType)
+    public UILogin(int resId, UILevel uiLevel) : base(resId, uiLevel)
     {
     }
 
-    public UILogin(GameObject panel, GameObject parent, UIType uiType) : base(panel, parent, uiType)
+    public UILogin(GameObject panel, GameObject parent, UILevel uiLevel) : base(panel, parent, uiLevel)
     {
     }
 

@@ -39,7 +39,7 @@ public class UIMgr : IViewManager
         recordList = new List<UIBase>();
 
         /*---------------UI界面控制脚本添加-------------------*/
-        UIBase ui = new UILogin(100, UIType.Common);
+        UIBase ui = new UILogin(100, UILevel.Common);
         uiList.Add("UILogin", ui);
     }
 
@@ -150,9 +150,38 @@ public class UIMgr : IViewManager
     /// <summary>
     /// 记录并隐藏除了指定类型的当前显示的所有UI；
     /// </summary>
-    public void StashAndHideAllUI(string uiType)
+    public void StashAndHideAllUI(string uiType,params string[] extUITypes)
     {
+        recordList.Clear();
+        using (var enumator = uiList.GetEnumerator())
+        {
+            while (enumator.MoveNext())
+            {
+                if (enumator.Current.Value.IsShow &&
+                    !CommonHelper.IsArrayContainString(enumator.Current.Key, extUITypes))
+                {
+                    recordList.Add(enumator.Current.Value);
+                    enumator.Current.Value.SetActive(false);
+                }
+            }
+        }
+    }
 
+    /// <summary>
+    /// 恢复显示之前记录下来的隐藏UI
+    /// </summary>
+    public void PopAndShowAllUI()
+    {
+        if (null == recordList || recordList.Count == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < recordList.Count; i++)
+        {
+            recordList[i].SetActive(true);
+        }
+        recordList.Clear();
     }
 
     /// <summary>

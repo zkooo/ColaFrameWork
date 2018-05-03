@@ -45,7 +45,7 @@ public class UIBase : IEventHandler
     /// <summary>
     /// UI的类型
     /// </summary>
-    protected UIType uiType;
+    protected UILevel uiLevel;
 
     /// <summary>
     /// UI的创建方法
@@ -62,18 +62,18 @@ public class UIBase : IEventHandler
     /// </summary>
     protected EventData eventData;
 
-    public UIBase(int resId, UIType uiType)
+    public UIBase(int resId, UILevel uiLevel)
     {
-        this.uiType = uiType;
+        this.uiLevel = uiLevel;
         ResId = resId;
         this.uiCreateType = UICreateType.Res;
         this.Name = CommonHelper.GetResourceMgr().GetResNameById(resId);
         InitRegisterHandler();
     }
 
-    public UIBase(GameObject panel, GameObject parent, UIType uiType)
+    public UIBase(GameObject panel, GameObject parent, UILevel uiLevel)
     {
-        this.uiType = uiType;
+        this.uiLevel = uiLevel;
         this.ResId = 0;
         this.Panel = panel;
         this.Panel.transform.SetParent(parent.transform);
