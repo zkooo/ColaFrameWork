@@ -17,24 +17,7 @@ public class UGUIEventListener : MonoBehaviour,
 
     }
 
-    protected UGUIMsgHandler TouchedMsgHandler;   //用于记录当前UGUIListenner对应的对象所touch的MsgHandler对象  每一个大界面下的小的控件只能touch一个MsgHandler对象
-    //用来记录当前的selectable组件
     protected Selectable mCurSelectableComponent;
-
-    public UGUIMsgHandler MsgHandler
-    {
-        get
-        {
-            if (TouchedMsgHandler != null)
-                return TouchedMsgHandler;
-            else
-                return null;
-        }
-        set
-        {
-            TouchedMsgHandler = value;
-        }
-    }
 
     public Selectable CurSelectable
     {
@@ -221,11 +204,13 @@ public class UGUIEventListener : MonoBehaviour,
     }
 
 
-    /*public static UGUIEventListenner GetEventListenner(GameObject obj) {
-        UGUIEventListenner listenner = obj.GetComponent<UGUIEventListenner>();
-        if (listenner == null) {
-            listenner = obj.AddComponent<UGUIEventListenner>();
+    public static UGUIEventListener GetEventListenner(GameObject obj)
+    {
+        UGUIEventListener listenner = obj.GetComponent<UGUIEventListener>();
+        if (listenner == null)
+        {
+            listenner = obj.AddComponent<UGUIEventListener>();
         }
         return listenner;
-    }*/
+    }
 }
