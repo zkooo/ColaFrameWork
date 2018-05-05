@@ -391,20 +391,35 @@ public class UIBase : IEventHandler
         AddOtherEventHandler(listener.gameObject);
     }
 
+    private void onInitializePotentialDrag(GameObject obj)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void onUpDetail(GameObject obj, Vector2 deltapos, Vector2 curtoucposition)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void onDownDetail(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
+    {
+        throw new NotImplementedException();
+    }
+
     void AddOtherEventHandler(GameObject go)
     {
         OtherEventListenner otherlistenner = go.GetComponent<OtherEventListenner>();
         if (otherlistenner == null)
             otherlistenner = go.AddComponent<OtherEventListenner>();
-        otherlistenner.inputvalueChangeAction += onStrValueChangeHandle;
-        otherlistenner.inputeditEndAction += onEditEndHandle;
-        otherlistenner.togglevalueChangeAction += onBoolValueChangeHandle;
-        otherlistenner.slidervalueChangeAction += onFloatValueChangeHandle;
-        otherlistenner.scrollbarvalueChangeAction += onFloatValueChangeHandle;
-        otherlistenner.scrollrectvalueChangeAction += onRectValueChangeHandle;
-        otherlistenner.dropdownvalueChangeAction += onIntValueChangeHandle;
-        otherlistenner.OnPlayTweenHandle += OnPlayTweenFinishHandle;
+        otherlistenner.inputvalueChangeAction += onStrValueChange;
+        otherlistenner.inputeditEndAction += onEditEnd;
+        otherlistenner.togglevalueChangeAction += onBoolValueChange;
+        otherlistenner.slidervalueChangeAction += onFloatValueChange;
+        otherlistenner.scrollbarvalueChangeAction += onFloatValueChange;
+        otherlistenner.scrollrectvalueChangeAction += onRectValueChange;
+        otherlistenner.dropdownvalueChangeAction += onIntValueChange;
     }
+
     void AddOtherEventListenner(ScrollRect rect)
     {
 
@@ -412,7 +427,7 @@ public class UIBase : IEventHandler
         if (otherlistenner == null)
             otherlistenner = rect.gameObject.AddComponent<OtherEventListenner>();
         rect.onValueChanged.AddListener(otherlistenner.scrollrectValueChangeHandler());
-        otherlistenner.scrollrectvalueChangeAction += onRectValueChangeHandle;
+        otherlistenner.scrollrectvalueChangeAction += onRectValueChange;
     }
 
     public void UnTouch(GameObject obj)
@@ -453,17 +468,15 @@ public class UIBase : IEventHandler
         OtherEventListenner otherlistenner = listener.gameObject.GetComponent<OtherEventListenner>();
         if (otherlistenner != null)
         {
-            otherlistenner.inputvalueChangeAction -= onStrValueChangeHandle;
-            otherlistenner.inputeditEndAction -= onEditEndHandle;
-            otherlistenner.togglevalueChangeAction -= onBoolValueChangeHandle;
-            otherlistenner.slidervalueChangeAction -= onFloatValueChangeHandle;
-            otherlistenner.scrollbarvalueChangeAction -= onFloatValueChangeHandle;
-            otherlistenner.scrollrectvalueChangeAction -= onRectValueChangeHandle;
-            otherlistenner.dropdownvalueChangeAction -= onIntValueChangeHandle;
-            otherlistenner.OnPlayTweenHandle -= OnPlayTweenFinishHandle;
+            otherlistenner.inputvalueChangeAction -= onStrValueChange;
+            otherlistenner.inputeditEndAction -= onEditEnd;
+            otherlistenner.togglevalueChangeAction -= onBoolValueChange;
+            otherlistenner.slidervalueChangeAction -= onFloatValueChange;
+            otherlistenner.scrollbarvalueChangeAction -= onFloatValueChange;
+            otherlistenner.scrollrectvalueChangeAction -= onRectValueChange;
+            otherlistenner.dropdownvalueChangeAction -= onIntValueChange;
         }
     }
-
     #endregion
 
     #region UI回调事件
@@ -536,5 +549,28 @@ public class UIBase : IEventHandler
     {
     }
 
+    protected virtual void onStrValueChange(GameObject obj, string para)
+    {
+    }
+
+    protected virtual void onIntValueChange(GameObject obj, int para)
+    {
+    }
+
+    protected virtual void onRectValueChange(GameObject obj, Vector2 para)
+    {
+    }
+
+    protected virtual void onFloatValueChange(GameObject obj, float para)
+    {
+    }
+
+    protected virtual void onBoolValueChange(GameObject obj, bool para)
+    {
+    }
+
+    protected virtual void onEditEnd(GameObject obj, string para)
+    {
+    }
     #endregion
 }
