@@ -549,27 +549,27 @@ public class UIBase : IEventHandler
     {
     }
 
-    protected virtual void onStrValueChange(GameObject obj, string para)
+    protected virtual void onStrValueChange(GameObject obj, string text)
     {
     }
 
-    protected virtual void onIntValueChange(GameObject obj, int para)
+    protected virtual void onIntValueChange(GameObject obj, int value)
     {
     }
 
-    protected virtual void onRectValueChange(GameObject obj, Vector2 para)
+    protected virtual void onRectValueChange(GameObject obj, Vector2 rect)
     {
     }
 
-    protected virtual void onFloatValueChange(GameObject obj, float para)
+    protected virtual void onFloatValueChange(GameObject obj, float value)
     {
     }
 
-    protected virtual void onBoolValueChange(GameObject obj, bool para)
+    protected virtual void onBoolValueChange(GameObject obj, bool isSelect)
     {
     }
 
-    protected virtual void onEditEnd(GameObject obj, string para)
+    protected virtual void onEditEnd(GameObject obj, string text)
     {
     }
     #endregion
