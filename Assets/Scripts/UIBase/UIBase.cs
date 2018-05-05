@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using EventType = ColaFrame.EventType;
 
 /// <summary>
@@ -267,7 +269,7 @@ public class UIBase : IEventHandler
             }
             else
             {
-                Debug.LogWarning(string.Format("消息{0}重复注册！",evt));
+                Debug.LogWarning(string.Format("消息{0}重复注册！", evt));
             }
         }
     }
@@ -329,10 +331,10 @@ public class UIBase : IEventHandler
                     ScrollRect[] rect = st.gameObject.GetComponentsInParent<ScrollRect>(true);
                     useDrag = (rect == null || rect.Length == 0);
                 }
-                else if (st is ToggleExt)
-                {
-                    useDrag = ((ToggleExt)st).useDrag;
-                }
+                //else if (st is ToggleExt)
+                //{
+                //    useDrag = ((ToggleExt)st).useDrag;
+                //}
 
                 if (useDrag)
                 {
@@ -345,21 +347,19 @@ public class UIBase : IEventHandler
                 }
 
             }
-
-            listener.MsgHandler = this;
         }
         else
         {
-            if (this == listener.MsgHandler) //如果当前的和原来的一样 就不用再touch一次
+            if (this == listener.uiHandler) //如果当前的和原来的一样 就不用再touch一次
             {
                 listener.CurSelectable = st;
                 return;
             }
             else             //如果想touch一个新的对象 先清除掉原来的
             {
-                UGUIMsgHandler prevHandler = listener.MsgHandler;
-                if (prevHandler) prevHandler.RemoveEventHandler(listener.gameObject);
-                listener.MsgHandler = this;
+                UIBase prevHandler = listener.uiHandler;
+                if (null != prevHandler) prevHandler.RemoveEventHandler(listener.gameObject);
+                listener.uiHandler = this;
             }
         }
         //在listenner上面记录Selectable组件
@@ -369,25 +369,25 @@ public class UIBase : IEventHandler
 
     void AddEventHandlerEx(UGUIEventListener listener)
     {
-        listener.onClick += this.onClickhandle;
-        listener.onDown += this.onDownhandle;
-        listener.onUp += this.onUphandle;
-        listener.onDownDetail += this.onDownDetailhandle;
-        listener.onUpDetail += this.onUpDetailhandle;
-        listener.onEnter += this.onEnterhandle;
-        listener.onExit += this.onExithandle;
-        listener.onDrop += this.onDrophandle;
-        listener.onBeginDrag += this.onBeginDraghandle;
-        listener.onDrag += this.onDraghandle;
-        listener.onEndDrag += this.onEndDraghandle;
-        listener.onSelect += this.onSelecthandle;
-        listener.onDeSelect += this.onDeSelecthandle;
-        listener.onScroll += this.onScrollhandle;
-        listener.onCancel += this.onCancelhandle;
-        listener.onSubmit += this.onSubmithandle;
-        listener.onMove += this.onMovehandle;
-        listener.onUpdateSelected += this.onUpdateSelectedhandle;
-        listener.onInitializePotentialDrag += this.onInitializePotentialDragHandle;
+        listener.onClick += onClick;
+        listener.onDown += onDown;
+        listener.onUp += onUp;
+        listener.onDownDetail += this.onDownDetail;
+        listener.onUpDetail += this.onUpDetail;
+        listener.onEnter += onEnter;
+        listener.onExit += onExit;
+        listener.onDrop += onDrop;
+        listener.onBeginDrag += onBeginDrag;
+        listener.onDrag += onDrag;
+        listener.onEndDrag += onEndDrag;
+        listener.onSelect += onSelect;
+        listener.onDeSelect += onDeSelect;
+        listener.onScroll += onScroll;
+        listener.onCancel += onCancel;
+        listener.onSubmit += onSubmit;
+        listener.onMove += onMove;
+        listener.onUpdateSelected += onUpdateSelected;
+        listener.onInitializePotentialDrag += this.onInitializePotentialDrag;
         AddOtherEventHandler(listener.gameObject);
     }
 
@@ -429,26 +429,26 @@ public class UIBase : IEventHandler
     {
         UGUIEventListener listener = obj.GetComponent<UGUIEventListener>();
         if (listener == null) return;
-        if (listener.MsgHandler == null || listener.MsgHandler != this)        //必须在touch过同一个 MsgHandler的情况下才能用这个MsgHandler进行untouch
+        if (listener.uiHandler == null || listener.uiHandler != this)        //必须在touch过同一个 MsgHandler的情况下才能用这个MsgHandler进行untouch
             return;
 
-        listener.onClick -= this.onClickhandle;
-        listener.onDown -= this.onDownhandle;
-        listener.onUp -= this.onUphandle;
-        listener.onEnter -= this.onEnterhandle;
-        listener.onExit -= this.onExithandle;
-        listener.onDrop -= this.onDrophandle;
-        listener.onBeginDrag -= this.onBeginDraghandle;
-        listener.onDrag -= this.onDraghandle;
-        listener.onEndDrag -= this.onEndDraghandle;
-        listener.onSelect -= this.onSelecthandle;
-        listener.onDeSelect -= this.onDeSelecthandle;
-        listener.onScroll -= this.onScrollhandle;
-        listener.onCancel -= this.onCancelhandle;
-        listener.onSubmit -= this.onSubmithandle;
-        listener.onMove -= this.onMovehandle;
-        listener.onUpdateSelected -= this.onUpdateSelectedhandle;
-        listener.onInitializePotentialDrag -= this.onInitializePotentialDragHandle;
+        listener.onClick -= onClick;
+        listener.onDown -= onDown;
+        listener.onUp -= onUp;
+        listener.onEnter -= onEnter;
+        listener.onExit -= onExit;
+        listener.onDrop -= onDrop;
+        listener.onBeginDrag -= onBeginDrag;
+        listener.onDrag -= onDrag;
+        listener.onEndDrag -= onEndDrag;
+        listener.onSelect -= onSelect;
+        listener.onDeSelect -= onDeSelect;
+        listener.onScroll -= onScroll;
+        listener.onCancel -= onCancel;
+        listener.onSubmit -= onSubmit;
+        listener.onMove -= onMove;
+        listener.onUpdateSelected -= onUpdateSelected;
+        listener.onInitializePotentialDrag -= onInitializePotentialDragHandle;
 
         OtherEventListenner otherlistenner = listener.gameObject.GetComponent<OtherEventListenner>();
         if (otherlistenner != null)
@@ -462,11 +462,79 @@ public class UIBase : IEventHandler
             otherlistenner.dropdownvalueChangeAction -= onIntValueChangeHandle;
             otherlistenner.OnPlayTweenHandle -= OnPlayTweenFinishHandle;
         }
-        if (m_luaOprFuncDic.ContainsKey(obj))
-        {
-            m_luaOprFuncDic.Remove(obj);
-        }
-        listener.MsgHandler = null;  //清除掉MsgHandler
     }
+
+    #endregion
+
+    #region UI回调事件
+
+    protected virtual void onClick(GameObject obj)
+    {
+    }
+
+    protected virtual void onDown(GameObject obj)
+    {
+    }
+
+    protected virtual void onUp(GameObject obj)
+    {
+    }
+
+    protected virtual void onEnter(GameObject obj)
+    {
+    }
+
+    protected virtual void onInitializePotentialDragHandle(GameObject obj)
+    {
+    }
+
+    protected virtual void onUpdateSelected(GameObject obj)
+    {
+    }
+
+    protected virtual void onMove(GameObject obj)
+    {
+    }
+
+    protected virtual void onSubmit(GameObject obj)
+    {
+    }
+
+    protected virtual void onCancel(GameObject obj)
+    {
+    }
+
+    protected virtual void onScroll(GameObject obj)
+    {
+    }
+
+    protected virtual void onDeSelect(GameObject obj)
+    {
+    }
+
+    protected virtual void onSelect(GameObject obj)
+    {
+    }
+
+    protected virtual void onEndDrag(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
+    {
+    }
+
+    protected virtual void onDrag(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
+    {
+    }
+
+    protected virtual void onBeginDrag(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
+    {
+    }
+
+    protected virtual void onDrop(GameObject obj)
+    {
+    }
+
+    protected virtual void onExit(GameObject obj)
+    {
+    }
+
     #endregion
 }

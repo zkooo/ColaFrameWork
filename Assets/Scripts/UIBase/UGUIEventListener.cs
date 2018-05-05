@@ -34,6 +34,11 @@ public class UGUIEventListener : MonoBehaviour,
         }
     }
 
+    /// <summary>
+    /// EventListener有一个统一的UIBase类型的uihandler来接收处理回调
+    /// </summary>
+    public UIBase uiHandler;
+
     public delegate void UIEventHandler(GameObject obj);
     public delegate void UIDragEventHandlerDetail(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition);
     public UIEventHandler onClick;
