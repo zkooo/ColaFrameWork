@@ -70,7 +70,6 @@ public class UIBase : IEventHandler
         ResId = resId;
         this.uiCreateType = UICreateType.Res;
         this.Name = CommonHelper.GetResourceMgr().GetResNameById(resId);
-        InitRegisterHandler();
     }
 
     public UIBase(GameObject panel, GameObject parent, UILevel uiLevel)
@@ -81,8 +80,6 @@ public class UIBase : IEventHandler
         this.Panel.transform.SetParent(parent.transform);
         this.Name = panel.name;
         this.uiCreateType = UICreateType.Go;
-
-        InitRegisterHandler();
     }
 
     /// <summary>
@@ -115,6 +112,7 @@ public class UIBase : IEventHandler
     /// </summary>
     public virtual void Create()
     {
+        this.InitRegisterHandler();
         if (UICreateType.Res == uiCreateType)
         {
             if (null != this.Panel)
@@ -145,6 +143,7 @@ public class UIBase : IEventHandler
     public virtual void Destroy()
     {
         this.UnRegisterHandler();
+        UnAttachListener(Panel);
         if (null != Panel)
         {
             GameObject.Destroy(Panel);
@@ -234,9 +233,6 @@ public class UIBase : IEventHandler
         GameEventMgr.GetInstance().RegisterHandler(this, EventType.UIMsg);
         msgHanderDic = new Dictionary<string, MsgHandler>()
         {
-            {Name+"Open",data=>Open()},
-            {Name+"Close",data=>Close()},
-            {Name+"UpdateUI",data=>UpdateUI(data)},
         };
     }
 
@@ -296,6 +292,10 @@ public class UIBase : IEventHandler
 
     #region UI事件回调处理逻辑
 
+    /// <summary>
+    /// 注册UIEventListener
+    /// </summary>
+    /// <param name="obj"></param>
     public void AttachListener(GameObject obj)
     {
 
@@ -410,6 +410,10 @@ public class UIBase : IEventHandler
         otherlistenner.scrollrectvalueChangeAction += onRectValueChange;
     }
 
+    /// <summary>
+    /// 反注册UIEventListener
+    /// </summary>
+    /// <param name="obj"></param>
     public void UnAttachListener(GameObject obj)
     {
         Selectable[] selectable = obj.GetComponentsInChildren<Selectable>(true);

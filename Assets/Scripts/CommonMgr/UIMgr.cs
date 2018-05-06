@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EventType = ColaFrame.EventType;
 
 /// <summary>
 /// UI统一管理器
 /// </summary>
-public class UIMgr : IViewManager
+public class UIMgr : IViewManager, IEventHandler
 {
     private static UIMgr instance;
 
@@ -31,16 +32,80 @@ public class UIMgr : IViewManager
     /// </summary>
     private List<UIBase> recordList;
 
+    /// <summary>
+    /// 消息-回调函数字典，接收到消息后调用字典中的回调方法
+    /// </summary>
+    protected Dictionary<string, MsgHandler> msgHanderDic;
+
     public UIMgr()
     {
         uiList = new Dictionary<string, UIBase>();
         outTouchList = new List<UIBase>();
         removeList = new List<UIBase>();
         recordList = new List<UIBase>();
+        InitRegisterHandler();
 
         /*---------------UI界面控制脚本添加-------------------*/
         UIBase ui = new UILogin(100, UILevel.Common);
         uiList.Add("UILogin", ui);
+    }
+
+    /// <summary>
+    /// 初始化注册消息监听
+    /// </summary>
+    protected void InitRegisterHandler()
+    {
+        msgHanderDic = null;
+        GameEventMgr.GetInstance().RegisterHandler(this, EventType.UIMsg);
+        msgHanderDic = new Dictionary<string, MsgHandler>()
+        {
+            {"OpenUIWithReturn",data=> { OpenUIWithReturn(data.ParaList[0] as string); }},
+            {"CloseUI",data=>{Close(data.ParaList[0] as string);}},
+        };
+    }
+
+    /// <summary>
+    /// 处理消息的函数的实现
+    /// </summary>
+    /// <param name="gameEvent"></param>事件
+    /// <returns></returns>是否处理成功
+    public bool HandleMessage(GameEvent evt)
+    {
+        bool handled = false;
+        if (EventType.UIMsg == evt.EventType)
+        {
+            if (null != msgHanderDic)
+            {
+                EventData eventData = evt.Para as EventData;
+                if (null != eventData && msgHanderDic.ContainsKey(eventData.Cmd))
+                {
+                    msgHanderDic[eventData.Cmd](eventData);
+                    handled = true;
+                }
+            }
+        }
+        return handled;
+    }
+
+    /// <summary>
+    /// 是否处理了该消息的函数的实现
+    /// </summary>
+    /// <returns></returns>是否处理
+    public bool IsHasHandler(GameEvent evt)
+    {
+        bool handled = false;
+        if (EventType.UIMsg == evt.EventType)
+        {
+            if (null != msgHanderDic)
+            {
+                EventData eventData = evt.Para as EventData;
+                if (null != eventData && msgHanderDic.ContainsKey(eventData.Cmd))
+                {
+                    handled = true;
+                }
+            }
+        }
+        return handled;
     }
 
     /// <summary>
@@ -150,7 +215,7 @@ public class UIMgr : IViewManager
     /// <summary>
     /// 记录并隐藏除了指定类型的当前显示的所有UI；
     /// </summary>
-    public void StashAndHideAllUI(string uiType,params string[] extUITypes)
+    public void StashAndHideAllUI(string uiType, params string[] extUITypes)
     {
         recordList.Clear();
         using (var enumator = uiList.GetEnumerator())
@@ -199,7 +264,7 @@ public class UIMgr : IViewManager
         }
         else
         {
-            CreateUIBlur(ui,uiBlurName);
+            CreateUIBlur(ui, uiBlurName);
         }
     }
 
@@ -211,7 +276,7 @@ public class UIMgr : IViewManager
     private void CreateUIBlur(UIBase ui, string blurName)
     {
         GameObject uiBlurObj = new GameObject(blurName);
-        uiBlurObj.transform.SetParent(ui.Panel.transform,false);
+        uiBlurObj.transform.SetParent(ui.Panel.transform, false);
         uiBlurObj.layer = ui.Layer;
         RawImage rawImage = uiBlurObj.AddComponent<RawImage>();
         Button button = uiBlurObj.AddComponent<Button>();
@@ -221,9 +286,9 @@ public class UIMgr : IViewManager
         {
             rectTransform = uiBlurObj.AddComponent<RectTransform>();
         }
-        rectTransform.anchorMin = new Vector2(-0.1f,-0.1f);
-        rectTransform.anchorMax=new Vector2(1.0f,1.0f);
-        rectTransform.sizeDelta=Vector2.zero;
+        rectTransform.anchorMin = new Vector2(-0.1f, -0.1f);
+        rectTransform.anchorMax = new Vector2(1.0f, 1.0f);
+        rectTransform.sizeDelta = Vector2.zero;
         rectTransform.SetAsFirstSibling();
         SetBlurRawImage(rawImage);
     }
@@ -247,4 +312,6 @@ public class UIMgr : IViewManager
             rawImage.gameObject.SetActive(true);
         }
     }
+
+
 }
