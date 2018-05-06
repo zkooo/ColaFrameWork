@@ -209,13 +209,13 @@ public class UGUIEventListener : MonoBehaviour,
     }
 
 
-    public static UGUIEventListener GetEventListenner(GameObject obj)
-    {
-        UGUIEventListener listenner = obj.GetComponent<UGUIEventListener>();
-        if (listenner == null)
-        {
-            listenner = obj.AddComponent<UGUIEventListener>();
-        }
-        return listenner;
-    }
+    //public static UGUIEventListener GetEventListenner(GameObject obj)
+    //{
+    //    UGUIEventListener listenner = obj.GetComponent<UGUIEventListener>();
+    //    if (listenner == null)
+    //    {
+    //        listenner = obj.AddComponent<UGUIEventListener>();
+    //    }
+    //    return listenner;
+    //}
 }

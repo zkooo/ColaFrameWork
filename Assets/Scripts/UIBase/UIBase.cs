@@ -296,7 +296,7 @@ public class UIBase : IEventHandler
 
     #region UI事件回调处理逻辑
 
-    public void Touch(GameObject obj)
+    public void AttachListener(GameObject obj)
     {
 
         ScrollRect[] rects = obj.GetComponentsInChildren<ScrollRect>(true);
@@ -316,7 +316,7 @@ public class UIBase : IEventHandler
     {
         UGUIEventListener listener = st.gameObject.GetComponent<UGUIEventListener>();
 
-        if (listener == null) //防止多次Touch
+        if (listener == null) //防止多次AttachListener
         {
             if ((st is Scrollbar) || (st is InputField) || (st is Slider))
             {
@@ -331,10 +331,6 @@ public class UIBase : IEventHandler
                     ScrollRect[] rect = st.gameObject.GetComponentsInParent<ScrollRect>(true);
                     useDrag = (rect == null || rect.Length == 0);
                 }
-                //else if (st is ToggleExt)
-                //{
-                //    useDrag = ((ToggleExt)st).useDrag;
-                //}
 
                 if (useDrag)
                 {
@@ -343,19 +339,18 @@ public class UIBase : IEventHandler
                 else
                 {
                     listener = st.gameObject.AddComponent<UGUIEventListener>();
-                    //UGUIEventListenner.GetEventListenner(obj);
                 }
 
             }
         }
         else
         {
-            if (this == listener.uiHandler) //如果当前的和原来的一样 就不用再touch一次
+            if (this == listener.uiHandler) //如果当前的和原来的一样 就不用再Attach一次
             {
                 listener.CurSelectable = st;
                 return;
             }
-            else             //如果想touch一个新的对象 先清除掉原来的
+            else             //如果想Attach一个新的对象 先清除掉原来的
             {
                 UIBase prevHandler = listener.uiHandler;
                 if (null != prevHandler) prevHandler.RemoveEventHandler(listener.gameObject);
@@ -391,21 +386,6 @@ public class UIBase : IEventHandler
         AddOtherEventHandler(listener.gameObject);
     }
 
-    private void onInitializePotentialDrag(GameObject obj)
-    {
-        throw new NotImplementedException();
-    }
-
-    private void onUpDetail(GameObject obj, Vector2 deltapos, Vector2 curtoucposition)
-    {
-        throw new NotImplementedException();
-    }
-
-    private void onDownDetail(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
-    {
-        throw new NotImplementedException();
-    }
-
     void AddOtherEventHandler(GameObject go)
     {
         OtherEventListenner otherlistenner = go.GetComponent<OtherEventListenner>();
@@ -430,7 +410,7 @@ public class UIBase : IEventHandler
         otherlistenner.scrollrectvalueChangeAction += onRectValueChange;
     }
 
-    public void UnTouch(GameObject obj)
+    public void UnAttachListener(GameObject obj)
     {
         Selectable[] selectable = obj.GetComponentsInChildren<Selectable>(true);
 
@@ -570,6 +550,18 @@ public class UIBase : IEventHandler
     }
 
     protected virtual void onEditEnd(GameObject obj, string text)
+    {
+    }
+
+    protected virtual void onInitializePotentialDrag(GameObject obj)
+    {
+    }
+
+    protected virtual void onUpDetail(GameObject obj, Vector2 deltapos, Vector2 curtoucposition)
+    {
+    }
+
+    protected virtual void onDownDetail(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
     {
     }
     #endregion
