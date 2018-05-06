@@ -495,12 +495,16 @@ public static class CommonHelper
             switch (result)
             {
                 case CheckFuncResult.False:
+                    Debug.LogWarning(string.Format("功能未开启{0}", funcName));
                     break;
                 case CheckFuncResult.LevelLimit:
+                    Debug.LogWarning(string.Format("等级限制不能开启{0}", funcName));
                     break;
                 case CheckFuncResult.TimeLimit:
+                    Debug.LogWarning(string.Format("时间限制不能开启{0}", funcName));
                     break;
                 case CheckFuncResult.None:
+                    Debug.LogWarning(string.Format("未知原因不能开启{0}",funcName));
                     break;
                 default:
                     break;
