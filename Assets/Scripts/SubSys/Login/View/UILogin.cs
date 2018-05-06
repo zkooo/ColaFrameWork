@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using EventType = ColaFrame.EventType;
 
 public class UILogin : UIBase
 {
@@ -63,5 +64,25 @@ public class UILogin : UIBase
     public override void UpdateUI(EventData eventData)
     {
         base.UpdateUI(eventData);
+    }
+
+    protected override void onClick(GameObject obj)
+    {
+        if ("cancelBtn" == obj.name)
+        {
+            GameEventMgr.GetInstance().DispatchEvent("CloseUI", EventType.UIMsg, "UILogin");
+        }
+    }
+
+    protected override void onEditEnd(GameObject obj, string text)
+    {
+        if (obj.name == "usernameInput")
+        {
+            Debug.LogWarning("输入用户名："+text);
+        }
+        else if (obj.name == "passwordInput")
+        {
+            Debug.LogWarning("输入密码：" + text);
+        }
     }
 }

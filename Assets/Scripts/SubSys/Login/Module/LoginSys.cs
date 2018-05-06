@@ -11,7 +11,7 @@ public class LoginSys : SubSysBase {
     public override void EnterSys()
     {
         base.EnterSys();
-        GameEventMgr.GetInstance().DispatchEvent("uiLoginPanelOpen", EventType.UIMsg);
+        GameEventMgr.GetInstance().DispatchEvent("OpenUIWithReturn", EventType.UIMsg, "UILogin");
     }
 
     public override void ExitSys()

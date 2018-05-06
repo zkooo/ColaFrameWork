@@ -125,7 +125,7 @@ public class UIBase : IEventHandler
         {
 
         }
-
+        AttachListener(Panel);
         this.OnCreate();
     }
 
