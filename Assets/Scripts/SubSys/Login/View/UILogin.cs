@@ -44,6 +44,18 @@ public class UILogin : UIBase
                 CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
             }
         });
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        using (AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        {
+            using (AndroidJavaObject activity = jc.Get<AndroidJavaObject>("currentActivity"))
+            {
+                int result = activity.Call<int>("Add", 20, 30);
+                Text userNameText = Panel.GetComponentByPath<Text>("center/usernameDes");
+                userNameText.text = result.ToString();
+            }
+        }
+#endif
     }
 
     public override void OnDestroy()
@@ -78,7 +90,7 @@ public class UILogin : UIBase
     {
         if (obj.name == "usernameInput")
         {
-            Debug.LogWarning("输入用户名："+text);
+            Debug.LogWarning("输入用户名：" + text);
         }
         else if (obj.name == "passwordInput")
         {

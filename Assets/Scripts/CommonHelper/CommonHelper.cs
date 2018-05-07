@@ -489,7 +489,7 @@ public static class CommonHelper
     public static CheckFuncResult CheckFuncOpen(string funcName, bool isTips)
     {
         //todo:做些检查工作
-        CheckFuncResult result = CheckFuncResult.None;
+        CheckFuncResult result = CheckFuncResult.True;
         if (CheckFuncResult.True != result && isTips)
         {
             switch (result)
