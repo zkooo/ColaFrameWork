@@ -10,32 +10,51 @@ using System.Threading;
 /// </summary>
 public static class StreamingAssetHelper
 {
-    private static String m_debugDir;
-    public static String DebugDir
+    /// <summary>
+    /// 读取写资源路径
+    /// </summary>
+    private static String assetPath;
+
+    public static String AssetPathDir
     {
-        get { return m_debugDir; }
+        get { return assetPath; }
     }
 
-    public static void SetDebugBaseDir(String debugDir)
+    /// <summary>
+    /// 在可读写路径下设置一个streamingassets路径
+    /// </summary>
+    /// <param name="debugDir"></param>
+    public static void SetAssetPathDir(String debugDir)
     {
-        m_debugDir = Path.Combine(debugDir, "streamingassets");
+        assetPath = Path.Combine(debugDir, "streamingassets");
     }
 
-    public static String MakePath(String subPath)
+    /// <summary>
+    /// 拼接StreamingAsset的子路径
+    /// </summary>
+    /// <param name="subPath"></param>
+    /// <returns></returns>
+    public static String CombinePath(String subPath)
     {
         return Path.Combine(Application.streamingAssetsPath, subPath);
     }
 
+    /// <summary>
+    /// 读取文件(从可读写资源路径或者StreamingAsset中)
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
     public static String ReadFileText(String filePath)
     {
-        String debugPath = m_debugDir != null ? Path.Combine(m_debugDir, filePath) : null;
-        if (debugPath != null && File.Exists(debugPath))        //先尝试调试用目录：assetpath/streamingassets/...
+        String debugPath = assetPath != null ? Path.Combine(assetPath, filePath) : null;
+        //先尝试从debupath中读取文件，如果没有再去StreamingAsset中读取
+        if (debugPath != null && File.Exists(debugPath))
         {
             return File.ReadAllText(debugPath);
         }
         else
         {
-            string fullPath = MakePath(filePath);
+            string fullPath = CombinePath(filePath);
 #if UNITY_ANDROID && !UNITY_EDITOR
 			WWW www = new WWW(fullPath); 
 			while(!www.isDone){}

@@ -67,7 +67,7 @@ public class GameLauncher : MonoBehaviour
 
         Application.logMessageReceived += logHelper.LogCallback;
 #endif
-        
+        StreamingAssetHelper.SetAssetPathDir(AssetPath);
     }
 
     // Use this for initialization
