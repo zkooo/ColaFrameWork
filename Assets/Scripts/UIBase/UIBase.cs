@@ -26,11 +26,6 @@ public class UIBase : IEventHandler
     public string Name { get; protected set; }
 
     /// <summary>
-    /// UI界面的深度
-    /// </summary>
-    public int Depth { get; set; }
-
-    /// <summary>
     /// UI界面的层级
     /// </summary>
     public int Layer
@@ -45,9 +40,9 @@ public class UIBase : IEventHandler
     public bool IsShow { get { return Panel != null && Panel.activeSelf; } }
 
     /// <summary>
-    /// UI的类型
+    /// UI的等级/类型
     /// </summary>
-    protected UILevel uiLevel;
+    public UILevel UILevel { get; set; }
 
     /// <summary>
     /// UI的创建方法
@@ -66,7 +61,7 @@ public class UIBase : IEventHandler
 
     public UIBase(int resId, UILevel uiLevel)
     {
-        this.uiLevel = uiLevel;
+        this.UILevel = uiLevel;
         ResId = resId;
         this.uiCreateType = UICreateType.Res;
         this.Name = CommonHelper.GetResourceMgr().GetResNameById(resId);
@@ -74,7 +69,7 @@ public class UIBase : IEventHandler
 
     public UIBase(GameObject panel, GameObject parent, UILevel uiLevel)
     {
-        this.uiLevel = uiLevel;
+        this.UILevel = uiLevel;
         this.ResId = 0;
         this.Panel = panel;
         this.Panel.transform.SetParent(parent.transform);
