@@ -250,6 +250,28 @@ public class UIMgr : IViewManager, IEventHandler
     }
 
     /// <summary>
+    /// 统一关闭属于某一UI层
+    /// </summary>
+    /// <param name="level"></param>
+    public void CloseUIByLevel(UILevel level)
+    {
+        if (null != uiList)
+        {
+            using (var enumator = uiList.GetEnumerator())
+            {
+                while (enumator.MoveNext())
+                {
+                    var ui = enumator.Current.Value;
+                    if (level == ui.UILevel)
+                    {
+                        ui.Close();
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary>
     /// 显示UI背景模糊
     /// </summary>
     /// <param name="ui"></param>
