@@ -84,6 +84,11 @@ public class UILogin : UIBase
         {
             GameEventMgr.GetInstance().DispatchEvent("CloseUI", EventType.UIMsg, "UILogin");
         }
+
+        if (obj.name == "okBtn")
+        {
+            Debug.LogWarning("点击了OK按钮！");
+        }
     }
 
     protected override void onEditEnd(GameObject obj, string text)
