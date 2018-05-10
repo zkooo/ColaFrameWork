@@ -44,18 +44,6 @@ public class UILogin : UIBase
                 CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
             }
         });
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-        using (AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-        {
-            using (AndroidJavaObject activity = jc.Get<AndroidJavaObject>("currentActivity"))
-            {
-                int result = activity.Call<int>("Add", 20, 30);
-                Text userNameText = Panel.GetComponentByPath<Text>("center/usernameDes");
-                userNameText.text = result.ToString();
-            }
-        }
-#endif
     }
 
     public override void OnDestroy()
@@ -88,6 +76,17 @@ public class UILogin : UIBase
         if (obj.name == "okBtn")
         {
             Debug.LogWarning("点击了OK按钮！");
+#if UNITY_ANDROID && !UNITY_EDITOR
+        using (AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        {
+            using (AndroidJavaObject activity = jc.GetStatic<AndroidJavaObject>("currentActivity"))
+            {
+                int result = activity.Call<int>("Add", 20, 30);
+                Text userNameText = Panel.GetComponentByPath<Text>("center/usernameDes");
+                userNameText.text = result.ToString();
+            }
+        }
+#endif
         }
     }
 
