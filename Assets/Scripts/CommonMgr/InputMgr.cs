@@ -29,14 +29,14 @@ public class InputMgr : MonoBehaviour
     /// </summary>
     public void ConfirmQuit()
     {
-
-#if UNITY_ANDROID
-        //var jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        //var jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
-        //jo.Call("ShowConfirmDialog");
-        var jc = new AndroidJavaClass("com.msxher.ColaFrameWork.ColaMainActivity");
-        var jo = jc.GetStatic<AndroidJavaObject>("GetInstance");
-        jo.Call("ShowConfirmDialog","");
+#if UNITY_ANDROID && !UNITY_EDITOR
+        using (AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        {
+            using (AndroidJavaObject activity = jc.GetStatic<AndroidJavaObject>("currentActivity"))
+            {
+                activity.Call("ShowConfirmDialog");
+            }
+        }
 #endif
     }
 
