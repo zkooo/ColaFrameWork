@@ -2,52 +2,57 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 2SSprite序列帧动画组件
+/// 2DSprite序列帧动画组件
 /// </summary>
 
 public class UGUISpriteAnimation : MonoBehaviour
 {
 	/// <summary>
-	/// 帧率：每秒多少帧
+	/// 帧率：每秒多少帧(支持正播和倒播，帧率为正正播，帧率为负倒播)
 	/// </summary>
 
 	[SerializeField] protected int framerate = 20;
 	
 	/// <summary>
-	/// Should this animation be affected by time scale?
+	/// 动画是否收到TimeScale影响
 	/// </summary>
 
 	public bool ignoreTimeScale = true;
 
 	/// <summary>
-	/// Should this animation be looped?
+	/// 动画是否循环播放
 	/// </summary>
 
 	public bool loop = true;
 
 	/// <summary>
-	/// Actual sprites used for the animation.
+	/// 用于播放的Sprite数据
 	/// </summary>
 
-	public UnityEngine.Sprite[] frames;
+	public Sprite[] frames;
+
+    /// <summary>
+    /// 承载Sprite的Image组件
+    /// </summary>
     public Image image;
+
 	int mIndex = 0;
 	float mUpdate = 0f;
 
 	/// <summary>
-	/// Returns is the animation is still playing or not
+	/// 动画是否在播放中
 	/// </summary>
 
 	public bool isPlaying { get { return enabled; } }
 
 	/// <summary>
-	/// Animation framerate.
+	/// 动画每秒的帧率
 	/// </summary>
 
 	public int framesPerSecond { get { return framerate; } set { framerate = value; } }
 
 	/// <summary>
-	/// Continue playing the animation. If the animation has reached the end, it will restart from beginning
+	/// 播放动画/如果动画播放到结尾了会从头开始重新播放
 	/// </summary>
 
 	public void Play ()
@@ -67,13 +72,13 @@ public class UGUISpriteAnimation : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Pause the animation.
+	/// 暂停动画
 	/// </summary>
 
 	public void Pause () { enabled = false; }
 
 	/// <summary>
-	/// Reset the animation to the beginning.
+	/// 将动画重置为开始第一帧
 	/// </summary>
 
 	public void ResetToBeginning ()
@@ -82,15 +87,9 @@ public class UGUISpriteAnimation : MonoBehaviour
 		UpdateSprite();
 	}
 
-	/// <summary>
-	/// Start playing the animation right away.
-	/// </summary>
 
 	void Start () { Play(); }
 
-	/// <summary>
-	/// Advance the animation as necessary.
-	/// </summary>
 
 	void Update ()
 	{
@@ -118,6 +117,13 @@ public class UGUISpriteAnimation : MonoBehaviour
 			}
 		}
 	}
+
+    /// <summary>
+    /// 循环重置index
+    /// </summary>
+    /// <param name="val"></param>
+    /// <param name="max"></param>
+    /// <returns></returns>
      public int RepeatIndex(int val, int max)
     {
         if (max < 1) return 0;
@@ -127,7 +133,7 @@ public class UGUISpriteAnimation : MonoBehaviour
     }
 
 	/// <summary>
-	/// Immediately update the visible sprite.
+	/// 刷新展示Sprite
 	/// </summary>
 
      void UpdateSprite()
@@ -142,7 +148,7 @@ public class UGUISpriteAnimation : MonoBehaviour
              }
          }
 
-         float time = ignoreTimeScale ? RealTime.time : Time.time;
+         float time = ignoreTimeScale ? Time.unscaledTime : Time.time;
          if (framerate != 0) mUpdate = time + Mathf.Abs(1f / framerate);
 
          if (image != null)
