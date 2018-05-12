@@ -114,7 +114,10 @@ public class UIMgr : IViewManager, IEventHandler
     /// <param name="ui"></param>
     public void SetOutTouchDisappear(UIBase ui)
     {
-        outTouchList.Add(ui);
+        if (!outTouchList.Contains(ui))
+        {
+            outTouchList.Add(ui);
+        }
     }
 
     /// <summary>
