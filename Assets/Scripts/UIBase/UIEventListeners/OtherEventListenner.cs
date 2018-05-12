@@ -29,6 +29,11 @@ public class OtherEventListenner : MonoBehaviour
     //scrollrect
     public RectValueChangeAction scrollrectvalueChangeAction;
 
+    /// <summary>
+    /// 新增触发事件回调，参数为触发的UI事件名称，比如onClick,onBoolValueChange,onSubmit等等
+    /// </summary>
+    public Action<string> onEvent;
+
     public void Awake()
     {
         //inputEditEndAction += delegate { };
@@ -76,6 +81,11 @@ public class OtherEventListenner : MonoBehaviour
         {
             inputvalueChangeAction(gameObject, text);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onStrValueChange");
+        }
     }
 
     private void inputEditEndHanler(string text)
@@ -83,6 +93,11 @@ public class OtherEventListenner : MonoBehaviour
         if (inputeditEndAction != null)
         {
             inputeditEndAction(gameObject, text);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onEditEnd");
         }
     }
 
@@ -92,6 +107,11 @@ public class OtherEventListenner : MonoBehaviour
         {
             togglevalueChangeAction(gameObject, select);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onBoolValueChange");
+        }
     }
 
     private void sliderValueChangeHandler(float value)
@@ -99,6 +119,11 @@ public class OtherEventListenner : MonoBehaviour
         if (slidervalueChangeAction != null)
         {
             slidervalueChangeAction(gameObject, value);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onFloatValueChange");
         }
     }
 
@@ -108,6 +133,11 @@ public class OtherEventListenner : MonoBehaviour
         {
             scrollbarvalueChangeAction(gameObject, value);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onFloatValueChange");
+        }
     }
 
     private void dropdownValueChangeHandler(int value)
@@ -116,6 +146,11 @@ public class OtherEventListenner : MonoBehaviour
         {
             dropdownvalueChangeAction(gameObject, value);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onIntValueChange");
+        }
     }
 
     private void scrollrectValueChangeHandler(Vector2 rect)
@@ -123,6 +158,11 @@ public class OtherEventListenner : MonoBehaviour
         if (scrollrectvalueChangeAction != null)
         {
             scrollrectvalueChangeAction(gameObject, rect);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onRectValueChange");
         }
     }
 
@@ -133,6 +173,11 @@ public class OtherEventListenner : MonoBehaviour
             if (scrollrectvalueChangeAction != null)
             {
                 scrollrectvalueChangeAction(gameObject, rect);
+            }
+
+            if (null != onEvent)
+            {
+                this.onEvent("onRectValueChange");
             }
         };
     }

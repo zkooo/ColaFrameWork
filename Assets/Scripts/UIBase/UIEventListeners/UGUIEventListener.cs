@@ -1,9 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using System.Collections;
-using System.Collections.Generic;
 
 public class UGUIEventListener : MonoBehaviour,
                                   IMoveHandler,
@@ -60,6 +58,11 @@ public class UGUIEventListener : MonoBehaviour,
     public UIEventHandler onCancel;
     public UIEventHandler onUpdateSelected;
     public UIEventHandler onInitializePotentialDrag;
+    /// <summary>
+    /// 新增触发事件回调，参数为触发的UI事件名称，比如onClick,onBoolValueChange,onSubmit等等
+    /// </summary>
+    public Action<string> onEvent;
+
     //统一检查是否需要屏蔽点击事件
     protected bool CheckNeedHideEvent()
     {
@@ -70,6 +73,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         return false;
     }
+
     public virtual void OnPointerClick(PointerEventData eventData)
     {
         if (CheckNeedHideEvent())
@@ -80,6 +84,11 @@ public class UGUIEventListener : MonoBehaviour,
         if (this.onClick != null)
         {
             this.onClick(gameObject);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onClick");
         }
     }
 
@@ -98,6 +107,12 @@ public class UGUIEventListener : MonoBehaviour,
         {
             this.onDownDetail(gameObject, eventData.delta, eventData.position);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onDown");
+            this.onEvent("onDownDetail");
+        }
     }
 
     public virtual void OnPointerUp(PointerEventData eventData)
@@ -115,6 +130,12 @@ public class UGUIEventListener : MonoBehaviour,
         {
             this.onUpDetail(gameObject, eventData.delta, eventData.position);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onUp");
+            this.onEvent("onUpDetail");
+        }
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
@@ -128,6 +149,11 @@ public class UGUIEventListener : MonoBehaviour,
         {
             this.onExit(gameObject);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onExit");
+        }
     }
 
     public virtual void OnSelect(BaseEventData eventData)
@@ -140,6 +166,11 @@ public class UGUIEventListener : MonoBehaviour,
         if (this.onSelect != null)
         {
             this.onSelect(gameObject);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onSelect");
         }
     }
 
@@ -156,6 +187,11 @@ public class UGUIEventListener : MonoBehaviour,
         {
             this.onMove(gameObject);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onMove");
+        }
     }
 
     public virtual void OnPointerEnter(PointerEventData eventData)
@@ -167,6 +203,11 @@ public class UGUIEventListener : MonoBehaviour,
         if (this.onEnter != null)
         {
             this.onEnter(gameObject);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onEnter");
         }
     }
 
@@ -181,6 +222,11 @@ public class UGUIEventListener : MonoBehaviour,
         {
             this.onSubmit(gameObject);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onSubmit");
+        }
     }
 
     public void OnCancel(BaseEventData eventData)
@@ -194,6 +240,11 @@ public class UGUIEventListener : MonoBehaviour,
         {
             this.onCancel(gameObject);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onCancel");
+        }
     }
 
     public void OnDeselect(BaseEventData eventData)
@@ -205,6 +256,11 @@ public class UGUIEventListener : MonoBehaviour,
         if (this.onDeSelect != null)
         {
             this.onDeSelect(gameObject);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onDeSelect");
         }
     }
 

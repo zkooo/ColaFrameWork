@@ -22,6 +22,11 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             this.onDrag(gameObject, eventData.delta,eventData.position);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onDrag");
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -34,6 +39,11 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         if (this.onDrop != null)
         {
             this.onDrop(gameObject);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("OnDrop");
         }
     }
 
@@ -48,6 +58,11 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             this.onBeginDrag(gameObject, eventData.delta, eventData.position);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onBeginDrag");
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -59,6 +74,11 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         if (this.onEndDrag != null)
         {
             this.onEndDrag(gameObject, eventData.delta, eventData.position);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onEndDrag");
         }
     }
 
@@ -73,6 +93,11 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             this.onScroll(gameObject);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onScroll");
+        }
     }
 
     public void OnUpdateSelected(BaseEventData eventData)
@@ -86,6 +111,11 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             this.onUpdateSelected(gameObject);
         }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onUpdateSelected");
+        }
     }
 
     public void OnInitializePotentialDrag(PointerEventData eventData)
@@ -98,6 +128,11 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         if (this.onInitializePotentialDrag != null)
         {
             this.onInitializePotentialDrag(gameObject);
+        }
+
+        if (null != onEvent)
+        {
+            this.onEvent("onInitializePotentialDrag");
         }
     }
                 

@@ -285,6 +285,14 @@ public class UIBase : IEventHandler
         CommonHelper.GetUIMgr().ShowUIBlur(this);
     }
 
+    /// <summary>
+    /// 设置点击外部关闭(执行该方法以后，当点击其他UI的时候，会自动关闭本UI)
+    /// </summary>
+    public void SetOutTouchDisappear()
+    {
+        CommonHelper.GetUIMgr().SetOutTouchDisappear(this);
+    }
+
     #region UI事件回调处理逻辑
 
     /// <summary>
@@ -378,6 +386,7 @@ public class UIBase : IEventHandler
         listener.onMove += onMove;
         listener.onUpdateSelected += onUpdateSelected;
         listener.onInitializePotentialDrag += this.onInitializePotentialDrag;
+        listener.onEvent += onEvent;
         AddOtherEventHandler(listener.gameObject);
     }
 
@@ -393,6 +402,7 @@ public class UIBase : IEventHandler
         otherlistenner.scrollbarvalueChangeAction += onFloatValueChange;
         otherlistenner.scrollrectvalueChangeAction += onRectValueChange;
         otherlistenner.dropdownvalueChangeAction += onIntValueChange;
+        otherlistenner.onEvent += onEvent;
     }
 
     void AddOtherEventListenner(ScrollRect rect)
@@ -403,6 +413,7 @@ public class UIBase : IEventHandler
             otherlistenner = rect.gameObject.AddComponent<OtherEventListenner>();
         rect.onValueChanged.AddListener(otherlistenner.scrollrectValueChangeHandler());
         otherlistenner.scrollrectvalueChangeAction += onRectValueChange;
+        otherlistenner.onEvent += onEvent;
     }
 
     /// <summary>
@@ -443,6 +454,7 @@ public class UIBase : IEventHandler
         listener.onMove -= onMove;
         listener.onUpdateSelected -= onUpdateSelected;
         listener.onInitializePotentialDrag -= onInitializePotentialDragHandle;
+        listener.onEvent -= onEvent;
 
         OtherEventListenner otherlistenner = listener.gameObject.GetComponent<OtherEventListenner>();
         if (otherlistenner != null)
@@ -454,6 +466,7 @@ public class UIBase : IEventHandler
             otherlistenner.scrollbarvalueChangeAction -= onFloatValueChange;
             otherlistenner.scrollrectvalueChangeAction -= onRectValueChange;
             otherlistenner.dropdownvalueChangeAction -= onIntValueChange;
+            otherlistenner.onEvent -= onEvent;
         }
     }
     #endregion
@@ -563,5 +576,14 @@ public class UIBase : IEventHandler
     protected virtual void onDownDetail(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
     {
     }
+
+    /// <summary>
+    /// 触发UI事件时会触发onEvent方法(在需要的事件里面添加即可)
+    /// </summary>
+    /// <param name="eventName"></param>触发的事件名称
+    protected virtual void onEvent(string eventName)
+    {
+    }
+
     #endregion
 }
