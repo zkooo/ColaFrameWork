@@ -8,6 +8,7 @@ using EventType = ColaFrame.EventType;
 
 public class UILogin : UIBase
 {
+    private UIHintTest uiHintTest;
     public UILogin(int resId, UILevel uiLevel) : base(resId, uiLevel)
     {
     }
@@ -44,6 +45,8 @@ public class UILogin : UIBase
                 CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
             }
         });
+        GameObject hintObj = Panel.FindChildByPath("center/uiTextHint");
+        uiHintTest = new UIHintTest(hintObj,null,UILevel.Level2);
     }
 
     public override void OnDestroy()
@@ -70,12 +73,18 @@ public class UILogin : UIBase
     {
         if ("cancelBtn" == obj.name)
         {
-            GameEventMgr.GetInstance().DispatchEvent("CloseUI", EventType.UIMsg, "UILogin");
+            //GameEventMgr.GetInstance().DispatchEvent("CloseUI", EventType.UIMsg, "UILogin");
         }
 
         if (obj.name == "okBtn")
         {
             Debug.LogWarning("点击了OK按钮！");
+            uiHintTest.Open();
+            uiHintTest.Show(true);
+        }
+        if (obj.name == "bg")
+        {
+            Debug.LogWarning("点击了bg按钮");
         }
     }
 

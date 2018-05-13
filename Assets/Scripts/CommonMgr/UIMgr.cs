@@ -229,7 +229,7 @@ public class UIMgr : IViewManager, IEventHandler
                     !CommonHelper.IsArrayContainString(enumator.Current.Key, extUITypes))
                 {
                     recordList.Add(enumator.Current.Value);
-                    enumator.Current.Value.SetActive(false);
+                    enumator.Current.Value.Show(false);
                 }
             }
         }
@@ -247,7 +247,7 @@ public class UIMgr : IViewManager, IEventHandler
 
         for (int i = 0; i < recordList.Count; i++)
         {
-            recordList[i].SetActive(true);
+            recordList[i].Show(true);
         }
         recordList.Clear();
     }

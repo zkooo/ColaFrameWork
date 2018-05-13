@@ -72,7 +72,10 @@ public class UIBase : IEventHandler
         this.UILevel = uiLevel;
         this.ResId = 0;
         this.Panel = panel;
-        this.Panel.transform.SetParent(parent.transform);
+        if (null != parent)
+        {
+            this.Panel.transform.SetParent(parent.transform, false);
+        }
         this.Name = panel.name;
         this.uiCreateType = UICreateType.Go;
     }
@@ -118,7 +121,6 @@ public class UIBase : IEventHandler
         }
         else if (UICreateType.Go == uiCreateType)
         {
-
         }
         AttachListener(Panel);
         this.OnCreate();
@@ -159,7 +161,7 @@ public class UIBase : IEventHandler
     /// 设置一个UI界面的显隐
     /// </summary>
     /// <param name="isActive"></param>UI界面是否显示
-    public void SetActive(bool isActive)
+    public void Show(bool isActive)
     {
         this.Panel.SetActive(isActive);
         this.OnShow(isActive);
@@ -345,6 +347,7 @@ public class UIBase : IEventHandler
                 }
 
             }
+            listener.uiHandler = this;
         }
         else
         {
@@ -583,6 +586,10 @@ public class UIBase : IEventHandler
     /// <param name="eventName"></param>触发的事件名称
     protected virtual void onEvent(string eventName)
     {
+        if (eventName == "onClick")
+        {
+            CommonHelper.GetUIMgr().NotifyDisappear(Name);
+        }
     }
 
     #endregion
