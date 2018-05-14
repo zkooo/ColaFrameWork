@@ -59,6 +59,11 @@ public class UIBase : IEventHandler
     /// </summary>
     protected EventData eventData;
 
+    /// <summary>
+    /// 存储关联的子UI列表
+    /// </summary>
+    private List<UIBase> subUIList;
+
     public UIBase(int resId, UILevel uiLevel)
     {
         this.UILevel = uiLevel;
@@ -140,6 +145,7 @@ public class UIBase : IEventHandler
     /// </summary>
     public virtual void Destroy()
     {
+        DestroySubPanels();
         this.UnRegisterHandler();
         UnAttachListener(Panel);
         if (null != Panel)
@@ -183,6 +189,53 @@ public class UIBase : IEventHandler
     {
         if (null == eventData) return;
         this.eventData = eventData;
+    }
+
+    /// <summary>
+    /// 关联子UI
+    /// </summary>
+    /// <param name="subPanelPath"></param>
+    /// <param name="subUI"></param>
+    public void AttachSubPanel(string subPanelPath, UIBase subUI, UILevel uiLevel)
+    {
+        if (null == subUIList)
+        {
+            subUIList = new List<UIBase>();
+        }
+        if (string.IsNullOrEmpty(subPanelPath)) { return; }
+        GameObject subUIObj = Panel.FindChildByPath(subPanelPath);
+        if (null != subUIObj)
+        {
+            subUI = new UIBase(subUIObj, null, uiLevel);
+            subUIList.Add(subUI);
+        }
+    }
+
+    /// <summary>
+    /// 解除子UI关联
+    /// </summary>
+    /// <param name="subUI"></param>
+    public void DetchSubPanel(UIBase subUI)
+    {
+        if (null != subUIList)
+        {
+            subUIList.Remove(subUI);
+        }
+    }
+
+    /// <summary>
+    /// 销毁关联的子面板
+    /// </summary>
+    private void DestroySubPanels()
+    {
+        if (null != subUIList)
+        {
+            for (int i = 0; i < subUIList.Count; i++)
+            {
+                subUIList[i].Destroy();
+                subUIList[i].Panel = null;
+            }
+        }
     }
 
     /// <summary>
