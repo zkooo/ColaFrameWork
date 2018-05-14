@@ -8,8 +8,10 @@ public class UIHintTest : UIBase
     {
     }
 
-    public UIHintTest(GameObject panel, GameObject parent, UILevel uiLevel) : base(panel, parent, uiLevel)
+    public override void Create()
     {
+        base.Create();
+        SetOutTouchDisappear();
     }
 
     protected override void onClick(GameObject obj)

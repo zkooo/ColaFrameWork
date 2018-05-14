@@ -67,7 +67,7 @@ public class UIBase : IEventHandler
         this.Name = CommonHelper.GetResourceMgr().GetResNameById(resId);
     }
 
-    public UIBase(GameObject panel, GameObject parent, UILevel uiLevel)
+    protected UIBase(GameObject panel, GameObject parent, UILevel uiLevel)
     {
         this.UILevel = uiLevel;
         this.ResId = 0;
@@ -121,6 +121,7 @@ public class UIBase : IEventHandler
         }
         else if (UICreateType.Go == uiCreateType)
         {
+            Show(true);
         }
         AttachListener(Panel);
         this.OnCreate();
@@ -143,9 +144,16 @@ public class UIBase : IEventHandler
         UnAttachListener(Panel);
         if (null != Panel)
         {
-            GameObject.Destroy(Panel);
+            if (uiCreateType == UICreateType.Res)
+            {
+                GameObject.Destroy(Panel);
+                Panel = null;
+            }
+            else if (UICreateType.Go == uiCreateType)
+            {
+                Show(false);
+            }
         }
-        Panel = null;
         this.OnDestroy();
     }
 
@@ -313,11 +321,11 @@ public class UIBase : IEventHandler
 
         foreach (Selectable st in selectable)
         {
-            AddEventHandler(st);
+            AddEventaHandler(st);
         }
     }
 
-    void AddEventHandler(Selectable st)
+    void AddEventaHandler(Selectable st)
     {
         UGUIEventListener listener = st.gameObject.GetComponent<UGUIEventListener>();
 
