@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using System.Collections;
-using System.Collections.Generic;
 using System;
 
 //用来处理一些控件独有 不能统一处理的事件
@@ -77,92 +74,85 @@ public class OtherEventListenner : MonoBehaviour
 
     private void inputValueChangeHandler(string text)
     {
-        if (inputvalueChangeAction != null)
-        {
-            inputvalueChangeAction(gameObject, text);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onStrValueChange");
+        }
+        if (inputvalueChangeAction != null)
+        {
+            inputvalueChangeAction(gameObject, text);
         }
     }
 
     private void inputEditEndHanler(string text)
     {
-        if (inputeditEndAction != null)
-        {
-            inputeditEndAction(gameObject, text);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onEditEnd");
+        }
+        if (inputeditEndAction != null)
+        {
+            inputeditEndAction(gameObject, text);
         }
     }
 
     private void toggleValueChangeHandler(bool select)
     {
-        if (togglevalueChangeAction != null)
-        {
-            togglevalueChangeAction(gameObject, select);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onBoolValueChange");
+        }
+        if (togglevalueChangeAction != null)
+        {
+            togglevalueChangeAction(gameObject, select);
         }
     }
 
     private void sliderValueChangeHandler(float value)
     {
-        if (slidervalueChangeAction != null)
-        {
-            slidervalueChangeAction(gameObject, value);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onFloatValueChange");
+        }
+        if (slidervalueChangeAction != null)
+        {
+            slidervalueChangeAction(gameObject, value);
         }
     }
 
     private void scrollbarValueChangeHandler(float value)
     {
-        if (scrollbarvalueChangeAction != null)
-        {
-            scrollbarvalueChangeAction(gameObject, value);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onFloatValueChange");
+        }
+        if (scrollbarvalueChangeAction != null)
+        {
+            scrollbarvalueChangeAction(gameObject, value);
         }
     }
 
     private void dropdownValueChangeHandler(int value)
     {
-        if (dropdownvalueChangeAction != null)
-        {
-            dropdownvalueChangeAction(gameObject, value);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onIntValueChange");
+        }
+        if (dropdownvalueChangeAction != null)
+        {
+            dropdownvalueChangeAction(gameObject, value);
         }
     }
 
     private void scrollrectValueChangeHandler(Vector2 rect)
     {
-        if (scrollrectvalueChangeAction != null)
-        {
-            scrollrectvalueChangeAction(gameObject, rect);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onRectValueChange");
+        }
+        if (scrollrectvalueChangeAction != null)
+        {
+            scrollrectvalueChangeAction(gameObject, rect);
         }
     }
 
@@ -170,14 +160,13 @@ public class OtherEventListenner : MonoBehaviour
     {
         return delegate (Vector2 rect)
         {
-            if (scrollrectvalueChangeAction != null)
-            {
-                scrollrectvalueChangeAction(gameObject, rect);
-            }
-
             if (null != onEvent)
             {
                 this.onEvent("onRectValueChange");
+            }
+            if (scrollrectvalueChangeAction != null)
+            {
+                scrollrectvalueChangeAction(gameObject, rect);
             }
         };
     }

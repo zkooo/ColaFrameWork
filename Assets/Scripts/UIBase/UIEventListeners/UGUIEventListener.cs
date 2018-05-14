@@ -80,15 +80,13 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-
-        if (this.onClick != null)
-        {
-            this.onClick(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onClick");
+        }
+        if (this.onClick != null)
+        {
+            this.onClick(gameObject);
         }
     }
 
@@ -98,7 +96,11 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-
+        if (null != onEvent)
+        {
+            this.onEvent("onDown");
+            this.onEvent("onDownDetail");
+        }
         if (this.onDown != null)
         {
             this.onDown(gameObject);
@@ -106,12 +108,6 @@ public class UGUIEventListener : MonoBehaviour,
         if (this.onDownDetail != null)
         {
             this.onDownDetail(gameObject, eventData.delta, eventData.position);
-        }
-
-        if (null != onEvent)
-        {
-            this.onEvent("onDown");
-            this.onEvent("onDownDetail");
         }
     }
 
@@ -121,7 +117,11 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-
+        if (null != onEvent)
+        {
+            this.onEvent("onUp");
+            this.onEvent("onUpDetail");
+        }
         if (this.onUp != null)
         {
             this.onUp(gameObject);
@@ -129,12 +129,6 @@ public class UGUIEventListener : MonoBehaviour,
         if (this.onUpDetail != null)
         {
             this.onUpDetail(gameObject, eventData.delta, eventData.position);
-        }
-
-        if (null != onEvent)
-        {
-            this.onEvent("onUp");
-            this.onEvent("onUpDetail");
         }
     }
 
@@ -144,15 +138,13 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-
-        if (this.onExit != null)
-        {
-            this.onExit(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onExit");
+        }
+        if (this.onExit != null)
+        {
+            this.onExit(gameObject);
         }
     }
 
@@ -162,15 +154,13 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-
-        if (this.onSelect != null)
-        {
-            this.onSelect(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onSelect");
+        }
+        if (this.onSelect != null)
+        {
+            this.onSelect(gameObject);
         }
     }
 
@@ -182,15 +172,13 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-
-        if (this.onMove != null)
-        {
-            this.onMove(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onMove");
+        }
+        if (this.onMove != null)
+        {
+            this.onMove(gameObject);
         }
     }
 
@@ -200,14 +188,13 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-        if (this.onEnter != null)
-        {
-            this.onEnter(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onEnter");
+        }
+        if (this.onEnter != null)
+        {
+            this.onEnter(gameObject);
         }
     }
 
@@ -217,15 +204,13 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-
-        if (this.onSubmit != null)
-        {
-            this.onSubmit(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onSubmit");
+        }
+        if (this.onSubmit != null)
+        {
+            this.onSubmit(gameObject);
         }
     }
 
@@ -235,15 +220,13 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-
-        if (this.onCancel != null)
-        {
-            this.onCancel(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onCancel");
+        }
+        if (this.onCancel != null)
+        {
+            this.onCancel(gameObject);
         }
     }
 
@@ -253,14 +236,13 @@ public class UGUIEventListener : MonoBehaviour,
         {
             return;
         }
-        if (this.onDeSelect != null)
-        {
-            this.onDeSelect(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onDeSelect");
+        }
+        if (this.onDeSelect != null)
+        {
+            this.onDeSelect(gameObject);
         }
     }
 

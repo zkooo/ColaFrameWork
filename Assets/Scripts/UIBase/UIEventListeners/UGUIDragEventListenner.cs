@@ -17,15 +17,13 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             return;
         }
-
-        if (this.onDrag != null)
-        {
-            this.onDrag(gameObject, eventData.delta,eventData.position);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onDrag");
+        }
+        if (this.onDrag != null)
+        {
+            this.onDrag(gameObject, eventData.delta,eventData.position);
         }
     }
 
@@ -35,15 +33,13 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             return;
         }
-
-        if (this.onDrop != null)
-        {
-            this.onDrop(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("OnDrop");
+        }
+        if (this.onDrop != null)
+        {
+            this.onDrop(gameObject);
         }
     }
 
@@ -53,15 +49,13 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             return;
         }
-
-        if (this.onBeginDrag != null)
-        {
-            this.onBeginDrag(gameObject, eventData.delta, eventData.position);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onBeginDrag");
+        }
+        if (this.onBeginDrag != null)
+        {
+            this.onBeginDrag(gameObject, eventData.delta, eventData.position);
         }
     }
 
@@ -71,14 +65,13 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             return;
         }
-        if (this.onEndDrag != null)
-        {
-            this.onEndDrag(gameObject, eventData.delta, eventData.position);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onEndDrag");
+        }
+        if (this.onEndDrag != null)
+        {
+            this.onEndDrag(gameObject, eventData.delta, eventData.position);
         }
     }
 
@@ -88,15 +81,13 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             return;
         }
-
-        if (this.onScroll != null)
-        {
-            this.onScroll(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onScroll");
+        }
+        if (this.onScroll != null)
+        {
+            this.onScroll(gameObject);
         }
     }
 
@@ -106,15 +97,13 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             return;
         }
-
-        if (this.onUpdateSelected != null)
-        {
-            this.onUpdateSelected(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onUpdateSelected");
+        }
+        if (this.onUpdateSelected != null)
+        {
+            this.onUpdateSelected(gameObject);
         }
     }
 
@@ -124,15 +113,13 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         {
             return;
         }
-
-        if (this.onInitializePotentialDrag != null)
-        {
-            this.onInitializePotentialDrag(gameObject);
-        }
-
         if (null != onEvent)
         {
             this.onEvent("onInitializePotentialDrag");
+        }
+        if (this.onInitializePotentialDrag != null)
+        {
+            this.onInitializePotentialDrag(gameObject);
         }
     }
                 
