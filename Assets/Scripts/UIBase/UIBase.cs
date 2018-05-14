@@ -192,7 +192,7 @@ public class UIBase : IEventHandler
     }
 
     /// <summary>
-    /// 关联子UI
+    /// 关联子UI，统一参与管理
     /// </summary>
     /// <param name="subPanelPath"></param>
     /// <param name="subUI"></param>
@@ -202,6 +202,7 @@ public class UIBase : IEventHandler
         {
             subUIList = new List<UIBase>();
         }
+        if (subUI == null) { return; }
         if (string.IsNullOrEmpty(subPanelPath)) { return; }
         GameObject subUIObj = Panel.FindChildByPath(subPanelPath);
         if (null != subUIObj)
@@ -209,6 +210,19 @@ public class UIBase : IEventHandler
             subUI = new UIBase(subUIObj, null, uiLevel);
             subUIList.Add(subUI);
         }
+    }
+
+    /// <summary>
+    /// 将一个UI界面注册为本UI的子界面，统一参与管理
+    /// </summary>
+    public void RegisterSubPanel(UIBase subUI)
+    {
+        if (null == subUIList)
+        {
+            subUIList = new List<UIBase>();
+        }
+        if (subUI == null) { return; }
+        subUIList.Add(subUI);
     }
 
     /// <summary>
@@ -235,6 +249,7 @@ public class UIBase : IEventHandler
                 subUIList[i].Destroy();
                 subUIList[i].Panel = null;
             }
+            subUIList.Clear();
         }
     }
 
