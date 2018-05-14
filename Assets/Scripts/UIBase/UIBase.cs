@@ -72,15 +72,17 @@ public class UIBase : IEventHandler
         this.Name = CommonHelper.GetResourceMgr().GetResNameById(resId);
     }
 
-    protected UIBase(GameObject panel, GameObject parent, UILevel uiLevel)
+    protected UIBase()
+    {
+        this.ResId = 0;
+        this.uiCreateType = UICreateType.Go;
+    }
+
+    protected void CreateWithGO(GameObject panel, UILevel uiLevel)
     {
         this.UILevel = uiLevel;
         this.ResId = 0;
         this.Panel = panel;
-        if (null != parent)
-        {
-            this.Panel.transform.SetParent(parent.transform, false);
-        }
         this.Name = panel.name;
         this.uiCreateType = UICreateType.Go;
     }
@@ -207,7 +209,7 @@ public class UIBase : IEventHandler
         GameObject subUIObj = Panel.FindChildByPath(subPanelPath);
         if (null != subUIObj)
         {
-            subUI = new UIBase(subUIObj, null, uiLevel);
+            subUI.CreateWithGO(subUIObj, uiLevel);
             subUIList.Add(subUI);
         }
     }

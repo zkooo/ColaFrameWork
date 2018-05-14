@@ -8,6 +8,11 @@ public class UIHintTest : UIBase
     {
     }
 
+    public UIHintTest()
+    {
+
+    }
+
     public override void Create()
     {
         base.Create();
