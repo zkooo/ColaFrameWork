@@ -67,6 +67,8 @@ public class GameLauncher : MonoBehaviour
 
         Application.logMessageReceived += logHelper.LogCallback;
 #endif
+        //初始化多线程工具
+        ColaLoom.Initialize();
         StreamingAssetHelper.SetAssetPathDir(AssetPath);
     }
 

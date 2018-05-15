@@ -11,7 +11,7 @@ public class LoomTest : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-        gameObject.AddComponent<ColaLoom>();
+        ColaLoom.Initialize();
         _text = this.transform.Find("Text").GetComponent<Text>();
         ColaLoom.RunAsync(UpdateUI);
     }

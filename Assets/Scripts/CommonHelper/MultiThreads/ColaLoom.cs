@@ -47,15 +47,18 @@ public class ColaLoom : MonoBehaviour
         initialized = true;
     }
 
-
-    private static void Initialize()
+    /// <summary>
+    /// 初始化ColaLoom多线程工具，只在游戏开始调用一次就好
+    /// </summary>
+    public static void Initialize()
     {
         if (!initialized)
         {
             if (!Application.isPlaying)
                 return;
             initialized = true;
-            var g = new GameObject("Loom");
+            var g = new GameObject("ColaLoom");
+            DontDestroyOnLoad(g);
             _current = g.AddComponent<ColaLoom>();
         }
     }
