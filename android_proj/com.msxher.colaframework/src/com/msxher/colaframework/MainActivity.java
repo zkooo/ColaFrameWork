@@ -124,11 +124,12 @@ public class MainActivity extends UnityPlayerActivity {
 	 * @param assetDir  源文件/文件夹
 	 * @param dir  目标文件夹
 	 */
-	public void copyAssets(String assetDir, String targetDir) {
+	public boolean copyAssets(String assetDir, String targetDir) {
 		if (TextUtils.isEmpty(assetDir) || TextUtils.isEmpty(targetDir)) {
-			return;
+			return true;
 		}
 		String separator = File.separator;
+		boolean ret = false;
 		try {
 			Context context = this.getApplicationContext();
 			// 获取assets目录assetDir下一级所有文件以及文件夹
@@ -145,9 +146,12 @@ public class MainActivity extends UnityPlayerActivity {
 			} else { // 文件,则执行拷贝
 				copy(context, assetDir, targetDir);
 			}
+			ret = true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			ret = false;
 		}
+		return ret;
 	}
    
 }
