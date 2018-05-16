@@ -15,6 +15,10 @@ public static class StreamingAssetHelper
     /// </summary>
     private static String assetPath;
 
+    private static string sourceDir;
+    private static string destDir;
+    private static Action<bool> callback;
+
     public static String AssetPathDir
     {
         get { return assetPath; }
@@ -64,50 +68,47 @@ public static class StreamingAssetHelper
 #endif
         }
     }
+    //&& ( ! UNITY_EDITOR)
+#if UNITY_ANDROID
+    /// <summary>
+    /// 在Android平台上，从(apk包中的) Assets目录复制文件至指定目录
+    /// 注意：只能在子线程中调用
+    /// </summary>
+    /// <param name="sourceDir">源目录，是以 assets 为根目录的相对路径</param>
+    /// <param name="destDir">目标目录</param>
+    /// <param name="title">进度对话框标题</param>
+    /// <returns></returns>
+    public static void CopyAssetDirectoryInThread(String sourceDir, String destDir,Action<bool> callback)
+    {
+        StreamingAssetHelper.sourceDir = sourceDir;
+        StreamingAssetHelper.destDir = destDir;
+        StreamingAssetHelper.callback = callback;
+        ColaLoom.RunAsync(CopyAssetDirectory);
+    }
 
-#if UNITY_ANDROID && ( ! UNITY_EDITOR)
-	/// <summary>
-	/// 在Android平台上，从(apk包中的) Assets目录复制文件至指定目录
-	/// 注意：只能在子线程中调用
-	/// </summary>
-	/// <param name="sourceDir">源目录，是以 assets 为根目录的相对路径</param>
-	/// <param name="destDir">目标目录</param>
-	/// <param name="title">进度对话框标题</param>
-	/// <returns></returns>
-	public static Boolean CopyAssetDirectoryInThread(String sourceDir, String destDir, String title)
-	{
-		Boolean ret = false;
-		MainThreadTask.RunUntilFinish(()=>
-			{
-				ret = CopyAssetDirectory(sourceDir, destDir, title);
-			});
-		return ret;
-	}
+    /// <summary>
+    /// 在Android平台上，从(apk包中的) Assets目录复制文件至指定目录
+    /// 注意：只能在主线程中调用
+    /// </summary>
+    /// <param name="sourceDir">源目录，是以 assets 为根目录的相对路径</param>
+    /// <param name="destDir">目标目录</param>
+    /// <param name="title">进度对话框标题</param>
+    /// <returns></returns>
+    public static void CopyAssetDirectory()
+    {
+        ColaLoom.QueueOnMainThread(() =>
+        {
+            Debug.Log("CopyAssetDirectory, sourceDir = " + sourceDir + ", destDir = " + destDir);
 
-	/// <summary>
-	/// 在Android平台上，从(apk包中的) Assets目录复制文件至指定目录
-	/// 注意：只能在主线程中调用
-	/// </summary>
-	/// <param name="sourceDir">源目录，是以 assets 为根目录的相对路径</param>
-	/// <param name="destDir">目标目录</param>
-	/// <param name="title">进度对话框标题</param>
-	/// <returns></returns>
-	public static Boolean CopyAssetDirectory(String sourceDir, String destDir, String title)
-	{
-		Debug.Log("CopyAssetDirectory, sourceDir = " + sourceDir + ", destDir = " + destDir);
+            AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject currentActitivy = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
-		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-		AndroidJavaObject currentActitivy = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-		
-		AndroidJavaClass CopyAssetDirectory = new AndroidJavaClass("com.pwrd.copyassetdirectory.CopyAssetDirectory");
+            Debug.Log("CopyAssetDirectory before execute");
 
-		Debug.Log("CopyAssetDirectory before execute");
-
-		CopyAssetDirectory.CallStatic("execute",
-			currentActitivy, sourceDir, destDir, title);
-
-		Debug.Log("CopyAssetDirectory finished");
-		return true;
-  }
+            bool ret = currentActitivy.Call<bool>("copyAssets", sourceDir, destDir);
+            callback(ret);
+            Debug.Log("CopyAssetDirectory finished");
+        });
+    }
 #endif 
 }
