@@ -81,9 +81,12 @@ public static class StreamingAssetHelper
     public static void CopyAssetDirectoryInThread(String sourceDir, String destDir,Action<bool> callback)
     {
         StreamingAssetHelper.sourceDir = sourceDir;
-        StreamingAssetHelper.destDir = destDir;
+        StreamingAssetHelper.destDir = assetPath != null ? Path.Combine(assetPath, destDir) : null;
         StreamingAssetHelper.callback = callback;
-        ColaLoom.RunAsync(CopyAssetDirectory);
+        if (StreamingAssetHelper.destDir != null)
+        {
+            ColaLoom.RunAsync(CopyAssetDirectory);
+        }
     }
 
     /// <summary>

@@ -41,4 +41,7 @@ public static class GloablDefine
     public static Color ColorBlack = Color.black;
     public static Color ColorYellow = Color.yellow;
     public static Color ColorGray = Color.gray;
+
+    public static string resBasePath = "res_base";
+    public static string configBasePath = "config";
 }
