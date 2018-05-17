@@ -117,7 +117,26 @@ public class GameLauncher : MonoBehaviour
     IEnumerator InitGameCore()
     {
         yield return new WaitForEndOfFrame();
+
+        //从APK拷贝资源到本地
+        if (!Directory.Exists(GloablDefine.resBasePath))
+        {
+            StreamingAssetHelper.CopyAssetDirectoryInThread(GloablDefine.resBasePath, GloablDefine.resBasePath, OnCopyAssetDirectoryFinished);
+        }
+        if (!Directory.Exists(GloablDefine.configBasePath))
+        {
+            StreamingAssetHelper.CopyAssetDirectoryInThread(GloablDefine.configBasePath, GloablDefine.configBasePath, OnCopyAssetDirectoryFinished);
+        }
         gameManager.InitGameCore(gameObject);
+    }
+
+    /// <summary>
+    /// 复制资源的回调
+    /// </summary>
+    /// <param name="isSuccess"></param>
+    private void OnCopyAssetDirectoryFinished(bool isSuccess)
+    {
+        Debug.LogWarning("初始化拷贝资源结果" + isSuccess);
     }
 
     /// <summary>
