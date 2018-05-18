@@ -118,15 +118,19 @@ public class GameLauncher : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
+#if UNITY_ANDROID && (!UNITY_EDITOR)
         //从APK拷贝资源到本地
-        if (!Directory.Exists(GloablDefine.resBasePath))
+        var resbasePath = Path.Combine(AssetPath, GloablDefine.resBasePath);
+        var configbasePath = Path.Combine(AssetPath, GloablDefine.configBasePath);
+        if (!Directory.Exists(resbasePath))
         {
             StreamingAssetHelper.CopyAssetDirectoryInThread(GloablDefine.resBasePath, GloablDefine.resBasePath, OnCopyAssetDirectoryFinished);
         }
-        if (!Directory.Exists(GloablDefine.configBasePath))
+        if (!Directory.Exists(configbasePath))
         {
             StreamingAssetHelper.CopyAssetDirectoryInThread(GloablDefine.configBasePath, GloablDefine.configBasePath, OnCopyAssetDirectoryFinished);
         }
+#endif
         gameManager.InitGameCore(gameObject);
     }
 
