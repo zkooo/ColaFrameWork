@@ -42,6 +42,12 @@ public static class GloablDefine
     public static Color ColorYellow = Color.yellow;
     public static Color ColorGray = Color.gray;
 
-    public static string resBasePath = "res_base";
-    public static string configBasePath = "config";
+    /// <summary>
+    /// StreamingAsset下的预装资源目录
+    /// </summary>
+    public static List<string> resbasePathList = new List<string>()
+    {
+        "config",
+        "res_base"
+    };
 }

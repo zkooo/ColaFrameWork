@@ -12,6 +12,10 @@ public class GameLauncher : MonoBehaviour
     /// 存放资源的可读写路径
     /// </summary>
     public string AssetPath;
+    /// <summary>
+    /// 指示复制资源的游标
+    /// </summary>
+    private static int resbaseIndex = -1;
 
     private static GameLauncher instance;
     private GameManager gameManager;
@@ -117,21 +121,33 @@ public class GameLauncher : MonoBehaviour
     IEnumerator InitGameCore()
     {
         yield return new WaitForEndOfFrame();
-
+        // 
 #if UNITY_ANDROID && (!UNITY_EDITOR)
         //从APK拷贝资源到本地
-        var resbasePath = Path.Combine(AssetPath, GloablDefine.resBasePath);
-        var configbasePath = Path.Combine(AssetPath, GloablDefine.configBasePath);
-        if (!Directory.Exists(resbasePath))
-        {
-            StreamingAssetHelper.CopyAssetDirectoryInThread(GloablDefine.resBasePath, GloablDefine.resBasePath, OnCopyAssetDirectoryFinished);
-        }
-        if (!Directory.Exists(configbasePath))
-        {
-            StreamingAssetHelper.CopyAssetDirectoryInThread(GloablDefine.configBasePath, GloablDefine.configBasePath, OnCopyAssetDirectoryFinished);
-        }
+        CopyAssetDirectory();
 #endif
         gameManager.InitGameCore(gameObject);
+    }
+
+#if UNITY_ANDROID && (!UNITY_EDITOR)
+    /// <summary>
+    /// 复制StreamingAsset资源
+    /// </summary>
+    private void CopyAssetDirectory()
+    {
+        if (GloablDefine.resbasePathList.Count > 0 && resbaseIndex < GloablDefine.resbasePathList.Count)
+        {
+            resbaseIndex++;
+            var resbasePath = GloablDefine.resbasePathList[resbaseIndex];
+            var fullresbasePath = Path.Combine(StreamingAssetHelper.AssetPathDir, resbasePath);       
+            DirectoryInfo directoryInfo = new DirectoryInfo(fullresbasePath);
+            Debug.LogWarning("------------------------>resbasePath" + fullresbasePath);
+            Debug.LogWarning("------------------------>resbasePath Is Exist" + directoryInfo.Exists);
+            if (!directoryInfo.Exists)
+            {
+                StreamingAssetHelper.CopyAssetDirectoryInThread(resbasePath, resbasePath, OnCopyAssetDirectoryFinished);
+            }
+        }
     }
 
     /// <summary>
@@ -141,7 +157,17 @@ public class GameLauncher : MonoBehaviour
     private void OnCopyAssetDirectoryFinished(bool isSuccess)
     {
         Debug.LogWarning("初始化拷贝资源结果" + isSuccess);
+        if (isSuccess)
+        {
+            //如果成功则继续拷贝剩余资源
+            CopyAssetDirectory();
+        }
+        else
+        {
+            Debug.LogError("初始化拷贝资源错误，请检查手机内存空间是否充足！");
+        }
     }
+#endif
 
     /// <summary>
     /// 初始化一些路径
