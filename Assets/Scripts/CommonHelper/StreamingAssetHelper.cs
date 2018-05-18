@@ -68,8 +68,8 @@ public static class StreamingAssetHelper
 #endif
         }
     }
-    //&& ( ! UNITY_EDITOR)
-#if UNITY_ANDROID
+
+#if UNITY_ANDROID && ( ! UNITY_EDITOR)
     /// <summary>
     /// 在Android平台上，从(apk包中的) Assets目录复制文件至指定目录
     /// 注意：只能在子线程中调用
