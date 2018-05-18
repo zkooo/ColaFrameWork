@@ -138,7 +138,7 @@ public class MainActivity extends UnityPlayerActivity {
 			if (fileNames.length > 0) {
 				File targetFile = new File(targetDir);
 				if (!targetFile.exists() && !targetFile.mkdirs()) {
-					return;
+					return false;
 				}
 				for (String fileName : fileNames) {
 					copyAssets(assetDir + separator + fileName, targetDir + separator + fileName);
