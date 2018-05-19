@@ -27,6 +27,7 @@ public class UILogin : UIBase
     public override void Destroy()
     {
         base.Destroy();
+        uiHintTest = null;
     }
 
     public override void OnCreate()

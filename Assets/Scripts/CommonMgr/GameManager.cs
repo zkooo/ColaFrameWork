@@ -90,7 +90,7 @@ public class GameManager
     /// <param name="deltaTime"></param>
     public void LateUpdate(float deltaTime)
     {
-        
+
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public class GameManager
     /// <param name="fixedDeltaTime"></param>
     public void FixedUpdate(float fixedDeltaTime)
     {
-        
+
     }
 
     public void OnApplicationQuit()

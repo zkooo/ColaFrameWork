@@ -48,6 +48,8 @@ public class UIMgr : IViewManager, IEventHandler
         /*---------------UI界面控制脚本添加-------------------*/
         UIBase ui = new UILogin(100, UILevel.Common);
         uiList.Add("UILogin", ui);
+        ui = new UILoading(101, UILevel.Common);
+        uiList.Add("UILoading", ui);
     }
 
     /// <summary>
