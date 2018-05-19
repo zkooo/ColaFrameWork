@@ -256,6 +256,15 @@ public class UIBase : IEventHandler
     }
 
     /// <summary>
+    /// 将当前UI层级提高最高，展示在所有界面的最上层
+    /// </summary>
+    public void BringTop()
+    {
+
+    }
+
+
+    /// <summary>
     /// 处理消息的函数的实现
     /// </summary>
     /// <param name="gameEvent"></param>事件
