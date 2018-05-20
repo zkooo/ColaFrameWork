@@ -125,11 +125,13 @@ public class GameLauncher : MonoBehaviour
 #if UNITY_ANDROID && (!UNITY_EDITOR)
         //从APK拷贝资源到本地
         CopyAssetDirectory();
-#endif
+#else
         gameManager.InitGameCore(gameObject);
+#endif
     }
 
-#if UNITY_ANDROID && (!UNITY_EDITOR)
+    //&& (!UNITY_EDITOR)
+#if UNITY_ANDROID 
     /// <summary>
     /// 复制StreamingAsset资源
     /// </summary>
@@ -139,14 +141,22 @@ public class GameLauncher : MonoBehaviour
         {
             resbaseIndex++;
             var resbasePath = GloablDefine.resbasePathList[resbaseIndex];
-            var fullresbasePath = Path.Combine(StreamingAssetHelper.AssetPathDir, resbasePath);       
+            var fullresbasePath = Path.Combine(StreamingAssetHelper.AssetPathDir, resbasePath);
             DirectoryInfo directoryInfo = new DirectoryInfo(fullresbasePath);
             Debug.LogWarning("------------------------>resbasePath" + fullresbasePath);
             Debug.LogWarning("------------------------>resbasePath Is Exist" + directoryInfo.Exists);
             if (!directoryInfo.Exists)
             {
-                StreamingAssetHelper.CopyAssetDirectoryInThread(resbasePath, resbasePath, OnCopyAssetDirectoryFinished);
+                StreamingAssetHelper.CopyAssetDirectoryInThread(resbasePath, resbasePath, OnCopyAssetDirectoryNext);
             }
+            else
+            {
+                OnCopyAssetDirectoryNext(true);
+            }
+        }
+        else
+        {
+            OnCopyAssetDirectoryFinished();
         }
     }
 
@@ -154,7 +164,7 @@ public class GameLauncher : MonoBehaviour
     /// 复制资源的回调
     /// </summary>
     /// <param name="isSuccess"></param>
-    private void OnCopyAssetDirectoryFinished(bool isSuccess)
+    private void OnCopyAssetDirectoryNext(bool isSuccess)
     {
         Debug.LogWarning("初始化拷贝资源结果" + isSuccess);
         if (isSuccess)
@@ -166,6 +176,14 @@ public class GameLauncher : MonoBehaviour
         {
             Debug.LogError("初始化拷贝资源错误，请检查手机内存空间是否充足！");
         }
+    }
+
+    /// <summary>
+    /// 所有的资源拷贝完成之后的回调
+    /// </summary>
+    private void OnCopyAssetDirectoryFinished()
+    {
+        gameManager.InitGameCore(gameObject);
     }
 #endif
 
