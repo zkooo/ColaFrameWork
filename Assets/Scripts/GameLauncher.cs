@@ -15,7 +15,7 @@ public class GameLauncher : MonoBehaviour
     /// <summary>
     /// 指示复制资源的游标
     /// </summary>
-    private static int resbaseIndex = -1;
+    private static int resbaseIndex = 0;
 
     private static GameLauncher instance;
     private GameManager gameManager;
@@ -130,19 +130,19 @@ public class GameLauncher : MonoBehaviour
 #endif
     }
 
-    //&& (!UNITY_EDITOR)
-#if UNITY_ANDROID 
+    //
+#if UNITY_ANDROID && (!UNITY_EDITOR)
     /// <summary>
     /// 复制StreamingAsset资源
     /// </summary>
     private void CopyAssetDirectory()
     {
         if (GloablDefine.resbasePathList.Count > 0 && resbaseIndex < GloablDefine.resbasePathList.Count)
-        {
-            resbaseIndex++;
+        {          
             var resbasePath = GloablDefine.resbasePathList[resbaseIndex];
             var fullresbasePath = Path.Combine(StreamingAssetHelper.AssetPathDir, resbasePath);
             DirectoryInfo directoryInfo = new DirectoryInfo(fullresbasePath);
+            resbaseIndex++;
             Debug.LogWarning("------------------------>resbasePath" + fullresbasePath);
             Debug.LogWarning("------------------------>resbasePath Is Exist" + directoryInfo.Exists);
             if (!directoryInfo.Exists)
