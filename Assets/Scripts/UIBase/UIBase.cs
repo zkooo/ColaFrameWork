@@ -191,6 +191,7 @@ public class UIBase : IEventHandler
     {
         if (null == eventData) return;
         this.eventData = eventData;
+        if(false == IsShow)return;
     }
 
     /// <summary>
