@@ -143,10 +143,11 @@ public class GameLauncher : MonoBehaviour
             var fullresbasePath = Path.Combine(StreamingAssetHelper.AssetPathDir, resbasePath);
             DirectoryInfo directoryInfo = new DirectoryInfo(fullresbasePath);
             resbaseIndex++;
-            Debug.LogWarning("------------------------>resbasePath" + fullresbasePath);
-            Debug.LogWarning("------------------------>resbasePath Is Exist" + directoryInfo.Exists);
+            //Debug.LogWarning("------------------------>resbasePath" + fullresbasePath);
+            //Debug.LogWarning("------------------------>resbasePath Is Exist" + directoryInfo.Exists);
             if (!directoryInfo.Exists)
             {
+                UICopyingAssetHelper.Instance().UpdateUI(resbaseIndex,GloablDefine.resbasePathList.Count,"首次运行游戏正在解压资源...");
                 StreamingAssetHelper.CopyAssetDirectoryInThread(resbasePath, resbasePath, OnCopyAssetDirectoryNext);
             }
             else
@@ -166,7 +167,7 @@ public class GameLauncher : MonoBehaviour
     /// <param name="isSuccess"></param>
     private void OnCopyAssetDirectoryNext(bool isSuccess)
     {
-        Debug.LogWarning("初始化拷贝资源结果" + isSuccess);
+        //Debug.LogWarning("初始化拷贝资源结果" + isSuccess);
         if (isSuccess)
         {
             //如果成功则继续拷贝剩余资源
@@ -183,6 +184,7 @@ public class GameLauncher : MonoBehaviour
     /// </summary>
     private void OnCopyAssetDirectoryFinished()
     {
+        UICopyingAssetHelper.Instance().Close();
         gameManager.InitGameCore(gameObject);
     }
 #endif
