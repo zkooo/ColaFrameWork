@@ -35,7 +35,9 @@ public class UIMgr : IViewManager, IEventHandler
     /// <summary>
     /// 消息-回调函数字典，接收到消息后调用字典中的回调方法
     /// </summary>
-    protected Dictionary<string, MsgHandler> msgHanderDic;
+    private Dictionary<string, MsgHandler> msgHanderDic;
+
+    private UISorterMgr uiSorterMgr;
 
     public UIMgr()
     {
@@ -43,6 +45,7 @@ public class UIMgr : IViewManager, IEventHandler
         outTouchList = new List<UIBase>();
         removeList = new List<UIBase>();
         recordList = new List<UIBase>();
+        uiSorterMgr = new UISorterMgr(1,8000);
         InitRegisterHandler();
 
         /*---------------UI界面控制脚本添加-------------------*/
@@ -340,5 +343,12 @@ public class UIMgr : IViewManager, IEventHandler
         }
     }
 
-
+    /// <summary>
+    /// 获取UI排序管理器
+    /// </summary>
+    /// <returns></returns>
+    public UISorterMgr GetUISorterMgr()
+    {
+        return uiSorterMgr;
+    }
 }
