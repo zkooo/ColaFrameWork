@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// UI的接口（废弃）
 /// </summary>
+[Obsolete(" UI基类的接口（废弃）")]
 public interface IViewBase
 {
 
@@ -92,4 +94,58 @@ public enum UICreateType : byte
     /// 根据一个传入的现有gameobjec
     /// </summary>
     Go = 1,
+}
+
+/// <summary>
+/// UI排序的接口
+/// </summary>
+public interface ISorter
+{
+    /// <summary>
+    /// 动态排序功能 对Panel下面的canvas的sortingOrder排序
+    /// </summary>
+    /// <param name="panel"></param>
+    /// <param name="sortIndex"></param>
+    /// <returns></returns>
+    int SortIndexSetter(GameObject panel, int sortIndex);
+
+    /// <summary>
+    /// 根据sortIndex设置SortTag的SetSiblingIndex 排序
+    /// </summary>
+    /// <param name="panel"></param>
+    /// <param name="sortIndex"></param>
+    /// <returns></returns>
+    int SortTagIndexSetter(GameObject panel, int sortIndex);
+
+    /// <summary>
+    /// 对持有3d模型的ui排序
+    /// </summary>
+    /// <param name="model"></param>
+    /// <param name="postion"></param>
+    /// <returns></returns>
+    int SortTag3DSetter(GameObject model, Vector3 postion);
+
+    /// <summary>
+    /// 将Panel置于其当前层最上方
+    /// </summary>
+    /// <param name="ui"></param>
+    void MovePanelToTop(UIBase ui);
+
+    /// <summary>
+    /// 对UI进行重新排序
+    /// </summary>
+    void ReSortPanels();
+
+    /// <summary>
+    /// 增加Panel到指定层的当前最上方
+    /// </summary>
+    /// <param name="ui"></param>
+    /// <param name="uiLevel"></param>
+    void AddPanel(UIBase ui, UILevel uiLevel);
+
+    /// <summary>
+    /// 移除指定Panel
+    /// </summary>
+    /// <param name="ui"></param>
+    void RemovePanel(UIBase ui);
 }
