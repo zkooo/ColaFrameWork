@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// UI排序组件
+/// </summary>
 public class SorterTag : MonoBehaviour
 {
     public int Space3D = 0;
@@ -25,7 +26,6 @@ public class SorterTag : MonoBehaviour
 
     public void SetSpace3D(int z)
     {
-        //Debug.LogError(z);
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y,z);
     }
 }

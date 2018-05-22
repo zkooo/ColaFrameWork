@@ -64,6 +64,11 @@ public class UIBase : IEventHandler
     /// </summary>
     private List<UIBase> subUIList;
 
+    /// <summary>
+    /// UI排序组件
+    /// </summary>
+    private SorterTag sorterTag;
+
     public UIBase(int resId, UILevel uiLevel)
     {
         this.UILevel = uiLevel;
@@ -125,6 +130,7 @@ public class UIBase : IEventHandler
                 GameObject.Destroy(Panel);
             }
             this.Panel = CommonHelper.InstantiateGoByID(ResId, GUIHelper.GetUIRootObj());
+            sorterTag = this.Panel.AddSingleComponent<SorterTag>();
         }
         else if (UICreateType.Go == uiCreateType)
         {
@@ -191,7 +197,7 @@ public class UIBase : IEventHandler
     {
         if (null == eventData) return;
         this.eventData = eventData;
-        if(false == IsShow)return;
+        if (false == IsShow) return;
     }
 
     /// <summary>
