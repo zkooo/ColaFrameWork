@@ -52,7 +52,20 @@ public class UISorterMgr : ISorter
 
     public int SortTagIndexSetter(GameObject panel, int sortIndex)
     {
-        throw new System.NotImplementedException();
+        if (null == panel)
+        {
+            Debug.LogWarning("参与排序的ui不能为空！");
+            return 0;
+        }
+
+        var sortTag = panel.GetComponent<SorterTag>();
+        if (null == sortTag)
+        {
+            return sortIndex;
+        }
+        sortTag.SetSorter(sortIndex + 1);
+        sortIndex = sortTag.GetSorter();
+        return sortIndex;
     }
 
     public int SortTag3DSetter(GameObject model, Vector3 postion)
