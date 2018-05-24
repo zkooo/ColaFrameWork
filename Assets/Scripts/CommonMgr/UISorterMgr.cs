@@ -68,9 +68,9 @@ public class UISorterMgr : ISorter
         return sortIndex;
     }
 
-    public int SortTag3DSetter(GameObject model, Vector3 postion)
+    public int SortTag3DSetter(GameObject model, int z)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void MovePanelToTop(UIBase ui)

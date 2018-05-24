@@ -123,7 +123,7 @@ public interface ISorter
     /// <param name="model"></param>
     /// <param name="postion"></param>
     /// <returns></returns>
-    int SortTag3DSetter(GameObject model, Vector3 postion);
+    int SortTag3DSetter(GameObject model, int z);
 
     /// <summary>
     /// 将Panel置于其当前层最上方
