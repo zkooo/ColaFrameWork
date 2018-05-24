@@ -70,7 +70,23 @@ public class UISorterMgr : ISorter
 
     public int SortTag3DSetter(GameObject model, int z)
     {
-
+        if (null == model)
+        {
+            return 0;
+        }
+        if (!model.activeSelf)
+        {
+            return z;
+        }
+        var sortTag = model.GetComponent<SorterTag>();
+        if (null == sortTag)
+        {
+            return z;
+        }
+        int space3D = sortTag.Space3D;
+        sortTag.SetSpace3D(z);
+        z += space3D;
+        return z;
     }
 
     public void MovePanelToTop(UIBase ui)
