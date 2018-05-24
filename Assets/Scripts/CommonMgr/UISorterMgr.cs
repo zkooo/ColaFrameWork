@@ -101,11 +101,34 @@ public class UISorterMgr : ISorter
 
     public void AddPanel(UIBase ui, UILevel uiLevel)
     {
-        throw new System.NotImplementedException();
+        if (null == ui)
+        {
+            Debug.LogWarning("添加到UISortMgr中的ui不能为空！");
+            return;
+        }
+
+        if (uiSortList.Contains(ui))
+        {
+            Debug.LogWarning(string.Format("{0}已经在uiSortList中添加过了！", ui.Name));
+            return;
+        }
+        uiSortList.Add(ui);
+        ReSortPanels();
     }
 
     public void RemovePanel(UIBase ui)
     {
-        throw new System.NotImplementedException();
+        if (null == ui)
+        {
+            Debug.LogWarning("UISortMgr中待移除的ui不能为空！");
+            return;
+        }
+        if (!uiSortList.Contains(ui))
+        {
+            Debug.LogWarning(string.Format("UISortMgr中不包含 {0},移除UI面板失败！", ui.Name));
+            return;
+        }
+        uiSortList.Remove(ui);
+        ReSortPanels();
     }
 }
