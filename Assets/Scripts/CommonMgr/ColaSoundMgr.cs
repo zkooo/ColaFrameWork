@@ -79,7 +79,50 @@ public enum SoundType : byte
 /// <summary>
 /// ColaFramework声音管理器
 /// </summary>
-public class ColaSoundMgr : MonoBehaviour
+public class ColaSoundMgr : ISound
 {
+    public void MuteAllSound()
+    {
+        throw new System.NotImplementedException();
+    }
 
+    public void MuteSoundByType(SoundType soundType)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SetVolume(SoundType soundTypem, float value)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public float GetVolume(SoundType soundType)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public bool GetMuteByType(SoundType soundType)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void PlayBackgroundMusicById(SoundType soundType, int id, float fadeInTime = 0, int loopTimes = 1)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void StopBackgroundMusic(SoundType soundType, float fadaOutTime)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Play3DSoundById(int id, Vector3 postion, float fadeInTime = 0, int loopTimes = 1)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Play2DSoundById(int id, Vector3 postion, float fadeInTime = 0, int loopTimes = 1)
+    {
+        throw new System.NotImplementedException();
+    }
 }
