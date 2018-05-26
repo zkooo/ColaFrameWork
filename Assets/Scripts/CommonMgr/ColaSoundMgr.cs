@@ -78,7 +78,7 @@ public interface ISound
     /// <param name="isPersist"></param>
     /// <param name="isLoop"></param>
     /// <param name="callback"></param>
-    AudioClip PlaySoundInner(int id, Vector3 postion, SoundType soundType, int priority = 1, float fadeInTime = 0.0f, float fadeOutTime = 0.0f, float volume = 1.0f, bool isPersist = true, bool isLoop = false, Action<bool> callback = null);
+    SoundHandler PlaySoundInner(int id, Vector3 postion, SoundType soundType, int priority = 1, float fadeInTime = 0.0f, float fadeOutTime = 0.0f, float volume = 1.0f, bool isPersist = true, bool isLoop = false, Action<bool> callback = null);
 }
 
 /// <summary>
@@ -157,7 +157,7 @@ public class ColaSoundMgr : MonoBehaviour, ISound
         throw new System.NotImplementedException();
     }
 
-    public AudioClip PlaySoundInner(int id, Vector3 postion, SoundType soundType, int priority = 1, float fadeInTime = 0,
+    public SoundHandler PlaySoundInner(int id, Vector3 postion, SoundType soundType, int priority = 1, float fadeInTime = 0,
         float fadeOutTime = 0, float volume = 1, bool isPersist = true, bool isLoop = false, Action<bool> callback = null)
     {
         bool isDeug = priority < 0;
