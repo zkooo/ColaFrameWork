@@ -78,7 +78,7 @@ public interface ISound
     /// <param name="isPersist"></param>
     /// <param name="isLoop"></param>
     /// <param name="callback"></param>
-    void PlaySoundInner(int id, Vector3 postion, SoundType soundType, int priority = 1, float fadeInTime = 0.0f, float fadeOutTime = 0.0f, float volume = 1.0f, bool isPersist = true, bool isLoop = false, Action<bool> callback = null);
+    AudioClip PlaySoundInner(int id, Vector3 postion, SoundType soundType, int priority = 1, float fadeInTime = 0.0f, float fadeOutTime = 0.0f, float volume = 1.0f, bool isPersist = true, bool isLoop = false, Action<bool> callback = null);
 }
 
 /// <summary>
@@ -95,8 +95,23 @@ public enum SoundType : byte
 /// <summary>
 /// ColaFramework声音管理器
 /// </summary>
-public class ColaSoundMgr : ISound
+public class ColaSoundMgr : MonoBehaviour, ISound
 {
+    private static ColaSoundMgr instance = null;
+
+    public static ColaSoundMgr Instance()
+    {
+        if (instance == null)
+        {
+            instance = GameObject.FindObjectOfType<ColaSoundMgr>();
+            if (null == instance)
+            {
+                instance = new GameObject("ColaSoundMgr").AddComponent<ColaSoundMgr>();
+            }
+        }
+        return instance;
+    }
+
     public void MuteAllSound()
     {
         throw new System.NotImplementedException();
@@ -140,5 +155,20 @@ public class ColaSoundMgr : ISound
     public void Play2DSoundById(int id, Vector3 postion, float fadeInTime = 0, int loopTimes = 1)
     {
         throw new System.NotImplementedException();
+    }
+
+    public AudioClip PlaySoundInner(int id, Vector3 postion, SoundType soundType, int priority = 1, float fadeInTime = 0,
+        float fadeOutTime = 0, float volume = 1, bool isPersist = true, bool isLoop = false, Action<bool> callback = null)
+    {
+        bool isDeug = priority < 0;
+        priority = priority >= 0 ? priority : 0;
+        bool isMute = GetMuteByType(soundType);
+
+        if (!isMute || isPersist || isDeug)
+        {
+
+        }
+
+        return null;
     }
 }
