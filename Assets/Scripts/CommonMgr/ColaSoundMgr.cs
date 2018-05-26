@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,6 +64,21 @@ public interface ISound
     /// <param name="fadeInTime"></param>
     /// <param name="loopTimes"></param>
     void Play2DSoundById(int id, Vector3 postion, float fadeInTime = 0.0f, int loopTimes = 1);
+
+    /// <summary>
+    /// 实际进行音乐播放的具体接口
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="postion"></param>
+    /// <param name="soundType"></param>
+    /// <param name="priority"></param>
+    /// <param name="fadeInTime"></param>
+    /// <param name="fadeOutTime"></param>
+    /// <param name="volume"></param>
+    /// <param name="isPersist"></param>
+    /// <param name="isLoop"></param>
+    /// <param name="callback"></param>
+    void PlaySoundInner(int id, Vector3 postion, SoundType soundType, int priority = 1, float fadeInTime = 0.0f, float fadeOutTime = 0.0f, float volume = 1.0f, bool isPersist = true, bool isLoop = false, Action<bool> callback = null);
 }
 
 /// <summary>
