@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,51 @@ public class SoundHandler : MonoBehaviour
     /// 声音是否处于播放状态
     /// </summary>
     public bool IsPlaying { get; set; }
+
+    /// <summary>
+    /// 音量
+    /// </summary>
+    public float Volume
+    {
+        get { return volume; }
+        set
+        {
+            if (value != volume)
+            {
+                volumeSpeed = Math.Abs(value - volume) / fadeInTime;
+            }
+            volume = value;
+            fadeDetroyTime = volume;
+        }
+    }
+
+    /// <summary>
+    /// 声音的播放速度
+    /// </summary>
+    public float VolumeSpeed
+    {
+        get { return volumeSpeed; }
+        set { volumeSpeed = value; }
+    }
+
+    /// <summary>
+    /// 最小距离
+    /// </summary>
+    public float MinDistance
+    {
+        get { return minDistance; }
+        set { minDistance = value; }
+    }
+
+    /// <summary>
+    /// 最大距离
+    /// </summary>
+    public float MaxDistance
+    {
+        get { return maxDistance; }
+        set { maxDistance = value; }
+    }
+
     /// <summary>
     /// 音频的长度
     /// </summary>
@@ -55,6 +101,7 @@ public class SoundHandler : MonoBehaviour
     /// </summary>
     private float maxDistance;
 
+    private float fadeDetroyTime;
 
     void Awake()
     {
@@ -66,7 +113,8 @@ public class SoundHandler : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update()
+    {
+
+    }
 }
