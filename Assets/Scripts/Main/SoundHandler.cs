@@ -8,20 +8,12 @@ public delegate void SoundEventHandler(SoundHandler sender, bool isDestroy);
 public class SoundHandler : MonoBehaviour
 {
     /// <summary>
-    /// 声音播放结束时的回调
-    /// </summary>
-    private SoundHandler onPlayEnd;
-    /// <summary>
-    /// 声音播放依赖组件
-    /// </summary>
-    private AudioSource audioSource;
-    /// <summary>
     /// 声音是否处于播放状态
     /// </summary>
     public bool IsPlaying { get; set; }
 
     /// <summary>
-    /// 音量
+    ///设定的音量
     /// </summary>
     public float Volume
     {
@@ -33,7 +25,7 @@ public class SoundHandler : MonoBehaviour
                 volumeSpeed = Math.Abs(value - volume) / fadeInTime;
             }
             volume = value;
-            fadeDetroyTime = volume;
+            fadeDetroyVolume = volume;
         }
     }
 
@@ -65,6 +57,28 @@ public class SoundHandler : MonoBehaviour
     }
 
     /// <summary>
+    /// 当前的音量
+    /// </summary>
+    public float CurVolume
+    {
+        get { return curVolume; }
+        set { curVolume = value; }
+    }
+
+    /// <summary>
+    /// 是否静音
+    /// </summary>
+    public bool Mute
+    {
+        get { return mute; }
+        set
+        {
+            mute = value;
+            UpdateAudioSourceVolume();
+        }
+    }
+
+    /// <summary>
     /// 音频的长度
     /// </summary>
     private float duration;
@@ -81,7 +95,7 @@ public class SoundHandler : MonoBehaviour
     /// </summary>
     private bool loop;
     /// <summary>
-    /// 音量
+    /// 设定的音量
     /// </summary>
     private float volume;
     /// <summary>
@@ -101,7 +115,24 @@ public class SoundHandler : MonoBehaviour
     /// </summary>
     private float maxDistance;
 
-    private float fadeDetroyTime;
+    private float fadeDetroyVolume;
+    /// <summary>
+    /// 当前的音量
+    /// </summary>
+    private float curVolume;
+    /// <summary>
+    /// 是否静音
+    /// </summary>
+    private bool mute;
+
+    /// <summary>
+    /// 声音播放结束时的回调
+    /// </summary>
+    private SoundEventHandler onPlayEnd;
+    /// <summary>
+    /// 声音播放依赖组件
+    /// </summary>
+    private AudioSource audioSource;
 
     void Awake()
     {
@@ -111,10 +142,52 @@ public class SoundHandler : MonoBehaviour
     }
 
 
-
     // Update is called once per frame
     void Update()
     {
+        if (volumeSpeed > 0 && curVolume != fadeDetroyVolume)
+        {
+            float speed = fadeDetroyVolume - curVolume > 0.0f ? 1.0f : -1.0f;
+            float dSpeed = speed * volumeSpeed * Time.deltaTime;
+            if (Mathf.Abs(dSpeed) < Mathf.Abs(fadeDetroyVolume - curVolume))
+            {
+                curVolume += dSpeed;
+            }
+            else
+            {
+                curVolume = fadeDetroyVolume;
+            }
+        }
 
+        if (IsPlaying == false && fadeDetroyVolume == 0.0f && curVolume == 0.0f)
+        {
+            if (IsInvoking())
+            {
+                CancelInvoke();
+            }
+            PlayEnd(false);
+        }
+    }
+
+    /// <summary>
+    /// 结束播放
+    /// </summary>
+    protected void PlayEnd(bool isOver)
+    {
+        IsPlaying = false;
+        if (null != onPlayEnd)
+        {
+            onPlayEnd(this, false);
+        }
+        audioSource.Stop();
+    }
+
+    /// <summary>
+    /// 更新音频音量
+    /// </summary>
+    void UpdateAudioSourceVolume()
+    {
+        if (audioSource != null)
+            audioSource.volume = mute ? 0 : curVolume;
     }
 }
