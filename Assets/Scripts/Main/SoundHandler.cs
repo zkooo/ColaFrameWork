@@ -134,6 +134,8 @@ public class SoundHandler : MonoBehaviour
     /// </summary>
     private AudioSource audioSource;
 
+    public Action<bool> playCallback;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -170,7 +172,7 @@ public class SoundHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// 播放音频
+    /// 播放音频(含参数)
     /// </summary>
     /// <param name="fadeInTime"></param>
     /// <param name="fadeOutTime"></param>
@@ -202,6 +204,69 @@ public class SoundHandler : MonoBehaviour
     }
 
     /// <summary>
+    /// 播放音频(无参数)
+    /// </summary>
+    public void DoPlay()
+    {
+        if (null != audioSource.clip)
+        {
+            audioSource.Play();
+            if (IsInvoking())
+            {
+                CancelInvoke();
+            }
+            duration = audioSource.clip.length;
+            if (!loop)
+            {
+                if (fadeOutTime > 0)
+                {
+                    StartCoroutine(PlayEndFadeOut());
+                }
+                else
+                {
+                    StartCoroutine(PlayEndNormal());
+                }
+            }
+        }
+    }
+
+    IEnumerator PlayEndFadeOut()
+    {
+        yield return new WaitForSeconds(duration - fadeOutTime);
+        Stop(fadeOutTime);
+    }
+
+    IEnumerator PlayEndNormal()
+    {
+        yield return new WaitForSeconds(duration);
+        PlayEnd(IsPlaying);
+    }
+
+    /// <summary>
+    /// 结束音频播放
+    /// </summary>
+    /// <param name="fadeTime"></param>
+    public void Stop(float fadeTime)
+    {
+        if (!IsPlaying)
+        {
+            return;
+        }
+
+        IsPlaying = false;
+        if (fadeTime <= 0.0f)
+        {
+            StopAllCoroutines();
+            PlayEnd(false);
+        }
+        else
+        {
+            volumeSpeed = curVolume / fadeTime;
+            fadeDetroyVolume = 0.0f;
+        }
+    }
+
+    /// <summary>
     /// 结束播放
     /// </summary>
     protected void PlayEnd(bool isOver)
@@ -212,6 +277,10 @@ public class SoundHandler : MonoBehaviour
             onPlayEnd(this, false);
         }
         audioSource.Stop();
+        if (null != playCallback)
+        {
+            playCallback(isOver);
+        }
     }
 
     /// <summary>
