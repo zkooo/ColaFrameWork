@@ -30,7 +30,7 @@ public class SoundHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// 声音的播放速度
+    /// 声音的渐入渐出速度
     /// </summary>
     public float VolumeSpeed
     {
@@ -103,7 +103,7 @@ public class SoundHandler : MonoBehaviour
     /// </summary>
     private string type;
     /// <summary>
-    /// 声音的播放速度
+    /// 声音的渐入渐出速度
     /// </summary>
     private float volumeSpeed;
     /// <summary>
@@ -128,7 +128,7 @@ public class SoundHandler : MonoBehaviour
     /// <summary>
     /// 声音播放结束时的回调
     /// </summary>
-    private SoundEventHandler onPlayEnd;
+    public SoundEventHandler onPlayEnd;
     /// <summary>
     /// 声音播放依赖组件
     /// </summary>
@@ -166,6 +166,38 @@ public class SoundHandler : MonoBehaviour
                 CancelInvoke();
             }
             PlayEnd(false);
+        }
+    }
+
+    /// <summary>
+    /// 播放音频
+    /// </summary>
+    /// <param name="fadeInTime"></param>
+    /// <param name="fadeOutTime"></param>
+    /// <param name="isLoop"></param>
+    /// <param name="spatialBlend"></param>
+    public void Play(float fadeInTime, float fadeOutTime, bool isLoop, float spatialBlend)
+    {
+        IsPlaying = true;
+        this.fadeInTime = fadeInTime;
+        loop = isLoop;
+        audioSource.loop = loop;
+        audioSource.maxDistance = maxDistance;
+        audioSource.minDistance = minDistance;
+        audioSource.spatialBlend = spatialBlend;
+        this.fadeOutTime = fadeOutTime;
+
+        if (fadeInTime > 0)
+        {
+            curVolume = 0.0f;
+            volumeSpeed = volume / this.fadeInTime;
+            fadeDetroyVolume = volume;
+        }
+        else
+        {
+            curVolume = volume;
+            volumeSpeed = 0.0f;
+            fadeDetroyVolume = volume;
         }
     }
 
