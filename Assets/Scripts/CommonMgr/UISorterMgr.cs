@@ -91,7 +91,15 @@ public class UISorterMgr : ISorter
 
     public void MovePanelToTop(UIBase ui)
     {
-        throw new System.NotImplementedException();
+        if (uiSortList.Contains(ui))
+        {
+            ui.moveTop = 1;
+            ReSortPanels();
+        }
+        else
+        {
+            Debug.LogWarning(string.Format("UISortMgr中不包含 {0},MoveToTop-UI面板失败！", ui.Name));
+        }
     }
 
     public void ReSortPanels()
