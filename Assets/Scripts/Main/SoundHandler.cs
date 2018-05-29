@@ -62,7 +62,11 @@ public class SoundHandler : MonoBehaviour
     public float CurVolume
     {
         get { return curVolume; }
-        set { curVolume = value; }
+        set
+        {
+            curVolume = value; 
+            UpdateAudioSourceVolume();
+        }
     }
 
     /// <summary>
@@ -201,6 +205,7 @@ public class SoundHandler : MonoBehaviour
             volumeSpeed = 0.0f;
             fadeDetroyVolume = volume;
         }
+        DoPlay();
     }
 
     /// <summary>
@@ -282,6 +287,35 @@ public class SoundHandler : MonoBehaviour
             playCallback(isOver);
         }
     }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (false == pause)
+        {
+            curVolume = 0.1f;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (false == IsPlaying)
+        {
+            return;
+        }
+
+        IsPlaying = false;
+        if (IsInvoking())
+        {
+            CancelInvoke();
+        }
+
+        if (null != onPlayEnd)
+        {
+            onPlayEnd(this, true);
+        }
+    }
+
+
 
     /// <summary>
     /// 更新音频音量
