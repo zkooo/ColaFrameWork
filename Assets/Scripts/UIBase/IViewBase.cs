@@ -40,7 +40,7 @@ public interface IViewManager
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="eventData"></param>
-    void UpdateUI(string uiType,EventData eventData);
+    void UpdateUI(string uiType, EventData eventData);
 
     /// <summary>
     /// UI管理器，获取某种类型的UI
@@ -53,13 +53,13 @@ public interface IViewManager
     /// UI管理器，将一个UI加入到UI管理器中参与管理
     /// </summary>
     /// <param name="ui"></param>
-    void AddView(string uiType,UIBase ui);
+    void AddView(string uiType, UIBase ui);
 
     /// <summary>
     /// UI管理器，从UI管理器中移除某个UI，使其不再参与管理
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    void RemoveViewByType(string uiType) ;
+    void RemoveViewByType(string uiType);
 
     /// <summary>
     /// UI管理器，打开某种类型的UI,并返回界面是否打开成功,带有功能开启检查
@@ -123,7 +123,7 @@ public interface ISorter
     /// <param name="model"></param>
     /// <param name="postion"></param>
     /// <returns></returns>
-    int SortTag3DSetter(GameObject model, int z);
+    int SortTag3DSetter(GameObject model, int z, bool isHigher);
 
     /// <summary>
     /// 将Panel置于其当前层最上方

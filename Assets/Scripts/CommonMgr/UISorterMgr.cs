@@ -9,13 +9,13 @@ public class UISorter
 {
     public UIBase ui;
     public int moveTop;
-    public int inedx;
+    public int index;
 
     public UISorter(UIBase ui, int moveTop, int index)
     {
         this.ui = ui;
         this.moveTop = moveTop;
-        this.inedx = index;
+        this.index = index;
     }
 }
 
@@ -85,7 +85,7 @@ public class UISorterMgr : ISorter
         return sortIndex;
     }
 
-    public int SortTag3DSetter(GameObject model, int z)
+    public int SortTag3DSetter(GameObject model, int z, bool isHigher)
     {
         if (null == model)
         {
@@ -101,8 +101,20 @@ public class UISorterMgr : ISorter
             return z;
         }
         int space3D = sortTag.Space3D;
-        sortTag.SetSpace3D(z);
-        z += space3D;
+
+        if (isHigher)
+        {
+            if (space3D > 0 || z != 0)
+            {
+                z -= space3D;
+                sortTag.SetSpace3D(z);
+            }
+        }
+        else
+        {
+            sortTag.SetSpace3D(z);
+            z += space3D;
+        }
         return z;
     }
 
@@ -122,10 +134,27 @@ public class UISorterMgr : ISorter
 
     public void ReSortPanels()
     {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < uiSortList.Count; i++)
+        {
+            uiSortList[i].index = i;
+        }
+        uiSortList.Sort((x, y) =>
+        {
+            if (x.ui.uiDepthLayer != y.ui.uiDepthLayer)
+            {
+                return x.ui.uiDepthLayer.CompareTo(y.ui.uiDepthLayer);
+            }
+
+            if (x.moveTop != y.moveTop)
+            {
+                return x.moveTop.CompareTo(y.moveTop);
+            }
+
+            return x.index.CompareTo(y.index);
+        });
     }
 
-    public void AddPanel(UIBase ui, UILevel uiLevel)
+    public void AddPanel(UIBase ui)
     {
         if (null == ui)
         {
