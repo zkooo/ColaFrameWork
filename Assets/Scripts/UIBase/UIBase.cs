@@ -68,10 +68,6 @@ public class UIBase : IEventHandler
     /// UI排序组件
     /// </summary>
     private SorterTag sorterTag;
-    /// <summary>
-    /// 是否执行了MovePanelToTop的标识
-    /// </summary>
-    public int moveTop = 0;
 
     public UIBase(int resId, UILevel uiLevel)
     {

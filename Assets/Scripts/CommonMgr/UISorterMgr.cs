@@ -3,20 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// 参与排序的元素
+/// </summary>
+public class UISorter
+{
+    public UIBase ui;
+    public int moveTop;
+    public int inedx;
+
+    public UISorter(UIBase ui, int moveTop, int index)
+    {
+        this.ui = ui;
+        this.moveTop = moveTop;
+        this.inedx = index;
+    }
+}
+
+/// <summary>
 /// UI排序管理器
 /// </summary>
 public class UISorterMgr : ISorter
 {
     private int minSortIndex = 0;
     private int maxSortIndex = 0;
-    private List<UIBase> uiSortList;
+    private List<UISorter> uiSortList;
     private List<Canvas> canvasSortList;
 
     public UISorterMgr(int minIndex, int maxIndex)
     {
         minSortIndex = minIndex;
         maxSortIndex = maxIndex;
-        uiSortList = new List<UIBase>();
+        uiSortList = new List<UISorter>();
         canvasSortList = new List<Canvas>();
     }
 
@@ -91,9 +108,10 @@ public class UISorterMgr : ISorter
 
     public void MovePanelToTop(UIBase ui)
     {
-        if (uiSortList.Contains(ui))
+        int index;
+        if (IsContainSorter(ui, out index))
         {
-            ui.moveTop = 1;
+            uiSortList[index].moveTop = 1;
             ReSortPanels();
         }
         else
@@ -115,12 +133,13 @@ public class UISorterMgr : ISorter
             return;
         }
 
-        if (uiSortList.Contains(ui))
+        int index;
+        if (IsContainSorter(ui, out index))
         {
             Debug.LogWarning(string.Format("{0}已经在uiSortList中添加过了！", ui.Name));
             return;
         }
-        uiSortList.Add(ui);
+        uiSortList.Add(new UISorter(ui, 0, 0));
         ReSortPanels();
     }
 
@@ -131,12 +150,36 @@ public class UISorterMgr : ISorter
             Debug.LogWarning("UISortMgr中待移除的ui不能为空！");
             return;
         }
-        if (!uiSortList.Contains(ui))
+
+        int index;
+        if (!IsContainSorter(ui, out index))
         {
             Debug.LogWarning(string.Format("UISortMgr中不包含 {0},移除UI面板失败！", ui.Name));
             return;
         }
-        uiSortList.Remove(ui);
+        uiSortList.RemoveAt(index);
         ReSortPanels();
+    }
+
+    /// <summary>
+    /// 判断一个ui是否在uiSortList中，并返回索引
+    /// </summary>
+    /// <param name="ui"></param>
+    /// <returns></returns>
+    private bool IsContainSorter(UIBase ui, out int index)
+    {
+        if (null != uiSortList)
+        {
+            for (int i = 0; i < uiSortList.Count; i++)
+            {
+                if (uiSortList[i].ui == ui)
+                {
+                    index = i;
+                    return true;
+                }
+            }
+        }
+        index = -1;
+        return false;
     }
 }
