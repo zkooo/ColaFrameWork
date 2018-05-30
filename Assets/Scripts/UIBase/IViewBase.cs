@@ -74,7 +74,7 @@ public interface IViewManager
 /// </summary>
 public enum UILevel : byte
 {
-    Top = 0,
+    None = 0,
     Level1 = 1,
     Level2 = 2,
     Level3 = 3,
@@ -137,15 +137,25 @@ public interface ISorter
     void ReSortPanels();
 
     /// <summary>
-    /// 增加Panel到指定层的当前最上方
+    /// 增加Panel到当前层的当前最上方
     /// </summary>
     /// <param name="ui"></param>
     /// <param name="uiLevel"></param>
-    void AddPanel(UIBase ui, UILevel uiLevel);
+    void AddPanel(UIBase ui);
 
     /// <summary>
     /// 移除指定Panel
     /// </summary>
     /// <param name="ui"></param>
     void RemovePanel(UIBase ui);
+}
+
+/// <summary>
+/// UI的深度层级标识
+/// </summary>
+public enum UIDepth : byte
+{
+    Bottom = 1,
+    Normal = 2,
+    Top = 3,
 }

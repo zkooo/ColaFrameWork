@@ -26,7 +26,7 @@ public class UIBase : IEventHandler
     public string Name { get; protected set; }
 
     /// <summary>
-    /// UI界面的层级
+    /// gameObject的layer
     /// </summary>
     public int Layer
     {
@@ -68,18 +68,24 @@ public class UIBase : IEventHandler
     /// UI排序组件
     /// </summary>
     private SorterTag sorterTag;
+    /// <summary>
+    /// UI深度层级标识
+    /// </summary>
+    public UIDepth uiDepthLayer = UIDepth.Normal;
 
-    public UIBase(int resId, UILevel uiLevel)
+    public UIBase(int resId, UILevel uiLevel, UIDepth depth = UIDepth.Normal)
     {
         this.UILevel = uiLevel;
         ResId = resId;
         this.uiCreateType = UICreateType.Res;
+        this.uiDepthLayer = depth;
         this.Name = CommonHelper.GetResourceMgr().GetResNameById(resId);
     }
 
-    protected UIBase()
+    protected UIBase(UIDepth depth = UIDepth.Normal)
     {
         this.ResId = 0;
+        this.uiDepthLayer = depth;
         this.uiCreateType = UICreateType.Go;
     }
 

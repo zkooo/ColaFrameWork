@@ -30,7 +30,7 @@ public class UICopyingAssetHelper : UIBase
         uiGameobject.transform.localScale = prefab.transform.localScale;
         uiGameobject.transform.localPosition = prefab.transform.localPosition;
         uiGameobject.transform.localRotation = prefab.transform.localRotation;
-        CreateWithGO(uiGameobject, UILevel.Top);
+        CreateWithGO(uiGameobject, UILevel.Common);
     }
 
     private void InitError()
