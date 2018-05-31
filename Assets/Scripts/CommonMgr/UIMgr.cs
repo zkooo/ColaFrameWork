@@ -37,6 +37,9 @@ public class UIMgr : IViewManager, IEventHandler
     /// </summary>
     private Dictionary<string, MsgHandler> msgHanderDic;
 
+    /// <summary>
+    /// UI界面排序管理器
+    /// </summary>
     private UISorterMgr uiSorterMgr;
 
     public UIMgr()

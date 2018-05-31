@@ -273,7 +273,8 @@ public class UIBase : IEventHandler
     /// </summary>
     public void BringTop()
     {
-
+        var uiSorterMgr = CommonHelper.GetUIMgr().GetUISorterMgr();
+        uiSorterMgr.MovePanelToTop(this);
     }
 
 
