@@ -72,6 +72,14 @@ public class UIBase : IEventHandler
     /// UI深度层级标识
     /// </summary>
     public UIDepth uiDepthLayer = UIDepth.Normal;
+    /// <summary>
+    /// 挂在UI根节点上的Canvas组件
+    /// </summary>
+    private Canvas uiCanvas;
+    /// <summary>
+    /// UI是否参与排序
+    /// </summary>
+    protected bool sortEnable = true;
 
     public UIBase(int resId, UILevel uiLevel, UIDepth depth = UIDepth.Normal)
     {
@@ -136,12 +144,24 @@ public class UIBase : IEventHandler
                 GameObject.Destroy(Panel);
             }
             this.Panel = CommonHelper.InstantiateGoByID(ResId, GUIHelper.GetUIRootObj());
-            sorterTag = this.Panel.AddSingleComponent<SorterTag>();
         }
         else if (UICreateType.Go == uiCreateType)
         {
             Show(true);
         }
+
+        //UI参与排序
+        if (sortEnable)
+        {
+            sorterTag = this.Panel.AddSingleComponent<SorterTag>();
+            uiCanvas = this.Panel.AddSingleComponent<Canvas>();
+            this.Panel.AddSingleComponent<GraphicRaycaster>();
+            uiCanvas.overrideSorting = true;
+            this.Panel.AddSingleComponent<ParticleOrderAutoSorter>();
+
+            CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(this);
+        }
+
         AttachListener(Panel);
         this.OnCreate();
     }

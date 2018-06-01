@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 /// <summary>
@@ -28,7 +29,14 @@ public class UISorterMgr : ISorter
     private int maxSortIndex = 0;
     private List<UISorter> uiSortList;
     private List<Canvas> canvasSortList;
+    private bool is3DHigher = true;
 
+    /// <summary>
+    /// UI排序管理器构造器,序号越大，界面越靠上
+    /// </summary>
+    /// <param name="panel"></param>
+    /// <param name="sortIndex"></param>
+    /// <returns></returns>
     public UISorterMgr(int minIndex, int maxIndex)
     {
         minSortIndex = minIndex;
@@ -37,12 +45,6 @@ public class UISorterMgr : ISorter
         canvasSortList = new List<Canvas>();
     }
 
-    /// <summary>
-    /// UI排序管理器构造器,序号越大，界面越靠上
-    /// </summary>
-    /// <param name="panel"></param>
-    /// <param name="sortIndex"></param>
-    /// <returns></returns>
     public int SortIndexSetter(GameObject panel, int sortIndex)
     {
         if (null == panel)
@@ -152,6 +154,34 @@ public class UISorterMgr : ISorter
 
             return x.index.CompareTo(y.index);
         });
+
+        int _index = this.minSortIndex;
+        int _sortIndex = -1;
+        int space3D = 0;
+
+        for (int i = 0; i < uiSortList.Count; i++)
+        {
+            uiSortList[i].moveTop = 0; //重置moveTop标志位
+            if (_index > maxSortIndex)
+            {
+                _index = maxSortIndex;
+            }
+            _index = SortIndexSetter(uiSortList[i].ui.Panel, _index);
+            _sortIndex = SortTagIndexSetter(uiSortList[i].ui.Panel, _sortIndex);
+            if (is3DHigher)
+            {
+                space3D = SortTag3DSetter(uiSortList[i].ui.Panel, space3D, true);
+            }
+        }
+
+        if (!is3DHigher)
+        {
+            for (int i = uiSortList.Count - 1; i >= 0; i--)
+            {
+                space3D = SortTag3DSetter(uiSortList[i].ui.Panel, space3D, false);
+            }
+        }
+
     }
 
     public void AddPanel(UIBase ui)
