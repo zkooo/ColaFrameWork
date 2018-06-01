@@ -182,6 +182,10 @@ public class UIBase : IEventHandler
         DestroySubPanels();
         this.UnRegisterHandler();
         UnAttachListener(Panel);
+        if (UILevel == UILevel.Level1)
+        {
+            GUIHelper.GetModelOutlineCameraObj().GetComponent<ImageEffectUIBlur>().FinalTexture = null;
+        }
         if (null != Panel)
         {
             if (uiCreateType == UICreateType.Res)
@@ -257,6 +261,7 @@ public class UIBase : IEventHandler
             subUIList = new List<UIBase>();
         }
         if (subUI == null) { return; }
+        subUI.uiDepthLayer = this.uiDepthLayer;
         subUIList.Add(subUI);
     }
 
