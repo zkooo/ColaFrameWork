@@ -606,4 +606,29 @@ public static class CommonHelper
         }
         return false;
     }
+
+    /// <summary>
+    /// 获取主机IP地址
+    /// </summary>
+    /// <returns></returns>
+    public static string GetHostIp()
+    {
+        String url = "http://hijoyusers.joymeng.com:8100/test/getNameByOtherIp";
+        string IP = "未获取到外网ip";
+        try
+        {
+            System.Net.WebClient client = new System.Net.WebClient();
+            client.Encoding = Encoding.Default;
+            string str = client.DownloadString(url);
+            client.Dispose();
+
+            if (!str.Equals("")) IP = str;
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning(e.ToString());
+        }
+        Debug.Log("get host ip :" + IP);
+        return IP;
+    }
 }
