@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HUDFollowTarget : MonoBehaviour {
+public class UGUIHUDFollowTarget : MonoBehaviour {
 
     /// <summary>
     /// 3D target that this object will be positioned above.
