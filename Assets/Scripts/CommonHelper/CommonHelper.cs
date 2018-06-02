@@ -481,6 +481,24 @@ public static class CommonHelper
     }
 
     /// <summary>
+    /// 获取设备的电量
+    /// </summary>
+    /// <returns></returns>
+    public static float GetBatteryLevel()
+    {
+        return SystemInfo.batteryLevel;
+    }
+
+    /// <summary>
+    /// 获取设备的电池状态
+    /// </summary>
+    /// <returns></returns>
+    public static BatteryStatus GetBatteryStatus()
+    {
+        return SystemInfo.batteryStatus;
+    }
+
+    /// <summary>
     /// 检测一个功能模块是否开启
     /// </summary>
     /// <param name="funcName"></param>
