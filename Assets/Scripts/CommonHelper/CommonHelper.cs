@@ -486,7 +486,12 @@ public static class CommonHelper
     /// <returns></returns>
     public static float GetBatteryLevel()
     {
-        return SystemInfo.batteryLevel;
+        if (Application.isMobilePlatform)
+        {
+            return SystemInfo.batteryLevel;
+        }
+
+        return 1;
     }
 
     /// <summary>
@@ -496,6 +501,15 @@ public static class CommonHelper
     public static BatteryStatus GetBatteryStatus()
     {
         return SystemInfo.batteryStatus;
+    }
+
+    /// <summary>
+    /// 获取设备网络的状况
+    /// </summary>
+    /// <returns></returns>
+    public static NetworkReachability GetNetworkStatus()
+    {
+        return Application.internetReachability;
     }
 
     /// <summary>
@@ -522,7 +536,7 @@ public static class CommonHelper
                     Debug.LogWarning(string.Format("时间限制不能开启{0}", funcName));
                     break;
                 case CheckFuncResult.None:
-                    Debug.LogWarning(string.Format("未知原因不能开启{0}",funcName));
+                    Debug.LogWarning(string.Format("未知原因不能开启{0}", funcName));
                     break;
                 default:
                     break;
@@ -583,7 +597,7 @@ public static class CommonHelper
         {
             return false;
         }
-        for (int i= 0; i < strList.Length; i++)
+        for (int i = 0; i < strList.Length; i++)
         {
             if (strList[i].Equals(key))
             {
