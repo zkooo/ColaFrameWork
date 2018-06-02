@@ -50,7 +50,7 @@ public class UGUIHUDFollowTarget : MonoBehaviour {
     {
         mTrans = transform;
 
-        canvas = GUIRoot.GetUGUIRoot();
+        canvas = GUIHelper.GetUIRoot();
 
     }
 
