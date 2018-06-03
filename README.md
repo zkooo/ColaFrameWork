@@ -12,7 +12,11 @@
 
 #### 游戏启动运行流程与机制  
 
-待补充
+目前框架根据平台的不同，设计了不同的启动场景，分别命名为：  
+>* GameLauncher(Windows平台)  
+>* GameLauncherAndroid(Android平台)  
+
+无论启动场景是哪一个，游戏都由GameLauncher启动器脚本启动。GameLauncher为一个单例类，在游戏初始化的过程中，启动器类负责初始化GameManager、InputMgr、FpsHelper、DebuglogHelper、U3DAutomation、StreamingAssetHelper、多线程工具类等一些基础的操作。
 
 #### 数据节点管理   
 
