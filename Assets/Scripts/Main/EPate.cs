@@ -21,4 +21,11 @@ public class EPateColor
 {
     public Color TextColor;
     public Color OutlineColor;
+
+    public EPateColor(Color textColor, Color outlineColor)
+    {
+        this.TextColor = textColor;
+        this.OutlineColor = outlineColor;
+    }
+
 }

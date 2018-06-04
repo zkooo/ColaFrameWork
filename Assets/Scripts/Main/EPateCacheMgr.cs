@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,38 @@ using UnityEngine;
 /// </summary>
 public interface IEPateCache
 {
+    /// <summary>
+    /// 通过管理器创建一个指定类型的头顶字
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="targetObj"></param>
+    /// <param name="prefab"></param>
+    /// <param name="offsetH"></param>
+    /// <returns></returns>
     T CreateFromCache<T>(GameObject targetObj, GameObject prefab, float offsetH = 0f) where T : EPateBase;
+
+    /// <summary>
+    /// 获取头顶字的根节点
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    GameObject GetCacheRoot<T>() where T : EPateBase;
+
+    /// <summary>
+    /// 释放所有的缓存Pate
+    /// </summary>
+    void ReleaseAll();
+
+    /// <summary>
+    /// 释放某一种类型的缓存Pate
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    void ReleaseByType<T>() where T : EPateBase;
+
+    /// <summary>
+    /// 销毁PateMgr
+    /// </summary>
+    void Destroy();
 }
 
 /// <summary>
@@ -15,5 +47,50 @@ public interface IEPateCache
 /// </summary>
 public class EPateCacheMgr : IEPateCache
 {
+    private Dictionary<Type, GameObject> cachesDic;
+    private EPateCacheMgr instance;
 
+    public EPateCacheMgr Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                instance = new EPateCacheMgr();
+            }
+            return instance;
+        }
+    }
+
+    private EPateCacheMgr()
+    {
+        cachesDic = new Dictionary<Type, GameObject>();
+        GameObject playerTopPateObj = new GameObject("PlayerTopPateCache");
+
+    }
+
+    public T CreateFromCache<T>(GameObject targetObj, GameObject prefab, float offsetH = 0) where T : EPateBase
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public GameObject GetCacheRoot<T>() where T : EPateBase
+    {
+        return cachesDic[typeof(T)];
+    }
+
+    public void ReleaseAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ReleaseByType<T>() where T : EPateBase
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Destroy()
+    {
+        throw new NotImplementedException();
+    }
 }
