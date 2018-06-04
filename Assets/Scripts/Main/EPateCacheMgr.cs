@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EPateCacheMgr : MonoBehaviour {
+/// <summary>
+/// 头顶字缓存池和管理的相关接口
+/// </summary>
+public interface IEPateCache
+{
+    T CreateFromCache<T>(GameObject targetObj, GameObject prefab, float offsetH = 0f) where T : EPateBase;
+}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+/// <summary>
+/// 头顶字的缓存池和管理器
+/// </summary>
+public class EPateCacheMgr : IEPateCache
+{
+
 }

@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EPate : MonoBehaviour {
+/// <summary>
+/// 各种头顶字的基类
+/// </summary>
+public class EPateBase
+{
+    /// <summary>
+    /// 头顶字颜色
+    /// </summary>
+    public EPateColor pateColor;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+}
+
+/// <summary>
+/// 头顶字的颜色类
+/// </summary>
+public class EPateColor
+{
+    public Color TextColor;
+    public Color OutlineColor;
 }
