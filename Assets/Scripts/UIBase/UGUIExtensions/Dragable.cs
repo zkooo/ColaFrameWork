@@ -14,14 +14,14 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     private Camera uiCamera;
 
-    public delegate void OnBeginDragInLua(GameObject pointerDrag);
-    public OnBeginDragInLua onBeginDragInLua;
+    public delegate void OnBeginDragCallback(GameObject pointerDrag);
+    public OnBeginDragCallback onBeginDragCallback;
 
-    public delegate void OnDragingInLua(GameObject pointerDrag);
-    public OnDragingInLua onDragingInLua;
+    public delegate void OnDragingCallback(GameObject pointerDrag);
+    public OnDragingCallback onDragingCallback;
 
-    public delegate void OnDragEndInLua(GameObject pointerDrag, GameObject targetGo);
-    public OnDragEndInLua onDragEndInLua;
+    public delegate void OnDragEndCallback(GameObject pointerDrag, GameObject targetGo);
+    public OnDragEndCallback onDragEndCallback;
 
     void Awake()
     {
@@ -35,23 +35,23 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         offset.z = 0;
         GetComponent<Image>().raycastTarget = false;
         SetDraggedPosition(eventData);
-        if (onBeginDragInLua != null)
-            onBeginDragInLua(eventData.pointerDrag);
+        if (onBeginDragCallback != null)
+            onBeginDragCallback(eventData.pointerDrag);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         SetDraggedPosition(eventData);
-        if (onDragingInLua != null)
-            onDragingInLua(eventData.pointerDrag);
+        if (onDragingCallback != null)
+            onDragingCallback(eventData.pointerDrag);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         GetComponent<Image>().raycastTarget = true;
         SetDraggedPosition(eventData);
-        if (onDragEndInLua != null)
-            onDragEndInLua(eventData.pointerDrag, eventData.pointerEnter);
+        if (onDragEndCallback != null)
+            onDragEndCallback(eventData.pointerDrag, eventData.pointerEnter);
     }
 
     private void SetDraggedPosition(PointerEventData eventData)
