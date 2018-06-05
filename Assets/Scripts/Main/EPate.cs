@@ -11,7 +11,27 @@ public class EPateBase
     /// 头顶字颜色
     /// </summary>
     public EPateColor pateColor;
+    /// <summary>
+    /// 头顶字的跟随组件
+    /// </summary>
+    private UGUIHUDFollowTarget HUDComponent;
+    /// <summary>
+    /// 该头顶字是否被释放
+    /// </summary>
+    public bool release = false;
+    /// <summary>
+    /// 该头顶字是否逻辑上可见
+    /// </summary>
+    private bool visible = true;
 
+    /// <summary>
+    /// 该头顶字是否逻辑上可见
+    /// </summary>
+    public bool Visible
+    {
+        get { return visible; }
+        set { visible = value; }
+    }
 }
 
 /// <summary>
