@@ -23,6 +23,10 @@ public class EPateBase
     /// 该头顶字是否逻辑上可见
     /// </summary>
     private bool visible = true;
+    /// <summary>
+    /// 头顶字绑定的跟随的物体
+    /// </summary>
+    private EObject followObj;
 
     /// <summary>
     /// 该头顶字是否逻辑上可见
@@ -32,6 +36,29 @@ public class EPateBase
         get { return visible; }
         set { visible = value; }
     }
+
+    public void AttachTarget(GameObject targetObj, float offsetH)
+    {
+
+    }
+
+    public void SetActive(bool isActive)
+    {
+
+    }
+
+    public GameObject GetAttachObj()
+    {
+
+    }
+
+    public float GetAttachOffsetH()
+    {
+
+    }
+
+
+
 }
 
 /// <summary>
