@@ -27,6 +27,10 @@ public class EPateBase
     /// 头顶字绑定的跟随的物体
     /// </summary>
     private EObject followObj;
+    /// <summary>
+    /// 实例化出来的头顶字预制
+    /// </summary>
+    private GameObject pateObj;
 
     /// <summary>
     /// 该头顶字是否逻辑上可见
@@ -36,6 +40,8 @@ public class EPateBase
         get { return visible; }
         set { visible = value; }
     }
+
+
 
     public void AttachTarget(GameObject targetObj, float offsetH)
     {
@@ -57,7 +63,10 @@ public class EPateBase
 
     }
 
+    public void Release()
+    {
 
+    }
 
 }
 
