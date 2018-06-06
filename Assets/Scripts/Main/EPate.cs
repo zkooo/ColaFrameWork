@@ -41,7 +41,13 @@ public class EPateBase
         set { visible = value; }
     }
 
-
+    public EPateBase(GameObject prefab, GameObject attachTarget, EPateColor color,float offsetH)
+    {
+        pateObj = CommonHelper.InstantiateGoByPrefab(prefab, null);
+        this.pateColor = color;
+        AttachTarget(attachTarget,offsetH);
+        HUDComponent = this.pateObj.GetComponent<UGUIHUDFollowTarget>();
+    }
 
     public void AttachTarget(GameObject targetObj, float offsetH)
     {
@@ -65,7 +71,16 @@ public class EPateBase
 
     public void Release()
     {
+        this.release = true;
+        if (null != pateObj)
+        {
 
+        }
+
+        if (null != HUDComponent)
+        {
+
+        }
     }
 
 }
