@@ -38,7 +38,14 @@ public class EPateBase
     public bool Visible
     {
         get { return visible; }
-        set { visible = value; }
+        set
+        {
+            visible = value;
+            if (null != HUDComponent)
+            {
+                HUDComponent.enableAll = value;
+            }
+        }
     }
 
     public EPateBase(GameObject prefab, GameObject attachTarget, EPateColor color,float offsetH)
@@ -56,7 +63,10 @@ public class EPateBase
 
     public void SetActive(bool isActive)
     {
-
+        if (HUDComponent != null)
+        {
+            HUDComponent.gameObject.SetActive(isActive);
+        }
     }
 
     public GameObject GetAttachObj()
