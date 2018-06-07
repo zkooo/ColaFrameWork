@@ -14,6 +14,7 @@ public class EObject
     public Quaternion initDir = Quaternion.identity;
     public float modelScale = 1f;
     public EModel model;
+    public GameObject rootObj;
 
     public EObject()
     {
