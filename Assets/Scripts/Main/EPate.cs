@@ -69,16 +69,6 @@ public class EPateBase
         }
     }
 
-    public GameObject GetAttachObj()
-    {
-
-    }
-
-    public float GetAttachOffsetH()
-    {
-
-    }
-
     public virtual void Release()
     {
         this.release = true;
