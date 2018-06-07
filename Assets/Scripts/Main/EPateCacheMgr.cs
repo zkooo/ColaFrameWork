@@ -23,7 +23,7 @@ public interface IEPateCache
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    GameObject GetCacheRoot<T>() where T : EPateBase;
+    GameObject GetCacheRoot(Type type);
 
     /// <summary>
     /// 释放所有的缓存Pate
@@ -48,9 +48,9 @@ public interface IEPateCache
 public class EPateCacheMgr : IEPateCache
 {
     private Dictionary<Type, GameObject> cachesDic;
-    private EPateCacheMgr instance;
+    private static EPateCacheMgr instance;
 
-    public EPateCacheMgr Instance
+    public static EPateCacheMgr Instance
     {
         get
         {
@@ -74,9 +74,14 @@ public class EPateCacheMgr : IEPateCache
         throw new System.NotImplementedException();
     }
 
-    public GameObject GetCacheRoot<T>() where T : EPateBase
+    public GameObject GetCacheRoot(Type type)
     {
-        return cachesDic[typeof(T)];
+        if (null != cachesDic && cachesDic.ContainsKey(type))
+        {
+            return cachesDic[type];
+        }
+
+        return null;
     }
 
     public void ReleaseAll()

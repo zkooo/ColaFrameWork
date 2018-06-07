@@ -69,17 +69,22 @@ public class EPateBase
 
     }
 
-    public void Release()
+    public virtual void Release()
     {
         this.release = true;
         if (null != pateObj)
         {
-
+            var hud = this.pateObj.transform.parent;
+            var root = EPateCacheMgr.Instance.GetCacheRoot(this.GetType());
+            hud.transform.SetParent(root.transform,false);
+            hud.gameObject.SetActive(false);
+            pateObj = null;
         }
 
         if (null != HUDComponent)
         {
-
+            HUDComponent.target = null;
+            HUDComponent = null;
         }
     }
 
