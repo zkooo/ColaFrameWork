@@ -42,6 +42,21 @@ public class UIMgr : IViewManager, IEventHandler
     /// </summary>
     private UISorterMgr uiSorterMgr;
 
+    /// <summary>
+    /// 头顶字的缓存根节点
+    /// </summary>
+    private GameObject HUDTopBoradCache;
+
+    /// <summary>
+    /// 头顶字HUDBoard缓存列表
+    /// </summary>
+    private List<GameObject> HUDBoardList;
+
+    /// <summary>
+    /// 头顶字HUDBoard的展示根节点
+    /// </summary>
+    private GameObject HUDTopBoardRoot;
+
     public UIMgr()
     {
         uiList = new Dictionary<string, UIBase>();
@@ -50,6 +65,17 @@ public class UIMgr : IViewManager, IEventHandler
         recordList = new List<UIBase>();
         uiSorterMgr = new UISorterMgr(1,8000);
         InitRegisterHandler();
+
+        HUDTopBoardRoot = new GameObject("HUDTopBoardRoot");
+        HUDTopBoardRoot.transform.SetParent(GUIHelper.GetUIRootObj().transform,false);
+        HUDTopBoardRoot.layer = LayerMask.NameToLayer("UI");
+        var canvas = HUDTopBoardRoot.AddComponent<Canvas>();
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = GUIHelper.GetUIRoot().sortingOrder - 2;
+
+        HUDTopBoradCache = new GameObject("HUDTopBoradCache");
+        GameObject.DontDestroyOnLoad(HUDTopBoradCache);
+        HUDTopBoradCache.SetActive(false);
 
         /*---------------UI界面控制脚本添加-------------------*/
         UIBase ui = new UILogin(100, UILevel.Level1);
@@ -353,5 +379,46 @@ public class UIMgr : IViewManager, IEventHandler
     public UISorterMgr GetUISorterMgr()
     {
         return uiSorterMgr;
+    }
+
+    /// <summary>
+    /// 创建头顶字HUDBoard组
+    /// </summary>
+    /// <returns></returns>
+    private GameObject CreateHUDBoardTopGroup()
+    {
+        GameObject HUDTopGroup;
+        if (HUDTopBoradCache.ChildCount() > 0)
+        {
+            HUDTopGroup = HUDTopBoradCache.GetChild(0); //每次取栈顶元素
+            HUDTopGroup.transform.SetParent(HUDTopBoardRoot.transform,false);
+            HUDTopGroup.transform.localScale = Vector3.one;
+            HUDTopGroup.transform.SetAsFirstSibling();
+        }
+        else
+        {
+            HUDTopGroup = new GameObject("group");
+            var rectTransform = HUDTopGroup.AddSingleComponent<RectTransform>();
+            rectTransform.transform.SetParent(HUDTopBoardRoot.transform,false);
+            rectTransform.anchoredPosition = Vector2.one;
+            HUDTopGroup.transform.localScale = Vector3.one;
+            HUDTopGroup.layer = LayerMask.NameToLayer("UI");
+            rectTransform.SetAsFirstSibling();
+        }
+
+        var hostRoot = GetHostHUDRoot();
+        hostRoot.transform.SetAsLastSibling(); //主角的HUD永远显示在最前面
+        
+        HUDBoardList.Add(HUDTopGroup);
+        return HUDTopGroup;
+    }
+
+    /// <summary>
+    /// 获取主角的HUDBoard根节点，主角永远显示在最前面
+    /// </summary>
+    /// <returns></returns>
+    private GameObject GetHostHUDRoot()
+    {
+
     }
 }
