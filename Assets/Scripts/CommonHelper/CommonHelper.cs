@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -561,7 +562,7 @@ public static class CommonHelper
     }
 
     /// <summary>
-    /// 获取一个Transform组建下所有处于Active状态的子物体的数量
+    /// 获取一个Transform组件下所有处于Active状态的子物体的数量
     /// </summary>
     /// <param name="transform"></param>
     /// <returns></returns>
@@ -630,5 +631,36 @@ public static class CommonHelper
         }
         Debug.Log("get host ip :" + IP);
         return IP;
+    }
+
+    /// <summary>
+    /// 获取一个GameObject下所有子物体的数量
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public static int ChildCount(this GameObject obj)
+    {
+        if (null != obj)
+        {
+            return obj.transform.childCount;
+        }
+
+        return 0;
+    }
+
+    /// <summary>
+    /// 根据索引获取一个GameOject的子物体
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public static GameObject GetChild(this GameObject obj, int index)
+    {
+        if (null != obj)
+        {
+            return obj.transform.GetChild(index).gameObject;
+        }
+
+        return null;
     }
 }
