@@ -56,7 +56,7 @@ public class UIMgr : IViewManager, IEventHandler
     /// 头顶字HUDBoard的展示根节点
     /// </summary>
     private GameObject HUDTopBoardRoot;
-    
+
     /// <summary>
     /// 每个hudGroup下面限制挂载多少个pate
     /// </summary>
@@ -69,11 +69,11 @@ public class UIMgr : IViewManager, IEventHandler
         outTouchList = new List<UIBase>();
         removeList = new List<UIBase>();
         recordList = new List<UIBase>();
-        uiSorterMgr = new UISorterMgr(1,8000);
+        uiSorterMgr = new UISorterMgr(1, 8000);
         InitRegisterHandler();
 
         HUDTopBoardRoot = new GameObject("HUDTopBoardRoot");
-        HUDTopBoardRoot.transform.SetParent(GUIHelper.GetUIRootObj().transform,false);
+        HUDTopBoardRoot.transform.SetParent(GUIHelper.GetUIRootObj().transform, false);
         HUDTopBoardRoot.layer = LayerMask.NameToLayer("UI");
         var canvas = HUDTopBoardRoot.AddComponent<Canvas>();
         canvas.overrideSorting = true;
@@ -397,7 +397,7 @@ public class UIMgr : IViewManager, IEventHandler
         if (HUDTopBoradCache.ChildCount() > 0)
         {
             HUDTopGroup = HUDTopBoradCache.GetChild(0); //每次取栈顶元素
-            HUDTopGroup.transform.SetParent(HUDTopBoardRoot.transform,false);
+            HUDTopGroup.transform.SetParent(HUDTopBoardRoot.transform, false);
             HUDTopGroup.transform.localScale = Vector3.one;
             HUDTopGroup.transform.SetAsFirstSibling();
         }
@@ -405,7 +405,7 @@ public class UIMgr : IViewManager, IEventHandler
         {
             HUDTopGroup = new GameObject("group");
             var rectTransform = HUDTopGroup.AddSingleComponent<RectTransform>();
-            rectTransform.transform.SetParent(HUDTopBoardRoot.transform,false);
+            rectTransform.transform.SetParent(HUDTopBoardRoot.transform, false);
             rectTransform.anchoredPosition = Vector2.one;
             HUDTopGroup.transform.localScale = Vector3.one;
             HUDTopGroup.layer = LayerMask.NameToLayer("UI");
@@ -414,7 +414,7 @@ public class UIMgr : IViewManager, IEventHandler
 
         var hostRoot = GetHostHUDRoot();
         hostRoot.transform.SetAsLastSibling(); //主角的HUD永远显示在最前面
-        
+
         HUDBoardList.Add(HUDTopGroup);
         return HUDTopGroup;
     }
@@ -428,8 +428,27 @@ public class UIMgr : IViewManager, IEventHandler
 
     }
 
+    /// <summary>
+    /// 获取当前负载均衡中比较空闲的hud节点
+    /// </summary>
+    /// <returns></returns>
     public GameObject GetHUDTopBoardRoot()
     {
-        
+        GameObject bestNode = null;
+        for (int i = 0; i < HUDBoardList.Count; i++)
+        {
+            //找到所有HUD根节点缓存中比较空闲的
+            if (HUDBoardList[i].ChildCount() < HUDLimitSize)
+            {
+                bestNode = HUDBoardList[i];
+                break;
+            }
+        }
+        if (null == bestNode)
+        {
+            //如果当前的负载均衡中都比较忙，就再新建一个hud节点出来
+            bestNode = CreateHUDBoardTopGroup();
+        }
+        return bestNode;
     }
 }
