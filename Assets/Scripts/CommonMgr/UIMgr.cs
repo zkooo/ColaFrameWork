@@ -58,10 +58,14 @@ public class UIMgr : IViewManager, IEventHandler
     private GameObject HUDTopBoardRoot;
 
     /// <summary>
-    /// 每个hudGroup下面限制挂载多少个pate
+    /// 每个hudGroup下面限制挂载多少个pate,默认为25
     /// </summary>
     public int HUDLimitSize = 25;
 
+    /// <summary>
+    /// 主角的HUD根节点
+    /// </summary>
+    private GameObject hostHUDTopRoot;
 
     public UIMgr()
     {
@@ -425,7 +429,16 @@ public class UIMgr : IViewManager, IEventHandler
     /// <returns></returns>
     public GameObject GetHostHUDRoot()
     {
-
+        if (null == hostHUDTopRoot)
+        {
+            hostHUDTopRoot = new GameObject("host_group");
+            var rectTransform = hostHUDTopRoot.AddSingleComponent<RectTransform>();
+            rectTransform.SetParent(HUDTopBoardRoot.transform,false);
+            rectTransform.anchoredPosition = Vector2.zero;
+            hostHUDTopRoot.transform.localScale = Vector3.zero;
+            hostHUDTopRoot.layer = LayerMask.NameToLayer("UI");
+        }
+        return hostHUDTopRoot;
     }
 
     /// <summary>
