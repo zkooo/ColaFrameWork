@@ -56,6 +56,12 @@ public class UIMgr : IViewManager, IEventHandler
     /// 头顶字HUDBoard的展示根节点
     /// </summary>
     private GameObject HUDTopBoardRoot;
+    
+    /// <summary>
+    /// 每个hudGroup下面限制挂载多少个pate
+    /// </summary>
+    public int HUDLimitSize = 25;
+
 
     public UIMgr()
     {
@@ -385,7 +391,7 @@ public class UIMgr : IViewManager, IEventHandler
     /// 创建头顶字HUDBoard组
     /// </summary>
     /// <returns></returns>
-    private GameObject CreateHUDBoardTopGroup()
+    public GameObject CreateHUDBoardTopGroup()
     {
         GameObject HUDTopGroup;
         if (HUDTopBoradCache.ChildCount() > 0)
@@ -417,7 +423,7 @@ public class UIMgr : IViewManager, IEventHandler
     /// 获取主角的HUDBoard根节点，主角永远显示在最前面
     /// </summary>
     /// <returns></returns>
-    private GameObject GetHostHUDRoot()
+    public GameObject GetHostHUDRoot()
     {
 
     }
