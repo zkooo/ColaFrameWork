@@ -427,4 +427,9 @@ public class UIMgr : IViewManager, IEventHandler
     {
 
     }
+
+    public GameObject GetHUDTopBoardRoot()
+    {
+        
+    }
 }
