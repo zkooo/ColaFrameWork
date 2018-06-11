@@ -11,10 +11,12 @@ public class EPateBase
     /// 头顶字颜色
     /// </summary>
     public EPateColor pateColor;
+
     /// <summary>
     /// 头顶字的跟随组件
     /// </summary>
-    private UGUIHUDFollowTarget HUDComponent;
+    public UGUIHUDFollowTarget HudComponent { get; private set; }
+
     /// <summary>
     /// 该头顶字是否被释放
     /// </summary>
@@ -41,31 +43,37 @@ public class EPateBase
         set
         {
             visible = value;
-            if (null != HUDComponent)
+            if (null != HudComponent)
             {
-                HUDComponent.enableAll = value;
+                HudComponent.enableAll = value;
             }
         }
     }
 
-    public EPateBase(GameObject prefab, GameObject attachTarget, EPateColor color,float offsetH)
+    /// <summary>
+    /// 实例化出来的头顶字预制
+    /// </summary>
+    public GameObject PateObj
     {
-        pateObj = CommonHelper.InstantiateGoByPrefab(prefab, null);
-        this.pateColor = color;
-        AttachTarget(attachTarget,offsetH);
-        HUDComponent = this.pateObj.GetComponent<UGUIHUDFollowTarget>();
+        get { return pateObj; }
     }
 
-    public void AttachTarget(GameObject targetObj, float offsetH)
+    public void Create(GameObject pateObj)
+    {
+        this.pateObj = pateObj;
+        OnCreate();
+    }
+
+    public virtual void OnCreate()
     {
 
     }
 
     public void SetActive(bool isActive)
     {
-        if (HUDComponent != null)
+        if (HudComponent != null)
         {
-            HUDComponent.gameObject.SetActive(isActive);
+            HudComponent.gameObject.SetActive(isActive);
         }
     }
 
@@ -81,10 +89,10 @@ public class EPateBase
             pateObj = null;
         }
 
-        if (null != HUDComponent)
+        if (null != HudComponent)
         {
-            HUDComponent.target = null;
-            HUDComponent = null;
+            HudComponent.target = null;
+            HudComponent = null;
         }
     }
 
