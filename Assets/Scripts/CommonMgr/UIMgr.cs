@@ -433,7 +433,7 @@ public class UIMgr : IViewManager, IEventHandler
         {
             hostHUDTopRoot = new GameObject("host_group");
             var rectTransform = hostHUDTopRoot.AddSingleComponent<RectTransform>();
-            rectTransform.SetParent(HUDTopBoardRoot.transform,false);
+            rectTransform.SetParent(HUDTopBoardRoot.transform, false);
             rectTransform.anchoredPosition = Vector2.zero;
             hostHUDTopRoot.transform.localScale = Vector3.zero;
             hostHUDTopRoot.layer = LayerMask.NameToLayer("UI");
@@ -463,5 +463,17 @@ public class UIMgr : IViewManager, IEventHandler
             bestNode = CreateHUDBoardTopGroup();
         }
         return bestNode;
+    }
+
+
+    public GameObject CreateHUD(string name)
+    {
+        var obj = new GameObject(name);
+        var root = GetHUDTopBoardRoot();
+        var rectTrans = obj.AddSingleComponent<RectTransform>();
+        rectTrans.SetParent(root.transform, false);
+        rectTrans.anchoredPosition = Vector2.zero;
+        obj.transform.localScale = Vector3.one;
+        return obj;
     }
 }
