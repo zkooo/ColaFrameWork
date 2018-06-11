@@ -2,21 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Def = GloablDefine;
 
 /// <summary>
 /// 头顶字缓存池和管理的相关接口
 /// </summary>
 public interface IEPateCache
 {
+
     /// <summary>
-    /// 通过管理器创建一个指定类型的头顶字
+    /// 通过管理器创建一个指定类型的头顶字预制
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="targetObj"></param>
     /// <param name="prefab"></param>
     /// <param name="offsetH"></param>
     /// <returns></returns>
-    T CreateFromCache<T>(GameObject targetObj, GameObject prefab, float offsetH = 0f) where T : EPateBase;
+    GameObject CreateFromCache<T>(GameObject targetObj, GameObject prefab, float offsetH = 0f, bool isVisible = true) where T : EPateBase;
 
     /// <summary>
     /// 获取头顶字的根节点
@@ -40,6 +41,8 @@ public interface IEPateCache
     /// 销毁PateMgr
     /// </summary>
     void Destroy();
+
+    void AttachTarget(GameObject targetObj, float offsetH);
 }
 
 /// <summary>
@@ -66,12 +69,37 @@ public class EPateCacheMgr : IEPateCache
     {
         cachesDic = new Dictionary<Type, GameObject>();
         GameObject playerTopPateObj = new GameObject("PlayerTopPateCache");
-
+        cachesDic.Add(typeof(EPlayerTopPate), playerTopPateObj);
     }
 
-    public T CreateFromCache<T>(GameObject targetObj, GameObject prefab, float offsetH = 0) where T : EPateBase
+    public GameObject CreateFromCache<T>(GameObject targetObj, GameObject prefab, float offsetH = 0, bool isVisible = true) where T : EPateBase
     {
-        throw new System.NotImplementedException();
+        var cacheRoot = GetCacheRoot(typeof(T));
+        GameObject pate = null;
+        UGUIHUDFollowTarget hudFollow = null;
+        if (null != cacheRoot)
+        {
+            if (cacheRoot.ChildCount() > 0)
+            {
+                var hudObj = cacheRoot.GetChild(0); //每次取栈顶
+                hudFollow = hudObj.GetComponent<UGUIHUDFollowTarget>();
+                hudFollow.target = targetObj.transform;
+                hudFollow.offset = new Vector3(0, offsetH, 0);
+                var root = CommonHelper.GetUIMgr().GetHUDTopBoardRoot();
+                hudObj.transform.SetParent(root.transform, false);
+                pate = hudObj.FindChildByPath("pate");
+            }
+            else
+            {
+                var pateObj = CommonHelper.InstantiateGoByPrefab(prefab, null);
+                AttachTarget(targetObj, offsetH);
+                hudFollow = pateObj.GetComponent<UGUIHUDFollowTarget>();
+            }
+            pate.SetActive(true);
+            hudFollow.SetVisible(isVisible);
+        }
+
+        return pate;
     }
 
     public GameObject GetCacheRoot(Type type)
@@ -97,5 +125,10 @@ public class EPateCacheMgr : IEPateCache
     public void Destroy()
     {
         throw new NotImplementedException();
+    }
+
+    public void AttachTarget(GameObject targetObj, float offsetH)
+    {
+
     }
 }
