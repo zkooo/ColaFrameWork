@@ -64,12 +64,14 @@ public class EModel
 
     public EModel Clone()
     {
-
+        //TODO:Clone
+        return this;
     }
 
     public EModel CloneFromObj(GameObject srcObj)
     {
-
+        //TODO:从一个Gameobecjt Clone
+        return this;
     }
 
     public void SetActive(bool isActive)

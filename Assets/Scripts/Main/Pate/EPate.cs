@@ -96,6 +96,25 @@ public class EPateBase
         }
     }
 
+    public GameObject GetPateAttachObj(GameObject obj, float offsetH, out float offsetValue)
+    {
+        if (null == obj)
+        {
+            offsetValue = offsetH;
+            return obj;
+        }
+
+        var hudRoot = obj.FindChildByPath("hud");
+        if (null != hudRoot)
+        {
+            offsetValue = 0;
+            return hudRoot;
+        }
+
+        offsetValue = offsetH;
+        return obj;
+    }
+
 }
 
 /// <summary>
