@@ -91,9 +91,9 @@ public class EPateCacheMgr : IEPateCache
             }
             else
             {
-                var pateObj = CommonHelper.InstantiateGoByPrefab(prefab, null);
-                AttachTarget(targetObj, offsetH);
-                hudFollow = pateObj.GetComponent<UGUIHUDFollowTarget>();
+                pate = CommonHelper.InstantiateGoByPrefab(prefab, null);
+                AttachTarget(targetObj, offsetH,pate);
+                hudFollow = pate.GetComponent<UGUIHUDFollowTarget>();
             }
             pate.SetActive(true);
             hudFollow.SetVisible(isVisible);
@@ -127,8 +127,16 @@ public class EPateCacheMgr : IEPateCache
         throw new NotImplementedException();
     }
 
-    public void AttachTarget(GameObject targetObj, float offsetH)
+    public void AttachTarget(GameObject targetObj, float offsetH,GameObject pate)
     {
-
+        var hud = CommonHelper.GetUIMgr().CreateHUD(targetObj.name);
+        var follow = hud.AddSingleComponent<UGUIHUDFollowTarget>();
+        var transform = targetObj.transform;
+        follow.target = transform;
+        follow.offset = new Vector3(0,offsetH,0);
+        pate.transform.SetParent(hud.transform,false);
+        pate.transform.localPosition = Vector3.zero;
+        pate.transform.localScale = Vector3.one;
+        hud.layer = LayerMask.NameToLayer("PateText");
     }
 }
