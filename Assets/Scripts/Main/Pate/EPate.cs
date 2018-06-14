@@ -58,10 +58,15 @@ public class EPateBase
         get { return pateObj; }
     }
 
-    public void Create(GameObject pateObj)
+    protected EPateBase()
     {
-        this.pateObj = pateObj;
-        OnCreate();
+
+    }
+
+    public static EPateBase Create()
+    {
+        var pate = new EPateBase();
+        return pate;
     }
 
     public virtual void OnCreate()
