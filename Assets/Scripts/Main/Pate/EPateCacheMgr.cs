@@ -42,7 +42,7 @@ public interface IEPateCache
     /// </summary>
     void Destroy();
 
-    void AttachTarget(GameObject targetObj, float offsetH);
+    void AttachTarget(GameObject targetObj, float offsetH,GameObject pate);
 }
 
 /// <summary>
@@ -93,7 +93,7 @@ public class EPateCacheMgr : IEPateCache
             {
                 pate = CommonHelper.InstantiateGoByPrefab(prefab, null);
                 AttachTarget(targetObj, offsetH,pate);
-                hudFollow = pate.GetComponent<UGUIHUDFollowTarget>();
+                hudFollow = pate .GetComponent<UGUIHUDFollowTarget>();
             }
             pate.SetActive(true);
             hudFollow.SetVisible(isVisible);
