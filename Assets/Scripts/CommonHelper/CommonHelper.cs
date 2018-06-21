@@ -663,4 +663,30 @@ public static class CommonHelper
 
         return null;
     }
+
+    /// <summary>
+    /// 获取当前位置距离地面的高度
+    /// </summary>
+    /// <param name="vPos"></param>
+    /// <param name="fRadius"></param>
+    /// <returns></returns>
+    public static float GetTerrainHeight(Vector3 vPos, float fRadius = 0)
+    {
+        var orign = vPos;
+        orign.y += 300;
+        float maxDistance = vPos.y + 400;
+        RaycastHit hitInfo;
+        bool bRet = (fRadius == 0) ? Physics.Raycast(orign, Vector3.down, out hitInfo, maxDistance, LayerMask.GetMask("Terrain")) : Physics.SphereCast(orign, fRadius, Vector3.down, out hitInfo, orign.y + 50, LayerMask.GetMask("Terrain"));
+        return bRet ? hitInfo.point.y : 0;
+    }
+
+    /// <summary>
+    /// 获取导航点距离地面的高度
+    /// </summary>
+    /// <param name="vPos"></param>
+    /// <returns></returns>
+    public static float GetNavMeshHeight(Vector3 vPos)
+    {
+        return GetTerrainHeight(vPos);
+    }
 }
