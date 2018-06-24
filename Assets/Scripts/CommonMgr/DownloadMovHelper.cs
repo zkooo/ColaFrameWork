@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using UnityEngine;
 
@@ -27,6 +28,8 @@ public class DownloadMovHelper
     private static Action<DownLoadMovError> _onFailed;
     private static Action<int> _onProgress;
 
+    private static WaitForSeconds oneSecond = new WaitForSeconds(1.0f);
+
     /// <summary>
     /// 对外提供的开始下载接口
     /// </summary>
@@ -47,7 +50,26 @@ public class DownloadMovHelper
             }
             return;
         }
-        
+
+        _onLoading = onLoading;
+        _onCompleted = onComplete;
+        _onFailed = onFailed;
+        _onProgress = onProgress;
+        localFilePath = filePath;
+        downloadURL = url;
+
+        if (CheckLocalFileExist(filePath))
+        {
+            if (null != onComplete)
+            {
+                onComplete();
+            }
+        }
+        else
+        {
+            isLoading = true;
+            GameLauncher.Instance.StartCoroutine(DownloadObsolete(localFilePath));
+        }
     }
 
     /// <summary>
@@ -55,7 +77,11 @@ public class DownloadMovHelper
     /// </summary>
     public static void Stop()
     {
-
+        if (isLoading)
+        {
+            GameLauncher.Instance.StopCoroutine(DownloadObsolete(localFilePath));
+        }
+        Release();
     }
 
     /// <summary>
@@ -63,7 +89,13 @@ public class DownloadMovHelper
     /// </summary>
     public static void Release()
     {
-
+        isLoading = false;
+        localFilePath = string.Empty;
+        downloadURL = string.Empty;
+        _onLoading = null;
+        _onCompleted = null;
+        _onFailed = null;
+        _onProgress = null;
     }
 
     /// <summary>
@@ -77,7 +109,71 @@ public class DownloadMovHelper
 
     }
 
+    [Obsolete("该接口已经过时")]
+    private static IEnumerator DownloadObsolete(string url)
+    {
+        if (string.IsNullOrEmpty(url)) yield break;
+        WWW www = new WWW(url);
+        int progress = 0;
+        while (!www.isDone)
+        {
+            progress = (int)(www.progress * 100) % 100;
+            if (null != _onProgress)
+            {
+                _onProgress(progress);
+            }
 
+            yield return oneSecond;
+        }
+
+        if (www.isDone)
+        {
+            if (www.bytes.Length > 0 && !string.IsNullOrEmpty(localFilePath))
+            {
+                byte[] btArray = www.bytes;
+                try
+                {
+                    FileStream WriteStream = new FileStream(localFilePath, FileMode.Create);
+                    WriteStream.Write(btArray, 0, btArray.Length);
+                    WriteStream.Close();
+                }
+                catch (Exception e)
+                {
+                    if (null != _onFailed)
+                    {
+                        _onFailed(DownLoadMovError.SaveError);
+                    }
+                    throw;
+                }
+                isLoading = false;
+
+                //双重检查
+                if (CheckLocalFileExist(localFilePath))
+                {
+                    if (null != localFilePath)
+                    {
+                        _onCompleted();
+                    }
+                }
+                else
+                {
+                    if (null != _onFailed)
+                    {
+                        _onFailed(DownLoadMovError.SaveError);
+                    }
+                }
+            }
+        }
+
+        if (!string.IsNullOrEmpty(www.error) || www.bytes.Length <= 0)
+        {
+            isLoading = false;
+            if (null != _onFailed)
+            {
+                _onFailed(DownLoadMovError.DownloadError);
+            }
+        }
+    }
 
     /// <summary>
     /// 检查本地文件是否存在,如果目录不存在则创建目录
@@ -115,4 +211,13 @@ public enum DownLoadMovError : byte
     /// </summary>
     PathError,
 
+    /// <summary>
+    /// 保存失败
+    /// </summary>
+    SaveError,
+
+    /// <summary>
+    /// 资源下载失败
+    /// </summary>
+    DownloadError,
 }
