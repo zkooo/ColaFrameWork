@@ -68,7 +68,11 @@ public class DownloadMovHelper
         else
         {
             isLoading = true;
-            GameLauncher.Instance.StartCoroutine(DownloadObsolete(localFilePath));
+            if (null != _onLoading)
+            {
+                onLoading();
+            }
+            GameLauncher.Instance.StartCoroutine(DownloadObsolete(downloadURL));
         }
     }
 
@@ -79,7 +83,7 @@ public class DownloadMovHelper
     {
         if (isLoading)
         {
-            GameLauncher.Instance.StopCoroutine(DownloadObsolete(localFilePath));
+            GameLauncher.Instance.StopCoroutine(DownloadObsolete(downloadURL));
         }
         Release();
     }
@@ -106,9 +110,15 @@ public class DownloadMovHelper
     /// <param name="onFailed"></param>
     public static void DeleteVideo(string filePath, Action onComplete, Action onFailed)
     {
+        if(string.IsNullOrEmpty(filePath))return;
 
     }
 
+    /// <summary>
+    /// 执行下载视频任务的协程（旧版本）
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
     [Obsolete("该接口已经过时")]
     private static IEnumerator DownloadObsolete(string url)
     {
@@ -173,6 +183,16 @@ public class DownloadMovHelper
                 _onFailed(DownLoadMovError.DownloadError);
             }
         }
+    }
+
+    /// <summary>
+    /// 执行下载视频任务的协程
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    private static IEnumerator Download(string url)
+    {
+        if (string.IsNullOrEmpty(url)) yield break;
     }
 
     /// <summary>
