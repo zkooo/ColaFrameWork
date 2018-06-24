@@ -689,4 +689,48 @@ public static class CommonHelper
     {
         return GetTerrainHeight(vPos);
     }
+
+    /// <summary>
+    /// 启动一个协程
+    /// </summary>
+    /// <param name="coroutine"></param>
+    public static void StartCoroutine(IEnumerator coroutine)
+    {
+        GameLauncher.Instance.StartCoroutine(coroutine);
+    }
+
+    /// <summary>
+    /// 启动一个协程
+    /// </summary>
+    /// <param name="methodName"></param>
+    public static void StartCoroutine(string methodName)
+    {
+        GameLauncher.Instance.StartCoroutine(methodName);
+    }
+
+    /// <summary>
+    /// 停止一个协程
+    /// </summary>
+    /// <param name="coroutine"></param>
+    public static void StopCoroutine(IEnumerator coroutine)
+    {
+        GameLauncher.Instance.StopCoroutine(coroutine);
+    }
+
+    /// <summary>
+    /// 停止一个协程
+    /// </summary>
+    /// <param name="methodName"></param>
+    public static void StopCoroutine(string methodName)
+    {
+        GameLauncher.Instance.StopCoroutine(methodName);
+    }
+
+    /// <summary>
+    /// 停止所有的协程
+    /// </summary>
+    public static void StopAllCoroutines()
+    {
+        GameLauncher.Instance.StopAllCoroutines();
+    }
 }
