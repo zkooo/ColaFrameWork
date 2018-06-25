@@ -110,8 +110,42 @@ public class DownloadMovHelper
     /// <param name="onFailed"></param>
     public static void DeleteVideo(string filePath, Action onComplete, Action onFailed)
     {
-        if(string.IsNullOrEmpty(filePath))return;
+        if (string.IsNullOrEmpty(filePath))
+        {
+            if (null != onFailed)
+            {
+                onFailed();
+            }
+            return;
+        }
 
+        if (CheckLocalFileExist(filePath))
+        {
+            try
+            {
+                File.Delete(filePath);
+            }
+            catch (Exception e)
+            {
+                if (null != onFailed)
+                {
+                    onFailed();
+                }
+                return;
+            }
+
+            if (null != onComplete)
+            {
+                onComplete();
+            }
+        }
+        else
+        {
+            if (null != onFailed)
+            {
+                onFailed();
+            }
+        }
     }
 
     /// <summary>
