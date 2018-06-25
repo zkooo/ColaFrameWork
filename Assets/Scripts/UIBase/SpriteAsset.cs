@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -29,6 +31,43 @@ public class SpriteAsset : MonoBehaviour
         }
         Debug.LogWarning(string.Format("没有找到Name为:{0}对应的Sprite!", name));
         return null;
+    }
+
+    [ContextMenu("拆分图集为散图")]
+    public void SplitTextureToPng()
+    {
+        if (SpriteAssetInfos.Count <= 0) return;
+        var texture = SpriteAssetInfos[0].sprite.texture;
+        var texturePath = AssetDatabase.GetAssetPath(texture);
+        TextureImporter importer = TextureImporter.GetAtPath(texturePath) as TextureImporter;
+        importer.isReadable = true;
+        AssetDatabase.ImportAsset(texturePath);
+
+        for (int i = 0; i < SpriteAssetInfos.Count; i++)
+        {
+            EditorUtility.DisplayProgressBar(string.Format("拆分{0}", SpriteAssetInfos[i]), i.ToString(), i / SpriteAssetInfos.Count);
+            Sprite sprite = SpriteAssetInfos[i].sprite;
+            Texture2D altas = sprite.texture;
+            Texture2D temp = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height, TextureFormat.ARGB32, false);
+            Color[] arrayColor = altas.GetPixels((int)sprite.rect.x, (int)sprite.rect.y, (int)sprite.rect.width, (int)sprite.rect.height);
+            temp.SetPixels(arrayColor);
+            temp.Apply();
+            byte[] pixes = temp.EncodeToPNG();
+            string path = Path.Combine(Application.dataPath, "tmpPngDir");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            var fileName = sprite.name + ".png";
+
+            File.WriteAllBytes(Path.Combine(path,fileName),pixes);
+        }
+        EditorUtility.ClearProgressBar();
+
+        importer.isReadable = false;
+        AssetDatabase.ImportAsset(texturePath);
+        AssetDatabase.Refresh();
     }
 }
 
