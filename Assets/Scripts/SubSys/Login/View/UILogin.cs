@@ -34,7 +34,7 @@ public class UILogin : UIBase
     {
         base.OnCreate();
         uiHintTest = new UIHintTest();
-        AttachSubPanel("center/uiTextHint", uiHintTest,UILevel.Level2);
+        AttachSubPanel("center/uiTextHint", uiHintTest, UILevel.Level2);
         GameObject okBtn = Panel.FindChildByPath("bottom/okBtn");
         Image titleImage = Panel.GetComponentByPath<Image>("logo");
         CommonHelper.AddBtnMsg(okBtn, (obj) =>
@@ -43,6 +43,29 @@ public class UILogin : UIBase
             {
                 CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
             }
+        });
+
+        //TODO:测试视频下载
+        var path = Path.Combine(CommonHelper.GetAssetPath(), "Videos.mp4");
+        //var testUrl = @"http://yun.it7090.com/video/XHLaunchAd/video01.mp4";
+        var testUrl = @"http://yun.it7090.com/video/XHLaunchAd/video03.mp4" + "?" + DateTime.Now;
+        Debug.LogWarning("-------------->视频网络资源地址" + testUrl);
+        DownloadMovHelper.Begin(path, testUrl, () =>
+          {
+              Debug.LogWarning("开始下载。");
+          }
+        ,
+        () =>
+        {
+            Debug.LogWarning("下载完成。");
+        },
+        (reason) =>
+        {
+            Debug.LogWarning("下载失败原因" + reason);
+        },
+        (progress) =>
+        {
+            Debug.LogWarning("下载进度" + progress);
         });
     }
 

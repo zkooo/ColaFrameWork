@@ -28,7 +28,7 @@ public class DownloadMovHelper
     private static Action<DownLoadMovError> _onFailed;
     private static Action<int> _onProgress;
 
-    private static WaitForSeconds oneSecond = new WaitForSeconds(1.0f);
+    private static WaitForSeconds oneSecond = new WaitForSeconds(0.5f);
 
     /// <summary>
     /// 对外提供的开始下载接口
