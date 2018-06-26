@@ -31,6 +31,9 @@ public class DownloadMovHelper
 
     private static WaitForSeconds oneSecond = new WaitForSeconds(0.5f);
 
+    private static WWW www;
+    private static UnityWebRequest webRequest;
+
     /// <summary>
     /// 对外提供的开始下载接口
     /// </summary>
@@ -85,7 +88,11 @@ public class DownloadMovHelper
     {
         if (isLoading)
         {
-            GameLauncher.Instance.StopCoroutine(DownloadObsolete(downloadURL));
+            if (null != webRequest)
+            {
+                webRequest.Abort();
+            }
+            GameLauncher.Instance.StopCoroutine(Download(downloadURL));
         }
         Release();
     }
@@ -159,7 +166,7 @@ public class DownloadMovHelper
     private static IEnumerator DownloadObsolete(string url)
     {
         if (string.IsNullOrEmpty(url)) yield break;
-        WWW www = new WWW(url);
+        www = new WWW(url);
         int progress = 0;
         while (!www.isDone)
         {
@@ -221,6 +228,7 @@ public class DownloadMovHelper
             }
         }
         www.Dispose();
+        www = null;
     }
 
     /// <summary>
@@ -231,7 +239,7 @@ public class DownloadMovHelper
     private static IEnumerator Download(string url)
     {
         if (string.IsNullOrEmpty(url)) yield break;
-        UnityWebRequest webRequest = UnityWebRequest.Get(url);
+        webRequest = UnityWebRequest.Get(url);
         UnityWebRequestAsyncOperation asyncOperation = webRequest.SendWebRequest();
         int progress = 0;
         while (!asyncOperation.isDone)
@@ -294,6 +302,7 @@ public class DownloadMovHelper
             }
         }
         webRequest.Dispose();
+        webRequest = null;
     }
 
     /// <summary>

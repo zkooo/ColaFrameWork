@@ -101,6 +101,7 @@ public class UILogin : UIBase
         {
             Debug.LogWarning("点击了OK按钮！");
             uiHintTest.Open();
+            DownloadMovHelper.Stop();
         }
         if (obj.name == "bg")
         {
