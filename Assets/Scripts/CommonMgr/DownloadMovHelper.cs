@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 /// <summary>
 /// 下载视频的工具类
@@ -72,7 +73,8 @@ public class DownloadMovHelper
             {
                 onLoading();
             }
-            GameLauncher.Instance.StartCoroutine(DownloadObsolete(downloadURL));
+            //GameLauncher.Instance.StartCoroutine(DownloadObsolete(downloadURL));
+            GameLauncher.Instance.StartCoroutine(Download(downloadURL));
         }
     }
 
@@ -180,6 +182,7 @@ public class DownloadMovHelper
                     FileStream WriteStream = new FileStream(localFilePath, FileMode.Create);
                     WriteStream.Write(btArray, 0, btArray.Length);
                     WriteStream.Close();
+                    WriteStream.Dispose();
                 }
                 catch (Exception e)
                 {
@@ -217,6 +220,7 @@ public class DownloadMovHelper
                 _onFailed(DownLoadMovError.DownloadError);
             }
         }
+        www.Dispose();
     }
 
     /// <summary>
@@ -227,6 +231,69 @@ public class DownloadMovHelper
     private static IEnumerator Download(string url)
     {
         if (string.IsNullOrEmpty(url)) yield break;
+        UnityWebRequest webRequest = UnityWebRequest.Get(url);
+        UnityWebRequestAsyncOperation asyncOperation = webRequest.SendWebRequest();
+        int progress = 0;
+        while (!asyncOperation.isDone)
+        {
+            progress = (int)(asyncOperation.progress * 100) % 100;
+            if (null != _onProgress)
+            {
+                _onProgress(progress);
+            }
+
+            yield return oneSecond;
+        }
+
+        if (asyncOperation.isDone)
+        {
+            if (webRequest.downloadedBytes > 0 && !string.IsNullOrEmpty(localFilePath))
+            {
+                byte[] btArray = webRequest.downloadHandler.data;
+                try
+                {
+                    FileStream WriteStream = new FileStream(localFilePath, FileMode.Create);
+                    WriteStream.Write(btArray, 0, btArray.Length);
+                    WriteStream.Close();
+                    WriteStream.Dispose();
+                }
+                catch (Exception e)
+                {
+                    if (null != _onFailed)
+                    {
+                        _onFailed(DownLoadMovError.SaveError);
+                    }
+                    throw;
+                }
+                isLoading = false;
+
+                //双重检查
+                if (CheckLocalFileExist(localFilePath))
+                {
+                    if (null != localFilePath)
+                    {
+                        _onCompleted();
+                    }
+                }
+                else
+                {
+                    if (null != _onFailed)
+                    {
+                        _onFailed(DownLoadMovError.SaveError);
+                    }
+                }
+            }
+        }
+
+        if (!string.IsNullOrEmpty(webRequest.error) || webRequest.downloadedBytes <= 0)
+        {
+            isLoading = false;
+            if (null != _onFailed)
+            {
+                _onFailed(DownLoadMovError.DownloadError);
+            }
+        }
+        webRequest.Dispose();
     }
 
     /// <summary>
