@@ -5,11 +5,6 @@ using UnityEngine;
 
 namespace ColaFrame
 {
-    public static class ObjectPoolHelper
-    {
-
-    }
-
     /// <summary>
     /// 对象池类(单独存储某一类物件的对象池)
     /// </summary>
