@@ -16,6 +16,12 @@ public class IrregularRaycastMask : MonoBehaviour, ICanvasRaycastFilter
         _image = GetComponent<Image>();
     }
 
+    /// <summary>
+    /// 重写IsRaycastLocationValid接口
+    /// </summary>
+    /// <param name="sp"></param>
+    /// <param name="eventCamera"></param>
+    /// <returns></returns>
     public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
     {
         _sprite = _image.sprite;
@@ -33,14 +39,14 @@ public class IrregularRaycastMask : MonoBehaviour, ICanvasRaycastFilter
 
         var x = 0;
         var y = 0;
-        // convert to texture space
+        // 转换为纹理空间坐标
         switch (_image.type)
         {
 
             case Image.Type.Sliced:
                 {
                     var border = _sprite.border;
-                    // x slicing
+                    // x 轴裁剪
                     if (localPosition.x < border.x)
                     {
                         x = Mathf.FloorToInt(spriteRect.x + localPosition.x);
@@ -56,7 +62,7 @@ public class IrregularRaycastMask : MonoBehaviour, ICanvasRaycastFilter
                                              (maskRect.width - border.x - border.z)) *
                                              (spriteRect.width - border.x - border.z));
                     }
-                    // y slicing
+                    // y 轴裁剪
                     if (localPosition.y < border.y)
                     {
                         y = Mathf.FloorToInt(spriteRect.y + localPosition.y);
@@ -77,7 +83,7 @@ public class IrregularRaycastMask : MonoBehaviour, ICanvasRaycastFilter
             case Image.Type.Simple:
             default:
                 {
-                    // conversion to uniform UV space
+                    // 转换为统一UV空间
                     x = Mathf.FloorToInt(spriteRect.x + spriteRect.width * localPosition.x / maskRect.width);
                     y = Mathf.FloorToInt(spriteRect.y + spriteRect.height * localPosition.y / maskRect.height);
                 }
