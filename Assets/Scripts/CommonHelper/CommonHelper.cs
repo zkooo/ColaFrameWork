@@ -733,4 +733,28 @@ public static class CommonHelper
     {
         GameLauncher.Instance.StopAllCoroutines();
     }
+
+    /// <summary>
+    /// 返回中英混合UTF8字符串的真实字符数量
+    /// </summary>
+    /// <param name="str"></param>
+    /// <returns></returns>
+    public int GetUTF8StringCount(string str)
+    {
+        if (string.IsNullOrEmpty(str))
+        {
+            return 0;
+        }
+    }
+
+    /// <summary>
+    /// 返回UF8字符串index位置字符所占用的实际字符数量
+    /// </summary>
+    /// <param name="str"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public int GetUTF8StringByteCount(string str, int index)
+    {
+        var strByte = (int)str[index];
+    }
 }
