@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Pathfinding.Ionic.Zlib;
 using UnityEngine;
 using UnityEngine.UI;
 using Def = GloablDefine;
@@ -739,12 +740,22 @@ public static class CommonHelper
     /// </summary>
     /// <param name="str"></param>
     /// <returns></returns>
-    public int GetUTF8StringCount(string str)
+    public static int GetUTF8StringCount(string str)
     {
         if (string.IsNullOrEmpty(str))
         {
             return 0;
         }
+        int curIndex = 0;
+        int i = 0;
+        int lastCount = 1;
+        do
+        {
+            lastCount = GetUTF8StringByteCount(str, i);
+            i += lastCount;
+            ++curIndex;
+        } while (0 != lastCount);
+        return curIndex - 1;
     }
 
     /// <summary>
@@ -753,8 +764,37 @@ public static class CommonHelper
     /// <param name="str"></param>
     /// <param name="index"></param>
     /// <returns></returns>
-    public int GetUTF8StringByteCount(string str, int index)
+    public static int GetUTF8StringByteCount(string str, int index)
     {
+        //      在utf - 8编码里，一个汉字通常占3个字节，在ansi(GBK)编码里，一个汉字占2个字节
+        //      string.byte(char) > 127则代表是中文，如果是utf - 8编码，则分割字符用string.sub(str, index, index + 2)，下一个字符位置为index + 3
+        //      string.byte(char) <= 127则代表是普通字符，截取一个字节即可，一个字节就是一个字符，string.sub(str, index, index)，下一位是index + 1
+        if (index >= str.Length)
+        {
+            return 0;
+        }
         var strByte = (int)str[index];
+        int byteCount = 1;
+        if (0 == strByte)
+        {
+            byteCount = 0;
+        }
+        else if (strByte > 0 && strByte <= 127)
+        {
+            byteCount = 1;
+        }
+        else if (strByte >= 192 && strByte <= 223)
+        {
+            byteCount = 2;
+        }
+        else if (strByte >= 224 && strByte <= 239)
+        {
+            byteCount = 3;
+        }
+        else if (strByte >= 240 && strByte <= 247)
+        {
+            byteCount = 4;
+        }
+        return byteCount;
     }
 }
