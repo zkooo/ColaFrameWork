@@ -759,6 +759,57 @@ public static class CommonHelper
     }
 
     /// <summary>
+    /// 截取UTF8字符串，索引从1开始
+    /// </summary>
+    /// <param name="str"></param>
+    /// <param name="startIndex"></param>
+    /// <param name="endIndex"></param>
+    /// <returns></returns>
+    public static string SubStringUTF8(string str, int startIndex, int endIndex)
+    {
+        if (string.IsNullOrEmpty(str))
+        {
+            return "";
+        }
+        //支持负数反向索引
+        if (startIndex < 0)
+        {
+            startIndex = GetUTF8StringCount(str) + startIndex + 1;
+        }
+        if (endIndex < 0)
+        {
+            endIndex = GetUTF8StringCount(str) + endIndex + 1;
+        }
+        int realStartIndex = GetUTF8StringRealIndex(str, startIndex);
+        int length = GetUTF8StringRealIndex(str, endIndex + 1) - realStartIndex - 1;
+        return str.Substring(realStartIndex, length);
+    }
+
+    /// <summary>
+    /// 根据index获取UTF8字符串的实际下标位置
+    /// </summary>
+    /// <param name="str"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public static int GetUTF8StringRealIndex(string str, int index)
+    {
+        if (string.IsNullOrEmpty(str))
+        {
+            return 0;
+        }
+        int curIndex = 0;
+        int i = 0;
+        int lastCount = 1;
+        do
+        {
+            lastCount = GetUTF8StringByteCount(str, i);
+            i += lastCount;
+            ++curIndex;
+        } while (curIndex < index);
+        return i - lastCount;
+    }
+
+    /// <summary>
     /// 返回UF8字符串index位置字符所占用的实际字符数量
     /// </summary>
     /// <param name="str"></param>
