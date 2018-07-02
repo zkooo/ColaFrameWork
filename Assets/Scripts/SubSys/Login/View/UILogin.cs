@@ -73,17 +73,6 @@ public class UILogin : UIBase
         var str2 = "中国人";
         var str3 = "a中b国c人";
         var str4 = "中ab国人c";
-        //        Debug.LogWarning("UTF8字符串功能测试1:"+CommonHelper.GetUTF8StringCount(str1));
-        //        Debug.LogWarning("UTF8字符串功能测试2:"+CommonHelper.GetUTF8StringCount(str2));
-        //        Debug.LogWarning("UTF8字符串功能测试3:"+CommonHelper.GetUTF8StringCount(str3));
-        //        Debug.LogWarning("UTF8字符串功能测试4:"+CommonHelper.GetUTF8StringCount(str4));
-
-        //        Debug.LogWarning("UTF8字符串真实下标:" + CommonHelper.GetUTF8StringRealIndex(str1, 1));
-        //        Debug.LogWarning("UTF8字符串真实下标:" + CommonHelper.GetUTF8StringRealIndex(str2, 1));
-        //        Debug.LogWarning("UTF8字符串真实下标:" + CommonHelper.GetUTF8StringRealIndex(str3, 2));
-        //        Debug.LogWarning("UTF8字符串真实下标:" + CommonHelper.GetUTF8StringRealIndex(str4, 3));
-
-        Debug.LogWarning("UTF8字符串截取:" + CommonHelper.SubStringUTF8(str4, 1,3));
     }
 
     public override void OnDestroy()
