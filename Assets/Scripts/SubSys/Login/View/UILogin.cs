@@ -84,6 +84,10 @@ public class UILogin : UIBase
         var str3 = "a中b国c人";
         var str4 = "中ab国人c";
 
+        var Text = this.Panel.GetComponentByPath<Text>("desc_text");
+        // CommonHelper.TextTyperEffect(Text,str2,0.5f,()=>{Debug.LogWarning("打印完毕！");});
+        //CommonHelper.TextTyperEffect(Text,str3,0.5f,()=>{Debug.LogWarning("打印完毕！");});
+        CommonHelper.TextTyperEffect(Text, str4, 0.5f, () => { Debug.LogWarning("打印完毕！"); });
 
     }
 
