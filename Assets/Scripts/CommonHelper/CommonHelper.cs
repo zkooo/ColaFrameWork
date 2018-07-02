@@ -735,5 +735,44 @@ public static class CommonHelper
         GameLauncher.Instance.StopAllCoroutines();
     }
 
+    /// <summary>
+    /// UI文字组件的打字机效果(不支持换行)
+    /// </summary>
+    /// <param name="textCommponent"></param>
+    /// <param name="content"></param>
+    /// <param name="delta"></param>
+    /// <param name="onComplete"></param>
+    public static void TextTyperEffect(Text textCommponent, string content, float delta, Action onComplete)
+    {
+        if (null != textCommponent && !string.IsNullOrEmpty(content))
+        {
+            textCommponent.text = "";
+            int length = 1;
+            int timerID = -1;
 
+            Action killTimer = () =>
+            {
+                if (-1 != timerID)
+                {
+                    TimeHelper.KillTimer(timerID);
+                }
+            };
+
+            timerID = TimeHelper.SetRepeatTimer(() =>
+            {
+                var subContent = content.Substring(0, length);
+                textCommponent.text = subContent;
+                length++;
+                if (length > content.Length)
+                {
+                    killTimer();
+                    if (null != onComplete)
+                    {
+                        onComplete();
+                    }
+                }
+            }, delta);
+
+        }
+    }
 }

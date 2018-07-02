@@ -67,12 +67,6 @@ public class UILogin : UIBase
         //        {
         //            Debug.LogWarning("下载进度" + progress);
         //        });
-
-        //todo:测试UTF8字符串功能函数
-        var str1 = "abc";
-        var str2 = "中国人";
-        var str3 = "a中b国c人";
-        var str4 = "中ab国人c";
     }
 
     public override void OnDestroy()
@@ -84,6 +78,13 @@ public class UILogin : UIBase
     public override void OnShow(bool isShow)
     {
         base.OnShow(isShow);
+        //todo:测试UTF8字符串功能函数
+        var str1 = "abc";
+        var str2 = "中国人";
+        var str3 = "a中b国c人";
+        var str4 = "中ab国人c";
+
+
     }
 
     public override void Open()
