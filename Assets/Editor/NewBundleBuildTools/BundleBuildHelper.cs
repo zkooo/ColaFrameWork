@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// 打bundle助手
 /// </summary>
-public class BundleHelper
+public class BundleBuildHelper
 {
     /// <summary>
     /// 需要打bundle的资源路径
