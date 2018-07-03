@@ -12,6 +12,12 @@ using Def = GloablDefine;
 /// </summary>
 public static class CommonHelper
 {
+    #region 变量定义区
+    /// <summary>
+    /// 中文数字在Language表中索引的base位置
+    /// </summary>
+    private static int chineseNumIndex = 1;
+    #endregion
 
     /// <summary>
     /// 通过ID获取国际化文字
@@ -772,5 +778,20 @@ public static class CommonHelper
             }, delta);
 
         }
+    }
+
+    /// <summary>
+    /// 阿拉伯数字转为汉字(支持0-9)
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    public static string GetChineseNumber(int number)
+    {
+        if (number >= 0 && number <= 9)
+        {
+            return I18NHelper.GetText(chineseNumIndex + number);
+        }
+        Debug.LogWarning(string.Format("输入的数字{0}不在0~9范围内！", number));
+        return "";
     }
 }

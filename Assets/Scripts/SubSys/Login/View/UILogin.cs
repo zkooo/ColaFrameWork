@@ -78,17 +78,13 @@ public class UILogin : UIBase
     public override void OnShow(bool isShow)
     {
         base.OnShow(isShow);
-        //todo:测试UTF8字符串功能函数
-        var str1 = "abc";
-        var str2 = "中国人";
-        var str3 = "a中b国c人";
-        var str4 = "中ab国人c";
 
-        var Text = this.Panel.GetComponentByPath<Text>("desc_text");
-        // CommonHelper.TextTyperEffect(Text,str2,0.5f,()=>{Debug.LogWarning("打印完毕！");});
-        //CommonHelper.TextTyperEffect(Text,str3,0.5f,()=>{Debug.LogWarning("打印完毕！");});
-        CommonHelper.TextTyperEffect(Text, str4, 0.5f, () => { Debug.LogWarning("打印完毕！"); });
-
+        //todo:数字转汉字测试
+        Debug.LogWarning("数字转汉字测试");
+        for (int i = 0; i <= 9; i++)
+        {
+            Debug.LogWarning(CommonHelper.GetChineseNumber(i));
+        }
     }
 
     public override void Open()
