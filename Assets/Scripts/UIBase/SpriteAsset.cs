@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 /// <summary>
@@ -33,6 +35,7 @@ public class SpriteAsset : MonoBehaviour
         return null;
     }
 
+#if UNITY_EDITOR
     [ContextMenu("拆分图集为散图")]
     public void SplitTextureToPng()
     {
@@ -61,7 +64,7 @@ public class SpriteAsset : MonoBehaviour
 
             var fileName = sprite.name + ".png";
 
-            File.WriteAllBytes(Path.Combine(path,fileName),pixes);
+            File.WriteAllBytes(Path.Combine(path, fileName), pixes);
         }
         EditorUtility.ClearProgressBar();
 
@@ -69,6 +72,7 @@ public class SpriteAsset : MonoBehaviour
         AssetDatabase.ImportAsset(texturePath);
         AssetDatabase.Refresh();
     }
+#endif
 }
 
 
