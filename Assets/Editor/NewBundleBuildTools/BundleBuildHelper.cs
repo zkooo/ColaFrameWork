@@ -30,9 +30,9 @@ public class BundleBuildHelper
     private static readonly string assetDir = Application.dataPath;
 
     /// <summary>
-    /// 给所有的资源打bundle,手动设置bundleName标签
+    /// 给所有的设置了bundleName标签的资源打bundle
     /// </summary>
-    [MenuItem("Assets/Build All_BundlesManual")]
+    [MenuItem("Assets/NewBundleTools/Build All_BundlesManual")]
     private static void BuildAllAssetBundlesManual()
     {
         BuildPipeline.BuildAssetBundles(abOutputPath, BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
@@ -42,7 +42,7 @@ public class BundleBuildHelper
     /// <summary>
     /// 使用脚本给资源自动设置bundle标签
     /// </summary>
-    [MenuItem("Assets/SetBundleNameAuto")]
+    [MenuItem("Assets/NewBundleTools/SetBundleNameAuto")]
     private static void SetBundleNameAuto()
     {
         ClearAssetBundlesName();
@@ -55,7 +55,7 @@ public class BundleBuildHelper
     /// <summary>
     /// 自动给指定目录中的资源设置bundlename并打出bundle
     /// </summary>
-    [MenuItem("Assets/BuildAssetBundlesAuto")]
+    [MenuItem("Assets/NewBundleTools/BuildAssetBundlesAuto")]
     private static void BuildAssetBundlesAuto()
     {
         SetBundleNameAuto();
@@ -65,38 +65,45 @@ public class BundleBuildHelper
     /// <summary>
     /// 对选中的资源分别打bundle
     /// </summary>
-    [MenuItem("Assets/BuildOneBundleFromSelection")]
-    private static void BuildOneBundleFromSelection()
+    [MenuItem("Assets/NewBundleTools/BuildBundleFromSelection")]
+    private static void BuildBundleFromSelection()
     {
-        Object[] targets = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
-
-        for (int i = 0; i < targets.Length; i++)
+        string path = EditorUtility.SaveFolderPanel("Save Resource", "", "");
+        if (path.Length != 0)
         {
-            if (null == targets[i])
+            Object[] targets = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
+
+            for (int i = 0; i < targets.Length; i++)
             {
-                continue;
+                if (null == targets[i])
+                {
+                    continue;
+                }
+                string assetPath = AssetDatabase.GetAssetPath(targets[i]);
+                if (null != assetPath)
+                {
+                    //跳过文件夹
+                    if (!File.Exists(assetPath)) continue;
+                    //跳过脚本文件和meta文件
+                    if (assetPath.EndsWith(".cs") || assetPath.EndsWith(".meta")) continue;
+                    AssetBundleBuild abb = new AssetBundleBuild();
+                    abb.assetBundleName = Path.GetFileNameWithoutExtension(assetPath);
+                    //abb.assetBundleVariant = "hd";
+                    abb.assetNames = new[] { assetPath };
+                    BuildPipeline.BuildAssetBundles(abOutputPath, new AssetBundleBuild[1] { abb },
+                        BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
+                }
             }
-            string assetPath = AssetDatabase.GetAssetPath(targets[i]);
-            if (null != assetPath)
-            {
-                //跳过文件夹
-                if (!File.Exists(assetPath)) continue;
-                //跳过脚本文件和meta文件
-                if (assetPath.EndsWith(".cs") || assetPath.EndsWith(".meta")) continue;
-                AssetBundleBuild abb = new AssetBundleBuild();
-                abb.assetBundleName = Path.GetFileNameWithoutExtension(assetPath);
-                //abb.assetBundleVariant = "hd";
-                abb.assetNames = new[] { assetPath };
-                BuildPipeline.BuildAssetBundles(abOutputPath, new AssetBundleBuild[1] { abb },
-                    BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
-            }
+
+           // Selection.objects = targets;
+            AssetDatabase.Refresh();
         }
-        AssetDatabase.Refresh();
     }
 
     /// <summary>
     /// 清除所有的AssetBundleName，由于打包方法会将所有设置过AssetBundleName的资源打包，所以自动打包前需要清理
     /// </summary>
+    [MenuItem("Assets/NewBundleTools/ClearAssetBundlesName")]
     private static void ClearAssetBundlesName()
     {
         //获取所有的AssetBundle名称
@@ -127,7 +134,7 @@ public class BundleBuildHelper
             {
                 SetAssetBundleNameByPath(fileInfos[i].FullName);
             }
-            else if (!fileInfos[i].Name.EndsWith(".meta"))//如果是文件的话，则设置AssetBundleName，并排除掉.meta文件  
+            else if (!fileInfos[i].Name.EndsWith(".meta") && !fileInfos[i].Name.EndsWith(".cs"))//如果是文件的话，则设置AssetBundleName，并排除掉.meta文件和cs文件
             {
                 //逐个设置AssetBundleName  
                 SetABName(fileInfos[i].FullName);
@@ -151,3 +158,4 @@ public class BundleBuildHelper
 
     }
 }
+
