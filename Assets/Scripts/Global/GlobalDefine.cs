@@ -47,6 +47,11 @@ public static class GloablDefine
     public static EPateColor PateGreen = new EPateColor(new Color(0 / 255f, 255 / 255f, 0 / 255f, 1), new Color(20 / 255f, 2 / 255f, 2 / 255f, 1));
 
     /// <summary>
+    /// Bundle的资源后缀名
+    /// </summary>
+    public static readonly string extenName = ".u3d";
+
+    /// <summary>
     /// StreamingAsset下的预装资源目录
     /// </summary>
     public static List<string> resbasePathList = new List<string>()

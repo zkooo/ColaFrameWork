@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -793,5 +794,30 @@ public static class CommonHelper
         }
         Debug.LogWarning(string.Format("输入的数字{0}不在0~9范围内！", number));
         return "";
+    }
+
+    /// <summary>
+    /// 检查本地文件是否存在,如果目录不存在则创建目录
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    public static bool CheckLocalFileExist(string filePath)
+    {
+        if (string.IsNullOrEmpty(filePath))
+        {
+            return false;
+        }
+        string dirPath = Path.GetDirectoryName(filePath);
+        if (!Directory.Exists(dirPath))
+        {
+            Directory.CreateDirectory(dirPath);
+            return false;
+        }
+
+        if (File.Exists(filePath))
+        {
+            return true;
+        }
+        return false;
     }
 }
