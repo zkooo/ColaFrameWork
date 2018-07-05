@@ -20,7 +20,7 @@ public class BundleBuildHelper
     /// <summary>
     /// bundle的输出路径
     /// </summary>
-    private static readonly string abOutputPath = Application.streamingAssetsPath;
+    private static readonly string abOutputPath = Application.streamingAssetsPath + "/Output";
 
     /// <summary>
     /// 资源的存放目录
@@ -35,9 +35,13 @@ public class BundleBuildHelper
     /// <summary>
     /// 给所有的设置了bundleName标签的资源打bundle
     /// </summary>
-    [MenuItem("Assets/NewBundleTools/Build All_BundlesManual", false, 5)]
+    [MenuItem("ColaFramework/AssetBundle/Build All_BundlesManual", false, 5)]
     private static void BuildAllAssetBundlesManual()
     {
+        if (!Directory.Exists(abOutputPath))
+        {
+            Directory.CreateDirectory(abOutputPath);
+        }
         BuildPipeline.BuildAssetBundles(abOutputPath, BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
         AssetDatabase.Refresh();
     }
@@ -45,7 +49,7 @@ public class BundleBuildHelper
     /// <summary>
     /// 使用脚本给资源自动设置bundle标签
     /// </summary>
-    [MenuItem("Assets/NewBundleTools/SetBundleNameAuto", false, 3)]
+    [MenuItem("ColaFramework/AssetBundle/SetBundleNameAuto", false, 3)]
     private static void SetBundleNameAuto()
     {
         ClearAssetBundlesName();
@@ -58,7 +62,7 @@ public class BundleBuildHelper
     /// <summary>
     /// 自动给指定目录中的资源设置bundlename并打出bundle
     /// </summary>
-    [MenuItem("Assets/NewBundleTools/BuildAssetBundlesAuto", false, 4)]
+    [MenuItem("ColaFramework/AssetBundle/BuildAssetBundlesAuto", false, 4)]
     private static void BuildAssetBundlesAuto()
     {
         SetBundleNameAuto();
@@ -69,7 +73,7 @@ public class BundleBuildHelper
     /// <summary>
     /// 对选中的资源分别打bundle
     /// </summary>
-    [MenuItem("Assets/NewBundleTools/BuildBundleFromSelection", false, 1)]
+    [MenuItem("Assets/NewBundleTools/BuildBundleFromSelection")]
     private static void BuildBundleFromSelection()
     {
         string path = EditorUtility.SaveFolderPanel("Save Resource", "", "");
@@ -91,14 +95,11 @@ public class BundleBuildHelper
                     //跳过脚本文件和meta文件
                     if (assetPath.EndsWith(".cs") || assetPath.EndsWith(".meta")) continue;
                     AssetBundleBuild abb = new AssetBundleBuild();
-                    abb.assetBundleName = Path.GetFileName(assetPath) + GloablDefine.extenName;
+                    string fullPath = assetPath.Replace(frontDirName, "");  //包含文件名、拓展名的全路径
+                    abb.assetBundleName = fullPath + GloablDefine.extenName;
                     //abb.assetBundleVariant = "hd";
                     abb.assetNames = new[] { assetPath };
-                    string fullPath = assetPath.Replace(frontDirName, "");  //包含文件名、拓展名的全路径
-                    fullPath = Path.Combine(path, fullPath);
-                    CommonHelper.CheckLocalFileExist(fullPath);
-                    string outputPath = Path.GetDirectoryName(fullPath); //纯路径
-                    BuildPipeline.BuildAssetBundles(outputPath, new AssetBundleBuild[1] { abb },
+                    BuildPipeline.BuildAssetBundles(path, new AssetBundleBuild[1] { abb },
                         BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
                 }
             }
@@ -111,7 +112,7 @@ public class BundleBuildHelper
     /// <summary>
     /// 清除所有的AssetBundleName，由于打包方法会将所有设置过AssetBundleName的资源打包，所以自动打包前需要清理
     /// </summary>
-    [MenuItem("Assets/NewBundleTools/ClearAssetBundlesName", false, 2)]
+    [MenuItem("ColaFramework/AssetBundle/ClearAssetBundlesName", false, 2)]
     private static void ClearAssetBundlesName()
     {
         //获取所有的AssetBundle名称
@@ -130,24 +131,18 @@ public class BundleBuildHelper
     /// <param name="assetPath"></param>
     private static void SetAssetBundleNameByPath(string assetPath)
     {
-        //先获取指定路径下的所有Asset，包括子文件夹下的资源 
-        DirectoryInfo dirInfo = new DirectoryInfo(assetPath);
-        //GetFileSystemInfos方法可以获取到指定目录下的所有文件以及子文件夹  
-        FileSystemInfo[] fileInfos = dirInfo.GetFileSystemInfos();
+        var fileInfos = Directory.GetFiles(assetPath, "*.*", SearchOption.AllDirectories);
 
         for (int i = 0; i < fileInfos.Length; i++)
         {
-            //如果是文件夹则递归处理 
-            if (fileInfos[i] is DirectoryInfo)
-            {
-                SetAssetBundleNameByPath(fileInfos[i].FullName);
-            }
-            else if (!fileInfos[i].Name.EndsWith(".meta") && !fileInfos[i].Name.EndsWith(".cs"))//如果是文件的话，则设置AssetBundleName，并排除掉.meta文件和cs文件
+            EditorUtility.DisplayProgressBar("AssetBundle", string.Format("Set AssetBundle Name: {0}", assetPath), .5f);
+            if (!fileInfos[i].EndsWith(".meta") && !fileInfos[i].EndsWith(".cs"))//如果是文件的话，则设置AssetBundleName，并排除掉.meta文件和cs文件
             {
                 //逐个设置AssetBundleName  
-                SetABName(fileInfos[i].FullName);
+                SetABName(fileInfos[i]);
             }
         }
+        EditorUtility.ClearProgressBar();
     }
 
     /// <summary>
@@ -158,12 +153,9 @@ public class BundleBuildHelper
     {
         string subDir = assetPath.Substring(assetDir.Length);
         string importPath = string.Format("Assets{0}", subDir);
-        //上一步的GetFileSystemInfos操作,会把路径都改成\\这种格式的Win路径，因此下面要查找 @"\"
-        string tmpName = subDir.Substring(subDir.LastIndexOf(@"\") + 1);
-        string bundleName = tmpName.Remove(tmpName.LastIndexOf("."));
+        string bundleName = importPath.Replace(frontDirName, "");
         AssetImporter assetImporter = AssetImporter.GetAtPath(importPath);
         assetImporter.assetBundleName = bundleName + GloablDefine.extenName;
-
     }
 }
 
