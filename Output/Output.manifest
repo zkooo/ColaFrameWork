@@ -1,7 +1,0 @@
-ManifestFileVersion: 0
-CRC: 749736716
-AssetBundleManifest:
-  AssetBundleInfos:
-    Info_0:
-      Name: arts/gui/prefabs/uicopying.prefab.u3d
-      Dependencies: {}

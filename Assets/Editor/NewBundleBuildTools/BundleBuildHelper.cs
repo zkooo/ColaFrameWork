@@ -49,7 +49,7 @@ public class BundleBuildHelper
     /// <summary>
     /// 使用脚本给资源自动设置bundle标签
     /// </summary>
-    [MenuItem("ColaFramework/AssetBundle/SetBundleNameAuto", false, 3)]
+    [MenuItem("ColaFramework/AssetBundle/SetBundleNameAuto", false, 2)]
     private static void SetBundleNameAuto()
     {
         ClearAssetBundlesName();
@@ -57,6 +57,19 @@ public class BundleBuildHelper
         {
             SetAssetBundleNameByPath(assetDir + BundlePathList[i]);
         }
+    }
+
+    /// <summary>
+    /// 自动给指定目录中的资源设置bundlename并打出bundle，然后拷贝到指定目录
+    /// </summary>
+    [MenuItem("ColaFramework/AssetBundle/BuildAssetBundlesAutoCopy", false, 3)]
+    private static void BuildAssetBundlesAutoCopy()
+    {
+        SetBundleNameAuto();
+        BuildAllAssetBundlesManual();
+        ClearAssetBundlesName();
+        //拷贝bundle到外面的目录下
+        CopyFolder(abOutputPath, assetDir + "/../Output");
     }
 
     /// <summary>
@@ -112,7 +125,7 @@ public class BundleBuildHelper
     /// <summary>
     /// 清除所有的AssetBundleName，由于打包方法会将所有设置过AssetBundleName的资源打包，所以自动打包前需要清理
     /// </summary>
-    [MenuItem("ColaFramework/AssetBundle/ClearAssetBundlesName", false, 2)]
+    [MenuItem("ColaFramework/AssetBundle/ClearAssetBundlesName", false, 1)]
     private static void ClearAssetBundlesName()
     {
         //获取所有的AssetBundle名称
@@ -156,6 +169,33 @@ public class BundleBuildHelper
         string bundleName = importPath.Replace(frontDirName, "");
         AssetImporter assetImporter = AssetImporter.GetAtPath(importPath);
         assetImporter.assetBundleName = bundleName + GloablDefine.extenName;
+    }
+
+    /// <summary>
+    /// 拷贝资源
+    /// </summary>
+    /// <param name="sPath"></param>
+    /// <param name="dPath"></param>
+    public static void CopyFolder(string sPath, string dPath)
+    {
+        if (!Directory.Exists(dPath))
+        {
+            Directory.CreateDirectory(dPath);
+        }
+
+        DirectoryInfo sDir = new DirectoryInfo(sPath);
+        FileInfo[] fileArray = sDir.GetFiles();
+        foreach (FileInfo file in fileArray)
+        {
+            if (file.Extension != ".meta" && file.Extension != ".manifest")
+                file.CopyTo(dPath + "/" + file.Name, true);
+        }
+        //递归复制子文件夹
+        DirectoryInfo[] subDirArray = sDir.GetDirectories();
+        foreach (DirectoryInfo subDir in subDirArray)
+        {
+            CopyFolder(subDir.FullName, dPath + "/" + subDir.Name);
+        }
     }
 }
 
