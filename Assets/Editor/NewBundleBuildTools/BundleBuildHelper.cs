@@ -36,7 +36,7 @@ public class BundleBuildHelper
     /// 给所有的设置了bundleName标签的资源打bundle
     /// </summary>
     [MenuItem("ColaFramework/AssetBundle/Build All_BundlesManual", false, 5)]
-    private static void BuildAllAssetBundlesManual()
+    public static void BuildAllAssetBundlesManual()
     {
         if (!Directory.Exists(abOutputPath))
         {
@@ -50,7 +50,7 @@ public class BundleBuildHelper
     /// 使用脚本给资源自动设置bundle标签
     /// </summary>
     [MenuItem("ColaFramework/AssetBundle/SetBundleNameAuto", false, 2)]
-    private static void SetBundleNameAuto()
+    public static void SetBundleNameAuto()
     {
         ClearAssetBundlesName();
         for (int i = 0; i < BundlePathList.Count; i++)
@@ -63,7 +63,7 @@ public class BundleBuildHelper
     /// 自动给指定目录中的资源设置bundlename并打出bundle，然后拷贝到指定目录
     /// </summary>
     [MenuItem("ColaFramework/AssetBundle/BuildAssetBundlesAutoCopy", false, 3)]
-    private static void BuildAssetBundlesAutoCopy()
+    public static void BuildAssetBundlesAutoCopy()
     {
         SetBundleNameAuto();
         BuildAllAssetBundlesManual();
@@ -76,7 +76,7 @@ public class BundleBuildHelper
     /// 自动给指定目录中的资源设置bundlename并打出bundle
     /// </summary>
     [MenuItem("ColaFramework/AssetBundle/BuildAssetBundlesAuto", false, 4)]
-    private static void BuildAssetBundlesAuto()
+    public static void BuildAssetBundlesAuto()
     {
         SetBundleNameAuto();
         BuildAllAssetBundlesManual();
@@ -126,7 +126,7 @@ public class BundleBuildHelper
     /// 清除所有的AssetBundleName，由于打包方法会将所有设置过AssetBundleName的资源打包，所以自动打包前需要清理
     /// </summary>
     [MenuItem("ColaFramework/AssetBundle/ClearAssetBundlesName", false, 1)]
-    private static void ClearAssetBundlesName()
+    public static void ClearAssetBundlesName()
     {
         //获取所有的AssetBundle名称
         string[] abNames = AssetDatabase.GetAllAssetBundleNames();
@@ -134,8 +134,10 @@ public class BundleBuildHelper
         //强制删除所有的AssetBundle名称
         for (int i = 0; i < abNames.Length; i++)
         {
+            EditorUtility.DisplayProgressBar("AssetBundle", string.Format("Clear AssetBundle Name: {0}", abNames[i]), .5f);
             AssetDatabase.RemoveAssetBundleName(abNames[i], true);
         }
+        EditorUtility.ClearProgressBar();
     }
 
     /// <summary>
