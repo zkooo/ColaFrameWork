@@ -44,6 +44,7 @@ public class ColaQuickWindowEditor : EditorWindow
         }
         if (GUILayout.Button("重新打包Assetbundle（先删除再重打）", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
         {
+            BundleBuildHelper.ReBuildAssetBundlesAuto();
         }
         GUILayout.EndHorizontal();
 

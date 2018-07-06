@@ -73,11 +73,26 @@ public class BundleBuildHelper
     }
 
     /// <summary>
-    /// 自动给指定目录中的资源设置bundlename并打出bundle
+    /// 自动给指定目录中的资源设置bundlename并打出bundle（增量更新）
     /// </summary>
     [MenuItem("ColaFramework/AssetBundle/BuildAssetBundlesAuto", false, 4)]
     public static void BuildAssetBundlesAuto()
     {
+        SetBundleNameAuto();
+        BuildAllAssetBundlesManual();
+        ClearAssetBundlesName();
+    }
+
+    /// <summary>
+    /// 强制删除资源重新打Bundle
+    /// </summary>
+    [MenuItem("ColaFramework/AssetBundle/ReBuildAssetBundlesAuto", false, 4)]
+    public static void ReBuildAssetBundlesAuto()
+    {
+        if (Directory.Exists(abOutputPath))
+        {
+            Directory.Delete(abOutputPath, true);
+        }
         SetBundleNameAuto();
         BuildAllAssetBundlesManual();
         ClearAssetBundlesName();
