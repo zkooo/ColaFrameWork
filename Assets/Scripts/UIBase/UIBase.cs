@@ -179,6 +179,10 @@ public class UIBase : IEventHandler
     /// </summary>
     public virtual void Destroy()
     {
+        if (sortEnable)
+        {
+            CommonHelper.GetUIMgr().GetUISorterMgr().RemovePanel(this);
+        }
         DestroySubPanels();
         this.UnRegisterHandler();
         UnAttachListener(Panel);
