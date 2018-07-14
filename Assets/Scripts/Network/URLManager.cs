@@ -11,7 +11,7 @@ public class URLManager
     public static string GetURL(string urlKey)
     {
         Init();
-
+        return string.Empty;
         //if (s_URLTable != null)
         //{
         //    if (s_URLTable.ContainsKey(urlKey))
