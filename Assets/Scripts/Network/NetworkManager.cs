@@ -47,8 +47,8 @@ public class NetworkManager
     public static void Init<TProtocol,TSocket>(ProtocolType protocolType = ProtocolType.Tcp) where TProtocol : INetworkInterface,new () where TSocket : SocketBase,new()
     {
         //提前加载网络事件派发器，避免异步冲突
-        InputManager.LoadDispatcher<InputNetworkConnectStatusEvent>();
-        InputManager.LoadDispatcher<InputNetworkMessageEvent>();
+        //InputManager.LoadDispatcher<InputNetworkConnectStatusEvent>();
+        //InputManager.LoadDispatcher<InputNetworkMessageEvent>();
 
         s_network = new TProtocol();
         s_network.m_socketService = new TSocket();
@@ -60,8 +60,9 @@ public class NetworkManager
         s_network.Init();
         s_network.m_messageCallBack = ReceviceMeaasge;
 
-        ApplicationManager.s_OnApplicationUpdate += Update;
-        ApplicationManager.s_OnApplicationQuit += DisConnect;
+        //ApplicationManager.s_OnApplicationUpdate += Update;
+        //ApplicationManager.s_OnApplicationQuit += DisConnect;
+        
 
         //ApplicationManager.s_OnApplicationOnGUI += GUI;
     }
@@ -69,8 +70,8 @@ public class NetworkManager
     public static void Init(string networkInterfaceName,string socketName)
     {
         //提前加载网络事件派发器，避免异步冲突
-        InputManager.LoadDispatcher<InputNetworkConnectStatusEvent>();
-        InputManager.LoadDispatcher<InputNetworkMessageEvent>();
+        //InputManager.LoadDispatcher<InputNetworkConnectStatusEvent>();
+        //InputManager.LoadDispatcher<InputNetworkMessageEvent>();
 
         Type type = Type.GetType(networkInterfaceName);
 
@@ -86,19 +87,19 @@ public class NetworkManager
         s_network.Init();
         s_network.m_messageCallBack = ReceviceMeaasge;
 
-        ApplicationManager.s_OnApplicationUpdate += Update;
-        ApplicationManager.s_OnApplicationQuit += DisConnect;
+        //ApplicationManager.s_OnApplicationUpdate += Update;
+        //ApplicationManager.s_OnApplicationQuit += DisConnect;
     }
 
     public static void Dispose()
     {
-        InputManager.UnLoadDispatcher<InputNetworkConnectStatusEvent>();
-        InputManager.UnLoadDispatcher<InputNetworkMessageEvent>();
+        //InputManager.UnLoadDispatcher<InputNetworkConnectStatusEvent>();
+        //InputManager.UnLoadDispatcher<InputNetworkMessageEvent>();
 
         s_network.m_messageCallBack = null;
         s_network = null;
 
-        ApplicationManager.s_OnApplicationUpdate -= Update;
+        //ApplicationManager.s_OnApplicationUpdate -= Update;
     }
 
     public static void SetServer(string IP, int port)
@@ -173,7 +174,7 @@ public class NetworkManager
     {
         try
         {
-            InputNetworkEventProxy.DispatchMessageEvent(msg.m_MessageType, msg.m_data);
+            //InputNetworkEventProxy.DispatchMessageEvent(msg.m_MessageType, msg.m_data);
         }
         catch (Exception e)
         {
@@ -193,7 +194,7 @@ public class NetworkManager
 
     static void Dispatch(NetworkState status)
     {
-        InputNetworkEventProxy.DispatchStatusEvent(status);
+        //InputNetworkEventProxy.DispatchStatusEvent(status);
     }
 
     #region Update
