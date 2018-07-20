@@ -1,12 +1,12 @@
 //----------------------------------------------
-//            NGUI: Next-Gen UI kit
-// Copyright © 2011-2015 Tasharen Entertainment
+//            ColaFramework
+// Copyright © 2018-2020 ColaFramework 马三小伙儿
 //----------------------------------------------
 
 using UnityEngine;
 
 /// <summary>
-/// Tween the object's local scale.
+/// ugui版本的TweenScale插值动画组件 Tween the object's local scale.
 /// </summary>
 
 [AddComponentMenu("UGUI/Tween/UGUI Tween Scale")]
