@@ -143,7 +143,13 @@ public interface ILocalDataMapBase
 待补充  
 
 #### 插值动画/缓动动画  
-ColaFramework框架集成了DoTween、iTween两款比较常见的插值动画/缓动动画插件，并且自己拓展封装了适合UGUI的UGUITween组件，可以像NGUI中的Tween一样使用，非常方便，用来解决一些简单的Tween动画效果再合适不过了。
+ColaFramework框架集成了DoTween、iTween两款比较常见的插值动画/缓动动画插件，并且自己拓展封装了适合UGUI的UGUITween组件，可以像NGUI中的Tween一样使用，非常方便，用来解决一些简单的Tween动画效果再合适不过了。  
+其中拓展UGUITween组件包含以下几个常用的Tween组件：  
+>* UGUITweenScale  
+>* UGUITweenPosition  
+>* UGUITweenAlpha  
+>* UGUITweenRotation  
+
 
 
 
