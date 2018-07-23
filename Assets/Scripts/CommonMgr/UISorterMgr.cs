@@ -45,6 +45,12 @@ public class UISorterMgr : ISorter
         canvasSortList = new List<Canvas>();
     }
 
+    /// <summary>
+    /// 对某个Gameobject下的Canvas进行动态排序功能,识别子canvas，根据sortingOrder对canvas的排序
+    /// </summary>
+    /// <param name="panel"></param>
+    /// <param name="sortIndex"></param>
+    /// <returns></returns>
     public int SortIndexSetter(GameObject panel, int sortIndex)
     {
         if (null == panel)
@@ -63,12 +69,18 @@ public class UISorterMgr : ISorter
         for (int i = 0; i < canvasSortList.Count; i++)
         {
             canvasSortList[i].sortingOrder = sortIndex;
-            //DropDown组件关闭按钮的层级为DropDown层级减一，所以多加一个间隔
+            //DropDown组件关闭按钮的层级为DropDown层级减一，所以多加一个间隔,无间隔会与其他层级冲突导致关闭功能异常
             sortIndex += 2;
         }
         return sortIndex + 2;
     }
 
+    /// <summary>
+    /// 设置UI的SortTag,根据显示修改上下关系做到排序
+    /// </summary>
+    /// <param name="panel"></param>
+    /// <param name="sortIndex"></param>
+    /// <returns></returns>
     public int SortTagIndexSetter(GameObject panel, int sortIndex)
     {
         if (null == panel)
@@ -87,6 +99,13 @@ public class UISorterMgr : ISorter
         return sortIndex;
     }
 
+    /// <summary>
+    /// 设置带有3D模型UI的SortTag，带3d模型的ui需要排序设置
+    /// </summary>
+    /// <param name="model"></param>
+    /// <param name="z"></param>
+    /// <param name="isHigher"></param>
+    /// <returns></returns>
     public int SortTag3DSetter(GameObject model, int z, bool isHigher)
     {
         if (null == model)
@@ -120,6 +139,10 @@ public class UISorterMgr : ISorter
         return z;
     }
 
+    /// <summary>
+    /// 将指定的UI提升到当前UILEVEL的最上层
+    /// </summary>
+    /// <param name="ui"></param>
     public void MovePanelToTop(UIBase ui)
     {
         int index;
@@ -134,6 +157,10 @@ public class UISorterMgr : ISorter
         }
     }
 
+    /// <summary>
+    /// 重排UI界面
+    /// 根据UI的打开先后顺序先赋值index，然后根据uiDepthLayer\moveTop\index三者权重进行UI重排
+    /// </summary>
     public void ReSortPanels()
     {
         for (int i = 0; i < uiSortList.Count; i++)
@@ -184,6 +211,10 @@ public class UISorterMgr : ISorter
 
     }
 
+    /// <summary>
+    /// 添加打开面板时调用，会重排UI
+    /// </summary>
+    /// <param name="ui"></param>
     public void AddPanel(UIBase ui)
     {
         if (null == ui)
@@ -202,6 +233,10 @@ public class UISorterMgr : ISorter
         ReSortPanels();
     }
 
+    /// <summary>
+    /// 移除关闭面板时调用，会重排UI
+    /// </summary>
+    /// <param name="ui"></param>
     public void RemovePanel(UIBase ui)
     {
         if (null == ui)
