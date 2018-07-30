@@ -9,7 +9,7 @@ ColaFramework 一款简洁的Unity客户端框架，尤其支持快速开发3D�
 ### 项目手册  
 
 #### 项目结构  
-![](./Doc/image/1.png)  
+![](./Doc/image/ColaFramework目录结构.png)  
 
 #### 游戏启动运行流程与机制  
 
