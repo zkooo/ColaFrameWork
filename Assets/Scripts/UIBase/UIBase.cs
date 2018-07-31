@@ -147,7 +147,7 @@ public class UIBase : IEventHandler
         }
         else if (UICreateType.Go == uiCreateType)
         {
-            Show(true);
+            this.Panel.SetActive(true);
         }
 
         //UI参与排序
