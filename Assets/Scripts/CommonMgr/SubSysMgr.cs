@@ -12,20 +12,20 @@ public class SubSysMgr : IEventHandler
     /// <summary>
     /// 存储系统的字典
     /// </summary>
-    private Dictionary<int, SubSysBase> subSysList;
+    private Dictionary<int, ModuleBase> subSysList;
 
     /// <summary>
     /// 当前打开的系统
     /// </summary>
-    private SubSysBase curSubSys;
+    private ModuleBase _curModule;
 
     public SubSysMgr()
     {
-        subSysList = new Dictionary<int, SubSysBase>();
+        subSysList = new Dictionary<int, ModuleBase>();
         /*------------------注册子系统---------------------*/
-        SubSysBase subSys = new LoginSys();
-        subSysList.Add((int)subSys.subSysType,subSys);
-        subSys.EnterSys();
+        ModuleBase module = new LoginModule();
+        subSysList.Add((int)module.subSysType,module);
+        module.EnterSys();
         GameEventMgr.GetInstance().RegisterHandler(this,EventType.ChangeSys,EventType.ServerMsg,EventType.SystemMsg);
     }
 
@@ -34,7 +34,7 @@ public class SubSysMgr : IEventHandler
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public T GetSubSys<T>() where T : SubSysBase
+    public T GetSubSys<T>() where T : ModuleBase
     {
         foreach (var subSys in subSysList)
         {
@@ -52,7 +52,7 @@ public class SubSysMgr : IEventHandler
     /// <typeparam name="T"></typeparam>
     /// <param name="subSysType"></param>
     /// <returns></returns>
-    public T GetSubSys<T>(SubSysType subSysType) where T : SubSysBase
+    public T GetSubSys<T>(SubSysType subSysType) where T : ModuleBase
     {
         return (T)subSysList[(int)subSysType];
     }

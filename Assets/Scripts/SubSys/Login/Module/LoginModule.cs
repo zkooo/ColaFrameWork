@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using EventType = ColaFrame.EventType;
 
-public class LoginSys : SubSysBase {
-    public LoginSys() : base(SubSysType.Login)
+public class LoginModule : ModuleBase {
+    public LoginModule() : base(SubSysType.Login)
     {
     }
 

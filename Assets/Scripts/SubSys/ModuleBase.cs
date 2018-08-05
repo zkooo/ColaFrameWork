@@ -17,9 +17,9 @@ public enum SubSysType : byte
 }
 
 /// <summary>
-/// 所有子系统的抽象基类
+/// 系统的Module层抽象基类
 /// </summary>
-public abstract class SubSysBase : IEventHandler
+public abstract class ModuleBase : IEventHandler
 {
     /// <summary>
     /// 当前系统的类型
@@ -34,7 +34,7 @@ public abstract class SubSysBase : IEventHandler
     /// 构造函数
     /// </summary>
     /// <param name="subSysType"></param>系统类型
-    public SubSysBase(SubSysType subSysType)
+    public ModuleBase(SubSysType subSysType)
     {
         this.subSysType = subSysType;
         msgHanderDic = null;
