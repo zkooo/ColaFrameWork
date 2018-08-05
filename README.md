@@ -117,6 +117,8 @@ public interface ILocalDataMapBase
 #### UI框架(View层)   
 * UI工作流程  
 ![](./Doc/image/ColaFramework框架UI工作流程.png)  
+* UI主要方法  
+![](./Doc/image/UIBase基类.png)  
 
 #### SubSys系统框架(Module层)  
 
