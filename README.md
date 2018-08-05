@@ -121,7 +121,7 @@ public interface ILocalDataMapBase
 ![](./Doc/image/UIBase基类.png)  
 
 #### SubSys系统框架(Module层)  
-系统基类为MoudleBase，游戏内所有的系统的业务逻辑层均继承自该类  
+系统基类为ModuleBase，游戏内所有的系统的业务逻辑层均继承自该类  
 
 #### Execl策划表格规范与转表  
 
