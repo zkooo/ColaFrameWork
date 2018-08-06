@@ -46,15 +46,6 @@ public abstract class ModuleBase : IEventHandler
     }
 
     /// <summary>
-    /// 更新系统，每帧调用一次
-    /// </summary>
-    /// <param name="time"></param>间隔时间
-    public virtual void UpdateSys(double deltaTime)
-    {
-
-    }
-
-    /// <summary>
     /// 退出系统
     /// </summary>
     public virtual void ExitSys()

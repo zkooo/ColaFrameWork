@@ -74,10 +74,6 @@ public class GameManager
     /// <param name="deltaTime"></param>
     public void Update(float deltaTime)
     {
-        if (null != subSysMgr)
-        {
-            subSysMgr.Update(deltaTime);
-        }
         if (null != resourceMgr)
         {
             resourceMgr.Update(deltaTime);

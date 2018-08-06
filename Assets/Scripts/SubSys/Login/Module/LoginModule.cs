@@ -19,11 +19,6 @@ public class LoginModule : ModuleBase {
         base.ExitSys();
     }
 
-    public override void UpdateSys(double deltaTime)
-    {
-        base.UpdateSys(deltaTime);
-    }
-
     protected override void RegisterHander()
     {
         base.RegisterHander();

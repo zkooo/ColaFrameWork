@@ -14,11 +14,6 @@ public class SubSysMgr : IEventHandler
     /// </summary>
     private Dictionary<int, ModuleBase> subSysList;
 
-    /// <summary>
-    /// 当前打开的系统
-    /// </summary>
-    private ModuleBase _curModule;
-
     public SubSysMgr()
     {
         subSysList = new Dictionary<int, ModuleBase>();
@@ -65,20 +60,5 @@ public class SubSysMgr : IEventHandler
     public bool IsHasHandler(GameEvent evt)
     {
         throw new System.NotImplementedException();
-    }
-
-    /// <summary>
-    /// 更新系统
-    /// </summary>
-    /// <param name="deltaTime"></param>
-    public void Update(float deltaTime)
-    {
-        using (var enumerator = subSysList.GetEnumerator())
-        {
-            while (enumerator.MoveNext())
-            {
-                enumerator.Current.Value.UpdateSys(deltaTime);
-            }
-        }
     }
 }
