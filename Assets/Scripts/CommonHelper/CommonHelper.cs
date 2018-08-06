@@ -339,9 +339,9 @@ public static class CommonHelper
     /// 获取系统管理器
     /// </summary>
     /// <returns></returns>
-    public static SubSysMgr GetSubSysMgr()
+    public static ModuleMgr GetModuleMgr()
     {
-        return GameManager.GetInstance().GetSubSysMgr();
+        return GameManager.GetInstance().GetModuleMgr();
     }
 
     /// <summary>

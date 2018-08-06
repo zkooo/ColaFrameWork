@@ -18,7 +18,7 @@ public class GameManager
     /// <summary>
     /// 系统管理器
     /// </summary>
-    private SubSysMgr subSysMgr;
+    private ModuleMgr moduleMgr;
 
     /// <summary>
     /// 场景/关卡管理器
@@ -63,7 +63,7 @@ public class GameManager
         });
 
         uiMgr = new UIMgr();
-        subSysMgr = new SubSysMgr();
+        moduleMgr = new ModuleMgr();
         levelMgr = gameObject.AddComponent<LevelMgr>();
     }
 
@@ -117,11 +117,11 @@ public class GameManager
     /// 获取系统管理器
     /// </summary>
     /// <returns></returns>
-    public SubSysMgr GetSubSysMgr()
+    public ModuleMgr GetModuleMgr()
     {
-        if (null != subSysMgr)
+        if (null != moduleMgr)
         {
-            return subSysMgr;
+            return moduleMgr;
         }
         Debug.LogWarning("subSysMgr构造异常");
         return null;
