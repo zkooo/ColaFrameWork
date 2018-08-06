@@ -8,7 +8,7 @@ using EventType = ColaFrame.EventType;
 /// <summary>
 /// 系统的类型
 /// </summary>
-public enum SubSysType : byte
+public enum ModuleType : byte
 {
     /// <summary>
     /// 登录系统
@@ -24,35 +24,55 @@ public abstract class ModuleBase : IEventHandler
     /// <summary>
     /// 当前系统的类型
     /// </summary>
-    public readonly SubSysType subSysType;
+    public readonly ModuleType ModuleType;
+
     /// <summary>
     /// 消息-回调函数字典，接收到消息后调用字典中的回调方法
     /// </summary>
     protected Dictionary<string, MsgHandler> msgHanderDic;
 
     /// <summary>
+    /// 系统是否进行过初始化
+    /// </summary>
+    public bool IsInit { get; set; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="subSysType"></param>系统类型
-    public ModuleBase(SubSysType subSysType)
+    /// <param name="moduleType"></param>系统类型
+    public ModuleBase(ModuleType moduleType)
     {
-        this.subSysType = subSysType;
+        this.ModuleType = moduleType;
         msgHanderDic = null;
     }
 
-    public virtual void EnterSys()
+    /// <summary>
+    /// 初始化模块
+    /// </summary>
+    public virtual void Init()
     {
+        IsInit = true;
         RegisterHander();
     }
 
     /// <summary>
     /// 退出系统
     /// </summary>
-    public virtual void ExitSys()
+    public virtual void Exit()
     {
         UnRegisterHander();
         Resources.UnloadUnusedAssets();
         GC.Collect();
+    }
+
+    public virtual void Reset()
+    {
+        OnReset();
+    }
+
+    protected virtual void OnReset()
+    {
+        
     }
 
     /// <summary>

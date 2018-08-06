@@ -4,19 +4,20 @@ using UnityEngine;
 using EventType = ColaFrame.EventType;
 
 public class LoginModule : ModuleBase {
-    public LoginModule() : base(SubSysType.Login)
+    public LoginModule() : base(ModuleType.Login)
     {
+
     }
 
-    public override void EnterSys()
+    public override void Init()
     {
-        base.EnterSys();
+        base.Init();
         GameEventMgr.GetInstance().DispatchEvent("OpenUIWithReturn", EventType.UIMsg, "UILogin");
     }
 
-    public override void ExitSys()
+    public override void Exit()
     {
-        base.ExitSys();
+        base.Exit();
     }
 
     protected override void RegisterHander()
