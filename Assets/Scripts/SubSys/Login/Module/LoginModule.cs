@@ -11,8 +11,17 @@ public class LoginModule : ModuleBase {
 
     public override void Init()
     {
-        base.Init();
+        base.Init();     
+    }
+
+    public void Login()
+    {
         GameEventMgr.GetInstance().DispatchEvent("OpenUIWithReturn", EventType.UIMsg, "UILogin");
+    }
+
+    public void Logout()
+    {
+        
     }
 
     public override void Exit()

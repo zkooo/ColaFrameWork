@@ -65,8 +65,18 @@ public class GameManager
         uiMgr = new UIMgr();
         moduleMgr = new ModuleMgr();
         levelMgr = gameObject.AddComponent<LevelMgr>();
+
+        GameStart();
     }
 
+    /// <summary>
+    /// 游戏模块开始运行入口
+    /// </summary>
+    public void GameStart()
+    {
+        LoginModule loginModule = moduleMgr.GetModule<LoginModule>();
+        loginModule.Login();
+    }
 
     /// <summary>
     /// 模拟 Update

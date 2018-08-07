@@ -120,7 +120,7 @@ public class GameLauncher : MonoBehaviour
 
     IEnumerator InitGameCore()
     {
-        yield return new WaitForEndOfFrame();
+        yield return null;
         // 
 #if UNITY_ANDROID && (!UNITY_EDITOR)
         //从APK拷贝资源到本地

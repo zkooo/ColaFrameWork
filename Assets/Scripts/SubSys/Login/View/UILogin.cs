@@ -21,7 +21,6 @@ public class UILogin : UIBase
     public override void Create()
     {
         base.Create();
-        ShowUIBlur();
     }
 
     public override void Destroy()
@@ -78,13 +77,6 @@ public class UILogin : UIBase
     public override void OnShow(bool isShow)
     {
         base.OnShow(isShow);
-
-        //todo:数字转汉字测试
-        Debug.LogWarning("数字转汉字测试");
-        for (int i = 0; i <= 9; i++)
-        {
-            Debug.LogWarning(CommonHelper.GetChineseNumber(i));
-        }
     }
 
     public override void Open()
