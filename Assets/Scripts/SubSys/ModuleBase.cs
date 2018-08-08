@@ -4,18 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using EventType = ColaFrame.EventType;
 
-
-/// <summary>
-/// 系统的类型
-/// </summary>
-public enum ModuleType : byte
-{
-    /// <summary>
-    /// 登录系统
-    /// </summary>
-    Login = 1,
-}
-
 /// <summary>
 /// 系统的Module层抽象基类
 /// </summary>
