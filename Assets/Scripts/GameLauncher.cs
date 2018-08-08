@@ -35,6 +35,9 @@ public class GameLauncher : MonoBehaviour
         InitPath();
         gameManager = GameManager.GetInstance();
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+#if UNITY_STANDALONE_WIN
+        Screen.SetResolution(1280, 720, false);
+#endif
 
         DontDestroyOnLoad(gameObject);
         //加入输入输出管理器
