@@ -109,7 +109,8 @@ public interface ILocalDataMapBase
 **ILocalDataMapBase** 接口内只有一个 **void SetMapCsv(string[] rows)** 抽象方法，该方法用来对多行字符串进行处理，保存成LocalDataBase集合。
 框架中已经包含了**I18NDataMap**数据集合类，编写其他数据集合类时可以参考此类。  
 
-* LuaConfig&Lua版数据结构管理  
+* LuaConfig&Lua版数据结构管理  
+
 同样本框架也支持将Excel表格数据转为lua形式的配置文件，这样便于接入Lua开发以后数据的访问，提高访问效率。  
 Lua格式的转表工具位于[Lua转表工具](./Tools/XlsxTools/xls2lua),其中config配置文件用来配置原始数据的目录和导出的Lua配置文件的目录
 如果没有特殊需求的话，无需变更配置文件，直接执行同级目录下的Xls2Lua.exe工具即可进行转表操作。  
