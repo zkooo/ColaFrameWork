@@ -820,4 +820,14 @@ public static class CommonHelper
         }
         return false;
     }
+
+    /// <summary>
+    /// 资源清理和垃圾回收
+    /// </summary>
+    public static void ResourcesClearAndGC()
+    {
+        Resources.UnloadUnusedAssets();
+        GC.Collect();
+    }
+
 }

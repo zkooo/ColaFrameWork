@@ -49,8 +49,6 @@ public abstract class ModuleBase : IEventHandler
     public virtual void Exit()
     {
         UnRegisterHander();
-        Resources.UnloadUnusedAssets();
-        GC.Collect();
     }
 
     public virtual void Reset()
