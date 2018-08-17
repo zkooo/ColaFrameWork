@@ -56,7 +56,7 @@ public class MissComponentsCleaner
 
     private static void SavePrefabObj(GameObject go)
     {
-        Object prefabParent = PrefabUtility.GetPrefabParent(go);
+        Object prefabParent = PrefabUtility.GetCorrespondingObjectFromSource(go);
         if (null == prefabParent)
         {
             Debug.LogError("Can not find prefab from obj:" + go.name);
