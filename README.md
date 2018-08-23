@@ -8,6 +8,7 @@ ColaFramework 一款简洁的MVC结构的Unity客户端框架，尤其支持快�
 ### 开发环境  
 * Unity2018.2.3  
 * VS2017  
+* C#  
 
 ### 项目手册  
 
