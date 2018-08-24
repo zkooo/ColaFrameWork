@@ -135,6 +135,22 @@ public class ResourceMgr
     }
 
     /// <summary>
+    /// 简单读取一个文本，同步无回调方式
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public string ReadTextFile(string path)
+    {
+        TextAsset textAsset = resourceLoader.Load<TextAsset>(path);
+        if (null != textAsset)
+        {
+            return textAsset.text;
+        }
+        Debug.LogWarning(string.Format("加载路径为{0}的文件失败！",path));
+        return string.Empty;
+    }
+
+    /// <summary>
     /// 模拟 Update
     /// </summary>
     /// <param name="deltaTime"></param>
