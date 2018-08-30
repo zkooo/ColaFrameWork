@@ -10,6 +10,11 @@ ColaFramework 一款简洁的MVC结构的Unity客户端框架，尤其支持快�
 * VS2017  
 * C# & Lua    
 
+### 安装集成  
+可以选择以下两种安装方式集成本框架：
+* Clone本项目到本地，与自己的代码融合或者直接在框架基础上进行开发;  
+* 下载插件包，导入到Unity工程以后进行开发。插件包下载地址：[ColaFramework_v0.0.1.unitypackge](https://pan.baidu.com/s/1kVLYH7IFP8bOmhDAWsY-wA) 密码：bpq6
+
 ### 项目手册  
 
 #### 项目结构  
