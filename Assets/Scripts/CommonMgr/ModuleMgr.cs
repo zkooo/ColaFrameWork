@@ -23,7 +23,7 @@ public class ModuleMgr : IEventHandler
 
         RegisterAllModules();
         InitAllModules();
-        GameEventMgr.GetInstance().RegisterHandler(this, EventType.ChangeSys, EventType.ServerMsg, EventType.SystemMsg);
+        GameEventMgr.GetInstance().RegisterHandler(this, EventType.ServerMsg, EventType.SystemMsg);
     }
 
     /// <summary>
