@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ColaFramework框架输入输出管理器
+/// ColaFramework框架输入管理器
 /// </summary>
 public class InputMgr : MonoBehaviour
 {
