@@ -160,6 +160,9 @@ Module的基类为ModuleBase，游戏内所有的系统的业务逻辑层均继�
 #### 网络通信与协议  
 待补充  
 
+#### 寻路系统  
+ColaFramework框架目前集成了AStar、Recast两种寻路系统。  
+
 #### 插值动画/缓动动画  
 ColaFramework框架集成了DoTween、iTween两款比较常见的插值动画/缓动动画插件，并且自己拓展封装了适合UGUI的UGUITween组件，可以像NGUI中的Tween一样使用，非常方便，用来解决一些简单的Tween动画效果再合适不过了。  
 其中拓展UGUITween组件包含以下几个常用的Tween组件：  
