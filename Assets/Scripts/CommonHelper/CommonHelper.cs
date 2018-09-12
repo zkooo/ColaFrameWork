@@ -830,4 +830,17 @@ public static class CommonHelper
         GC.Collect();
     }
 
+    /// <summary>
+    /// 切割一张Texure大图上面的一部分，作为Sprite精灵返回
+    /// </summary>
+    /// <param name="texture2D"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <returns></returns>
+    public static Sprite SliceTextureToSprite(Texture2D texture2D,float x,float y,float width,float height)
+    {
+
+    }
 }
