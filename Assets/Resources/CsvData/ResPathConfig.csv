@@ -7,3 +7,4 @@ id,path,resType,resLiveTime
 2001,Arts/Gui/Textures/atlas/airfightSheet.prefab,0,-2
 300001,Arts/Gui/Material/material_defaultgray.mat,0,-2
 400001,Arts/Gui/Textures/head_icon/GuChenSha.png,0,-2
+400002,Arts/Gui/Textures/texture/loading/LoadingBackground0.png,0,-2
