@@ -841,6 +841,23 @@ public static class CommonHelper
     /// <returns></returns>
     public static Sprite SliceTextureToSprite(Texture2D texture2D,float x,float y,float width,float height)
     {
+        if (null != texture2D)
+        {
+            if (x + width > texture2D.width)
+            {
+                width = texture2D.width - x;
+                Debug.LogWarning("the width is larger then texture2D width!");
+            }
+            if (y + height > texture2D.height)
+            {
+                height = texture2D.height - y;
+                Debug.LogWarning("the height is larger then texture2D height!");
+            }
 
+            Sprite sprite = Sprite.Create(texture2D,new Rect(x,y,width,height),new Vector2(0.5f,0.5f));
+            return sprite;
+        }
+        Debug.LogWarning("Texture2D 不能为空！");
+        return null;
     }
 }
