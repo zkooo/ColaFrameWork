@@ -13,6 +13,22 @@ public interface IViewBase
 }
 
 /// <summary>
+/// ColaFramework框架中自定义的组件
+/// </summary>
+public interface IComponent
+{
+
+}
+
+/// <summary>
+/// ColaFramework框架中自定义的控制类组件(有一些UI响应等高级功能)
+/// </summary>
+public interface IControl : IComponent
+{
+
+}
+
+/// <summary>
 /// UI管理器接口
 /// </summary>
 public interface IViewManager
