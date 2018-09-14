@@ -38,6 +38,7 @@ public class GameLauncher : MonoBehaviour
 #if UNITY_STANDALONE_WIN
         Screen.SetResolution(1280, 720, false);
 #endif
+        Application.targetFrameRate = 100;
 
         DontDestroyOnLoad(gameObject);
         //加入输入输出管理器
