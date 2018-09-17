@@ -46,29 +46,6 @@ public class UILogin : UIBase
                 titleImage.sprite = sprite;
             }
         });
-
-        //TODO:测试视频下载
-        //        var path = Path.Combine(CommonHelper.GetAssetPath(), "Videos.mp4");
-        //        //var testUrl = @"http://yun.it7090.com/video/XHLaunchAd/video01.mp4";
-        //        var testUrl = @"http://yun.it7090.com/video/XHLaunchAd/video03.mp4" + "?" + DateTime.Now;
-        //        Debug.LogWarning("-------------->视频网络资源地址" + testUrl);
-        //        DownloadMovHelper.Begin(path, testUrl, () =>
-        //          {
-        //              Debug.LogWarning("开始下载。");
-        //          }
-        //        ,
-        //        () =>
-        //        {
-        //            Debug.LogWarning("下载完成。");
-        //        },
-        //        (reason) =>
-        //        {
-        //            Debug.LogWarning("下载失败原因" + reason);
-        //        },
-        //        (progress) =>
-        //        {
-        //            Debug.LogWarning("下载进度" + progress);
-        //        });
     }
 
     public override void OnDestroy()
@@ -103,11 +80,36 @@ public class UILogin : UIBase
         {
             Debug.LogWarning("点击了OK按钮！");
             uiHintTest.Open();
-            DownloadMovHelper.Stop();
+            //TODO: 测试视频下载
+            var path = Path.Combine(CommonHelper.GetAssetPath(), "Videos.mp4");
+            //var testUrl = @"http://yun.it7090.com/video/XHLaunchAd/video01.mp4";
+            var testUrl = @"http://yun.it7090.com/video/XHLaunchAd/video03.mp4" + "?" + DateTime.Now;
+            Debug.LogWarning("-------------->视频网络资源地址" + testUrl);
+            DownloadMovHelper.Begin(path, testUrl, () =>
+            {
+                Debug.LogWarning("开始下载。");
+            }
+            ,
+            () =>
+            {
+                Debug.LogWarning("下载完成。");
+            },
+            (reason) =>
+            {
+                Debug.LogWarning("下载失败原因" + reason);
+            },
+            (progress) =>
+            {
+                Debug.LogWarning("下载进度" + progress);
+            });
         }
         if (obj.name == "bg")
         {
             Debug.LogWarning("点击了bg按钮");
+        }
+        if(obj.name == "calcelBtn")
+        {
+            DownloadMovHelper.Stop();
         }
     }
 

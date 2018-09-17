@@ -717,15 +717,6 @@ public static class CommonHelper
     /// <summary>
     /// 停止一个协程
     /// </summary>
-    /// <param name="coroutine"></param>
-    public static void StopCoroutine(IEnumerator coroutine)
-    {
-        GameLauncher.Instance.StopCoroutine(coroutine);
-    }
-
-    /// <summary>
-    /// 停止一个协程
-    /// </summary>
     /// <param name="methodName"></param>
     public static void StopCoroutine(string methodName)
     {
