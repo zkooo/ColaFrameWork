@@ -9,6 +9,22 @@ using EventType = ColaFrame.EventType;
 public class UILogin : UIBase
 {
     private UIHintTest uiHintTest;
+
+    [AutoInject("cancelBtn")]
+    private Button cancelBtn;
+
+    [AutoInject("okBtn")]
+    private Button okBtn;
+
+    [AutoInject("logo")]
+    private Image logo;
+
+    [AutoInject("usernameDes")]
+    private Text userNameText;
+
+    [AutoInject("center")]
+    private GameObject centerObj;
+
     public UILogin(int resId, UILevel uiLevel) : base(resId, uiLevel)
     {
     }
@@ -32,6 +48,8 @@ public class UILogin : UIBase
     public override void OnCreate()
     {
         base.OnCreate();
+        AutoInject.Inject(Panel, this);
+        var text = this.okBtn.name;
         uiHintTest = new UIHintTest();
         AttachSubPanel("center/uiTextHint", uiHintTest, UILevel.Level2);
         GameObject okBtn = Panel.FindChildByPath("bottom/okBtn");
