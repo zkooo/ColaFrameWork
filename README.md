@@ -156,6 +156,7 @@ ColaFrameWork框架中支持三种获取组件或者Gameobject等其他实体的
 
 #### 游戏自动化测试  
 框架中集成了WETEST_SDK，通过使用[GAutomator](https://github.com/Tencent/GAutomator)实现Unity手游的UI自动化测试。  
+TODO:对网易的自动化测试解决方案做一些调研[传送门](http://airtest.netease.com/index.html)  
 
 #### DebugLog与日志  
 待补充  
