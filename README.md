@@ -142,6 +142,10 @@ Module的基类为ModuleBase，游戏内所有的系统的业务逻辑层均继�
 
 #### 组件与实体获取  
 ColaFrameWork框架中支持三种获取组件或者Gameobject等其他实体的方式，分别为传统直接获取式、AutoInject依赖注入式和自动查找序列化三种，下面详细介绍一下区别与使用：  
+>* 传统直接获取式:函数接口位于CommonHelper通用助手类下面，具体为```C# T GetComponentByName<T>(this GameObject go, string name) ```C# ,
+```C#  T[] GetComponentsByName<T>(this GameObject go) ```C# , ```C#  GameObject GetGameObjectByName(this GameObject go, string childName) ```C# ,
+```C#  List<GameObject> GetGameObjectsByName(this GameObject go, string childName) ```C# , ```C#  GameObject FindChildByPath(this GameObject obj, string childPath) ```C# ,
+```C# T GetComponentByPath<T>(this GameObject obj, string childPath) ```C# ,以上方法均为拓展方法形式，方便调用；  
 
 #### Execl策划表格规范与转表  
 
