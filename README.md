@@ -152,6 +152,11 @@ GameObject FindChildByPath(this GameObject obj, string childPath)
 T GetComponentByPath<T>(this GameObject obj, string childPath) 
 ```    
 
+>* AutoInject依赖注入式:通过给需要注入的字段或者属性打上AutoInjectAttribute标签，然后再调用AutoInject.Inject(Panel, this);方法，底层会在内部通过反射
+机制完成对应字段或属性的注入，然后直接即可像正常的Component或者Gameobject等实体来使用了。具体使用方法如下所示:  
+![](./Doc/image/AutoInject1.png)  
+![](./Doc/image/AutoInject2.png)  
+
 #### Execl策划表格规范与转表  
 
 待补充  
