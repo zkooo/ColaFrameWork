@@ -156,6 +156,8 @@ T GetComponentByPath<T>(this GameObject obj, string childPath)
 机制完成对应字段或属性的注入，然后直接即可像正常的Component或者Gameobject等实体来使用了。具体使用方法如下所示:  
 ![](./Doc/image/AutoInject1.png) ![](./Doc/image/AutoInject2.png)  
 
+>* 自动查找序列化式：功能正在开发中...  
+
 #### Execl策划表格规范与转表  
 
 待补充  
