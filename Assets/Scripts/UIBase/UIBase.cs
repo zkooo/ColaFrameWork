@@ -167,7 +167,7 @@ public class UIBase : IEventHandler
     }
 
     /// <summary>
-    /// UI创建过程中会调用该方法
+    /// UI结束后中会调用该方法
     /// </summary>
     public virtual void OnCreate()
     {
@@ -206,7 +206,7 @@ public class UIBase : IEventHandler
     }
 
     /// <summary>
-    /// 销毁UI界面的过程中调用该方法
+    /// 销毁UI界面后调用该方法
     /// </summary>
     public virtual void OnDestroy()
     {
