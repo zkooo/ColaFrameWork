@@ -136,6 +136,8 @@ Lua格式的转表工具位于[Lua转表工具](./Tools/XlsxTools/xls2lua),其�
 ![](./Doc/image/ColaFramework框架UI工作流程.png)  
 * UI主要方法  
 ![](./Doc/image/UIBase基类.png)  
+* 在ColaFramework框架中通过编辑器提高UI开发效率  
+Todo:在ColaFramework框架中通过编辑器提高UI开发效率  
 
 #### SubSys系统框架(Module层)  
 Module的基类为ModuleBase，游戏内所有的系统的业务逻辑层均继承自该类。框架采用厚Module类型的MVC结构，弱化了C层的作用，强化了M层。游戏中的业务逻辑大部分都放在M层进行处理处理。M层负责处理业务逻辑、监听网络消息、请求网络消息、派发事件通知其他模块或者UI等更新。M层不应该了解View层的存在，不可以直接调用View层，应该通过消息机制通知View做出动作。
