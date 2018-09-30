@@ -40,17 +40,38 @@ public abstract class ModuleBase : IEventHandler
     public virtual void Init()
     {
         IsInit = true;
+        AddModuleListener();
         RegisterHander();
     }
 
     /// <summary>
-    /// 退出系统
+    /// 销毁系统
     /// </summary>
     public virtual void Exit()
     {
+        RemoveModuleListener();
         UnRegisterHander();
     }
 
+    /// <summary>
+    /// 在这里统一注册监听某个事件
+    /// </summary>
+    protected virtual void AddModuleListener()
+    {
+
+    }
+
+    /// <summary>
+    /// 在这里统一注册监听某个事件
+    /// </summary>
+    protected virtual void RemoveModuleListener()
+    {
+
+    }
+
+    /// <summary>
+    /// 重置系统
+    /// </summary>
     public virtual void Reset()
     {
         OnReset();
@@ -62,7 +83,7 @@ public abstract class ModuleBase : IEventHandler
     }
 
     /// <summary>
-    /// 注册消息/事件回调
+    /// 统一注册消息/事件回调
     /// </summary>
     protected virtual void RegisterHander()
     {
@@ -71,7 +92,7 @@ public abstract class ModuleBase : IEventHandler
     }
 
     /// <summary>
-    /// 反注册消息/事件回调
+    /// 统一反注册消息/事件回调
     /// </summary>
     protected virtual void UnRegisterHander()
     {
@@ -83,6 +104,39 @@ public abstract class ModuleBase : IEventHandler
             msgHanderDic = null;
         }
     }
+
+    /// <summary>
+    /// 注册一个消息
+    /// </summary>
+    /// <param name="evt"></param>
+    /// <param name="msgHandler"></param>
+    public void RegisterEvent(string evt, MsgHandler msgHandler)
+    {
+        if (null != msgHandler && null != msgHanderDic)
+        {
+            if (!msgHanderDic.ContainsKey(evt))
+            {
+                msgHanderDic.Add(evt, msgHandler);
+            }
+            else
+            {
+                Debug.LogWarning(string.Format("消息{0}重复注册！", evt));
+            }
+        }
+    }
+
+    /// <summary>
+    /// 取消注册一个消息
+    /// </summary>
+    /// <param name="evt"></param>
+    public void UnRegisterEvent(string evt)
+    {
+        if (null != msgHanderDic)
+        {
+            msgHanderDic.Remove(evt);
+        }
+    }
+
 
     /// <summary>
     /// 处理消息的函数的实现
