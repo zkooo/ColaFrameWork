@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// xxxUI界面
+/// #NAME# UI界面
 /// </summary>
-public class UIViewTemplate : UIBase
+public class #NAME# : UIBase
 {
 
     #region 变量
@@ -14,7 +14,7 @@ public class UIViewTemplate : UIBase
 
     #region 构造器
 
-    public UIViewTemplate(int resId, UILevel uiLevel) : base(resId, uiLevel)
+    public #NAME#(int resId, UILevel uiLevel) : base(resId, uiLevel)
     {
         
     }
