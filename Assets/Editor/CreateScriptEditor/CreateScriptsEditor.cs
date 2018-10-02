@@ -39,7 +39,7 @@ public static class CreateScriptsEditor
     #endregion
 
     #region 创建C#模版
-    [MenuItem("Assets/Create/C#/UIView", false, 70)]
+    [MenuItem("Assets/Create/C#/UIView", false, 90)]
     public static void CreateCSharpUIView()
     {
         string basePath = GetSelectedPath();
@@ -52,7 +52,7 @@ public static class CreateScriptsEditor
             templateFullPath);
     }
 
-    [MenuItem("Assets/Create/C#/Module", false, 71)]
+    [MenuItem("Assets/Create/C#/Module", false, 91)]
     public static void CreateCSharpModule()
     {
         string basePath = GetSelectedPath();
