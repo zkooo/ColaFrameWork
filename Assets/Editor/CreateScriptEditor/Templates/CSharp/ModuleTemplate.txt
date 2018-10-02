@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModuleTemplate : ModuleBase
+public class #NAME# : ModuleBase
 {
     #region 变量声明
     #endregion
 
     #region 构造器
-    public ModuleTemplate(ModuleType moduleType) : base(moduleType)
+    public #NAME#(ModuleType moduleType) : base(moduleType)
     {
     }
     #endregion
