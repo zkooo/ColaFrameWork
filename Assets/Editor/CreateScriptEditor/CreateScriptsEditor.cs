@@ -65,6 +65,18 @@ public static class CreateScriptsEditor
             templateFullPath);
     }
 
+    [MenuItem("Assets/Create/C#/Templates(UIView&Module)", false, 92)]
+    public static void CreateTemplates()
+    {
+        string basePath = GetSelectedPath();
+
+        string dirName = basePath.Substring(basePath.LastIndexOf(@"/") + 1);
+        Debug.Log("----->"+dirName);
+        dirName = basePath.Substring(basePath.LastIndexOf(@"\") + 1);
+        Debug.Log("----->" + dirName);
+
+    }
+
     #endregion
 
     #region 创建Lua模版
