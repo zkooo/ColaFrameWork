@@ -65,17 +65,30 @@ public static class CreateScriptsEditor
             templateFullPath);
     }
 
-    [MenuItem("Assets/Create/C#/Templates(UIView&Module)", false, 92)]
+    [MenuItem("Assets/Create/C#/Templates(UIView和Module)", false, 92)]
     public static void CreateTemplates()
     {
         string basePath = GetSelectedPath();
         //获取最后一级文件夹名，即选中的文件夹的名称
         string dirName = basePath.Substring(basePath.LastIndexOf(@"/") + 1);
         //创建对应的View和Module子路径
-        string uiviewPath = Path.Combine(GetSelectedPath(), "View");
+        string uiviewPath = Path.Combine(GetSelectedPath(), "View/");
+        string modulePath = Path.Combine(GetSelectedPath(), "Module/");
+        string dataPath = Path.Combine(GetSelectedPath(), "Data/");
+        CommonHelper.CheckLocalFileExist(uiviewPath);
+        CommonHelper.CheckLocalFileExist(modulePath);
+        CommonHelper.CheckLocalFileExist(dataPath);
+
         //拷贝模板文件并创建新的文件
-        CreateCSharpScriptEndAction.CreateScriptAssetFromTemplate()
+        string uiviewFileName = uiviewPath + dirName + "_UIView.cs";
+        string moduleFileName = modulePath + dirName + "_Module.cs";
+        CreateCSharpScriptEndAction.CreateScriptAssetFromTemplate(uiviewFileName, CSharpTemplateUIViewPath);
+        CreateCSharpScriptEndAction.CreateScriptAssetFromTemplate(moduleFileName, CSharpTemplateModulePath);
+
+        //刷新资源
+        AssetDatabase.Refresh();
     }
+
 
     #endregion
 
