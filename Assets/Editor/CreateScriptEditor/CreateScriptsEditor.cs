@@ -69,12 +69,12 @@ public static class CreateScriptsEditor
     public static void CreateTemplates()
     {
         string basePath = GetSelectedPath();
-
+        //获取最后一级文件夹名，即选中的文件夹的名称
         string dirName = basePath.Substring(basePath.LastIndexOf(@"/") + 1);
-        Debug.Log("----->"+dirName);
-        dirName = basePath.Substring(basePath.LastIndexOf(@"\") + 1);
-        Debug.Log("----->" + dirName);
-
+        //创建对应的View和Module子路径
+        string uiviewPath = Path.Combine(GetSelectedPath(), "View");
+        //拷贝模板文件并创建新的文件
+        CreateCSharpScriptEndAction.CreateScriptAssetFromTemplate()
     }
 
     #endregion
