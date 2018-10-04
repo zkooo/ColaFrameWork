@@ -29,6 +29,18 @@ public class ColaQuickWindowEditor : EditorWindow
 
 
         GUILayout.BeginHorizontal();
+        if (GUILayout.Button("创建C#版UIView脚本", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
+        {
+            CreateScriptsEditor.CreateCSharpUIView();
+        }
+        if (GUILayout.Button("创建C#版Module脚本", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
+        {
+            CreateScriptsEditor.CreateCSharpModule();
+        }
+        if (GUILayout.Button("创建C#版Templates(UIView和Module)", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
+        {
+            CreateScriptsEditor.CreateCSharpModule();
+        }
         GUILayout.EndHorizontal();
     }
 
