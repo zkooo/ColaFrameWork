@@ -89,6 +89,41 @@ public static class CreateScriptsEditor
         AssetDatabase.Refresh();
     }
 
+    /// <summary>
+    /// 快速创建UI模版
+    /// </summary>
+    [MenuItem("GameObject/UI/ColaUI/UIView", false, 1)]
+    public static void CreateColaUIView()
+    {
+        GameObject uguiRoot = GetOrCreateUGUIRoot();
+        Selection.activeGameObject = uguiRoot;
+    }
+
+    /// <summary>
+    /// 获取或者创建UGUIRoot（编辑器状态下）
+    /// </summary>
+    /// <returns></returns>
+    private static GameObject GetOrCreateUGUIRoot()
+    {
+        GameObject selectObj = Selection.activeGameObject;
+        //先查找选中的物体的父节点是否是uUGIRoot
+        Canvas canvas = (null != selectObj) ? selectObj.GetComponentInParent<Canvas>() : null;
+        if (null != canvas && canvas.gameObject.activeInHierarchy)
+        {
+            return canvas.gameObject;
+        }
+        //再查找整个面板中是否存在UGIRoot
+        canvas = UnityEngine.Object.FindObjectOfType<Canvas>();
+        if (null != canvas && canvas.gameObject.activeInHierarchy)
+        {
+            return canvas.gameObject;
+        }
+
+        //如果以上步骤都没有找到，那就从Resource里面加载并实例化一个
+        var uguiRootPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Resources/Arts/Gui/Prefabs/UGUIRoot.prefab");
+        GameObject uguiRoot = CommonHelper.InstantiateGoByPrefab(uguiRootPrefab, null);
+        return uguiRoot;
+    }
 
     #endregion
 
