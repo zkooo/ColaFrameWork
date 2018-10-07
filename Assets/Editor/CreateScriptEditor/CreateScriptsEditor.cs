@@ -96,7 +96,25 @@ public static class CreateScriptsEditor
     public static void CreateColaUIView()
     {
         GameObject uguiRoot = GetOrCreateUGUIRoot();
-        Selection.activeGameObject = uguiRoot;
+
+        //创建新的UI Prefab
+        GameObject view = new GameObject("NewUIView", typeof(RectTransform));
+        view.layer = LayerMask.NameToLayer("UI");
+        view.tag = "UIView";
+        string uniqueName = GameObjectUtility.GetUniqueNameForSibling(uguiRoot.transform, view.name);
+        view.name = uniqueName;
+        Undo.RegisterCreatedObjectUndo(view, "Create" + view.name);
+        Undo.SetTransformParent(view.transform, uguiRoot.transform, "Parent" + view.name);
+        GameObjectUtility.SetParentAndAlign(view, uguiRoot);
+
+        //设置RectTransform属性
+        RectTransform rect = view.GetComponent<RectTransform>();
+        rect.offsetMax = rect.offsetMin = rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.pivot = new Vector2(0.5f, 0.5f);
+
+        //设置新建的UIView被选中
+        Selection.activeGameObject = view;
     }
 
     /// <summary>
@@ -122,7 +140,8 @@ public static class CreateScriptsEditor
         //如果以上步骤都没有找到，那就从Resource里面加载并实例化一个
         var uguiRootPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Resources/Arts/Gui/Prefabs/UGUIRoot.prefab");
         GameObject uguiRoot = CommonHelper.InstantiateGoByPrefab(uguiRootPrefab, null);
-        return uguiRoot;
+        GameObject canvasRoot = uguiRoot.GetComponentInChildren<Canvas>().gameObject;
+        return canvasRoot;
     }
 
     #endregion
