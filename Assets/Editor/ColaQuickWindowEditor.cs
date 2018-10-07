@@ -27,6 +27,12 @@ public class ColaQuickWindowEditor : EditorWindow
         EditorGUILayout.LabelField("== UI相关辅助 ==");
         GUILayout.EndHorizontal();
 
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("创建NewUIView", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
+        {
+            CreateColaUIEditor.CreateColaUIView();
+        }
+        GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("创建C#版UIView脚本", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
