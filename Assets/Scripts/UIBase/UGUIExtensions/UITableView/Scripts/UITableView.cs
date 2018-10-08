@@ -25,7 +25,7 @@ public struct VisibleRange
 /// <summary>
 /// 高度定制可重用Tableview组件
 /// </summary>
-public class UITableView : MonoBehaviour
+public class UITableView : MonoBehaviour,IControl
 {
 
     private ScrollRect scroll;
@@ -77,6 +77,21 @@ public class UITableView : MonoBehaviour
     /// <returns></returns>
     public delegate UITableViewCell GetCellByIndex(int tag);
     public GetCellByIndex cellByIndexCallback;
+
+    /// <summary>
+    /// 当滚动停止的时候，返回当前cell对应的索引
+    /// </summary>
+    /// <param name="table"></param>
+    /// <param name="index"></param>
+    public delegate void OnScrollCompleted(UITableView table, int index);
+    public OnScrollCompleted onScrollCompleted;
+
+    /// <summary>
+    /// UITableView在滚动的时候会调用
+    /// </summary>
+    /// <param name="value"></param>
+    public delegate void OnScrolling(float value);
+    public OnScrolling onScrolling;
 
     public void Init()
     {
