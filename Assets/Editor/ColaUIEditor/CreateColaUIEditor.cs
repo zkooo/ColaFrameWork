@@ -8,9 +8,6 @@ using UnityEngine;
 /// </summary>
 public class CreateColaUIEditor
 {
-    private static readonly string UIViewTag = "UIView";
-    private static readonly string UIIgneroTag = "UIIgnero";
-    private static readonly string UIPropertyTag = "UIProperty";
 
     /// <summary>
     /// 快速创建UI模版
@@ -23,7 +20,7 @@ public class CreateColaUIEditor
         //创建新的UI Prefab
         GameObject view = new GameObject("NewUIView", typeof(RectTransform));
         view.layer = LayerMask.NameToLayer("UI");
-        view.tag = "UIView";
+        view.tag = GloablDefine.UIViewTag;
         string uniqueName = GameObjectUtility.GetUniqueNameForSibling(uguiRoot.transform, view.name);
         view.name = uniqueName;
         Undo.RegisterCreatedObjectUndo(view, "Create" + view.name);

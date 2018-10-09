@@ -59,4 +59,8 @@ public static class GloablDefine
         "config",
         "res_base"
     };
+
+    public static readonly string UIViewTag = "UIView";
+    public static readonly string UIIgneroTag = "UIIgnero";
+    public static readonly string UIPropertyTag = "UIProperty";
 }
