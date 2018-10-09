@@ -90,8 +90,8 @@ public class UITableView : MonoBehaviour,IControl
     /// UITableView在滚动的时候会调用
     /// </summary>
     /// <param name="value"></param>
-    public delegate void OnScrolling(float value);
-    public OnScrolling onScrolling;
+    public delegate void OnTableScrolling(float value);
+    public OnTableScrolling onTableScrolling;
 
     public void Init()
     {
