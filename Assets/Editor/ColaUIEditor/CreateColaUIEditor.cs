@@ -38,6 +38,16 @@ public class CreateColaUIEditor
     }
 
     /// <summary>
+    /// 导出UI预制件并自动序列化UI组件
+    /// </summary>
+    [MenuItem("GameObject/UI/ColaUI/ExportUIView", false, 2)]
+    public static void ExportUIView()
+    {
+
+    }
+
+
+    /// <summary>
     /// 获取或者创建UGUIRoot（编辑器状态下）
     /// </summary>
     /// <returns></returns>
