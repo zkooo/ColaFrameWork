@@ -53,18 +53,14 @@ public class CreateColaUIEditor
     /// <returns></returns>
     private static GameObject GetOrCreateUGUIRoot()
     {
-        GameObject selectObj = Selection.activeGameObject;
-        //先查找选中的物体的父节点是否是uUGIRoot
-        Canvas canvas = (null != selectObj) ? selectObj.GetComponentInParent<Canvas>() : null;
-        if (null != canvas && canvas.gameObject.activeInHierarchy)
+        GameObject uguiRootObj = GameObject.FindWithTag("UIRoot");
+        if (uguiRootObj != null)
         {
-            return canvas.gameObject;
-        }
-        //再查找整个面板中是否存在UGIRoot
-        canvas = UnityEngine.Object.FindObjectOfType<Canvas>();
-        if (null != canvas && canvas.gameObject.activeInHierarchy)
-        {
-            return canvas.gameObject;
+            Canvas canvas = uguiRootObj.GetComponentInChildren<Canvas>();
+            if (null != canvas && canvas.gameObject.activeInHierarchy)
+            {
+                return canvas.gameObject;
+            }
         }
 
         //如果以上步骤都没有找到，那就从Resource里面加载并实例化一个
