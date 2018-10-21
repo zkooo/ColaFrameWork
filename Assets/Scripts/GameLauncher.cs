@@ -23,6 +23,7 @@ public class GameLauncher : MonoBehaviour
     private FPSHelper fpsHelper;
     private LogHelper logHelper;
     private InputMgr inputMgr;
+    private LuaEngine luaClient;
 
     public static GameLauncher Instance
     {
@@ -41,6 +42,8 @@ public class GameLauncher : MonoBehaviour
         Application.targetFrameRate = 100;
 
         DontDestroyOnLoad(gameObject);
+
+        luaClient = gameObject.AddComponent<LuaEngine>();
         //加入输入输出管理器
         inputMgr = gameObject.AddComponent<InputMgr>();
 
