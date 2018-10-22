@@ -77,5 +77,13 @@ public class ColaQuickWindowEditor : EditorWindow
             BundleBuildHelper.ClearAssetBundlesName();
         }
         GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("AssetBundle Browser", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
+        {
+            AssetBundleBrowser.AssetBundleBrowserMain.ShowWindow();
+            this.Close();
+        }
+        GUILayout.EndHorizontal();
     }
 }
