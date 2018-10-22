@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
@@ -35,6 +36,7 @@ public class GameLauncher : MonoBehaviour
         instance = this;
         InitPath();
         gameManager = GameManager.GetInstance();
+        DOTween.Init();
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 #if UNITY_STANDALONE_WIN
         Screen.SetResolution(1280, 720, false);
