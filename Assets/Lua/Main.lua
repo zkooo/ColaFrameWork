@@ -1,14 +1,14 @@
 --主入口函数。从这里开始lua逻辑
 local luaLogHelper = require("LuaLogHelper")
 
-function initialize()
+local function initialize()
 	luaLogHelper.initialize()
 end
 
 function Main()
 	initialize()
 	print("logic start")
-	print("------>Test","abd",123)
+	print("------>Test","abd",{1,2,3,4,5})
 end
 
 --场景切换通知

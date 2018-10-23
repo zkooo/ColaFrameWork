@@ -23,7 +23,7 @@ function logHelper.debug(...)
             elseif type(v) == "table" then
                 local tmpStr = ""
                 for _,j in ipairs(v) do
-                    tmpStr = tmpStr .. tostring(v)
+                    tmpStr = tmpStr .. tostring(j)
                 end
                 str = str .. tmpStr
             end
