@@ -1,6 +1,7 @@
 --主入口函数。从这里开始lua逻辑
 function Main()					
-	print("logic start")	 		
+	print("logic start")
+	print("------>Test",{1,2,3,4,5})
 end
 
 --场景切换通知
