@@ -29,7 +29,7 @@ function logHelper.debug(...)
             end
         end
     end
-    print(str)
+    rawprint(str)
 end
 
 -- 警告
@@ -53,3 +53,5 @@ rawset(_G, "warn", logHelper.warn)
 rawset(_G, "error", logHelper.error)
 rawset(_G, "rawprint", rawprint)
 rawset(_G, "rawerror", rawerror)
+
+return logHelper
