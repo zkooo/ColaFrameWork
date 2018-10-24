@@ -699,7 +699,7 @@ public static class LuaBinder
     {
         try
         {
-            if (LuaDLL.lua_gettop(L) > 0 && LuaDLL.lua_isboolean(L, 1))
+            if (LuaDLL.lua_gettop(L) > 1 &&  LuaDLL.lua_isnumber(L, 1)  && LuaDLL.lua_isboolean(L, 2))
             {
                 var traceback = LuaDLL.lua_toboolean(L, 1);
                 LuaDLL.lua_remove(L, 1);
