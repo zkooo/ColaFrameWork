@@ -152,6 +152,7 @@ public class LuaClient : MonoBehaviour
     protected virtual void Bind()
     {        
         LuaBinder.Bind(luaState);
+        ColaLuaExtension.Register(luaState);
         DelegateFactory.Init();   
         LuaCoroutine.Register(luaState, this);        
     }

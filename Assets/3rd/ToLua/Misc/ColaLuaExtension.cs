@@ -10,6 +10,18 @@ using UnityEngine;
 public static class ColaLuaExtension
 {
     /// <summary>
+    /// 外部调用，统一注册
+    /// </summary>
+    /// <param name="L"></param>
+    public static void Register(LuaState L)
+    {
+        //内部手动管理LuaState上面的堆栈，并实现功能函数与注册
+        L.BeginModule(null);
+        L.RegFunction("LogFunction", LogFunction);
+        L.EndModule();
+    }
+
+    /// <summary>
     /// 供Lua端调用的打印方法
     /// </summary>
     /// <param name="L"></param>
@@ -44,7 +56,7 @@ public static class ColaLuaExtension
     /// <returns></returns>
     private static int InnerPrint(IntPtr L, int logTag, bool traceback = true)
     {
-
+        Debug.Log("------>打印" + logTag);
         return 0;
     }
 
