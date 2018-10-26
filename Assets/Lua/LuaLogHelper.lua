@@ -10,7 +10,6 @@ local logFunc = nil
 
 -- 普通日志
 function logHelper.debug(...)
-	rawprint("------>函数",logFunc ==nil)
 	if logFunc then
 		LogFunction(1,true,...)
 	end
