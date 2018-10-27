@@ -9,6 +9,8 @@ function Main()
 	initialize()
 	print("logic start")
 	print("------>Test","abd",{1,2,3,4,5})
+	warn("------->warnTest",debug.traceback())
+	error("---------->ErrorTest")
 end
 
 --场景切换通知
