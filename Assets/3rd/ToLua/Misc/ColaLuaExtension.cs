@@ -61,65 +61,56 @@ public static class ColaLuaExtension
     private static int InnerPrint(IntPtr L, int logTag, bool traceback = true)
     {
 
-        int n = LuaDLL.lua_gettop(l);
-        LuaDLL.lua_getglobal(l, "tostring");
+        int n = LuaDLL.lua_gettop(L); //返回栈顶索引（即栈长度）
+        LuaDLL.lua_getglobal(L, "tostring");
         for (int i = 1; i <= n; i++)
         {
-            if (mTablePrintDepth > 0 && LuaDLL.lua_type(l, i) == LuaTypes.LUA_TTABLE)
+            if (PrintTableDepth > 0 && LuaDLL.lua_type(L, i) == LuaTypes.LUA_TTABLE)
             {
-                PrintTable(l, n + 1, i, 0, mStrBuffer);
+                InnerPrintTable(L, n + 1, i, 0);
             }
             else
             {
-                LuaDLL.lua_pushvalue(l, -1);
-                LuaDLL.lua_pushvalue(l, i);
-                LuaDLL.lua_call(l, 1, 1);
-                mStrBuffer.Append(LuaDLL.lua_tostring(l, -1));
-                LuaDLL.lua_pop(l, 1);
+                LuaDLL.lua_pushvalue(L, -1);
+                LuaDLL.lua_pushvalue(L, i);
+                LuaDLL.lua_call(L, 1, 1);
+                stringBuilder.Append(LuaDLL.lua_tostring(L, -1));
+                LuaDLL.lua_pop(L, 1);
 
                 if (i == n)
-                { mStrBuffer.AppendLine(); }
+                { stringBuilder.AppendLine(); }
                 else
-                { mStrBuffer.Append(INDENT_CHAR); }
+                { stringBuilder.Append(" "); }
             }
         }
 
         if (traceback)
         {
-            LuaDLL.lua_getglobal(l, "debug");
-            LuaDLL.lua_getfield(l, -1, "traceback");
-            LuaDLL.lua_pushnil(l);
-            //移除日志打印函数相关的栈
-            //Print in C# (level 1) -> logw._logHandler (level 2) -> logw.log (level 3) -> log call (level 4)
-            LuaDLL.lua_pushinteger(l, 4);
-            LuaDLL.lua_call(l, 2, 1);
-            mStrBuffer.AppendLine(LuaDLL.lua_tostring(l, -1));
+            LuaDLL.lua_getglobal(L, "debug");
+            LuaDLL.lua_getfield(L, -1, "traceback");
+            LuaDLL.lua_pushnil(L);
+            LuaDLL.lua_pushinteger(L, 4);
+            LuaDLL.lua_call(L, 2, 1);
+            stringBuilder.AppendLine(LuaDLL.lua_tostring(L, -1));
         }
 
-        switch (logLevel)
+        switch (logTag)
         {
-            case LL_ERROR:
-                LogHandler.Error(mStrBuffer.ToString());
+            case (int)LogType.Log:
+                Debug.Log(stringBuilder.ToString());
                 break;
-            case LL_CRITICAL:
-                LogHandler.Critial(mStrBuffer.ToString());
+            case (int)LogType.Warning:
+                Debug.LogWarning(stringBuilder.ToString());
                 break;
-            case LL_WARN:
-                LogHandler.Warning(mStrBuffer.ToString());
-                break;
-            case LL_LOG:
-                LogHandler.Log(mStrBuffer.ToString());
-                break;
-            case LL_DEBUG:
-                LogHandler.Debug(mStrBuffer.ToString());
+            case (int)LogType.Error:
+                Debug.LogError(stringBuilder.ToString());
                 break;
             default:
-                LogHandler.ErrorFormat("Unknown log level {0}: {1}", logLevel, mStrBuffer.ToString());
+                Debug.Log(stringBuilder.ToString());
                 break;
         }
 
-        mStrBuffer.Remove(0, mStrBuffer.Length);
-        return 0;
+        stringBuilder.Clear();
         return 0;
     }
 
