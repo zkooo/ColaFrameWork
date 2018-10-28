@@ -8,7 +8,7 @@ end
 function Main()
 	initialize()
 	print("logic start")
-	print("------>Test","abd",{1,2,3,4,5})
+	print("------>Test","abd",{5,4,3,2,1})
 	warn("------->warnTest",debug.traceback())
 	error("---------->ErrorTest")
 end

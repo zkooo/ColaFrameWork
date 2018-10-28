@@ -147,7 +147,6 @@ public static class ColaLuaExtension
             {
                 stringBuilder.Append(indent).Append(shortIndentChar, shortIndentChar).AppendFormat("{0} = ", LuaDLL.lua_tostring(L, -1));
             }
-           // LuaDLL.lua_pop(L, 1); //此时Key还在栈上，需要弹出
 
             if (layer + 1 < PrintTableDepth && valType == LuaTypes.LUA_TTABLE)
             {
