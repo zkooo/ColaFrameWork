@@ -35,14 +35,11 @@ public static class ColaLuaExtension
     {
         try
         {
-            if (LuaDLL.lua_gettop(L) > 1 && LuaDLL.lua_isboolean(L, 2))
+            if (LuaDLL.lua_gettop(L) > 1)
             {
                 var logTag = LuaDLL.lua_tointeger(L, 1);
                 LuaDLL.lua_remove(L, 1);
-
-                var traceback = LuaDLL.lua_toboolean(L, 1);
-                LuaDLL.lua_remove(L, 1);
-                return InnerPrint(L, logTag, traceback);
+                return InnerPrint(L, logTag);
             }
             return 1;
         }
@@ -58,7 +55,7 @@ public static class ColaLuaExtension
     /// <param name="L"></param>
     /// <param name="traceback"></param>
     /// <returns></returns>
-    private static int InnerPrint(IntPtr L, int logTag, bool traceback = true)
+    private static int InnerPrint(IntPtr L, int logTag)
     {
 
         int n = LuaDLL.lua_gettop(L); //返回栈顶索引（即栈长度）
@@ -70,27 +67,37 @@ public static class ColaLuaExtension
             }
             else
             {
-                //LuaDLL.lua_pushvalue(L, -1);
-                LuaDLL.lua_pushvalue(L, i);
-                //LuaDLL.lua_call(L, 1, 1);
-                stringBuilder.Append(LuaDLL.lua_tostring(L, -1));
-                LuaDLL.lua_pop(L, 1);
+                if (LuaDLL.lua_isstring(L, i) == 1)
+                {
+                    stringBuilder.Append(LuaDLL.lua_tostring(L, i));
+                }
+                else if (LuaDLL.lua_isnil(L, i))
+                {
+                    stringBuilder.Append("nil");
+                }
+                else if (LuaDLL.lua_isboolean(L, i))
+                {
+                    stringBuilder.Append(LuaDLL.lua_toboolean(L, i) ? "true" : "false");
+                }
+                else
+                {
+                    IntPtr p = LuaDLL.lua_topointer(L, i);
+
+                    if (p == IntPtr.Zero)
+                    {
+                        stringBuilder.Append("nil");
+                    }
+                    else
+                    {
+                        stringBuilder.Append(LuaDLL.luaL_typename(L, i)).Append(":0x").Append(p.ToString("X"));
+                    }
+                }
 
                 if (i == n)
                 { stringBuilder.AppendLine(); }
                 else
-                { stringBuilder.Append(" | "); }
+                { stringBuilder.Append("  "); }
             }
-        }
-
-        if (traceback)
-        {
-            LuaDLL.lua_getglobal(L, "debug");
-            LuaDLL.lua_getfield(L, -1, "traceback");
-            LuaDLL.lua_pushnil(L);
-            LuaDLL.lua_pushinteger(L, 4);
-            LuaDLL.lua_call(L, 2, 1);
-            stringBuilder.AppendLine(LuaDLL.lua_tostring(L, -1));
         }
 
         switch (logTag)

@@ -11,21 +11,21 @@ local logFunc = nil
 -- 普通日志
 function logHelper.debug(...)
 	if logFunc then
-		LogFunction(3,true,...)
+		LogFunction(3,...)
 	end
 end
 
 -- 警告
 function logHelper.warn(...)
 	if logFunc then
-		LogFunction(2,true,...)
+		LogFunction(2,...)
 	end
 end
 
 -- 错误
 function logHelper.error(...)
 	if logFunc then
-		LogFunction(0,true,...)
+		LogFunction(0,...)
 	end
 end
 
