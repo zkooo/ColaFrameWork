@@ -12,6 +12,8 @@ public static class ColaLuaExtension
 {
     private static StringBuilder stringBuilder = new StringBuilder();
     public static readonly int PrintTableDepth = 5;
+    private static readonly string indentStr = "  ";
+    private static readonly char shortIndentChar = ' ';
 
     /// <summary>
     /// 外部调用，统一注册
@@ -63,7 +65,7 @@ public static class ColaLuaExtension
         {
             if (PrintTableDepth > 0 && LuaDLL.lua_type(L, i) == LuaTypes.LUA_TTABLE)
             {
-                //InnerPrintTable(L, n + 1, i, 0);
+                InnerPrintTable(L, 0, i);
             }
             else
             {
@@ -96,7 +98,7 @@ public static class ColaLuaExtension
                 if (i == n)
                 { stringBuilder.AppendLine(); }
                 else
-                { stringBuilder.Append("  "); }
+                { stringBuilder.Append(indentStr); }
             }
         }
 
@@ -126,49 +128,42 @@ public static class ColaLuaExtension
     /// <param name="L"></param>
     /// <param name="traceback"></param>
     /// <returns></returns>
-    private static int InnerPrintTable(IntPtr L, int logTag, bool traceback = true)
+    private static int InnerPrintTable(IntPtr L,int layer,int tbIndex)
     {
-//        var indent = layer > 0 ? new string(INDENT_CHAR, layer * INDENT_CNT) : string.Empty;
-//
-//        sb.Append(indent).AppendLine("{");
-//        /* table 放在索引 't' 处 */
-//        LuaDLL.lua_pushnil(l);  /* 第一个 key */
-//        while (LuaDLL.lua_next(l, tbIndex) != 0)
-//        {
-//            var keyType = LuaDLL.lua_type(l, -2);
-//            var valType = LuaDLL.lua_type(l, -1);
-//
-//            LuaDLL.lua_pushvalue(l, tsIndex);//tostring
-//            LuaDLL.lua_pushvalue(l, -3);//key
-//            LuaDLL.lua_call(l, 1, 1);//call tostring on key
-//            if (keyType == LuaTypes.LUA_TNUMBER)
-//            {
-//                sb.Append(indent).Append(INDENT_CHAR, INDENT_CNT).AppendFormat("[{0}] = ", LuaDLL.lua_tostring(l, -1));
-//            }
-//            else
-//            {
-//                sb.Append(indent).Append(INDENT_CHAR, INDENT_CNT).AppendFormat("{0} = ", LuaDLL.lua_tostring(l, -1));
-//            }
-//            LuaDLL.lua_pop(l, 1);//remove key str
-//
-//            if (layer + 1 < mTablePrintDepth && valType == LuaTypes.LUA_TTABLE)
-//            {
-//                sb.AppendLine();
-//                PrintTable(l, tsIndex, LuaDLL.lua_gettop(l), layer + 1, sb);
-//            }
-//            else
-//            {
-//                LuaDLL.lua_pushvalue(l, tsIndex);//tostring
-//                LuaDLL.lua_pushvalue(l, -2);//value
-//                LuaDLL.lua_call(l, 1, 1);//call tostring on value
-//                sb.AppendLine(LuaDLL.lua_tostring(l, -1));
-//                LuaDLL.lua_pop(l, 1);//remove value str
-//            }
-//
-//            /* 移除 'value' ；保留 'key' 做下一次迭代 */
-//            LuaDLL.lua_pop(l, 1);
-//        }
-//        sb.Append(indent).AppendLine("}");
+        var indent = layer > 0 ? new string(shortIndentChar, layer * shortIndentChar) : string.Empty; //根据表的层，进行相应缩进
+
+        stringBuilder.Append(indent).AppendLine("{");
+        LuaDLL.lua_pushnil(L);  /* 一般Push进一个nil作为第一个 key */
+        while (LuaDLL.lua_next(L, tbIndex) != 0)
+        {
+            var keyType = LuaDLL.lua_type(L, -2); //固定写法
+            var valType = LuaDLL.lua_type(L, -1); //固定写法
+
+            if (keyType == LuaTypes.LUA_TNUMBER)
+            {
+                stringBuilder.Append(indent).Append(shortIndentChar, shortIndentChar).AppendFormat("[{0}] = ", LuaDLL.lua_tostring(L, -1));
+            }
+            else
+            {
+                stringBuilder.Append(indent).Append(shortIndentChar, shortIndentChar).AppendFormat("{0} = ", LuaDLL.lua_tostring(L, -1));
+            }
+           // LuaDLL.lua_pop(L, 1); //此时Key还在栈上，需要弹出
+
+            if (layer + 1 < PrintTableDepth && valType == LuaTypes.LUA_TTABLE)
+            {
+                stringBuilder.AppendLine();
+                //递归处理
+                InnerPrintTable(L, layer + 1, LuaDLL.lua_gettop(L) );
+            }
+            else
+            {
+                stringBuilder.AppendLine(LuaDLL.lua_tostring(L, -1));
+            }
+
+            /* 移除 'value' ；保留 'key' 做下一次迭代 */
+            LuaDLL.lua_pop(L, 1);
+        }
+        stringBuilder.Append(indent).AppendLine("}");
         return 0;
     }
 }
