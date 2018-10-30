@@ -130,7 +130,7 @@ public static class ColaLuaExtension
     /// <returns></returns>
     private static int InnerPrintTable(IntPtr L,int layer,int tbIndex)
     {
-        var indent = layer > 0 ? new string(shortIndentChar, layer * shortIndentChar) : string.Empty; //根据表的层，进行相应缩进
+        var indent = layer > 0 ? new string(shortIndentChar, layer * 4) : string.Empty; //根据表的层，进行相应缩进
 
         stringBuilder.Append(indent).AppendLine("{");
         LuaDLL.lua_pushnil(L);  /* 一般Push进一个nil作为第一个 key */
@@ -141,11 +141,13 @@ public static class ColaLuaExtension
 
             if (keyType == LuaTypes.LUA_TNUMBER)
             {
-                stringBuilder.Append(indent).Append(shortIndentChar, shortIndentChar).AppendFormat("[{0}] = ", LuaDLL.lua_tostring(L, -1));
+                //值得注意：在遍历table时，除非你知道key是string类型，否则不要直接对key进行lua_tolstring操作，这是因为lua_tolstring操作可能修改指定index处的值，从而使下一次调用lua_next混淆。
+                //简言之就是：lua_tolstring可能会破坏table的原有结构，所以不要在遍历的时候对key进行lua_tolstring操作
+                stringBuilder.Append(indent).Append(shortIndentChar, 4).AppendFormat("[{0}] = ", LuaDLL.lua_tointeger(L, -2));  
             }
             else
             {
-                stringBuilder.Append(indent).Append(shortIndentChar, shortIndentChar).AppendFormat("{0} = ", LuaDLL.lua_tostring(L, -1));
+                stringBuilder.Append(indent).Append(shortIndentChar, 4).AppendFormat("{0} = ", LuaDLL.lua_tostring(L, -2));
             }
 
             if (layer + 1 < PrintTableDepth && valType == LuaTypes.LUA_TTABLE)
