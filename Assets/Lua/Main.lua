@@ -8,7 +8,12 @@ end
 function Main()
 	initialize()
 	print("logic start")
-	print("------>Test","abd",{5,4,3,2,1})
+	local t = {"a",'b','c'}
+	local tt = {}
+	tt["key"] = 123
+	tt["value"] = 456
+	local ttt = {t,tt}
+	print("------>Test","abd",{5,4,3,2,1,t,tt,ttt})
 	warn("------->warnTest",debug.traceback())
 	error("---------->ErrorTest")
 end

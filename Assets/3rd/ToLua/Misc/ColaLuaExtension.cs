@@ -132,7 +132,14 @@ public static class ColaLuaExtension
     {
         var indent = layer > 0 ? new string(shortIndentChar, layer * 4) : string.Empty; //根据表的层，进行相应缩进
 
-        stringBuilder.Append(indent).AppendLine("{");
+        if(layer == 0)
+        {
+            stringBuilder.AppendLine(indent).AppendLine("{");
+        }
+        else
+        {
+            stringBuilder.Append(indent).AppendLine("{");
+        }
         LuaDLL.lua_pushnil(L);  /* 一般Push进一个nil作为第一个 key */
         while (LuaDLL.lua_next(L, tbIndex) != 0)
         {
