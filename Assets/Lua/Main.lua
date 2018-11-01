@@ -16,6 +16,10 @@ function Main()
 	print("------>Test","abd",{5,4,3,2,1,t,tt,ttt})
 	warn("------->warnTest",debug.traceback())
 	error("---------->ErrorTest")
+
+	local UIView = require("UIView").Instance()
+	local result = UIView:TestFunc(123)
+	print("------->结果",result)
 end
 
 --场景切换通知
