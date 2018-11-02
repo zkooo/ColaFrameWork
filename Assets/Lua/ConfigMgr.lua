@@ -1,33 +1,26 @@
-require "Class"
-
-ConfigMgr = {
-	--实例对象
-    _instance = nil,
-	--缓存表格数据
-	_cacheConfig = {},
-	--具有id的表的快速索引缓存，结构__fastIndexConfig["LanguageCfg"][100] 
-	_quickIndexConfig = {},
-}
-ConfigMgr.__index = ConfigMgr
-setmetatable(ConfigMgr,Class)
+local ConfigMgr = Class("ConfigMgr")
 
 -- 数据配置文件的路径
-local cfgPath = "../LuaData/%s.lua"
+local cfgPath = UnityEngine.Application.streamingAssetsPath .. "/res_base/LuaData/%s.lua"
 
--- 构造器
-function ConfigMgr:new()
-	local self = {}
-	self = Class:new()
-	setmetatable(self,ConfigMgr)
-	return self
-end
+--实例对象
+ConfigMgr._instance = nil
 
 -- 获取单例
 function ConfigMgr:Instance()
 	if ConfigMgr._instance == nil then
 		ConfigMgr._instance = ConfigMgr:new()
+		ConfigMgr._instance:initialize()
 	end
 	return ConfigMgr._instance
+end
+
+-- 初始化各种数据
+function ConfigMgr:initialize()
+	--缓存表格数据
+	self._cacheConfig = {}
+	--具有id的表的快速索引缓存，结构__fastIndexConfig["LanguageCfg"][100]
+	self._quickIndexConfig = {}
 end
 
 -- 获取对应的表格数据
@@ -61,7 +54,6 @@ function ConfigMgr:GetItem(name,id)
 				self._quickIndexConfig[name] = {}
 				for _,v in ipairs(cfgData.items) do 
 					self._quickIndexConfig[name][v.id]= v
-					print("---->"..v.id)
 				end
 			else
 				print(string.format("Config: %s don't contain id: %d!",name,id))
@@ -73,3 +65,5 @@ function ConfigMgr:GetItem(name,id)
 	end
 	return nil
 end
+
+return ConfigMgr

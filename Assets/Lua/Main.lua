@@ -13,7 +13,10 @@ end
 
 -- 在此处定义注册一些全局变量
 local function gloablDefine()
+	-- 必须首先注册全局Class,顺序敏感
+	define("Class",require("middleclass"))
 	define("LuaLogHelper",require("LuaLogHelper"))
+	define("ConfigMgr",require("ConfigMgr"))
 end
 
 -- 初始化一些参数
@@ -26,6 +29,9 @@ function Main()
 	gloablDefine()
 	initParam()
 	initialize()
+
+	local text = ConfigMgr:Instance():GetItem("Language",10000).text
+	print("------->测试读取配置",text)
 end
 
 --场景切换通知
