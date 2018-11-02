@@ -1,5 +1,12 @@
 --主入口函数。从这里开始lua逻辑
 local luaLogHelper = require("LuaLogHelper")
+local rawset = rawset
+
+-- 全局函数
+-- 用于声明全局变量
+function define(name,value)
+	rawset(_G,name,value)
+end
 
 local function initialize()
 	luaLogHelper.initialize()
