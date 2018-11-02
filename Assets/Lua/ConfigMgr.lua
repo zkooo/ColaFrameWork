@@ -10,12 +10,11 @@ ConfigMgr._instance = nil
 function ConfigMgr:Instance()
 	if ConfigMgr._instance == nil then
 		ConfigMgr._instance = ConfigMgr:new()
-		ConfigMgr._instance:initialize()
 	end
 	return ConfigMgr._instance
 end
 
--- 初始化各种数据
+-- override 初始化各种数据
 function ConfigMgr:initialize()
 	--缓存表格数据
 	self._cacheConfig = {}

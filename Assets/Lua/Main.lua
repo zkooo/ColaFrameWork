@@ -32,6 +32,7 @@ function Main()
 
 	local text = ConfigMgr:Instance():GetItem("Language",10000).text
 	print("------->测试读取配置",text)
+
 end
 
 --场景切换通知
