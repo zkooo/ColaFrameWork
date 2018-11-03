@@ -17,6 +17,7 @@ local function gloablDefine()
 	define("Class",require("middleclass"))
 	define("LuaLogHelper",require("LuaLogHelper"))
 	define("ConfigMgr",require("ConfigMgr"))
+	define("CommonUtility",require("CommonUtility"))
 end
 
 -- 初始化一些参数
@@ -31,6 +32,8 @@ function Main()
 	initialize()
 
 	local text = ConfigMgr:Instance():GetItem("Language",10000).text
+	local cfg1 = ConfigMgr:new()
+	local cfg2 = ConfigMgr:new()
 	print("------->测试读取配置",text)
 
 end
