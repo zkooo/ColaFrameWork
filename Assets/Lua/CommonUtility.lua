@@ -5,6 +5,10 @@
 local CommonUtility = Class("CommonUtility")
 
 CommonUtility._instance  = nil
+-- 可读写的路径
+CommonUtility.AssetPath = ""
+-- lua脚本的根目录
+CommonUtility.LuaDir = UnityEngine.Application.dataPath .. "/Lua"
 
 function CommonUtility:Instance()
     if CommonUtility._instance == nil then

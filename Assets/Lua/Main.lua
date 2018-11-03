@@ -16,8 +16,8 @@ local function gloablDefine()
 	-- 必须首先注册全局Class,顺序敏感
 	define("Class",require("middleclass"))
 	define("LuaLogHelper",require("LuaLogHelper"))
-	define("ConfigMgr",require("ConfigMgr"))
 	define("CommonUtility",require("CommonUtility"))
+	define("ConfigMgr",require("ConfigMgr"))
 end
 
 -- 初始化一些参数
