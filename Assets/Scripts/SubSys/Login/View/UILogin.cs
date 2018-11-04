@@ -100,8 +100,8 @@ public class UILogin : UIBase
             uiHintTest.Open();
             //TODO: 测试视频下载
             var path = Path.Combine(CommonHelper.GetAssetPath(), "Videos.mp4");
-            //var testUrl = @"http://yun.it7090.com/video/XHLaunchAd/video01.mp4";
-            var testUrl = @"http://yun.it7090.com/video/XHLaunchAd/video03.mp4" + "?" + DateTime.Now;
+            //var testUrl = @"http://vjs.zencdn.net/v/oceans.mp4";
+            var testUrl = @"http://vjs.zencdn.net/v/oceans.mp4" + "?" + DateTime.Now;
             Debug.LogWarning("-------------->视频网络资源地址" + testUrl);
             DownloadMovHelper.Begin(path, testUrl, () =>
             {

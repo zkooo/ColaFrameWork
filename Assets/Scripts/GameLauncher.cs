@@ -12,7 +12,7 @@ public class GameLauncher : MonoBehaviour
     /// <summary>
     /// 存放资源的可读写路径
     /// </summary>
-    public string AssetPath;
+    private string assetPath;
     /// <summary>
     /// 指示复制资源的游标
     /// </summary>
@@ -82,7 +82,7 @@ public class GameLauncher : MonoBehaviour
 #endif
         //初始化多线程工具
         ColaLoom.Initialize();
-        StreamingAssetHelper.SetAssetPathDir(AssetPath);
+        StreamingAssetHelper.SetAssetPathDir(assetPath);
     }
 
     // Use this for initialization
@@ -203,17 +203,6 @@ public class GameLauncher : MonoBehaviour
     /// </summary>
     private void InitPath()
     {
-        if (string.IsNullOrEmpty(AssetPath))
-        {
-#if UNITY_IPHONE
-            AssetPath = Application.temporaryCachePath;
-#else
-            AssetPath = Application.persistentDataPath;
-#endif
-        }
-        else if (AssetPath.StartsWith("./") || AssetPath.StartsWith("../"))
-        {
-            AssetPath = Application.dataPath + "/" + AssetPath;
-        }
+        assetPath = CommonHelper.GetAssetPath();
     }
 }

@@ -18,6 +18,21 @@ public static class CommonHelper
     /// 中文数字在Language表中索引的base位置
     /// </summary>
     private static int chineseNumIndex = 1;
+
+    /// <summary>
+    /// 资源可读写路径
+    /// </summary>
+    private static string assetPath = "";
+
+#if UNITY_STANDALONE
+    public static string osDir = "Win";
+#elif UNITY_ANDROID
+    public static string osDir = "Android";
+#elif UNITY_IPHONE
+    public static string osDir = "iOS";        
+#else
+    public static string osDir = "";        
+#endif
     #endregion
 
     /// <summary>
@@ -589,7 +604,15 @@ public static class CommonHelper
     /// <returns></returns>
     public static string GetAssetPath()
     {
-        return GameLauncher.Instance.AssetPath;
+        if (string.IsNullOrEmpty(assetPath))
+        {
+#if UNITY_IPHONE
+            assetPath = string.Format("{0}/{1}", Application.temporaryCachePath, osDir);
+#else
+            assetPath = string.Format("{0}/{1}", Application.persistentDataPath, osDir); 
+#endif
+        }
+        return assetPath;
     }
 
     /// <summary>
