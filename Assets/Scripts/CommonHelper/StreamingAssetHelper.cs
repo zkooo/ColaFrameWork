@@ -25,12 +25,12 @@ public static class StreamingAssetHelper
     }
 
     /// <summary>
-    /// 在可读写路径下设置一个streamingassets路径
+    /// 设置可读写路径
     /// </summary>
     /// <param name="debugDir"></param>
     public static void SetAssetPathDir(String debugDir)
     {
-        assetPath = Path.Combine(debugDir, "streamingassets");
+        assetPath = debugDir;
     }
 
     /// <summary>
