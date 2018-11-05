@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 using UnityEditor;
 
 public class ColaQuickWindowEditor : EditorWindow
@@ -18,6 +19,8 @@ public class ColaQuickWindowEditor : EditorWindow
         DrawColaFrameworkUI();
         GUILayout.Space(20);
         DrawAssetBundleUI();
+        GUILayout.Space(20);
+        DrawMiscUI();
     }
 
 
@@ -83,6 +86,23 @@ public class ColaQuickWindowEditor : EditorWindow
         {
             AssetBundleBrowser.AssetBundleBrowserMain.ShowWindow();
             this.Close();
+        }
+        GUILayout.EndHorizontal();
+    }
+
+    private void DrawMiscUI()
+    {
+        GUILayout.BeginHorizontal("HelpBox");
+        EditorGUILayout.LabelField("== 快捷功能 ==");
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("打开AssetPath目录", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
+        {
+            CommonHelper.OpenDirectory(CommonHelper.GetAssetPath());
+        }
+        if (GUILayout.Button("打开GameLog文件目录", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
+        {
+            CommonHelper.OpenDirectory(Path.Combine(Application.persistentDataPath, "logs"));
         }
         GUILayout.EndHorizontal();
     }
