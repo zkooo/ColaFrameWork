@@ -32,8 +32,6 @@ function Main()
 	initialize()
 
 	local text = ConfigMgr:Instance():GetItem("Language",10000).text
-	local cfg1 = ConfigMgr:new()
-	local cfg2 = ConfigMgr:new()
 	print("------->测试读取配置",text)
 
 end
