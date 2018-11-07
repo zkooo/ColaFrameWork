@@ -32,11 +32,8 @@ function Main()
 	initParam()
 	initialize()
 
-	local text = ConfigMgr:Instance():GetItem("Language",10000).text
-	print("------->测试读取配置",text)
-	print("-------->GetText测试1",UIUtils.GetText(10000))
-	print("-------->GetText测试2",UIUtils.GetText(100030))
-
+	local color = UIUtils.GetColor("Red")
+	print("-------->Color",color)
 
 end
 
