@@ -306,42 +306,6 @@ public static class CommonHelper
     }
 
     /// <summary>
-    /// 根据名称查找子物体
-    /// </summary>
-    /// <param name="obj"></param>父物体节点
-    /// <param name="childName"></param>子物体名称
-    /// <param name="isRecursice"></param>是否递归查找
-    /// <returns></returns>
-    [Obsolete("已弃用,建议使用FindChildByPath")]
-    public static GameObject FindChildDirect(GameObject obj, string childName, bool isRecursice)
-    {
-        if ("." == childName) return obj;
-        if (".." == childName)
-        {
-            Transform parentTransform = obj.transform.parent;
-            return parentTransform == null ? null : parentTransform.gameObject;
-        }
-        for (int i = 0; i < obj.transform.childCount; i++)
-        {
-            Transform trans = obj.transform.GetChild(i);
-            GameObject childObj = trans.gameObject;
-            if (childName == childObj.name)
-            {
-                return childObj;
-            }
-            if (isRecursice)
-            {
-                GameObject result = FindChildDirect(childObj, childName, isRecursice);
-                if (null != result)
-                {
-                    return result;
-                }
-            }
-        }
-        return null;
-    }
-
-    /// <summary>
     /// 获取资源管理器
     /// </summary>
     /// <returns></returns>

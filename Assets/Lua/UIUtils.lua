@@ -12,6 +12,7 @@ local COMMON_COLORS = {
     Gray = Color(91, 93, 112),
     Yellow = Color(227, 147, 7),
 }
+local chineseNumIndex = 1
 
 -- 获取I18N文字
 function UIUtils.GetText(id)
@@ -24,6 +25,15 @@ end
 
 function UIUtils.GetColor(name)
     return COMMON_COLORS[name] or COMMON_COLORS.White
+end
+
+function UIUtils.GetChineseNumber(number)
+    if number >= 0 and number <= 9 then
+        return UIUtils.GetText(chineseNumIndex + number)
+    else
+        warn(string.format("输入的数字%d不在0~9范围内！",number))
+        return ""
+    end
 end
 
 return UIUtils

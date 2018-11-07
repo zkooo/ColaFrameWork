@@ -32,8 +32,10 @@ function Main()
 	initParam()
 	initialize()
 
-	local color = UIUtils.GetColor("Red")
-	print("-------->Color",color)
+	local t = {0,1,2,3,4,5,6,7,8,9,10}
+	for _,v in ipairs(t) do
+		print("-------->数字转汉字",UIUtils.GetChineseNumber(v))
+	end
 
 end
 
