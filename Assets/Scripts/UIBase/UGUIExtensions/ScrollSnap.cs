@@ -20,7 +20,7 @@ namespace UnityEngine.UI.Extensions
     [ExecuteInEditMode]
     [RequireComponent(typeof(ScrollRect))]
     [AddComponentMenu("UI/Extensions/Scroll Snap")]
-    public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler,IControl
     {
         // needed becouse of reversed behavior of axis Y compared to X
         // (positions of children lower in children list in horizontal directions grows when in vertical it gets smaller)

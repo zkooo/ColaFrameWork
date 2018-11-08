@@ -8,11 +8,12 @@ using UnityEngine.UI;
 /// </summary>
 [RequireComponent(typeof(RectTransform))]
 [RequireComponent(typeof(Image))]
-public class IrregulaButton : MonoBehaviour
+public class IrregulaButton : Button
 {
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         var image = this.GetComponent<Image>();
         if (null != image)
         {
