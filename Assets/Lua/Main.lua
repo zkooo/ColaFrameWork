@@ -16,6 +16,7 @@ local function gloablDefine()
 	-- 必须首先注册全局Class,顺序敏感
 	define("Class",require("middleclass"))
 	define("LuaLogHelper",require("LuaLogHelper"))
+	define("EventMgr",require("EventMgr"))
 	define("CommonUtility",require("CommonUtility"))
 	define("ConfigMgr",require("ConfigMgr"))
 	define("UIUtils",require("UIUtils"))
@@ -27,16 +28,17 @@ local function initParam()
 	math.randomseed(tostring(os.time()):reverse():sub(1, 6))
 end
 
+local function EventTest(param)
+	print("------------>接受到参数",param)
+end
+
 function Main()
 	gloablDefine()
 	initParam()
 	initialize()
 
-	local t = {0,1,2,3,4,5,6,7,8,9,10}
-	for _,v in ipairs(t) do
-		print("-------->数字转汉字",UIUtils.GetChineseNumber(v))
-	end
-
+	EventMgr:Instance():RegisterEvent(1,2,EventTest)
+	EventMgr:Instance():DispatchEvent(1,2,{key = "123",value= 456,"abc",123})
 end
 
 --场景切换通知
