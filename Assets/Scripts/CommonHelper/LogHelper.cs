@@ -26,7 +26,7 @@ public class LogHelper : MonoBehaviour
 
     private void Awake()
     {
-        outputPath = Path.Combine(Application.persistentDataPath, "logs");
+        outputPath = Path.Combine(CommonHelper.GetAssetPath(), "logs");
         filePath = Path.Combine(outputPath, fileName);
         if (!Directory.Exists(outputPath))
         {

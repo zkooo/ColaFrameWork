@@ -102,7 +102,7 @@ public class ColaQuickWindowEditor : EditorWindow
         }
         if (GUILayout.Button("打开GameLog文件目录", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
         {
-            CommonHelper.OpenDirectory(Path.Combine(Application.persistentDataPath, "logs"));
+            CommonHelper.OpenDirectory(Path.Combine(CommonHelper.GetAssetPath(), "logs"));
         }
         GUILayout.EndHorizontal();
     }
