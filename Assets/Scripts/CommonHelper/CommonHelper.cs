@@ -839,24 +839,4 @@ public static class CommonHelper
         return null;
     }
 
-#if UNITY_EDITOR
-
-    /// <summary>
-    /// 打开指定文件夹(编辑器模式下)
-    /// </summary>
-    /// <param name="path"></param>
-    public static void OpenDirectory(string path)
-    {
-        if (string.IsNullOrEmpty(path)) return;
-
-        path = path.Replace("/", "\\");
-        if (!Directory.Exists(path))
-        {
-            Debug.LogError("No Directory: " + path);
-            return;
-        }
-
-        System.Diagnostics.Process.Start("explorer.exe", path);
-    }
-#endif
 }
