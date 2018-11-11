@@ -44,7 +44,6 @@ public class CommonHelperWrap
 		L.RegFunction("CheckLocalFileExist", CheckLocalFileExist);
 		L.RegFunction("ResourcesClearAndGC", ResourcesClearAndGC);
 		L.RegFunction("SliceTextureToSprite", SliceTextureToSprite);
-		L.RegFunction("OpenDirectory", OpenDirectory);
 		L.RegVar("osDir", get_osDir, set_osDir);
 		L.EndStaticLibs();
 	}
@@ -705,22 +704,6 @@ public class CommonHelperWrap
 			UnityEngine.Sprite o = CommonHelper.SliceTextureToSprite(arg0, arg1, arg2, arg3, arg4);
 			ToLua.PushSealed(L, o);
 			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int OpenDirectory(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			string arg0 = ToLua.CheckString(L, 1);
-			CommonHelper.OpenDirectory(arg0);
-			return 0;
 		}
 		catch (Exception e)
 		{
