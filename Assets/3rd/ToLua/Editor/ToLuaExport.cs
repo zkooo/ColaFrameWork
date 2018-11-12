@@ -112,6 +112,9 @@ public static class ToLuaExport
     public static HashSet<Type> eventSet = new HashSet<Type>();
     public static List<Type> extendList = new List<Type>();    
 
+    /// <summary>
+    /// 黑名单，不需要导出的属性或者方法
+    /// </summary>
     public static List<string> memberFilter = new List<string>
     {
         "String.Chars",

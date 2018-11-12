@@ -4,15 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// UI的接口（废弃）
-/// </summary>
-[Obsolete(" UI基类的接口（废弃）")]
-public interface IViewBase
-{
-
-}
-
-/// <summary>
 /// ColaFramework框架中自定义的组件
 /// </summary>
 public interface IComponent
