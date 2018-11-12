@@ -51,7 +51,7 @@ public class CreateColaUIEditor
     /// 获取或者创建UGUIRoot（编辑器状态下）
     /// </summary>
     /// <returns></returns>
-    private static GameObject GetOrCreateUGUIRoot()
+    public static GameObject GetOrCreateUGUIRoot()
     {
         GameObject uguiRootObj = GameObject.FindWithTag("UIRoot");
         if (uguiRootObj != null)
