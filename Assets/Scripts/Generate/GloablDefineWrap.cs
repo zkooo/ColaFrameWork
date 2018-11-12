@@ -22,7 +22,6 @@ public class GloablDefineWrap
 		L.RegVar("UIViewTag", get_UIViewTag, null);
 		L.RegVar("UIIgneroTag", get_UIIgneroTag, null);
 		L.RegVar("UIPropertyTag", get_UIPropertyTag, null);
-		L.RegVar("UIRawPrefabPath", get_UIRawPrefabPath, null);
 		L.RegVar("UIExportPrefabPath", get_UIExportPrefabPath, null);
 		L.RegVar("UIExportCSScriptPath", get_UIExportCSScriptPath, null);
 		L.EndStaticLibs();
@@ -230,20 +229,6 @@ public class GloablDefineWrap
 		try
 		{
 			LuaDLL.lua_pushstring(L, GloablDefine.UIPropertyTag);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_UIRawPrefabPath(IntPtr L)
-	{
-		try
-		{
-			LuaDLL.lua_pushstring(L, GloablDefine.UIRawPrefabPath);
 			return 1;
 		}
 		catch (Exception e)

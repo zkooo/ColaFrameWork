@@ -64,7 +64,6 @@ public static class GloablDefine
     public static readonly string UIIgneroTag = "UIIgnero";
     public static readonly string UIPropertyTag = "UIProperty";
 
-    public static readonly string UIRawPrefabPath = "Assets/ColaSources/Raw/UI/Views";
     public static readonly string UIExportPrefabPath = "Assets/Resources/Arts/Gui/Prefabs";
     public static readonly string UIExportCSScriptPath = "Assets/Scripts/_UIViews";
 }

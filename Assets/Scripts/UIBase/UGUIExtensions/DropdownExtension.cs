@@ -7,6 +7,8 @@ namespace UnityEngine.UI.Extensions
     /// <summary>
     /// 下拉选择框DropDown拓展版
     /// </summary>
+    [RequireComponent(typeof(RectTransform))]
+    [AddComponentMenu("UI/Extensions/DropdownExtension")]
     public class DropdownExtension : Dropdown
     {
         public Image openMark;
