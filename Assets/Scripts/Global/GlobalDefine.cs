@@ -57,7 +57,8 @@ public static class GloablDefine
     public static List<string> resbasePathList = new List<string>()
     {
         "config",
-        "res_base"
+        "res_base",
+        "Lua",
     };
 
     public static readonly string UIViewTag = "UIView";
