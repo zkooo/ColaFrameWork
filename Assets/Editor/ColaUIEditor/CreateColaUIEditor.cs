@@ -19,8 +19,8 @@ public class CreateColaUIEditor
 
         //创建新的UI Prefab
         GameObject view = new GameObject("NewUIView", typeof(RectTransform));
-        view.layer = LayerMask.NameToLayer("UI");
         view.tag = GloablDefine.UIViewTag;
+        view.layer = LayerMask.NameToLayer("UI");
         string uniqueName = GameObjectUtility.GetUniqueNameForSibling(uguiRoot.transform, view.name);
         view.name = uniqueName;
         Undo.RegisterCreatedObjectUndo(view, "Create" + view.name);
@@ -35,15 +35,6 @@ public class CreateColaUIEditor
 
         //设置新建的UIView被选中
         Selection.activeGameObject = view;
-    }
-
-    /// <summary>
-    /// 导出UI预制件并自动序列化UI组件
-    /// </summary>
-    [MenuItem("GameObject/UI/ColaUI/ExportUIView", false, 2)]
-    public static void ExportUIView()
-    {
-
     }
 
 
