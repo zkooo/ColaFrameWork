@@ -20,7 +20,7 @@ public class GloablDefineWrap
 		L.RegVar("extenName", get_extenName, null);
 		L.RegVar("resbasePathList", get_resbasePathList, set_resbasePathList);
 		L.RegVar("UIViewTag", get_UIViewTag, null);
-		L.RegVar("UIIgneroTag", get_UIIgneroTag, null);
+		L.RegVar("UIIngeroTag", get_UIIngeroTag, null);
 		L.RegVar("UIPropertyTag", get_UIPropertyTag, null);
 		L.RegVar("UIExportPrefabPath", get_UIExportPrefabPath, null);
 		L.RegVar("UIExportCSScriptPath", get_UIExportCSScriptPath, null);
@@ -210,11 +210,11 @@ public class GloablDefineWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_UIIgneroTag(IntPtr L)
+	static int get_UIIngeroTag(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, GloablDefine.UIIgneroTag);
+			LuaDLL.lua_pushstring(L, GloablDefine.UIIngeroTag);
 			return 1;
 		}
 		catch (Exception e)
