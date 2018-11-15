@@ -19,6 +19,7 @@ local function gloablDefine()
 	define("EventMgr",require("Mgrs.EventMgr"))
 	define("CommonUtility",require("Utilitys.CommonUtility"))
 	define("ConfigMgr",require("Mgrs.ConfigMgr"))
+	define("ModuleManager",require("Mgrs.ModuleManager"))
 	define("UIUtils",require("Utilitys.UIUtils"))
 end
 
