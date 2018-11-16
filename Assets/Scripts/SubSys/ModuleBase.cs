@@ -49,6 +49,7 @@ public abstract class ModuleBase : IEventHandler
     /// </summary>
     public virtual void Exit()
     {
+        IsInit = false;
         RemoveModuleListener();
         UnRegisterHander();
     }
@@ -62,7 +63,7 @@ public abstract class ModuleBase : IEventHandler
     }
 
     /// <summary>
-    /// 在这里统一注册监听某个事件
+    /// 在这里统一取消监听某个事件
     /// </summary>
     protected virtual void RemoveModuleListener()
     {
