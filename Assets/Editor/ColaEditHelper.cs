@@ -35,6 +35,25 @@ public class ColaEditHelper {
     {
         
     }
+
+    /// <summary>
+    /// 创建目录
+    /// </summary>
+    /// <param name="path"></param> 路径
+    /// <param name="isOverride"></param> 是否覆盖原有同名目录
+    public static void Mkdir(string path, bool isOverride = false)
+    {
+        
+    }
+
+    /// <summary>
+    /// 删除目录
+    /// </summary>
+    /// <param name="path"></param>
+    public static void RmDir(string path)
+    {
+        
+    }
 }
 
 #endif
