@@ -21,6 +21,8 @@ public class ColaQuickWindowEditor : EditorWindow
         DrawAssetBundleUI();
         GUILayout.Space(20);
         DrawMiscUI();
+        GUILayout.Space(20);
+        DrawAssetUI();
     }
 
 
@@ -103,6 +105,19 @@ public class ColaQuickWindowEditor : EditorWindow
         if (GUILayout.Button("打开GameLog文件目录", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
         {
             ColaEditHelper.OpenDirectory(Path.Combine(CommonHelper.GetAssetPath(), "logs"));
+        }
+        GUILayout.EndHorizontal();
+    }
+
+    private void DrawAssetUI()
+    {
+        GUILayout.BeginHorizontal("HelpBox");
+        EditorGUILayout.LabelField("== 快捷功能 ==");
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Build Lua To StreamingAsset", GUILayout.ExpandWidth(true), GUILayout.MaxHeight(30)))
+        {
+            ColaEditHelper.BuildLuaToStreamingAsset();
         }
         GUILayout.EndHorizontal();
     }

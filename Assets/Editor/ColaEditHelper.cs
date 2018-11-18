@@ -27,6 +27,14 @@ public class ColaEditHelper {
 
         System.Diagnostics.Process.Start("explorer.exe", path);
     }
+
+    /// <summary>
+    /// 合并Lua代码，并复制到StreamingAsset目录中准备打包
+    /// </summary>
+    public static void BuildLuaToStreamingAsset()
+    {
+        
+    }
 }
 
 #endif
