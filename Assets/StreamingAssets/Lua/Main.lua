@@ -14,12 +14,13 @@ end
 -- 在此处定义注册一些全局变量
 local function gloablDefine()
 	-- 必须首先注册全局Class,顺序敏感
-	define("Class",require("middleclass"))
-	define("LuaLogHelper",require("LuaLogHelper"))
-	define("EventMgr",require("EventMgr"))
-	define("CommonUtility",require("CommonUtility"))
-	define("ConfigMgr",require("ConfigMgr"))
-	define("UIUtils",require("UIUtils"))
+	define("Class",require("Core.middleclass"))
+	define("LuaLogHelper",require("Utilitys.LuaLogHelper"))
+	define("EventMgr",require("Mgrs.EventMgr"))
+	define("CommonUtility",require("Utilitys.CommonUtility"))
+	define("ConfigMgr",require("Mgrs.ConfigMgr"))
+	define("ModuleManager",require("Mgrs.ModuleManager"))
+	define("UIUtils",require("Utilitys.UIUtils"))
 end
 
 -- 初始化一些参数
