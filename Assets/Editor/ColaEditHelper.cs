@@ -85,22 +85,44 @@ public class ColaEditHelper
             return;
         }
         Mkdir(destPath);
-        DirectoryInfo dir = new DirectoryInfo(srcPath);
-        FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //获取目录下（不包含子目录）的文件和子目录
-        foreach (FileSystemInfo i in fileinfo)
+        DirectoryInfo sDir = new DirectoryInfo(srcPath);
+        FileInfo[] fileArray = sDir.GetFiles();
+        foreach (FileInfo file in fileArray)
         {
-            if (i is DirectoryInfo)     //判断是否文件夹
+            if (file.Extension != ".meta")
+                file.CopyTo(destPath + "/" + file.Name, true);
+        }
+        //递归复制子文件夹
+        DirectoryInfo[] subDirArray = sDir.GetDirectories();
+        foreach (DirectoryInfo subDir in subDirArray)
+        {
+            if(subDir.Name != ".idea")
             {
-                if (!Directory.Exists(destPath + "\\" + i.Name))
-                {
-                    Directory.CreateDirectory(destPath + "\\" + i.Name);   //目标目录下不存在此文件夹即创建子文件夹
-                }
-                CopyDir(i.FullName, destPath + "\\" + i.Name);    //递归调用复制子文件夹
+                CopyDir(subDir.FullName, destPath + "/" + subDir.Name);
             }
-            else
-            {
-                File.Copy(i.FullName, destPath + "\\" + i.Name, true);      //不是文件夹即复制文件，true表示可以覆盖同名文件
-            }
+        }
+    }
+
+    /// <summary>
+    /// 清空目录下内容
+    /// </summary>
+    /// <param name="path"></param>
+    public static void ClearDir(string path)
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            return;
+        }
+        DirectoryInfo sDir = new DirectoryInfo(path);
+        FileInfo[] fileArray = sDir.GetFiles();
+        foreach (FileInfo file in fileArray)
+        {
+            file.Delete();
+        }
+        DirectoryInfo[] subDirArray = sDir.GetDirectories();
+        foreach (DirectoryInfo subDir in subDirArray)
+        {
+            subDir.Delete(true);
         }
     }
 }
