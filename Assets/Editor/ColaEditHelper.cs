@@ -51,15 +51,14 @@ public class ColaEditHelper
         {
             return;
         }
-        string dir = Path.GetDirectoryName(path);
-        if (!Directory.Exists(dir))
+        if (!Directory.Exists(path))
         {
-            Directory.CreateDirectory(dir);
+            Directory.CreateDirectory(path);
         }
-        else if(Directory.Exists(dir) && isOverride)
+        else if(Directory.Exists(path) && isOverride)
         {
-            Directory.Delete(dir,true);
-            Directory.CreateDirectory(dir);
+            Directory.Delete(path, true);
+            Directory.CreateDirectory(path);
         }
     }
 
@@ -73,10 +72,9 @@ public class ColaEditHelper
         {
             return;
         }
-        string dir = Path.GetDirectoryName(path);
-        if (Directory.Exists(dir))
+        if (Directory.Exists(path))
         {
-            Directory.Delete(dir,true);
+            Directory.Delete(path, true);
         }
     }
 
