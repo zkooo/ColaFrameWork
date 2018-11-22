@@ -16,6 +16,16 @@ end
 
 -- override 初始化各种数据
 function ModuleManager:initialize()
+    self.moduleList = {}
+end
+
+function ModuleManager:RegisterModule(module)
+    local moduleId = module:GetModuleId()
+    self.moduleList[moduleId] = module
+end
+
+function ModuleManager:GetModule(moduleId)
+    return self.moduleList[moduleId]
 end
 
 return ModuleManager
