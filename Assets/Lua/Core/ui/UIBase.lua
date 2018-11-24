@@ -16,7 +16,7 @@ function UIBase:initialize()
     self:InitParam()
 end
 
--- virtual 子类可以申请一些变量
+-- virtual 子类可以初始化一些变量
 function UIBase:InitParam()
 
 end

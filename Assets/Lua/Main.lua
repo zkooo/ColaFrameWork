@@ -9,6 +9,10 @@ end
 
 local function initialize()
 	LuaLogHelper.initialize()
+
+	-- 模块初始化
+	ModuleManager:Instance():RegisterAllModules()
+	ModuleManager:Instance():InitAllModules()
 end
 
 -- 在此处定义注册一些全局变量
