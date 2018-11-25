@@ -69,4 +69,54 @@ function UIBase:DestroySubPanels()
 
 end
 
+function UIBase:BringTop()
+
+end
+
+function UIBase:ShowUIBlur()
+
+end
+
+function UIBase:SetOutTouchDisappear()
+
+end
+
+function UIBase:AttachListener(gameObejct)
+
+end
+
+------------------- UI事件回调 --------------------------
+function UIBase:onClick(obj)
+
+end
+
+function UIBase:onBoolValueChange(obj, isSelect)
+
+end
+
+function UIBase:onEvent(eventName)
+
+end
+
+function UIBase:onFloatValueChange(obj, value)
+
+end
+
+function UIBase:onStrValueChange(obj, text)
+
+end
+
+function UIBase:onDrag(obj, deltaPos, curToucPosition)
+
+end
+
+function UIBase:onBeginDrag(obj, deltaPos, curToucPosition)
+
+end
+
+function UIBase:onEndDrag(obj, deltaPos, curToucPosition)
+
+end
+---------------------- UI事件回调 --------------------------
+
 return UIBase
