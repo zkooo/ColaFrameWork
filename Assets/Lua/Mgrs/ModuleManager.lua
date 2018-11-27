@@ -3,7 +3,7 @@
 ---
 
 local ModuleManager = Class("ModuleManager")
-local Modules = require("module.Modules")
+local Modules = require("Core.module.Modules")
 
 ModuleManager._instance = nil
 
