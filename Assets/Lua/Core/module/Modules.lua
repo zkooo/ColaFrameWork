@@ -4,7 +4,7 @@
 local Modules = {}
 
 Modules.moduleList = {
-    --require("xx.xx.xx"),
+    require("Modules.Login.Module.LoginModule")
 }
 
 return Modules

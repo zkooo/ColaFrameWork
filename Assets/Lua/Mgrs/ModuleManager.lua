@@ -57,7 +57,7 @@ end
 
 function ModuleManager:ResetAllModulesWithExcept(exceptList)
     for i =1,#Modules.moduleList do
-        local module = Modules.moduleList[i].Instance()
+        local module = Modules.moduleList[i]:Instance()
         local moduleId = module:GetModuleId()
         if nil == exceptList or not exceptList[moduleId] then
             module:Reset()
@@ -71,7 +71,7 @@ end
 
 function ModuleManager:ExitAllModulesWithExcept(exceptList)
     for i =1,#Modules.moduleList do
-        local module = Modules.moduleList[i].Instance()
+        local module = Modules.moduleList[i]:Instance()
         local moduleId = module:GetModuleId()
         if nil == exceptList or not exceptList[moduleId] then
             module:Exit()
