@@ -26,6 +26,8 @@ local function gloablDefine()
 	define("ConfigMgr",require("Mgrs.ConfigMgr"))
 	define("ModuleManager",require("Mgrs.ModuleManager"))
 	define("UIUtils",require("Utilitys.UIUtils"))
+	--控制全局变量的新建与访问
+	require("Utilitys.LuaGlobalCheck")
 end
 
 -- 初始化一些参数
@@ -42,6 +44,10 @@ function Main()
 	gloablDefine()
 	initParam()
 	initialize()
+
+	--测试对全局变量的访问与新建]
+	_G.aa = 123
+	print(_G.aa)
 
 	EventMgr:Instance():RegisterEvent(1,2,EventTest)
 	EventMgr:Instance():DispatchEvent(1,2,{key = "123",value= 456,"abc",123})
