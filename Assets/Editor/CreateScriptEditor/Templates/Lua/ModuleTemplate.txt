@@ -1,0 +1,66 @@
+---
+--- #NAME# Module业务逻辑
+---
+
+local ModuleBase = Class("ModuleBase")
+local #NAME# = Class(#NAME#,ModuleBase)
+
+-- override 初始化各种数据
+function #NAME#:initialize()
+    self.moduleId = 0
+    self.isInit = false
+end
+
+function #NAME#:Init()
+    if not self.isInit then
+        self.isInit = true
+        self:RegisterNetListener()
+        self:RegisterEventListener()
+    end
+end
+
+function #NAME#:Exit()
+    self.isInit = false
+    self:UnRegisterNetListener()
+    self:UnRegisterEventListener()
+end
+
+function #NAME#:Reset()
+    self:Exit()
+    self:Init()
+    self:OnReset()
+end
+
+function #NAME#:OnReset()
+
+end
+
+function #NAME#:RegisterNetListener()
+
+end
+
+function #NAME#:RegisterEventListener()
+
+end
+
+function #NAME#:UnRegisterNetListener()
+
+end
+
+function #NAME#:UnRegisterEventListener()
+
+end
+
+function #NAME#:IsInit()
+    return self.isInit
+end
+
+function #NAME#:GetModuleId()
+    return self.moduleId
+end
+
+function #NAME#:SetModuleId(moduleId)
+    self.moduleId = moduleId
+end
+
+return #NAME#
