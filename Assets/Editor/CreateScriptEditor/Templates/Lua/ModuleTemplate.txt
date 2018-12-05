@@ -7,8 +7,7 @@ local #NAME# = Class(#NAME#,ModuleBase)
 
 -- override 初始化各种数据
 function #NAME#:initialize()
-    self.moduleId = 0
-    self.isInit = false
+	ModuleBase.initialize(self)
 end
 
 function #NAME#:Init()
