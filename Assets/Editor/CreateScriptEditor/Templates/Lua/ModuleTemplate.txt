@@ -11,55 +11,35 @@ function #NAME#:initialize()
 end
 
 function #NAME#:Init()
-    if not self.isInit then
-        self.isInit = true
-        self:RegisterNetListener()
-        self:RegisterEventListener()
-    end
+	ModuleBase.Init(self)
 end
 
 function #NAME#:Exit()
-    self.isInit = false
-    self:UnRegisterNetListener()
-    self:UnRegisterEventListener()
+	ModuleBase.Exit(self)
 end
 
 function #NAME#:Reset()
-    self:Exit()
-    self:Init()
-    self:OnReset()
+	ModuleBase.Reset(self)
 end
 
 function #NAME#:OnReset()
-
+	ModuleBase.OnReset(self)
 end
 
 function #NAME#:RegisterNetListener()
-
+	ModuleBase.RegisterNetListener(self)
 end
 
 function #NAME#:RegisterEventListener()
-
+	ModuleBase.RegisterEventListener(self)
 end
 
 function #NAME#:UnRegisterNetListener()
-
+	ModuleBase.UnRegisterNetListener(self)
 end
 
 function #NAME#:UnRegisterEventListener()
-
-end
-
-function #NAME#:IsInit()
-    return self.isInit
-end
-
-function #NAME#:GetModuleId()
-    return self.moduleId
-end
-
-function #NAME#:SetModuleId(moduleId)
-    self.moduleId = moduleId
+	ModuleBase.UnRegisterEventListener(self)
 end
 
 return #NAME#
