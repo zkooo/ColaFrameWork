@@ -94,7 +94,20 @@ public static class CreateScriptsEditor
     #endregion
 
     #region 创建Lua模版
-    [MenuItem("Assets/Create/Lua/Module", false, 93)]
+    [MenuItem("Assets/Create/Lua/UIView", false, 93)]
+    public static void CreateLuaUIView()
+    {
+        string basePath = GetSelectedPath();
+        string templateFullPath = LuaTemplateViewPath;
+
+        ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
+            ScriptableObject.CreateInstance<CreateLuaScriptEndAction>(),
+            basePath + "/NewUIView.lua",
+            null,
+            templateFullPath);
+    }
+
+    [MenuItem("Assets/Create/Lua/Module", false, 94)]
     public static void CreateLuaModule()
     {
         string basePath = GetSelectedPath();
