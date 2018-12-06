@@ -15,6 +15,8 @@ public static class CreateScriptsEditor
     #region 共有变量
     private static readonly string CSharpTemplateUIViewPath = "Assets/Editor/CreateScriptEditor/Templates/CSharp/UIViewTemplate.txt";
     private static readonly string CSharpTemplateModulePath = "Assets/Editor/CreateScriptEditor/Templates/CSharp/ModuleTemplate.txt";
+    private static readonly string LuaTemplateModulePath = "Assets/Editor/CreateScriptEditor/Templates/Lua/ModuleTemplate.txt";
+    private static readonly string LuaTemplateViewPath = "Assets/Editor/CreateScriptEditor/Templates/Lua/UIViewTemplate.txt";
     #endregion
 
     #region 共用方法
@@ -92,6 +94,18 @@ public static class CreateScriptsEditor
     #endregion
 
     #region 创建Lua模版
+    [MenuItem("Assets/Create/Lua/Module", false, 93)]
+    public static void CreateLuaModule()
+    {
+        string basePath = GetSelectedPath();
+        string templateFullPath = LuaTemplateModulePath;
+
+        ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
+            ScriptableObject.CreateInstance<CreateLuaScriptEndAction>(),
+            basePath + "/NewModule.lua",
+            null,
+            templateFullPath);
+    }
     #endregion
 }
 
