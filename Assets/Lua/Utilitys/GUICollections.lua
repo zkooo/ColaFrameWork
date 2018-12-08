@@ -1,5 +1,5 @@
 ---
---- UI界面的声明
+--- UI界面的统一注册
 ---
 
 local GUICollections = {
