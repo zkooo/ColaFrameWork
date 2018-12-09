@@ -16,72 +16,93 @@ function UIBase:initialize()
     self:InitParam()
 end
 
--- virtual 子类可以初始化一些变量
+-- virtual 子类可以初始化一些变量,ResId要在这里赋值
 function UIBase:InitParam()
 
 end
 
-function UIBase:Open()
-
-end
-
+-- 对外调用，用于创建UI
 function UIBase:Create()
 
 end
 
+--对外调用，用于创建UI，不走ResId加载，直接由现有gameObject创建
+function UIBase:CreateWithGo(gameObejct)
+
+end
+
+-- override UI面板创建结束后调用，可以在这里获取gameObject和component等操作
 function UIBase:OnCreate()
 
 end
 
-function UIBase:Close()
-
-end
-
+-- 界面可见性变化的时候触发
 function UIBase:OnShow(isShow)
 
 end
 
-function UIBase:Show(isActive)
+-- 设置界面可见性
+function UIBase:SetVisible(isVisible)
 
 end
 
+-- 销毁一个UI界面
 function UIBase:Destroy()
 
 end
 
+-- 界面销毁的过程中触发
 function UIBase:OnDestroy()
 
 end
 
+-- 关联子UI，统一参与管理
 function UIBase:AttachSubPanel()
 
 end
 
+-- 将一个UI界面注册为本UI的子界面，统一参与管理
 function UIBase:RegisterSubPanel()
 
 end
 
+-- 解除子UI关联
 function UIBase:DetchSubPanel()
 
 end
 
+--  销毁关联的子面板，不要重写
 function UIBase:DestroySubPanels()
 
 end
 
+-- 将当前UI层级提高，展示在当前Level的最上层
 function UIBase:BringTop()
 
 end
 
+-- 显示UI背景模糊
 function UIBase:ShowUIBlur()
 
 end
 
+-- 设置点击外部关闭(执行该方法以后，当点击其他UI的时候，会自动关闭本UI)
 function UIBase:SetOutTouchDisappear()
 
 end
 
+-- 注册UIEventListener
 function UIBase:AttachListener(gameObejct)
+
+end
+
+-- 注册UI事件监听
+function UIBase:RegisterEvent()
+
+end
+
+-- 取消注册UI事件监听
+function UIBase:UnRegisterEvent()
 
 end
 

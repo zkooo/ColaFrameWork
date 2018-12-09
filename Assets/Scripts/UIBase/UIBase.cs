@@ -298,7 +298,7 @@ public class UIBase : IEventHandler
     }
 
     /// <summary>
-    /// 将当前UI层级最高，展示在所有界面的最上层
+    /// 将当前UI层级提高，展示在当前Level的最上层
     /// </summary>
     public void BringTop()
     {
