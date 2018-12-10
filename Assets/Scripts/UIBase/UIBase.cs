@@ -164,6 +164,7 @@ public class UIBase : IEventHandler
 
         AttachListener(Panel);
         this.OnCreate();
+        this.OnShow(IsShow);
     }
 
     /// <summary>
@@ -171,7 +172,6 @@ public class UIBase : IEventHandler
     /// </summary>
     public virtual void OnCreate()
     {
-        this.OnShow(IsShow);
     }
 
     /// <summary>
