@@ -13,6 +13,8 @@ function UIBase:initialize()
     self.subUIList = {}
     self.uiDepthLayer = 0
     self.uiCanvas = nil
+    self.sortEnable = true
+    self.sorterTag = nil
     self:InitParam()
 end
 
@@ -23,12 +25,39 @@ end
 
 -- 对外调用，用于创建UI
 function UIBase:Create()
+    if nil ~= self.Panel then
+        GameObject.Destroy(self.Panel)
+    end
+    self.Panel = CommonHelper.InstantiateGoByID(self.ResId, GUIHelper.GetUIRootObj())
+    if self.sortEnable then
+        self.sorterTag = self.Panel:AddSingleComponent(SorterTag)
+        self.uiCanvas = self.Panel:AddSingleComponent(Canvas)
+        self.Panel:AddSingleComponent(GraphicRaycaster)
+        self.uiCanvas.overrideSorting = true
+        self.Panel:AddSingleComponent(ParticleOrderAutoSorter)
 
+        CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
+    end
+    self:AttachListener(self.Panel)
+    self:OnCreate()
 end
 
 --对外调用，用于创建UI，不走ResId加载，直接由现有gameObject创建
 function UIBase:CreateWithGo(gameObejct)
+    self.Panel = gameObejct
+    self.Panel = CommonHelper.InstantiateGoByID(self.ResId, GUIHelper.GetUIRootObj())
+    if self.sortEnable then
+        self.sorterTag = self.Panel:AddSingleComponent(SorterTag)
+        self.uiCanvas = self.Panel:AddSingleComponent(Canvas)
+        self.Panel:AddSingleComponent(GraphicRaycaster)
+        self.uiCanvas.overrideSorting = true
+        self.Panel:AddSingleComponent(ParticleOrderAutoSorter)
 
+        CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
+    end
+    self:AttachListener(self.Panel)
+    self:OnCreate()
+    self:OnShow(self:IsVisible())
 end
 
 -- override UI面板创建结束后调用，可以在这里获取gameObject和component等操作
@@ -44,6 +73,10 @@ end
 -- 设置界面可见性
 function UIBase:SetVisible(isVisible)
 
+end
+
+function UIBase:IsVisible()
+    return self.Panel.activeSelf
 end
 
 -- 销毁一个UI界面
