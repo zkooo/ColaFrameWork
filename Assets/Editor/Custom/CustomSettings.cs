@@ -58,6 +58,9 @@ public static class CustomSettings
         //-------------------------------------------------------------------        
         _GT(typeof(GloablDefine)),      
         _GT(typeof(CommonHelper)),
+        _GT(typeof(GUIHelper)),
+        _GT(typeof(SorterTag)),
+        _GT(typeof(ParticleOrderAutoSorter)),
         _GT(typeof(Debugger)).SetNameSpace(null),          
 
 #if USING_DOTWEENING
