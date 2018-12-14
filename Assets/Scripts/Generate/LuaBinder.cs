@@ -11,6 +11,9 @@ public static class LuaBinder
 		L.BeginModule(null);
 		GloablDefineWrap.Register(L);
 		CommonHelperWrap.Register(L);
+		GUIHelperWrap.Register(L);
+		SorterTagWrap.Register(L);
+		ParticleOrderAutoSorterWrap.Register(L);
 		LuaInterface_DebuggerWrap.Register(L);
 		LuaProfilerWrap.Register(L);
 		L.BeginModule("UnityEngine");
