@@ -165,8 +165,7 @@ T GetComponentByPath<T>(this GameObject obj, string childPath)
 ![](./Doc/image/AutoInject1.png) ![](./Doc/image/AutoInject2.png)  
 
 #### Execl策划表格规范与转表  
-
-待补充  
+![](.//Doc/image/Excel1.png)  
 
 #### 资源管理  
 
