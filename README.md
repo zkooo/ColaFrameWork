@@ -166,6 +166,8 @@ T GetComponentByPath<T>(this GameObject obj, string childPath)
 
 #### Execl策划表格规范与转表  
 ![](.//Doc/image/Excel1.png)  
+如上图所示，在ColaFramework框架中，规定Excel表格的前四行为固定形式。第一行为说明，解释每一项的意义。第二行为所填数据类型，比如int,string等。第三行为索引字段，表示我们在代码里面如何读取该字段内容。第四行为备用行，可以依据自己的需要进行制定。
+除了以上四行以外，其他的行我们就可以填写自己的数据配置了。
 
 #### 资源管理  
 
