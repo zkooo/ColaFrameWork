@@ -49,6 +49,10 @@ function Main()
 	_G.aa = 123
 	print(_G.aa)
 
+	local obj = CommonHelper.InstantiateGoByID(101, GUIHelper.GetUIRootObj())
+	local progressText = obj.FindChildByPath("progress_text")
+	progressText.text = "测试ABC"
+
 	EventMgr:Instance():RegisterEvent(1,2,EventTest)
 	EventMgr:Instance():DispatchEvent(1,2,{key = "123",value= 456,"abc",123})
 end

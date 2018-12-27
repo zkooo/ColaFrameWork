@@ -56,8 +56,6 @@ public class GameManager
     /// </summary>
     public void InitGameCore(GameObject gameObject)
     {
-        //将lua初始化移动到这里，所有的必要条件都准备好以后再初始化lua虚拟机
-        luaClient = gameObject.AddComponent<LuaEngine>();
         //初始化各种管理器
         resourceMgr = ResourceMgr.GetInstance();
         gameLauncherObj = gameObject;
@@ -70,6 +68,8 @@ public class GameManager
         moduleMgr = new ModuleMgr();
         levelMgr = gameObject.AddComponent<LevelMgr>();
 
+        luaClient = gameObject.AddComponent<LuaEngine>();
+
         GameStart();
     }
 
@@ -78,8 +78,9 @@ public class GameManager
     /// </summary>
     public void GameStart()
     {
-        LoginModule loginModule = moduleMgr.GetModule<LoginModule>();
-        loginModule.Login();
+        //将lua初始化移动到这里，所有的必要条件都准备好以后再初始化lua虚拟机
+        //LoginModule loginModule = moduleMgr.GetModule<LoginModule>();
+        //loginModule.Login();
     }
 
     /// <summary>
