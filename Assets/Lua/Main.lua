@@ -1,15 +1,26 @@
 --主入口函数。从这里开始lua逻辑
 local rawset = rawset
 
+local UTL = {}
+
 -- 全局函数
 -- 用于声明全局变量
 function define(name,value)
 	rawset(_G,name,value)
 end
 
+-- 注册工具类
+local function InitUtility()
+	define("UTL",UTL)
+
+
+end
+
 local function initialize()
 	LuaLogHelper.initialize()
 
+	-- 工具类的初始化
+	InitUtility()
 	-- 模块初始化
 	ModuleManager:Instance():RegisterAllModules()
 	ModuleManager:Instance():InitAllModules()
@@ -50,8 +61,6 @@ function Main()
 	print(_G.aa)
 
 	local obj = CommonHelper.InstantiateGoByID(101, GUIHelper.GetUIRootObj())
-	local progressText = obj.FindChildByPath("progress_text")
-	progressText.text = "测试ABC"
 
 	EventMgr:Instance():RegisterEvent(1,2,EventTest)
 	EventMgr:Instance():DispatchEvent(1,2,{key = "123",value= 456,"abc",123})

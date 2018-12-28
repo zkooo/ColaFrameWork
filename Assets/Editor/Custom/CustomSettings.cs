@@ -57,7 +57,8 @@ public static class CustomSettings
         //_GT(typeof(TestExport.Space)),
         //-------------------------------------------------------------------        
         _GT(typeof(GloablDefine)),      
-        _GT(typeof(CommonHelper)),
+       // _GT(typeof(CommonHelper)),
+        _GT(typeof(CommonHelper)).AddExtendType(typeof(UnityEngine.GameObject)),
         _GT(typeof(GUIHelper)),
         _GT(typeof(SorterTag)),
         _GT(typeof(ParticleOrderAutoSorter)),
