@@ -164,6 +164,7 @@ T GetComponentByPath<T>(this GameObject obj, string childPath)
 机制完成对应字段或属性的注入，然后直接即可像正常的Component或者Gameobject等实体来使用了。具体使用方法如下所示:  
 ![](./Doc/image/AutoInject1.png) ![](./Doc/image/AutoInject2.png)  
 
+* TODO:Lua端的获取组件的方法  
 #### Execl策划表格规范与转表  
 ![](.//Doc/image/Excel1.png)  
 如上图所示，在ColaFramework框架中，规定Excel表格的前四行为固定形式。第一行为说明，解释每一项的意义。第二行为所填数据类型，比如int,string等。第三行为索引字段，表示我们在代码里面如何读取该字段内容。第四行为备用行，可以依据自己的需要进行制定。
@@ -194,13 +195,6 @@ Xls转lua小工具
 配置bin目录下的config.ini文件，指定Excel输入目录和Lua输出目录，然后执行编译出来的exe文件即可。  
 教程地址  
 [【游戏开发】Excel表格批量转换成lua的转表工具](https://www.cnblogs.com/msxh/p/8539108.html)  
-
-
-
-
-
-
-
 
 #### 资源管理  
 
