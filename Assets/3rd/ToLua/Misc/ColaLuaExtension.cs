@@ -102,6 +102,9 @@ public static class ColaLuaExtension
             }
         }
 
+        //调用完清空lua堆栈
+        LuaDLL.lua_settop(L, 0);
+
         switch (logTag)
         {
             case (int)LogType.Log:
