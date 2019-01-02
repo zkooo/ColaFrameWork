@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using Def = GloablDefine;
 
 /// <summary>
-/// 通用工具类
+/// 通用工具类（C#端，lua端专门有Common_Util.cs供导出使用）
 /// 提供一些常用功能的接口
 /// </summary>
 public static class CommonHelper

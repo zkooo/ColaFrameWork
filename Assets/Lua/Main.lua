@@ -56,23 +56,15 @@ local function initParam()
 	collectgarbage("restart")
 end
 
-local function EventTest(param)
-	print("------------>接受到参数",param)
-end
-
 function Main()
 	gloablDefine()
 	initParam()
 	initialize()
 
-	--测试对全局变量的访问与新建]
-	_G.aa = 123
-	print(_G.aa)
-
 	local obj = CommonHelper.InstantiateGoByID(101, GUIHelper.GetUIRootObj())
-
-	EventMgr:Instance():RegisterEvent(1,2,EventTest)
-	EventMgr:Instance():DispatchEvent(1,2,{key = "123",value= 456,"abc",123})
+	obj:SetActive(false)
+	local progress_text_obj = obj:FindChildByPath("progress_text")
+	print("---------------->",progress_text_obj)
 end
 
 --场景切换通知

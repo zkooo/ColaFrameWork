@@ -24,6 +24,11 @@ public class UnityEngine_GameObjectWrap
 		L.RegFunction("BroadcastMessage", BroadcastMessage);
 		L.RegFunction("SendMessageUpwards", SendMessageUpwards);
 		L.RegFunction("SendMessage", SendMessage);
+		L.RegFunction("GetChild", GetChild);
+		L.RegFunction("ChildCount", ChildCount);
+		L.RegFunction("FindChildByPath", FindChildByPath);
+		L.RegFunction("GetGameObjectsByName", GetGameObjectsByName);
+		L.RegFunction("GetGameObjectByName", GetGameObjectByName);
 		L.RegFunction("New", _CreateUnityEngine_GameObject);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -712,6 +717,95 @@ public class UnityEngine_GameObjectWrap
 		{
 			--LuaException.SendMsgCount;
 			LuaException.L = L0;
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetChild(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.GameObject o = obj.GetChild(arg0);
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ChildCount(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			int o = obj.ChildCount();
+			LuaDLL.lua_pushinteger(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int FindChildByPath(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg0 = ToLua.CheckString(L, 2);
+			UnityEngine.GameObject o = obj.FindChildByPath(arg0);
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetGameObjectsByName(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg0 = ToLua.CheckString(L, 2);
+			System.Collections.Generic.List<UnityEngine.GameObject> o = obj.GetGameObjectsByName(arg0);
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetGameObjectByName(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg0 = ToLua.CheckString(L, 2);
+			UnityEngine.GameObject o = obj.GetGameObjectByName(arg0);
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
 	}
