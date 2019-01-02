@@ -26,6 +26,7 @@ public class UnityEngine_GameObjectWrap
 		L.RegFunction("SendMessage", SendMessage);
 		L.RegFunction("GetChild", GetChild);
 		L.RegFunction("ChildCount", ChildCount);
+		L.RegFunction("GetComponentByPath", GetComponentByPath);
 		L.RegFunction("FindChildByPath", FindChildByPath);
 		L.RegFunction("GetGameObjectsByName", GetGameObjectsByName);
 		L.RegFunction("GetGameObjectByName", GetGameObjectByName);
@@ -748,6 +749,25 @@ public class UnityEngine_GameObjectWrap
 			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
 			int o = obj.ChildCount();
 			LuaDLL.lua_pushinteger(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetComponentByPath(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg0 = ToLua.CheckString(L, 2);
+			System.Type arg1 = ToLua.CheckMonoType(L, 3);
+			UnityEngine.Component o = obj.GetComponentByPath(arg0, arg1);
+			ToLua.Push(L, o);
 			return 1;
 		}
 		catch (Exception e)

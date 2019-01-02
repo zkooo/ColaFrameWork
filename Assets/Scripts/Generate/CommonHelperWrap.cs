@@ -15,6 +15,7 @@ public class CommonHelperWrap
 		L.RegFunction("GetGameObjectByName", GetGameObjectByName);
 		L.RegFunction("GetGameObjectsByName", GetGameObjectsByName);
 		L.RegFunction("FindChildByPath", FindChildByPath);
+		L.RegFunction("GetComponentByPath", GetComponentByPath);
 		L.RegFunction("GetResourceMgr", GetResourceMgr);
 		L.RegFunction("GetModuleMgr", GetModuleMgr);
 		L.RegFunction("GetUIMgr", GetUIMgr);
@@ -181,6 +182,25 @@ public class CommonHelperWrap
 			string arg1 = ToLua.CheckString(L, 2);
 			UnityEngine.GameObject o = CommonHelper.FindChildByPath(arg0, arg1);
 			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetComponentByPath(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg1 = ToLua.CheckString(L, 2);
+			System.Type arg2 = ToLua.CheckMonoType(L, 3);
+			UnityEngine.Component o = CommonHelper.GetComponentByPath(arg0, arg1, arg2);
+			ToLua.Push(L, o);
 			return 1;
 		}
 		catch (Exception e)

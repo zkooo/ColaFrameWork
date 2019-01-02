@@ -62,9 +62,9 @@ function Main()
 	initialize()
 
 	local obj = CommonHelper.InstantiateGoByID(101, GUIHelper.GetUIRootObj())
-	obj:SetActive(false)
 	local progress_text_obj = obj:FindChildByPath("progress_text")
-	print("---------------->",progress_text_obj)
+	local progress_text = progress_text_obj:GetComponent(typeof(UnityEngine.UI.Text))
+	progress_text.text = "测试测试123"
 end
 
 --场景切换通知
