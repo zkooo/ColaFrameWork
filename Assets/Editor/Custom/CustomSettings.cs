@@ -63,10 +63,6 @@ public static class CustomSettings
         _GT(typeof(ParticleOrderAutoSorter)),
         _GT(typeof(Debugger)).SetNameSpace(null),
 
-#region use_ugui
-        _GT(typeof(UnityEngine.UI.Text)),
-#endregion
-
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),
         _GT(typeof(DG.Tweening.Tween)).SetBaseType(typeof(System.Object)).AddExtendType(typeof(DG.Tweening.TweenExtensions)),
