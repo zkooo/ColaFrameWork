@@ -117,6 +117,14 @@ public static class CustomSettings
         _GT(typeof(AsyncOperation)).SetBaseType(typeof(System.Object)),
         _GT(typeof(LightType)),
         _GT(typeof(SleepTimeout)),
+
+#region UGUI组件导出
+        _GT(typeof(UnityEngine.UI.Text)),
+        _GT(typeof(UnityEngine.UI.Image)),
+        _GT(typeof(UnityEngine.UI.RawImage)),
+        _GT(typeof(Canvas)),
+#endregion
+
 #if UNITY_5_3_OR_NEWER && !UNITY_5_6_OR_NEWER
         _GT(typeof(UnityEngine.Experimental.Director.DirectorPlayer)),
 #endif

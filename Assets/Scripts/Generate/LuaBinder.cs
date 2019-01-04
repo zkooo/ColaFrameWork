@@ -44,6 +44,7 @@ public static class LuaBinder
 		UnityEngine_AsyncOperationWrap.Register(L);
 		UnityEngine_LightTypeWrap.Register(L);
 		UnityEngine_SleepTimeoutWrap.Register(L);
+		UnityEngine_CanvasWrap.Register(L);
 		UnityEngine_AnimatorWrap.Register(L);
 		UnityEngine_InputWrap.Register(L);
 		UnityEngine_KeyCodeWrap.Register(L);
@@ -57,6 +58,16 @@ public static class LuaBinder
 		UnityEngine_RenderSettingsWrap.Register(L);
 		UnityEngine_ResourcesWrap.Register(L);
 		UnityEngine_AudioBehaviourWrap.Register(L);
+		L.BeginModule("UI");
+		UnityEngine_UI_TextWrap.Register(L);
+		UnityEngine_UI_ImageWrap.Register(L);
+		UnityEngine_UI_RawImageWrap.Register(L);
+		UnityEngine_UI_MaskableGraphicWrap.Register(L);
+		UnityEngine_UI_GraphicWrap.Register(L);
+		L.EndModule();
+		L.BeginModule("EventSystems");
+		UnityEngine_EventSystems_UIBehaviourWrap.Register(L);
+		L.EndModule();
 		L.BeginModule("Events");
 		L.RegFunction("UnityAction", UnityEngine_Events_UnityAction);
 		L.EndModule();
@@ -71,6 +82,9 @@ public static class LuaBinder
 		L.BeginModule("AudioClip");
 		L.RegFunction("PCMReaderCallback", UnityEngine_AudioClip_PCMReaderCallback);
 		L.RegFunction("PCMSetPositionCallback", UnityEngine_AudioClip_PCMSetPositionCallback);
+		L.EndModule();
+		L.BeginModule("Canvas");
+		L.RegFunction("WillRenderCanvases", UnityEngine_Canvas_WillRenderCanvases);
 		L.EndModule();
 		L.EndModule();
 		L.BeginModule("System");
@@ -280,6 +294,33 @@ public static class LuaBinder
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<UnityEngine.AudioClip.PCMSetPositionCallback>.Create(func, self);
+				ToLua.Push(L, arg1);
+			}
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UnityEngine_Canvas_WillRenderCanvases(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Create(func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Create(func, self);
 				ToLua.Push(L, arg1);
 			}
 			return 1;
