@@ -13,14 +13,13 @@ end
 local function InitUtility()
 	define("UTL",UTL)
 
-
+	UTL["Common"] = require("Utilitys.Common_Utils")
+	UTL["UI"] = require("Utilitys.UI_Utils")
+	UTL["Table"] = require("Utilitys.Table_Utils")
 end
 
 local function initialize()
 	LuaLogHelper.initialize()
-
-	-- 工具类的初始化
-	InitUtility()
 	-- 模块初始化
 	ModuleManager:Instance():RegisterAllModules()
 	ModuleManager:Instance():InitAllModules()
@@ -32,6 +31,9 @@ local function gloablDefine()
 	define("Class",require("Core.middleclass"))
 	define("LuaLogHelper",require("Utilitys.LuaLogHelper"))
 	define("EventMgr",require("Mgrs.EventMgr"))
+	-- 工具类的初始化
+	InitUtility()
+
 	define("ConfigMgr",require("Mgrs.ConfigMgr"))
 	define("ModuleManager",require("Mgrs.ModuleManager"))
 	--控制全局变量的新建与访问
