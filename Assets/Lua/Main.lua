@@ -31,12 +31,9 @@ local function gloablDefine()
 	-- 必须首先注册全局Class,顺序敏感
 	define("Class",require("Core.middleclass"))
 	define("LuaLogHelper",require("Utilitys.LuaLogHelper"))
-    define("TableHelper","Utilitys.TableHelper")
 	define("EventMgr",require("Mgrs.EventMgr"))
-	define("CommonUtility",require("Utilitys.CommonUtility"))
 	define("ConfigMgr",require("Mgrs.ConfigMgr"))
 	define("ModuleManager",require("Mgrs.ModuleManager"))
-	define("UIUtils",require("Utilitys.UIUtils"))
 	--控制全局变量的新建与访问
 	require("Utilitys.LuaGlobalCheck")
 end

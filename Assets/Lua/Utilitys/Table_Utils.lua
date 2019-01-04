@@ -1,11 +1,11 @@
 ---
---- Lua的table助手类
+--- Lua的table工具类
 ---
 
-local TableHelper = Class("TableHelper")
+local Table_Utils = Class("Table_Utils")
 
 -- 深拷贝一个table
-function TableHelper.DeepCopy(object)
+function Table_Utils.DeepCopy(object)
     local SearchTable = {}
 
     local function Func(object)
@@ -23,4 +23,4 @@ function TableHelper.DeepCopy(object)
     return Func(object)
 end
 
-return TableHelper
+return Table_Utils

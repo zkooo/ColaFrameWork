@@ -1,7 +1,7 @@
 ---
---- UI助手类
+--- UI工具类
 ---
-local UIUtils = Class("UIUtils")
+local UI_Utils = Class("UI_Utils")
 
 local COMMON_COLORS = {
     Red = Color(225, 0, 0),
@@ -15,7 +15,7 @@ local COMMON_COLORS = {
 local chineseNumIndex = 1
 
 -- 获取I18N文字
-function UIUtils.GetText(id)
+function UI_Utils.GetText(id)
     local cfg = ConfigMgr:Instance():GetItem("Language",id)
     if cfg then
         return cfg.text or ""
@@ -23,19 +23,19 @@ function UIUtils.GetText(id)
     return ""
 end
 
-function UIUtils.GetColor(name)
+function UI_Utils.GetColor(name)
     return COMMON_COLORS[name] or COMMON_COLORS.White
 end
 
-function UIUtils.GetChineseNumber(number)
+function UI_Utils.GetChineseNumber(number)
     if number >= 0 and number <= 9 then
-        return UIUtils.GetText(chineseNumIndex + number)
+        return UI_Utils.GetText(chineseNumIndex + number)
     else
         warn(string.format("输入的数字%d不在0~9范围内！",number))
         return ""
     end
 end
 
-return UIUtils
+return UI_Utils
 
 
