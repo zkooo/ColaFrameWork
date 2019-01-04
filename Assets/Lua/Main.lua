@@ -60,11 +60,6 @@ function Main()
 	initParam()
 	initialize()
 
-	local obj = CommonHelper.InstantiateGoByID(101, GUIHelper.GetUIRootObj())
-	local progress_text = obj:FindChildByPath("progress_text"):GetComponent("Text")
-	local raw_image = obj:FindChildByPath("bg"):GetComponent("RawImage")
-	raw_image.enabled = false
-	progress_text.text = "测试测试123"
 end
 
 --场景切换通知
