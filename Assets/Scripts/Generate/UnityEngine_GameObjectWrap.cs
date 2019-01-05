@@ -24,6 +24,7 @@ public class UnityEngine_GameObjectWrap
 		L.RegFunction("BroadcastMessage", BroadcastMessage);
 		L.RegFunction("SendMessageUpwards", SendMessageUpwards);
 		L.RegFunction("SendMessage", SendMessage);
+		L.RegFunction("AddSingleComponent", AddSingleComponent);
 		L.RegFunction("New", _CreateUnityEngine_GameObject);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -712,6 +713,24 @@ public class UnityEngine_GameObjectWrap
 		{
 			--LuaException.SendMsgCount;
 			LuaException.L = L0;
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AddSingleComponent(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			System.Type arg0 = ToLua.CheckMonoType(L, 2);
+			UnityEngine.Component o = obj.AddSingleComponent(arg0);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
 			return LuaDLL.toluaL_exception(L, e);
 		}
 	}
