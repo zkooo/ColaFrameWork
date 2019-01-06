@@ -305,22 +305,6 @@ public static class CommonHelper
         return component;
     }
 
-    public static Component GetComponentByPath(this GameObject obj, string childPath,Type type)
-    {
-        GameObject childObj = FindChildByPath(obj, childPath);
-        if (null == childObj)
-        {
-            return null;
-        }
-        Component component = childObj.GetComponent(type);
-        if (null == component)
-        {
-            Debug.LogWarning(String.Format("没有在路径:{0}上找到组件:{1}!", childPath, type));
-            return null;
-        }
-        return component;
-    }
-
     /// <summary>
     /// 获取资源管理器
     /// </summary>
@@ -455,6 +439,7 @@ public static class CommonHelper
             rawImage.color = Def.ColorWhite;
         }
     }
+
     /// <summary>
     /// 获取当前运行的设备平台信息
     /// </summary>
