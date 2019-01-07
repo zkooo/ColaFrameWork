@@ -213,33 +213,6 @@ public static class CommonHelper
     }
 
     /// <summary>
-    /// 获取某个物体下对应名字的子物体(如果有重名的，就返回第一个符合的)
-    /// </summary>
-    /// <param name="go"></param>
-    /// <param name="childName"></param>
-    /// <returns></returns>
-    public static GameObject GetGameObjectByName(this GameObject go, string childName)
-    {
-        GameObject ret = null;
-        if (go != null)
-        {
-            Transform[] childrenObj = go.GetComponentsInChildren<Transform>(true);
-            if (childrenObj != null)
-            {
-                for (int i = 0; i < childrenObj.Length; ++i)
-                {
-                    if ((childrenObj[i].name == childName))
-                    {
-                        ret = childrenObj[i].gameObject;
-                        break;
-                    }
-                }
-            }
-        }
-        return ret;
-    }
-
-    /// <summary>
     /// 获取某个物体下对应的名字的所有子物体
     /// </summary>
     /// <param name="go"></param>
@@ -260,29 +233,6 @@ public static class CommonHelper
     }
 
     /// <summary>
-    /// 根据路径查找物体(可以是自己本身/子物体/父节点)
-    /// </summary>
-    /// <param name="obj"></param>父物体节点
-    /// <param name="childPath"></param>子物体路径+子物体名称
-    /// <returns></returns>
-    public static GameObject FindChildByPath(this GameObject obj, string childPath)
-    {
-        if (null == obj)
-        {
-            Debug.LogWarning("FindChildByPath方法传入的根节点为空！");
-            return null;
-        }
-        if ("." == childPath) return obj;
-        if (".." == childPath)
-        {
-            Transform parentTransform = obj.transform.parent;
-            return parentTransform == null ? null : parentTransform.gameObject;
-        }
-        Transform transform = obj.transform.Find(childPath);
-        return null != transform ? transform.gameObject : null;
-    }
-
-    /// <summary>
     /// 根据路径查找物体上的某个类型的组件(可以是自己本身/子物体/父节点)
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -291,7 +241,7 @@ public static class CommonHelper
     /// <returns></returns>
     public static T GetComponentByPath<T>(this GameObject obj, string childPath) where T : Component
     {
-        GameObject childObj = FindChildByPath(obj, childPath);
+        GameObject childObj = obj.FindChildByPath(childPath);
         if (null == childObj)
         {
             return null;

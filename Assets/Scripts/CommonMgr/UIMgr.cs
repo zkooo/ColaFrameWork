@@ -325,7 +325,7 @@ public class UIMgr : IViewManager, IEventHandler
     public void ShowUIBlur(UIBase ui)
     {
         string uiBlurName = string.Format("blur_{0}", ui.Name);
-        GameObject uiBlurObj = CommonHelper.FindChildByPath(ui.Panel, uiBlurName);
+        GameObject uiBlurObj = ui.Panel.FindChildByPath(uiBlurName);
         if (null != uiBlurObj)
         {
             RawImage rawImage = uiBlurObj.GetComponent<RawImage>();

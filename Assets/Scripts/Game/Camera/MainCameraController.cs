@@ -49,7 +49,7 @@ public class MainCameraController : CameraCtrlBase
             {
 
 
-                GameObject go = CommonHelper.FindChildByPath(GUIHelper.GetUIRootObj(), "ui_set_main_v1/Nested_Main_Joystick/Landscape/ui_main_joystick/Joystick");
+                GameObject go = GUIHelper.GetUIRootObj().FindChildByPath("ui_set_main_v1/Nested_Main_Joystick/Landscape/ui_main_joystick/Joystick");
                 _joystick = go ? go.GetComponent<VirtualJoystick>() : null;
             }
             return _joystick;

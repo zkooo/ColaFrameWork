@@ -79,7 +79,23 @@ public static class Common_Utils
     /// <returns></returns>
     public static GameObject GetGameObjectByName(this GameObject go, string childName)
     {
-        return CommonHelper.GetGameObjectByName(go, childName);
+        GameObject ret = null;
+        if (go != null)
+        {
+            Transform[] childrenObj = go.GetComponentsInChildren<Transform>(true);
+            if (childrenObj != null)
+            {
+                for (int i = 0; i < childrenObj.Length; ++i)
+                {
+                    if ((childrenObj[i].name == childName))
+                    {
+                        ret = childrenObj[i].gameObject;
+                        break;
+                    }
+                }
+            }
+        }
+        return ret;
     }
 
     /// <summary>
@@ -90,7 +106,19 @@ public static class Common_Utils
     /// <returns></returns>
     public static GameObject FindChildByPath(this GameObject obj, string childPath)
     {
-        return CommonHelper.FindChildByPath(obj, childPath);
+        if (null == obj)
+        {
+            Debug.LogWarning("FindChildByPath方法传入的根节点为空！");
+            return null;
+        }
+        if ("." == childPath) return obj;
+        if (".." == childPath)
+        {
+            Transform parentTransform = obj.transform.parent;
+            return parentTransform == null ? null : parentTransform.gameObject;
+        }
+        Transform transform = obj.transform.Find(childPath);
+        return null != transform ? transform.gameObject : null;
     }
 
 
