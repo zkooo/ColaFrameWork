@@ -12,6 +12,10 @@ public class Common_UtilsWrap
 		L.RegFunction("InstantiateGoByPath", InstantiateGoByPath);
 		L.RegFunction("InstantiateGoByPrefab", InstantiateGoByPrefab);
 		L.RegFunction("AddSingleComponent", AddSingleComponent);
+		L.RegFunction("GetGameObjectByName", GetGameObjectByName);
+		L.RegFunction("FindChildByPath", FindChildByPath);
+		L.RegFunction("GetComponentByPath", GetComponentByPath);
+		L.RegFunction("GetDeviceInfo", GetDeviceInfo);
 		L.EndStaticLibs();
 	}
 
@@ -95,6 +99,77 @@ public class Common_UtilsWrap
 			System.Type arg1 = ToLua.CheckMonoType(L, 2);
 			UnityEngine.Component o = Common_Utils.AddSingleComponent(arg0, arg1);
 			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetGameObjectByName(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg1 = ToLua.CheckString(L, 2);
+			UnityEngine.GameObject o = Common_Utils.GetGameObjectByName(arg0, arg1);
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int FindChildByPath(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg1 = ToLua.CheckString(L, 2);
+			UnityEngine.GameObject o = Common_Utils.FindChildByPath(arg0, arg1);
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetComponentByPath(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg1 = ToLua.CheckString(L, 2);
+			System.Type arg2 = ToLua.CheckMonoType(L, 3);
+			UnityEngine.Component o = Common_Utils.GetComponentByPath(arg0, arg1, arg2);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetDeviceInfo(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			string o = Common_Utils.GetDeviceInfo();
+			LuaDLL.lua_pushstring(L, o);
 			return 1;
 		}
 		catch (Exception e)
