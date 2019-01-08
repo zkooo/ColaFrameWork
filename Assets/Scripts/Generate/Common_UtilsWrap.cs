@@ -23,6 +23,9 @@ public class Common_UtilsWrap
 		L.RegFunction("GetMainCamera", GetMainCamera);
 		L.RegFunction("GetMainGameObj", GetMainGameObj);
 		L.RegFunction("GetModelOutlineCameraObj", GetModelOutlineCameraObj);
+		L.RegFunction("GetBatteryLevel", GetBatteryLevel);
+		L.RegFunction("GetBatteryStatus", GetBatteryStatus);
+		L.RegFunction("GetNetworkStatus", GetNetworkStatus);
 		L.EndStaticLibs();
 	}
 
@@ -289,6 +292,54 @@ public class Common_UtilsWrap
 			ToLua.CheckArgsCount(L, 0);
 			UnityEngine.GameObject o = Common_Utils.GetModelOutlineCameraObj();
 			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetBatteryLevel(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			float o = Common_Utils.GetBatteryLevel();
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetBatteryStatus(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			int o = Common_Utils.GetBatteryStatus();
+			LuaDLL.lua_pushinteger(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetNetworkStatus(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			int o = Common_Utils.GetNetworkStatus();
+			LuaDLL.lua_pushinteger(L, o);
 			return 1;
 		}
 		catch (Exception e)
