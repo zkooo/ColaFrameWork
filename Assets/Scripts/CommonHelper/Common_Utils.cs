@@ -216,4 +216,31 @@ public static class Common_Utils
     {
         return GUIHelper.GetModelOutlineCameraObj();
     }
+
+    /// <summary>
+    /// 获取设备的电量
+    /// </summary>
+    /// <returns></returns>
+    public static float GetBatteryLevel()
+    {
+        return CommonHelper.GetBatteryLevel();
+    }
+
+    /// <summary>
+    /// 获取设备的电池状态
+    /// </summary>
+    /// <returns></returns>
+    public static int GetBatteryStatus()
+    {
+        return (int)CommonHelper.GetBatteryStatus();
+    }
+
+    /// <summary>
+    /// 获取设备网络的状况
+    /// </summary>
+    /// <returns></returns>
+    public static int GetNetworkStatus()
+    {
+        return (int)CommonHelper.GetNetworkStatus();
+    }
 }
