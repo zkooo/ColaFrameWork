@@ -153,4 +153,67 @@ public static class Common_Utils
     {
         return CommonHelper.GetDeviceInfo();
     }
+
+    /// <summary>
+    /// 返回UI画布的根节点
+    /// </summary>
+    /// <returns></returns>
+    public static GameObject GetUIRootObj()
+    {
+        return GUIHelper.GetUIRootObj();
+    }
+
+    /// <summary>
+    /// 返回UI相机节点
+    /// </summary>
+    /// <returns></returns>
+    public static GameObject GetUICameraObj()
+    {
+        return GUIHelper.GetUICameraObj();
+    }
+
+    /// <summary>
+    /// 返回UI画布
+    /// </summary>
+    /// <returns></returns>
+    public static Canvas GetUIRoot()
+    {
+        return GUIHelper.GetUIRoot();
+    }
+
+    /// <summary>
+    /// 返回UI相机
+    /// </summary>
+    /// <returns></returns>
+    public static Camera GetUICamera()
+    {
+        return GUIHelper.GetUICamera();
+    }
+
+    /// <summary>
+    /// 获取主相机
+    /// </summary>
+    /// <returns></returns>
+    public static Camera GetMainCamera()
+    {
+        return GUIHelper.GetMainCamera();
+    }
+
+    /// <summary>
+    /// 获取主相机节点
+    /// </summary>
+    /// <returns></returns>
+    public static GameObject GetMainGameObj()
+    {
+        return GUIHelper.GetMainGameObj();
+    }
+
+    /// <summary>
+    /// 获取模型描边相机节点
+    /// </summary>
+    /// <returns></returns>
+    public static GameObject GetModelOutlineCameraObj()
+    {
+        return GUIHelper.GetModelOutlineCameraObj();
+    }
 }
