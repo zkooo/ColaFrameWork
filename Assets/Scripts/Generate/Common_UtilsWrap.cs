@@ -16,6 +16,13 @@ public class Common_UtilsWrap
 		L.RegFunction("FindChildByPath", FindChildByPath);
 		L.RegFunction("GetComponentByPath", GetComponentByPath);
 		L.RegFunction("GetDeviceInfo", GetDeviceInfo);
+		L.RegFunction("GetUIRootObj", GetUIRootObj);
+		L.RegFunction("GetUICameraObj", GetUICameraObj);
+		L.RegFunction("GetUIRoot", GetUIRoot);
+		L.RegFunction("GetUICamera", GetUICamera);
+		L.RegFunction("GetMainCamera", GetMainCamera);
+		L.RegFunction("GetMainGameObj", GetMainGameObj);
+		L.RegFunction("GetModelOutlineCameraObj", GetModelOutlineCameraObj);
 		L.EndStaticLibs();
 	}
 
@@ -170,6 +177,118 @@ public class Common_UtilsWrap
 			ToLua.CheckArgsCount(L, 0);
 			string o = Common_Utils.GetDeviceInfo();
 			LuaDLL.lua_pushstring(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetUIRootObj(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			UnityEngine.GameObject o = Common_Utils.GetUIRootObj();
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetUICameraObj(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			UnityEngine.GameObject o = Common_Utils.GetUICameraObj();
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetUIRoot(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			UnityEngine.Canvas o = Common_Utils.GetUIRoot();
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetUICamera(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			UnityEngine.Camera o = Common_Utils.GetUICamera();
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetMainCamera(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			UnityEngine.Camera o = Common_Utils.GetMainCamera();
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetMainGameObj(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			UnityEngine.GameObject o = Common_Utils.GetMainGameObj();
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetModelOutlineCameraObj(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			UnityEngine.GameObject o = Common_Utils.GetModelOutlineCameraObj();
+			ToLua.PushSealed(L, o);
 			return 1;
 		}
 		catch (Exception e)
