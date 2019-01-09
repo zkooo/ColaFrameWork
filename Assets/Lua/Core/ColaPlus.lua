@@ -437,12 +437,12 @@ local function createForwardDeclareType (typeName, errorLevel)
 	local typeString = (typeName or "anonymousType") .. "(forward declare)"
 	local typeMeta =
 	{
-		magic = ColaPlusTypeTableMagic;
-		isForwardDeclared = true;
-		typeName = typeName;
+		magic = ColaPlusTypeTableMagic,
+		isForwardDeclared = true,
+		typeName = typeName,
 		__tostring = function (_)
 			return typeString
-		end;
+		end,
 	}
 
 	typeTable = {}
@@ -773,7 +773,7 @@ local function createType (baseTypeTable, typeNameOrForwardDeclare, isInterface)
 		{
 			__index = function (_, fieldName)
 				error("You need to give field a default value", 2)
-			end;
+			end,
 
 			__newindex = function (_, fieldName, initValue)
 				if type(fieldName) ~= "string" then
@@ -821,7 +821,7 @@ local function createType (baseTypeTable, typeNameOrForwardDeclare, isInterface)
 					local memberInfoMap = typeMeta.memberInfoMap
 					memberInfoMap[fieldName] = memberInfo
 				end
-			end;
+			end,
 		}
 	end
 
@@ -875,7 +875,7 @@ local function createType (baseTypeTable, typeNameOrForwardDeclare, isInterface)
 		{
 			__index = function (_, methodName)
 				error("You need to give method a function body", 2)
-			end;
+			end,
 
 			__newindex = function (_, methodName, functionBody)
 				if type(methodName) ~= "string" then
@@ -957,7 +957,7 @@ local function createType (baseTypeTable, typeNameOrForwardDeclare, isInterface)
 						typeMeta.methods[methodName] = functionBody
 					end
 				end
-			end;
+			end,
 		}
 	end
 
