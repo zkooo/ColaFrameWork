@@ -16,7 +16,7 @@ local chineseNumIndex = 1
 
 -- 获取I18N文字
 function UI_Utils.GetText(id)
-    local cfg = ConfigMgr:Instance():GetItem("Language",id)
+    local cfg = ConfigMgr:Instance():GetItem("Language", id)
     if cfg then
         return cfg.text or ""
     end
@@ -31,8 +31,57 @@ function UI_Utils.GetChineseNumber(number)
     if number >= 0 and number <= 9 then
         return UI_Utils.GetText(chineseNumIndex + number)
     else
-        warn(string.format("输入的数字%d不在0~9范围内！",number))
+        warn(string.format("输入的数字%d不在0~9范围内！", number))
         return ""
+    end
+end
+
+--- 设置一个Image组件的Sprite为某个图集中的图片
+--- atlasID:图集的资源ID
+--- image:要设置的Image组件
+--- spriteName:图集中对应的Sprite的名称
+--- keepNativeSize:是否保持原始尺寸
+function UI_Utils.SetImageSpriteFromAtlas(atlasID, image, spriteName, keepNativeSize)
+    if nil == image then
+        warn("需要指定一个image")
+        return
+    end
+    if nil == spriteName or "" == spriteName then
+        warn("需要指定一个SpriteName")
+        return
+    end
+    if image.overrideSprite and image.overrideSprite.name == spriteName then
+        return
+    end
+    --TODO:新的加载方式
+    local atlasObj = ResourceMgr.GetInstance().GetResourceById < GameObject > (atlasID)
+    if nil ~= atlasObj then
+        local spriteAsset = atlasObj:GetComponent("SpriteAsset")
+        if nil ~= spriteAsset then
+            local sprite = spriteAsset:GetSpriteByName(spriteName)
+            if nil ~= sprite then
+                image.overrideSprite = sprite
+                if keepNativeSize then
+                    image:SetNativeSize()
+                end
+            end
+        end
+    end
+end
+
+--- 设置一个RawImage的Texture
+function UI_Utils.SetRawImage(rawImage, resID, keepNativeSize)
+    if nil == rawImage then
+        warn("需要指定RawImage")
+        return
+    end
+    --TODO:新的加载方式
+    local texture2D = ResourceMgr.GetInstance().GetResourceById < Texture2D > (resID)
+    if nil ~= texture2D then
+        rawImage.texture = texture2D
+        if keepNativeSize then
+            rawImage:SetNativeSize()
+        end
     end
 end
 

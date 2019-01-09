@@ -35,7 +35,7 @@ function ConfigMgr:GetConfig(name)
 		
 		-- 对读取到的配置做缓存处理
 		self._cacheConfig[name] = {}
-		self._cacheConfig[name].items = cfgData;
+		self._cacheConfig[name].items = cfgData
 		return self._cacheConfig[name]
 	end
 	return nil
