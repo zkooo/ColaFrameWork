@@ -83,7 +83,7 @@ public static class CustomSettings
 #else
 
         _GT(typeof(Component)).AddExtendType(typeof(Common_Utils)),
-        _GT(typeof(Transform)),
+        _GT(typeof(Transform)).AddExtendType(typeof(Common_Utils)),
         _GT(typeof(Material)),
         _GT(typeof(Light)),
         _GT(typeof(Rigidbody)),

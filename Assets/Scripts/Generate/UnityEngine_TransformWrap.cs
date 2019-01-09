@@ -28,6 +28,7 @@ public class UnityEngine_TransformWrap
 		L.RegFunction("IsChildOf", IsChildOf);
 		L.RegFunction("GetEnumerator", GetEnumerator);
 		L.RegFunction("GetChild", GetChild);
+		L.RegFunction("ActivedChildCount", ActivedChildCount);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("position", get_position, set_position);
@@ -670,6 +671,23 @@ public class UnityEngine_TransformWrap
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
 			UnityEngine.Transform o = obj.GetChild(arg0);
 			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ActivedChildCount(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+			int o = obj.ActivedChildCount();
+			LuaDLL.lua_pushinteger(L, o);
 			return 1;
 		}
 		catch (Exception e)

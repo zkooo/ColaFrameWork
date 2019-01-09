@@ -56,7 +56,7 @@ public static class Common_Utils
     /// <param name="go"></param>
     /// <param name="type"></param>
     /// <returns></returns>
-    public static Component AddSingleComponent(this GameObject go,Type type)
+    public static Component AddSingleComponent(this GameObject go, Type type)
     {
         if (null != go)
         {
@@ -242,5 +242,101 @@ public static class Common_Utils
     public static int GetNetworkStatus()
     {
         return (int)CommonHelper.GetNetworkStatus();
+    }
+
+    /// <summary>
+    /// 将世界坐标转化UGUI坐标
+    /// </summary>
+    /// <param name="gameCamera"></param>
+    /// <param name="canvas"></param>
+    /// <param name="worldPos"></param>
+    public static Vector2 WorldToUIPoint(Camera gameCamera, Canvas canvas, Vector3 worldPos)
+    {
+        return CommonHelper.WorldToUIPoint(gameCamera, canvas, worldPos);
+    }
+
+    /// <summary>
+    /// 获取一个Transform组件下所有处于Active状态的子物体的数量
+    /// </summary>
+    /// <param name="transform"></param>
+    /// <returns></returns>
+    public static int ActivedChildCount(this Transform transform)
+    {
+        int childCount = 0;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+                childCount++;
+        }
+        return childCount;
+    }
+
+    /// <summary>
+    /// 获取资源路径(可读写)
+    /// </summary>
+    /// <returns></returns>
+    public static string GetAssetPath()
+    {
+        return CommonHelper.GetAssetPath();
+    }
+
+    /// <summary>
+    /// 获取主机IP地址
+    /// </summary>
+    /// <returns></returns>
+    public static string GetHostIp()
+    {
+        return CommonHelper.GetHostIp();
+    }
+
+    /// <summary>
+    /// 获取一个GameObject下所有子物体的数量
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public static int ChildCount(this GameObject obj)
+    {
+        if (null != obj)
+        {
+            return obj.transform.childCount;
+        }
+
+        return 0;
+    }
+
+    /// <summary>
+    /// 根据索引获取一个GameOject的子物体
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public static GameObject GetChild(this GameObject obj, int index)
+    {
+        if (null != obj)
+        {
+            return obj.transform.GetChild(index).gameObject;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// 获取导航点距离地面的高度
+    /// </summary>
+    /// <param name="vPos"></param>
+    /// <returns></returns>
+    public static float GetNavMeshHeight(Vector3 vPos)
+    {
+        return CommonHelper.GetNavMeshHeight(vPos);
+    }
+
+    /// <summary>
+    /// 检查本地文件是否存在,如果目录不存在则创建目录
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    public static bool CheckLocalFileExist(string filePath)
+    {
+        return CommonHelper.CheckLocalFileExist(filePath);
     }
 }
