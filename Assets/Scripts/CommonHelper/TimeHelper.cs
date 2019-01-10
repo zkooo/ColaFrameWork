@@ -50,24 +50,13 @@ public static class TimeHelper
     }
 
     /// <summary>
-    /// 设置一个受TimeScale影响的单次计时器
-    /// </summary>
-    /// <param name="action"></param>
-    /// <param name="time"></param>
-    /// <returns></returns>
-    public static int SetTimer(Action action, float time)
-    {
-        return SetTimer(action, time, false);
-    }
-
-    /// <summary>
     /// 设置一个重复调用的多次计时器
     /// </summary>
     /// <param name="action"></param>
     /// <param name="time"></param>
     /// <param name="isIgnoreTimeScale"></param>
     /// <returns></returns>
-    public static int SetRepeatTimer(Action action, float time, bool isIgnoreTimeScale)
+    public static int SetRepeatTimer(Action action, float time, bool isIgnoreTimeScale = true)
     {
         int tmpTimerID = -1;
         if (null != action && time > 0)
@@ -83,17 +72,6 @@ public static class TimeHelper
             timerBehavior.BeginRepeatTimer(RepeatTimerEvent, tmpTimerID, time, isIgnoreTimeScale);
         }
         return tmpTimerID;
-    }
-
-    /// <summary>
-    /// 设置一个受TimeScale影响的重复调用的多次计时器
-    /// </summary>
-    /// <param name="action"></param>
-    /// <param name="time"></param>
-    /// <returns></returns>
-    public static int SetRepeatTimer(Action action, float time)
-    {
-        return SetRepeatTimer(action, time, false);
     }
 
     /// <summary>
@@ -127,7 +105,6 @@ public static class TimeHelper
             timerFuncDic[tmpTimerID]();
         }
     }
-
 
     private static void TimerEndEvent(int tmpTimerID)
     {
