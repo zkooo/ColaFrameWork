@@ -31,7 +31,7 @@ public static class TimeHelper
     /// <param name="time"></param>
     /// <param name="isIgnoreTimeScale"></param>
     /// <returns></returns>
-    public static int SetTimer(Action action, float time, bool isIgnoreTimeScale)
+    public static int SetTimer(Action action, float time, bool isIgnoreTimeScale = true)
     {
         int tmpTimerID = int.MaxValue;
         if (null != action && time > 0.0f)

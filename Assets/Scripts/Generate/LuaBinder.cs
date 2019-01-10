@@ -9,11 +9,11 @@ public static class LuaBinder
 	{
 		float t = Time.realtimeSinceStartup;
 		L.BeginModule(null);
-		GloablDefineWrap.Register(L);
 		Common_UtilsWrap.Register(L);
 		SorterTagWrap.Register(L);
 		ParticleOrderAutoSorterWrap.Register(L);
 		LuaInterface_DebuggerWrap.Register(L);
+		TimeHelperWrap.Register(L);
 		LuaProfilerWrap.Register(L);
 		L.BeginModule("UnityEngine");
 		UnityEngine_ComponentWrap.Register(L);
