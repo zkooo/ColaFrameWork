@@ -35,21 +35,6 @@ public class ResourceLoader : MonoBehaviour {
     }
 
     /// <summary>
-    /// 编辑器模式下加载资源
-    /// </summary>
-    /// <param name="path"></param>
-    /// <param name="type"></param>
-    /// <returns></returns>
-    public Object LoadAssetAtPath(string path, Type type)
-    {
-#if UNITY_EDITOR
-        return AssetDatabase.LoadAssetAtPath(path, type);
-#else
-        return null;
-#endif
-    }
-
-    /// <summary>
     /// 延迟一帧以后加载资源
     /// </summary>
     /// <param name="path"></param>

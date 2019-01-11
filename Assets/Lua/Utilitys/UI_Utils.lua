@@ -85,6 +85,31 @@ function UI_Utils.SetRawImage(rawImage, resID, keepNativeSize)
     end
 end
 
+--- Image置灰
+function UI_Utils.SetImageGray(image, isGray)
+    if nil == image then
+        warn("需要指定一个Image")
+        return
+    end
+    image.color = isGray and COMMON_COLORS.Gray or COMMON_COLORS.White
+end
+
+function UI_Utils.SetRawImageGray(rawImage, isGray)
+    if nil == rawImage then
+        warn("需要指定一个RawImage")
+        return
+    end
+    if isGray then
+        --TODO:新的加载方
+        local garyMat = ResourceMgr.GetInstance().GetResourceById < Material > (300001)
+        rawImage.material = garyMat
+        rawImage.color = COMMON_COLORS.Black
+    else
+        rawImage.material = nil
+        rawImage.color = COMMON_COLORS.White
+    end
+end
+
 return UI_Utils
 
 

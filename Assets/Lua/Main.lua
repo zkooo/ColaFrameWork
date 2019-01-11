@@ -60,12 +60,6 @@ function Main()
 	initParam()
 	initialize()
 
-	TimeHelper.SetTimer(function()
-		warn("----------------->计时器到时！")
-	end,5)
-	TimeHelper.SetRepeatTimer(function()
-		warn("----------------->重复计时器")
-	end,2)
 end
 
 --场景切换通知
