@@ -6,6 +6,28 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 /// <summary>
+/// 资源信息
+/// </summary>
+public class LuaResourceInfo
+{
+    /// <summary>
+    /// 实际的资源
+    /// </summary>
+    public Object Res;
+
+    /// <summary>
+    /// 资源的生存时间 -2 永久存在 -1 当前系统 大于0则按时间删除
+    /// </summary>
+    public int RemainSec;
+
+    /// <summary>
+    /// 资源的类型
+    /// </summary>
+    public Type ResourceType;
+}
+
+
+/// <summary>
 /// 资源管理器
 /// </summary>
 public class LuaResourceMgr
@@ -14,24 +36,19 @@ public class LuaResourceMgr
     private ResourceLoader resourceLoader;
 
     /// <summary>
-    /// 资源ID与实际资源的映射表
+    /// 资源路径与实际资源的映射表
     /// </summary>
-    private Dictionary<int, ResourceInfo> id2ResourceDic;
+    private Dictionary<string, LuaResourceInfo> path2ResourceDic;
 
     /// <summary>
     /// 需要清理的资源列表
     /// </summary>
-    private List<int> resClearList;
+    private List<string> resClearList;
 
     /// <summary>
     /// 用于计时的变量
     /// </summary>
     private float timeCount = 0f;
-
-    /// <summary>
-    /// 资源路径信息
-    /// </summary>
-    private ResPathDataMap resPathDataMap;
 
     public static LuaResourceMgr GetInstance()
     {
@@ -48,14 +65,14 @@ public class LuaResourceMgr
         GameObject.DontDestroyOnLoad(resourceLoaderObj);
 
         timeCount = 0f;
-        resClearList = new List<int>();
+        resClearList = new List<string>();
         resourceLoader = resourceLoaderObj.AddComponent<ResourceLoader>();
-        id2ResourceDic = new Dictionary<int, ResourceInfo>();
+        path2ResourceDic = new Dictionary<string, LuaResourceInfo>();
     }
 
     public void Init()
     {
-        resPathDataMap = LocalDataMgr.GetLocalDataMap<ResPathDataMap>();
+        //TODO:Do Something
     }
 
     /// <summary>
@@ -81,6 +98,15 @@ public class LuaResourceMgr
     {
 
 #if UNITY_ANDROID && !UNITY_EDITOR
+        WWW www = new WWW(path);
+        while (!www.isDone)
+        {
+        }
+        if (null != callback)
+        {
+            callback(fileName,www.bytes);
+        }
+#elif UNITY_IOS && !UNITY_EDITOR
         WWW www = new WWW(path);
         while (!www.isDone)
         {
@@ -141,7 +167,7 @@ public class LuaResourceMgr
             if (timeCount >= 1f)
             {
                 timeCount = 0;
-                using (var enumator = id2ResourceDic.GetEnumerator())
+                using (var enumator = path2ResourceDic.GetEnumerator())
                 {
                     while (enumator.MoveNext())
                     {
@@ -165,12 +191,12 @@ public class LuaResourceMgr
     /// 清理列表中对应ID的资源
     /// </summary>
     /// <param name="removeList"></param>需要清理的资源对应的ID列表
-    private void RemoveResList(List<int> removeList)
+    private void RemoveResList(List<string> removeList)
     {
         if (null == removeList || 0 == removeList.Count) return;
         for (int i = 0; i < removeList.Count; i++)
         {
-            id2ResourceDic.Remove(removeList[i]);
+            path2ResourceDic.Remove(removeList[i]);
             Debug.LogWarning(string.Format("清理ID为{0}的资源", removeList[i]));
         }
     }
@@ -180,7 +206,7 @@ public class LuaResourceMgr
     /// </summary>
     public void ClearAllResourcesForce()
     {
-        id2ResourceDic.Clear();
+        path2ResourceDic.Clear();
         Resources.UnloadUnusedAssets();
         //清理bundle
     }
@@ -191,39 +217,22 @@ public class LuaResourceMgr
     /// <param name="obj"></param>
     /// <param name="resId"></param>
     /// <param name="type"></param>
-    private void AddResource(Object obj, int resId, Type type)
+    private void AddResource(Object obj, string resPath, Type type)
     {
         if (null != obj)
         {
-            ResourceInfo resourceInfo = new ResourceInfo();
+            LuaResourceInfo resourceInfo = new LuaResourceInfo();
             resourceInfo.Res = obj;
-            resourceInfo.RemainSec = -1;
             resourceInfo.ResourceType = type;
-            if (null != resPathDataMap)
-            {
-                resourceInfo.RemainSec = resPathDataMap.GetDataById(resId).resWaitSec;
-            }
-            else
-            {
-                Debug.LogWarning("resPathDataMap初始化错误！");
-            }
-            id2ResourceDic[resId] = resourceInfo;
+
+            resourceInfo.RemainSec = 180; //暂时设定180s
+
+            path2ResourceDic[resPath] = resourceInfo;
         }
         else
         {
-            Debug.LogWarning(string.Format("添加ID为{0}的资源到缓存池失败!", resId));
+            Debug.LogWarning(string.Format("添加路径为{0}的资源到缓存池失败!", resPath));
         }
-    }
-
-    /// <summary>
-    /// 向资源缓存池中添加资源(泛型接口)
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="obj"></param>
-    /// <param name="resId"></param>
-    private void AddResource<T>(Object obj, int resId) where T : Object
-    {
-        AddResource(obj, resId, typeof(T));
     }
 
     /// <summary>
@@ -232,50 +241,14 @@ public class LuaResourceMgr
     /// <typeparam name="T"></typeparam>
     /// <param name="resID"></param>
     /// <returns></returns>
-    public T GetCacheResById<T>(int resID) where T : Object
+    public T GetCacheResById<T>(string resPath) where T : Object
     {
         T resObj = null;
-        if (null != id2ResourceDic && id2ResourceDic.ContainsKey(resID))
+        if (null != path2ResourceDic && path2ResourceDic.ContainsKey(resPath))
         {
-            resObj = id2ResourceDic[resID].Res as T;
+            resObj = path2ResourceDic[resPath].Res as T;
         }
         return resObj;
-    }
-
-    /// <summary>
-    /// 根据资源ID获取对应资源的名字(不包含路径和拓展名的纯名字)
-    /// </summary>
-    /// <returns></returns>
-    public string GetResNameById(int resID)
-    {
-        string fullName = GetResPathById(resID);
-        if (!string.IsNullOrEmpty(fullName))
-        {
-            return Path.GetFileNameWithoutExtension(fullName);
-        }
-        Debug.LogWarning(string.Format("获取资源ID为：{0}的资源名称出错！", resID));
-        return string.Empty;
-    }
-
-    /// <summary>
-    /// 根据资源ID获取对应资源的完整路径(包含拓展名)
-    /// </summary>
-    /// <param name="resID"></param>
-    /// <returns></returns>
-    public string GetResPathById(int resID)
-    {
-        if (null != resPathDataMap)
-        {
-            ResPathData data = resPathDataMap.GetDataById(resID);
-            if (null != data)
-            {
-                return data.resPath;
-            }
-            Debug.LogWarning(string.Format("resPathDataMap 键{0}对应的值为空！", resID));
-            return string.Empty;
-        }
-        Debug.LogWarning("resPathDataMap初始化错误！");
-        return string.Empty;
     }
 
     /// <summary>
@@ -297,58 +270,6 @@ public class LuaResourceMgr
     }
 
     /// <summary>
-    /// 根据资源ID获取对应资源配置信息
-    /// </summary>
-    /// <param name="resID"></param>
-    /// <returns></returns>
-    public ResPathData GetResPathDataById(int resID)
-    {
-        if (null != resPathDataMap)
-        {
-            var data = resPathDataMap.GetDataById(resID);
-            if (null != data)
-            {
-                return data;
-            }
-            Debug.LogWarning(string.Format("resPathDataMap 键{0}对应的值为空！", resID));
-        }
-        Debug.LogWarning("resPathDataMap初始化错误！");
-        return null;
-    }
-
-    /// <summary>
-    /// 根据资源ID获取对应资源，缓存池中没有则懒加载(同步方法)
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="resID"></param>
-    /// <returns></returns>
-    public T GetResourceById<T>(int resID) where T : Object
-    {
-        T resObj = null;
-        //先去缓存池中找，如果没有再懒加载
-        resObj = GetCacheResById<T>(resID);
-
-        if (null == resObj)
-        {
-            ResPathData data = GetResPathDataById(resID);
-            if (null != data)
-            {
-                string resPath = GetResPathWithExtension(data.resPath);
-                if (string.IsNullOrEmpty(resPath))
-                {
-                    Debug.LogWarning(string.Format("加载资源ID为：{0}的资源出错！资源路径不存在！", resID));
-                }
-                else
-                {
-                    resObj = GetResourceByPath<T>(resPath, data.resLoadMode);
-                    AddResource(resObj, resID, typeof(T));
-                }
-            }
-        }
-        return resObj;
-    }
-
-    /// <summary>
     /// 根据资源路径获取对应资源，不存在则懒加载(同步方法)
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -357,22 +278,32 @@ public class LuaResourceMgr
     /// <returns></returns>
     private T GetResourceByPath<T>(string resPath, int resLoadMode) where T : Object
     {
+
         T resObj = null;
-        if (string.IsNullOrEmpty(resPath))
+        //先去缓存池中找，如果没有再懒加载
+        resObj = GetCacheResById<T>(resPath);
+
+        if (null == resObj)
         {
-            Debug.LogWarning(string.Format("加载资源路径为：{0}的资源出错！资源路径不存在！", resPath));
-        }
-        else
-        {
-            if (0 == resLoadMode)
+            string relativePath = GetResPathWithExtension(resPath);
+            if (string.IsNullOrEmpty(resPath))
             {
-                resObj = resourceLoader.Load<T>(resPath);
+                Debug.LogWarning(string.Format("加载资源路径为：{0}的资源出错！资源路径不存在！", resPath));
             }
-            else if (1 == resLoadMode)
+            else
             {
-                //todo:从bundle加载资源
+                if (0 == resLoadMode)
+                {
+                    resObj = resourceLoader.Load<T>(resPath);
+                }
+                else if (1 == resLoadMode)
+                {
+                    //todo:从bundle加载资源
+                }
+                AddResource(resObj, resPath, typeof(T));
             }
         }
+
         if (null == resObj)
         {
             Debug.LogWarning(string.Format("加载资源失败！路径:{0}", resPath));

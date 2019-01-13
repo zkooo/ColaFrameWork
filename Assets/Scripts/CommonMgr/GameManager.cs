@@ -31,6 +31,11 @@ public class GameManager
     private ResourceMgr resourceMgr;
 
     /// <summary>
+    /// Lua的资源管理器
+    /// </summary>
+    private LuaResourceMgr luaResourceMgr;
+
+    /// <summary>
     /// UI管理器
     /// </summary>
     private UIMgr uiMgr;
@@ -58,6 +63,10 @@ public class GameManager
     {
         //初始化各种管理器
         resourceMgr = ResourceMgr.GetInstance();
+
+        //Lua的资源管理器接口
+        luaResourceMgr = LuaResourceMgr.GetInstance();
+
         gameLauncherObj = gameObject;
         LocalDataMgr.GetInstance().LoadStartConfig(() =>
         {
@@ -92,6 +101,7 @@ public class GameManager
         if (null != resourceMgr)
         {
             resourceMgr.Update(deltaTime);
+            luaResourceMgr.Update(deltaTime);
         }
     }
 
