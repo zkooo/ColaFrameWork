@@ -24,6 +24,9 @@ public class DelegateFactory
 		dict.Add(typeof(System.Comparison<int>), factory.System_Comparison_int);
 		dict.Add(typeof(System.Func<int,int>), factory.System_Func_int_int);
 		dict.Add(typeof(System.Action<UnityEngine.GameObject>), factory.System_Action_UnityEngine_GameObject);
+		dict.Add(typeof(System.Action<string,string>), factory.System_Action_string_string);
+		dict.Add(typeof(System.Action<string,byte[]>), factory.System_Action_string_bytes);
+		dict.Add(typeof(System.Action<UnityEngine.Object>), factory.System_Action_UnityEngine_Object);
 		dict.Add(typeof(UnityEngine.Camera.CameraCallback), factory.UnityEngine_Camera_CameraCallback);
 		dict.Add(typeof(UnityEngine.Application.AdvertisingIdentifierCallback), factory.UnityEngine_Application_AdvertisingIdentifierCallback);
 		dict.Add(typeof(UnityEngine.Application.LowMemoryCallback), factory.UnityEngine_Application_LowMemoryCallback);
@@ -41,6 +44,9 @@ public class DelegateFactory
 		DelegateTraits<System.Comparison<int>>.Init(factory.System_Comparison_int);
 		DelegateTraits<System.Func<int,int>>.Init(factory.System_Func_int_int);
 		DelegateTraits<System.Action<UnityEngine.GameObject>>.Init(factory.System_Action_UnityEngine_GameObject);
+		DelegateTraits<System.Action<string,string>>.Init(factory.System_Action_string_string);
+		DelegateTraits<System.Action<string,byte[]>>.Init(factory.System_Action_string_bytes);
+		DelegateTraits<System.Action<UnityEngine.Object>>.Init(factory.System_Action_UnityEngine_Object);
 		DelegateTraits<UnityEngine.Camera.CameraCallback>.Init(factory.UnityEngine_Camera_CameraCallback);
 		DelegateTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Init(factory.UnityEngine_Application_AdvertisingIdentifierCallback);
 		DelegateTraits<UnityEngine.Application.LowMemoryCallback>.Init(factory.UnityEngine_Application_LowMemoryCallback);
@@ -58,6 +64,9 @@ public class DelegateFactory
 		TypeTraits<System.Comparison<int>>.Init(factory.Check_System_Comparison_int);
 		TypeTraits<System.Func<int,int>>.Init(factory.Check_System_Func_int_int);
 		TypeTraits<System.Action<UnityEngine.GameObject>>.Init(factory.Check_System_Action_UnityEngine_GameObject);
+		TypeTraits<System.Action<string,string>>.Init(factory.Check_System_Action_string_string);
+		TypeTraits<System.Action<string,byte[]>>.Init(factory.Check_System_Action_string_bytes);
+		TypeTraits<System.Action<UnityEngine.Object>>.Init(factory.Check_System_Action_UnityEngine_Object);
 		TypeTraits<UnityEngine.Camera.CameraCallback>.Init(factory.Check_UnityEngine_Camera_CameraCallback);
 		TypeTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Init(factory.Check_UnityEngine_Application_AdvertisingIdentifierCallback);
 		TypeTraits<UnityEngine.Application.LowMemoryCallback>.Init(factory.Check_UnityEngine_Application_LowMemoryCallback);
@@ -75,6 +84,9 @@ public class DelegateFactory
 		StackTraits<System.Comparison<int>>.Push = factory.Push_System_Comparison_int;
 		StackTraits<System.Func<int,int>>.Push = factory.Push_System_Func_int_int;
 		StackTraits<System.Action<UnityEngine.GameObject>>.Push = factory.Push_System_Action_UnityEngine_GameObject;
+		StackTraits<System.Action<string,string>>.Push = factory.Push_System_Action_string_string;
+		StackTraits<System.Action<string,byte[]>>.Push = factory.Push_System_Action_string_bytes;
+		StackTraits<System.Action<UnityEngine.Object>>.Push = factory.Push_System_Action_UnityEngine_Object;
 		StackTraits<UnityEngine.Camera.CameraCallback>.Push = factory.Push_UnityEngine_Camera_CameraCallback;
 		StackTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Push = factory.Push_UnityEngine_Application_AdvertisingIdentifierCallback;
 		StackTraits<UnityEngine.Application.LowMemoryCallback>.Push = factory.Push_UnityEngine_Application_LowMemoryCallback;
@@ -596,6 +608,181 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_UnityEngine_GameObject(IntPtr L, System.Action<UnityEngine.GameObject> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_string_string_Event : LuaDelegate
+	{
+		public System_Action_string_string_Event(LuaFunction func) : base(func) { }
+		public System_Action_string_string_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(string param0, string param1)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(string param0, string param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<string,string> System_Action_string_string(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<string,string> fn = delegate(string param0, string param1) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_string_string_Event target = new System_Action_string_string_Event(func);
+			System.Action<string,string> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_string_string_Event target = new System_Action_string_string_Event(func, self);
+			System.Action<string,string> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_string_string(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<string,string>), L, pos);
+	}
+
+	void Push_System_Action_string_string(IntPtr L, System.Action<string,string> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_string_bytes_Event : LuaDelegate
+	{
+		public System_Action_string_bytes_Event(LuaFunction func) : base(func) { }
+		public System_Action_string_bytes_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(string param0, byte[] param1)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(string param0, byte[] param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<string,byte[]> System_Action_string_bytes(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<string,byte[]> fn = delegate(string param0, byte[] param1) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_string_bytes_Event target = new System_Action_string_bytes_Event(func);
+			System.Action<string,byte[]> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_string_bytes_Event target = new System_Action_string_bytes_Event(func, self);
+			System.Action<string,byte[]> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_string_bytes(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<string,byte[]>), L, pos);
+	}
+
+	void Push_System_Action_string_bytes(IntPtr L, System.Action<string,byte[]> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_UnityEngine_Object_Event : LuaDelegate
+	{
+		public System_Action_UnityEngine_Object_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_Object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.Object param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.Object param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<UnityEngine.Object> System_Action_UnityEngine_Object(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<UnityEngine.Object> fn = delegate(UnityEngine.Object param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_UnityEngine_Object_Event target = new System_Action_UnityEngine_Object_Event(func);
+			System.Action<UnityEngine.Object> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_UnityEngine_Object_Event target = new System_Action_UnityEngine_Object_Event(func, self);
+			System.Action<UnityEngine.Object> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_UnityEngine_Object(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.Object>), L, pos);
+	}
+
+	void Push_System_Action_UnityEngine_Object(IntPtr L, System.Action<UnityEngine.Object> o)
 	{
 		ToLua.Push(L, o);
 	}

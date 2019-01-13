@@ -57,6 +57,7 @@ public static class CustomSettings
         //_GT(typeof(TestExport.Space)),
         //-------------------------------------------------------------------        
         _GT(typeof(Common_Utils)),
+        _GT(typeof(LuaResourceMgr)),
         _GT(typeof(SorterTag)),
         _GT(typeof(ParticleOrderAutoSorter)),
         _GT(typeof(Debugger)).SetNameSpace(null),
