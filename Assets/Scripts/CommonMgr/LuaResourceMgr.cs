@@ -28,7 +28,7 @@ public class LuaResourceInfo
 
 
 /// <summary>
-/// 资源管理器
+/// 资源管理器Lua版
 /// </summary>
 public class LuaResourceMgr
 {
@@ -68,11 +68,6 @@ public class LuaResourceMgr
         resClearList = new List<string>();
         resourceLoader = resourceLoaderObj.AddComponent<ResourceLoader>();
         path2ResourceDic = new Dictionary<string, LuaResourceInfo>();
-    }
-
-    public void Init()
-    {
-        //TODO:Do Something
     }
 
     /// <summary>
@@ -188,7 +183,7 @@ public class LuaResourceMgr
     }
 
     /// <summary>
-    /// 清理列表中对应ID的资源
+    /// 清理列表中对应路径的资源
     /// </summary>
     /// <param name="removeList"></param>需要清理的资源对应的ID列表
     private void RemoveResList(List<string> removeList)
@@ -197,7 +192,7 @@ public class LuaResourceMgr
         for (int i = 0; i < removeList.Count; i++)
         {
             path2ResourceDic.Remove(removeList[i]);
-            Debug.LogWarning(string.Format("清理ID为{0}的资源", removeList[i]));
+            Debug.LogWarning(string.Format("清理路径为{0}的资源", removeList[i]));
         }
     }
 
@@ -241,12 +236,12 @@ public class LuaResourceMgr
     /// <typeparam name="T"></typeparam>
     /// <param name="resID"></param>
     /// <returns></returns>
-    public T GetCacheResById<T>(string resPath) where T : Object
+    private Object GetCacheResByPath(string resPath,Type type)
     {
-        T resObj = null;
+        Object resObj = null;
         if (null != path2ResourceDic && path2ResourceDic.ContainsKey(resPath))
         {
-            resObj = path2ResourceDic[resPath].Res as T;
+            resObj = path2ResourceDic[resPath].Res;
         }
         return resObj;
     }
@@ -272,16 +267,15 @@ public class LuaResourceMgr
     /// <summary>
     /// 根据资源路径获取对应资源，不存在则懒加载(同步方法)
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="resPath"></param>
-    /// <param name="resLoadType"></param>
+    /// <param name="type"></param>
+    /// <param name="resLoadMode"></param>
     /// <returns></returns>
-    private T GetResourceByPath<T>(string resPath, int resLoadMode) where T : Object
+    public Object GetResourceByPath(string resPath, Type type,int resLoadMode)
     {
-
-        T resObj = null;
+        Object resObj = null;
         //先去缓存池中找，如果没有再懒加载
-        resObj = GetCacheResById<T>(resPath);
+        resObj = GetCacheResByPath(resPath,type);
 
         if (null == resObj)
         {
@@ -294,13 +288,13 @@ public class LuaResourceMgr
             {
                 if (0 == resLoadMode)
                 {
-                    resObj = resourceLoader.Load<T>(resPath);
+                    resObj = resourceLoader.Load(resPath, type);
                 }
                 else if (1 == resLoadMode)
                 {
                     //todo:从bundle加载资源
                 }
-                AddResource(resObj, resPath, typeof(T));
+                AddResource(resObj, resPath, type);
             }
         }
 
@@ -309,5 +303,57 @@ public class LuaResourceMgr
             Debug.LogWarning(string.Format("加载资源失败！路径:{0}", resPath));
         }
         return resObj;
+    }
+
+    /// <summary>
+    /// 根据资源路径获取对应资源，不存在则懒加载(异步方法)
+    /// </summary>
+    /// <param name="resPath"></param>
+    /// <param name="type"></param>
+    /// <param name="resLoadMode"></param>
+    /// <returns></returns>
+    public void GetResourceByPathAsync(string resPath, Type type, int resLoadMode,Action<Object> callback)
+    {
+        Object resObj = null;
+        //先去缓存池中找，如果没有再懒加载
+        resObj = GetCacheResByPath(resPath, type);
+
+        if (null == resObj)
+        {
+            string relativePath = GetResPathWithExtension(resPath);
+            if (string.IsNullOrEmpty(resPath))
+            {
+                Debug.LogWarning(string.Format("加载资源路径为：{0}的资源出错！资源路径不存在！", resPath));
+            }
+            else
+            {
+                if (0 == resLoadMode)
+                {
+                    resourceLoader.LoadAsync(resPath, type, (obj,path)=> {
+                        if (null != callback)
+                        {
+                            callback(obj);
+                        }
+                    });
+                }
+                else if (1 == resLoadMode)
+                {
+                    //todo:从bundle加载资源
+                }
+                AddResource(resObj, resPath, type);
+            }
+        }
+        else
+        {
+            if(null != callback)
+            {
+                callback(resObj);
+            }
+        }
+
+        if (null == resObj)
+        {
+            Debug.LogWarning(string.Format("加载资源失败！路径:{0}", resPath));
+        }
     }
 }
