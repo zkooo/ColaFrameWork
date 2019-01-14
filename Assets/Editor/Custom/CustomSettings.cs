@@ -62,6 +62,7 @@ public static class CustomSettings
         _GT(typeof(ParticleOrderAutoSorter)),
         _GT(typeof(Debugger)).SetNameSpace(null),
         _GT(typeof(TimeHelper)),
+        _GT(typeof(ColaHelper)),
 
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),
