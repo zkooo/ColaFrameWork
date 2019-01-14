@@ -23,6 +23,8 @@ local function initialize()
 	-- 模块初始化
 	ModuleManager:Instance():RegisterAllModules()
 	ModuleManager:Instance():InitAllModules()
+	ColaHelper.OnApplicationQuit = function() print("----------------->退出App1") end
+	ColaHelper.OnApplicationQuit = ColaHelper.OnApplicationQuit + function() print("----------------->退出App2") end
 end
 
 -- 在此处定义注册一些全局变量
