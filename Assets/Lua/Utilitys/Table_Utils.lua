@@ -4,6 +4,11 @@
 
 local Table_Utils = Class("Table_Utils")
 
+-- override 初始化各种数据
+function Table_Utils.initialize()
+
+end
+
 -- 深拷贝一个table
 function Table_Utils.DeepCopy(object)
     local SearchTable = {}

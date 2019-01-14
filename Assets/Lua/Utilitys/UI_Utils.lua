@@ -14,6 +14,11 @@ local COMMON_COLORS = {
 }
 local chineseNumIndex = 1
 
+-- override 初始化各种数据
+function UI_Utils.initialize()
+
+end
+
 -- 获取I18N文字
 function UI_Utils.GetText(id)
     local cfg = ConfigMgr:Instance():GetItem("Language", id)

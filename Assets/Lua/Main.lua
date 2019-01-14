@@ -10,12 +10,13 @@ function define(name,value)
 end
 
 -- 注册工具类
-local function InitUtility()
-	define("UTL",UTL)
+local function InitUtility(name)
 
-	UTL["Common"] = require("Utilitys.Common_Utils")
-	UTL["UI"] = require("Utilitys.UI_Utils")
-	UTL["Table"] = require("Utilitys.Table_Utils")
+	local status,error,ret = xpcall(require,debug.traceback,"Utilitys.Common_Utils")
+	print("---------->",status,error,ret)
+	--UTL["Common"] =
+	--UTL["UI"] = require("Utilitys.UI_Utils")
+	--UTL["Table"] = require("Utilitys.Table_Utils")
 end
 
 local function initialize()
@@ -33,6 +34,8 @@ local function gloablDefine()
 	define("Class",require("Core.middleclass"))
 	define("LuaLogHelper",require("Utilitys.LuaLogHelper"))
 	define("EventMgr",require("Mgrs.EventMgr"))
+	define("UTL",UTL)
+
 	-- 工具类的初始化
 	InitUtility()
 
