@@ -91,27 +91,47 @@ public class GameLauncher : MonoBehaviour
 
     void Update()
     {
+        if(null != ColaHelper.Update)
+        {
+            ColaHelper.Update(Time.deltaTime);
+        }
         gameManager.Update(Time.deltaTime);
     }
 
     private void LateUpdate()
     {
+        if(null != ColaHelper.LateUpdate)
+        {
+            ColaHelper.LateUpdate(Time.deltaTime);
+        }
         gameManager.LateUpdate(Time.deltaTime);
     }
 
     private void FixedUpdate()
     {
+        if(null != ColaHelper.FixedUpdate)
+        {
+            ColaHelper.FixedUpdate(Time.fixedDeltaTime);
+        }
         gameManager.FixedUpdate(Time.fixedDeltaTime);
     }
 
 
     private void OnApplicationQuit()
     {
+        if(null != ColaHelper.OnApplicationQuit)
+        {
+            ColaHelper.OnApplicationQuit();
+        }
         gameManager.OnApplicationQuit();
     }
 
     private void OnApplicationPause(bool pause)
     {
+        if(null != ColaHelper.OnApplicationPause)
+        {
+            ColaHelper.OnApplicationPause(pause);
+        }
         gameManager.OnApplicationPause(pause);
     }
 
