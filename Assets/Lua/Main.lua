@@ -25,7 +25,7 @@ end
 local function InitUtilitys()
 	define("UTL",UTL)
 
-	RegisterUtility("Common")
+	RegisterUtility("LuaCommon")
 	RegisterUtility("UI")
 	RegisterUtility("Table")
 end
@@ -71,6 +71,9 @@ function Main()
 	gloablDefine()
 	initParam()
 	initialize()
+
+	local panel = UTL.LuaCommon.InstantiateGoById(101,nil)
+	panel:SetActive(false)
 end
 
 --场景切换通知

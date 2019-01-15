@@ -288,7 +288,7 @@ public class LuaResourceMgr
             {
                 if (0 == resLoadMode)
                 {
-                    resObj = resourceLoader.Load(resPath, type);
+                    resObj = resourceLoader.Load(relativePath, type);
                 }
                 else if (1 == resLoadMode)
                 {
