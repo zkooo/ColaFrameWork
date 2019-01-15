@@ -10,13 +10,24 @@ function define(name,value)
 end
 
 -- 注册工具类
-local function InitUtility(name)
+local function RegisterUtility(name)
+	local result,utl = pcall(require,string.format("Utilitys.%s_Utils",name))
+	if result and utl then
+		UTL[name] = utl
+		--执行Utility的initialize初始化方法
+		if utl.initialize and "function" == type(utl.initialize) then
+			utl.initialize()
+		end
+	end
+end
 
-	local status,error,ret = xpcall(require,debug.traceback,"Utilitys.Common_Utils")
-	print("---------->",status,error,ret)
-	--UTL["Common"] =
-	--UTL["UI"] = require("Utilitys.UI_Utils")
-	--UTL["Table"] = require("Utilitys.Table_Utils")
+-- 工具类在这里初始化
+local function InitUtilitys()
+	define("UTL",UTL)
+
+	RegisterUtility("Common")
+	RegisterUtility("UI")
+	RegisterUtility("Table")
 end
 
 local function initialize()
@@ -34,11 +45,7 @@ local function gloablDefine()
 	define("Class",require("Core.middleclass"))
 	define("LuaLogHelper",require("Utilitys.LuaLogHelper"))
 	define("EventMgr",require("Mgrs.EventMgr"))
-	define("UTL",UTL)
-
-	-- 工具类的初始化
-	InitUtility()
-
+	InitUtilitys()
 	define("ConfigMgr",require("Mgrs.ConfigMgr"))
 	define("ModuleManager",require("Mgrs.ModuleManager"))
 	--控制全局变量的新建与访问
@@ -64,7 +71,6 @@ function Main()
 	gloablDefine()
 	initParam()
 	initialize()
-
 end
 
 --场景切换通知
