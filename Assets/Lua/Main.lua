@@ -72,8 +72,6 @@ function Main()
 	initParam()
 	initialize()
 
-	local panel = UTL.LuaCommon.InstantiateGoById(101,nil)
-	panel:SetActive(false)
 end
 
 --场景切换通知

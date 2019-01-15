@@ -28,7 +28,7 @@ function UIBase:Create()
     if nil ~= self.Panel then
         GameObject.Destroy(self.Panel)
     end
-    self.Panel = CommonHelper.InstantiateGoByID(self.ResId, GUIHelper.GetUIRootObj())
+    self.Panel = UTL.LuaCommon.InstantiateGoById(self.ResId,Common_Utils.GetUIRootObj())
     if self.sortEnable then
         self.sorterTag = self.Panel:AddSingleComponent(SorterTag)
         self.uiCanvas = self.Panel:AddSingleComponent(Canvas)
@@ -36,6 +36,7 @@ function UIBase:Create()
         self.uiCanvas.overrideSorting = true
         self.Panel:AddSingleComponent(ParticleOrderAutoSorter)
 
+        --TODO:新的UI排序管理
         CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
     end
     self:AttachListener(self.Panel)
