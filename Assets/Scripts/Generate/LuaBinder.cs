@@ -60,6 +60,7 @@ public static class LuaBinder
 		UnityEngine_ResourcesWrap.Register(L);
 		UnityEngine_AudioBehaviourWrap.Register(L);
 		L.BeginModule("UI");
+		UnityEngine_UI_GraphicRaycasterWrap.Register(L);
 		UnityEngine_UI_TextWrap.Register(L);
 		UnityEngine_UI_ImageWrap.Register(L);
 		UnityEngine_UI_RawImageWrap.Register(L);
@@ -67,6 +68,7 @@ public static class LuaBinder
 		UnityEngine_UI_GraphicWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("EventSystems");
+		UnityEngine_EventSystems_BaseRaycasterWrap.Register(L);
 		UnityEngine_EventSystems_UIBehaviourWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("Events");

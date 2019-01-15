@@ -6,6 +6,7 @@ using UnityEditor;
 
 using BindType = ToLuaMenu.BindType;
 using System.Reflection;
+using UnityEngine.UI;
 
 public static class CustomSettings
 {
@@ -63,6 +64,7 @@ public static class CustomSettings
         _GT(typeof(Debugger)).SetNameSpace(null),
         _GT(typeof(TimeHelper)),
         _GT(typeof(ColaHelper)),
+        _GT(typeof(GraphicRaycaster)),
 
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),
@@ -118,9 +120,9 @@ public static class CustomSettings
         _GT(typeof(SleepTimeout)),
 
 #region UGUI组件导出
-        _GT(typeof(UnityEngine.UI.Text)),
-        _GT(typeof(UnityEngine.UI.Image)),
-        _GT(typeof(UnityEngine.UI.RawImage)),
+        _GT(typeof(Text)),
+        _GT(typeof(Image)),
+        _GT(typeof(RawImage)),
         _GT(typeof(Canvas)),
 #endregion
 
