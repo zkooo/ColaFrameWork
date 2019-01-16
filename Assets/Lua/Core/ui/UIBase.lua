@@ -29,6 +29,7 @@ function UIBase:Create()
         GameObject.Destroy(self.Panel)
     end
     self.Panel = UTL.LuaCommon.InstantiateGoById(self.ResId,Common_Utils.GetUIRootObj())
+    -- 如果参与UI排序
     if self.sortEnable then
         self.sorterTag = self.Panel:AddSingleComponent(SorterTag)
         self.uiCanvas = self.Panel:AddSingleComponent(Canvas)
@@ -77,7 +78,7 @@ function UIBase:SetVisible(isVisible)
 end
 
 function UIBase:IsVisible()
-    return self.Panel.activeSelf
+    return nil ~= self.Panel and self.Panel.activeSelf
 end
 
 -- 销毁一个UI界面

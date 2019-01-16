@@ -3,6 +3,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// UGUI事件的处理容器
+/// </summary>
+public interface IUGUIEventHandler
+{
+    /// <summary>
+    /// 注册UIEventListener
+    /// </summary>
+    /// <param name="obj"></param>
+    void AttachListener(GameObject obj);
+
+    void AddEventaHandler(Selectable st);
+
+}
+
 public class UGUIEventListener : MonoBehaviour,
                                   IMoveHandler,
         IPointerDownHandler, IPointerUpHandler,
@@ -33,9 +48,9 @@ public class UGUIEventListener : MonoBehaviour,
     }
 
     /// <summary>
-    /// EventListener有一个统一的UIBase类型的uihandler来接收处理回调
+    /// EventListener有一个统一的uihandler来接收处理回调
     /// </summary>
-    public UIBase uiHandler;
+    public IUGUIEventHandler uiHandler;
 
     public delegate void UIEventHandler(GameObject obj);
     public delegate void UIDragEventHandlerDetail(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition);

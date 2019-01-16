@@ -8,7 +8,7 @@ using EventType = ColaFrame.EventType;
 /// <summary>
 /// UI基类
 /// </summary>
-public class UIBase : IEventHandler
+public class UIBase : IEventHandler,IUGUIEventHandler
 {
     /// <summary>
     /// 当前的UI界面GameObject
@@ -488,7 +488,7 @@ public class UIBase : IEventHandler
             }
             else             //如果想Attach一个新的对象 先清除掉原来的
             {
-                UIBase prevHandler = listener.uiHandler;
+                IUGUIEventHandler prevHandler = listener.uiHandler;
                 if (null != prevHandler) prevHandler.RemoveEventHandler(listener.gameObject);
                 listener.uiHandler = this;
             }
