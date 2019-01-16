@@ -563,7 +563,7 @@ public class UIBase : IEventHandler,IUGUIEventHandler
         }
     }
 
-    void RemoveEventHandler(GameObject obj)
+    public void RemoveEventHandler(GameObject obj)
     {
         UGUIEventListener listener = obj.GetComponent<UGUIEventListener>();
         if (listener == null) return;

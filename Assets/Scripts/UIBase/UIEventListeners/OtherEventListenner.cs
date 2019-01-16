@@ -6,11 +6,6 @@ using System;
 //用来处理一些控件独有 不能统一处理的事件
 public class OtherEventListenner : MonoBehaviour
 {
-    public delegate void StrValueChangeAction(GameObject obj, string text);
-    public delegate void FloatValueChangeAction(GameObject obj, float value);
-    public delegate void IntValueChangeAction(GameObject obj, int value);
-    public delegate void BoolValueChangeAction(GameObject obj, bool isSelect);
-    public delegate void RectValueChangeAction(GameObject obj, Vector2 rect);
     //InputField
     public StrValueChangeAction inputvalueChangeAction;
     public StrValueChangeAction inputeditEndAction;
