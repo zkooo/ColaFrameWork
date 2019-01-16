@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UGUIMsgHandler : MonoBehaviour
+public class UGUIMsgHandler : MonoBehaviour, IUGUIEventHandler
 {
     /// <summary>
     /// 注册UIEventListener
@@ -64,7 +64,7 @@ public class UGUIMsgHandler : MonoBehaviour
             }
             else             //如果想Attach一个新的对象 先清除掉原来的
             {
-                UIBase prevHandler = listener.uiHandler;
+                IUGUIEventHandler prevHandler = listener.uiHandler;
                 if (null != prevHandler) prevHandler.RemoveEventHandler(listener.gameObject);
                 listener.uiHandler = this;
             }
@@ -139,7 +139,7 @@ public class UGUIMsgHandler : MonoBehaviour
         }
     }
 
-    void RemoveEventHandler(GameObject obj)
+    public void RemoveEventHandler(GameObject obj)
     {
         UGUIEventListener listener = obj.GetComponent<UGUIEventListener>();
         if (listener == null) return;
@@ -258,12 +258,12 @@ public class UGUIMsgHandler : MonoBehaviour
     {
     }
 
-    public Action<GameObject , Vector2 > onRectValueChange;
+    public Action<GameObject, Vector2> onRectValueChange;
     public Action<GameObject, float> onFloatValueChange;
-    public Action<GameObject , bool > onBoolValueChange;
-    public Action<GameObject, string> onEditEnd;
-    public UGUIEventListener.UIEventHandler onInitializePotentialDrag;
-    public Action<GameObject , Vector2 , Vector2 > onUpDetail;
+    public Action<GameObject, bool> onBoolValueChange;
+    public StrValueChangeAction onEditEnd;
+    public UIEventHandler onInitializePotentialDrag;
+    public Action<GameObject, Vector2, Vector2> onUpDetail;
     public Action<GameObject, Vector2, Vector2> onDownDetail;
 
     /// <summary>
