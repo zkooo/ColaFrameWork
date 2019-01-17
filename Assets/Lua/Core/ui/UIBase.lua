@@ -15,6 +15,7 @@ function UIBase:initialize()
     self.uiCanvas = nil
     self.sortEnable = true
     self.sorterTag = nil
+    self.uguiMsgHandler = nil
     self:InitParam()
 end
 
@@ -127,7 +128,22 @@ function UIBase:SetOutTouchDisappear()
 end
 
 -- 注册UIEventListener
-function UIBase:AttachListener(gameObejct)
+function UIBase:AttachListener(gameObject)
+    if nil == gameObject then
+        return
+    end
+    local uguiMsgHandler = gameObject:GetComponent("UGUIMsgHandler")
+    if uguiMsgHandler == nil then
+        uguiMsgHandler = gameObject:AddComponent("UGUIMsgHandler")
+    end
+    self.uguiMsgHandler = uguiMsgHandler
+    self.uguiMsgHandler:AttachListener(gameObject)
+
+    -- BindFunction
+
+end
+
+function UIBase:UnAttachListener(gameObject)
 
 end
 
