@@ -178,93 +178,35 @@ public class UGUIMsgHandler : MonoBehaviour, IUGUIEventHandler
             otherlistenner.onEvent -= onEvent;
         }
     }
-#endregion
 
     #region UI回调事件
 
-    protected virtual void onClick(GameObject obj)
-    {
-    }
-
-    protected virtual void onDown(GameObject obj)
-    {
-    }
-
-    protected virtual void onUp(GameObject obj)
-    {
-    }
-
-    protected virtual void onEnter(GameObject obj)
-    {
-    }
-
-    protected virtual void onInitializePotentialDragHandle(GameObject obj)
-    {
-    }
-
-    protected virtual void onUpdateSelected(GameObject obj)
-    {
-    }
-
-    protected virtual void onMove(GameObject obj)
-    {
-    }
-
-    protected virtual void onSubmit(GameObject obj)
-    {
-    }
-
-    protected virtual void onCancel(GameObject obj)
-    {
-    }
-
-    protected virtual void onScroll(GameObject obj)
-    {
-    }
-
-    protected virtual void onDeSelect(GameObject obj)
-    {
-    }
-
-    protected virtual void onSelect(GameObject obj)
-    {
-    }
-
-    protected virtual void onEndDrag(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
-    {
-    }
-
-    protected virtual void onDrag(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
-    {
-    }
-
-    protected virtual void onBeginDrag(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
-    {
-    }
-
-    protected virtual void onDrop(GameObject obj)
-    {
-    }
-
-    protected virtual void onExit(GameObject obj)
-    {
-    }
-
-    protected virtual void onStrValueChange(GameObject obj, string text)
-    {
-    }
-
-    protected virtual void onIntValueChange(GameObject obj, int value)
-    {
-    }
-
-    public Action<GameObject, Vector2> onRectValueChange;
-    public Action<GameObject, float> onFloatValueChange;
-    public Action<GameObject, bool> onBoolValueChange;
+    public UIEventHandler onClick;
+    public UIEventHandler onDown;
+    public UIEventHandler onUp;
+    public UIEventHandler onEnter;
+    public UIEventHandler onInitializePotentialDragHandle;
+    public UIEventHandler onUpdateSelected;
+    public UIEventHandler onMove;
+    public UIEventHandler onSubmit;
+    public UIEventHandler onCancel;
+    public UIEventHandler onScroll;
+    public UIEventHandler onDeSelect;
+    public UIEventHandler onSelect;
+    public UIDragEventHandlerDetail onEndDrag;
+    public UIDragEventHandlerDetail onDrag;
+    public UIDragEventHandlerDetail onBeginDrag;
+    public UIEventHandler onDrop;
+    public UIEventHandler onExit;
+    public StrValueChangeAction onStrValueChange;
+    public IntValueChangeAction onIntValueChange;
+    public RectValueChangeAction onRectValueChange;
+    public FloatValueChangeAction onFloatValueChange;
+    public BoolValueChangeAction onBoolValueChange;
     public StrValueChangeAction onEditEnd;
     public UIEventHandler onInitializePotentialDrag;
-    public Action<GameObject, Vector2, Vector2> onUpDetail;
-    public Action<GameObject, Vector2, Vector2> onDownDetail;
+    public UIDragEventHandlerDetail onUpDetail;
+    public UIDragEventHandlerDetail onDownDetail;
 
     /// <summary>
     /// 触发UI事件时会触发onEvent方法(在需要的事件里面添加即可)
