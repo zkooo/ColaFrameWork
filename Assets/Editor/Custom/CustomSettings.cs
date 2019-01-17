@@ -65,6 +65,7 @@ public static class CustomSettings
         _GT(typeof(TimeHelper)),
         _GT(typeof(ColaHelper)),
         _GT(typeof(GraphicRaycaster)),
+        _GT(typeof(UGUIMsgHandler)),
 
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),
