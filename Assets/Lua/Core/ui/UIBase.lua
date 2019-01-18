@@ -43,6 +43,7 @@ function UIBase:Create()
     end
     self:AttachListener(self.Panel)
     self:OnCreate()
+    self:OnShow(self:isVisible())
 end
 
 --对外调用，用于创建UI，不走ResId加载，直接由现有gameObject创建
@@ -56,6 +57,7 @@ function UIBase:CreateWithGo(gameObejct)
         self.uiCanvas.overrideSorting = true
         self.Panel:AddSingleComponent(ParticleOrderAutoSorter)
 
+        --TODO:新的UI排序管理
         CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
     end
     self:AttachListener(self.Panel)
@@ -84,7 +86,24 @@ end
 
 -- 销毁一个UI界面
 function UIBase:Destroy()
-
+    if self.sortEnable then
+        --TODO:新的UI排序管理
+        CommonHelper.GetUIMgr().GetUISorterMgr().RemovePanel(this)
+    end
+    self:DestroySubPanels()
+    self:UnAttachListener(self.Panel)
+    if self.UILevel == UILevel.Level1 then
+        GUIHelper.GetModelOutlineCameraObj().GetComponent("ImageEffectUIBlur").FinalTexture = nil
+    end
+    if nil ~= self.Panel then
+        if 0 ~= self.ResId then
+            GameObject.Destroy(self.Panel)
+            self.Panel = nil
+        else
+            self:SetVisible(false)
+        end
+    end
+    self:OnDestroy()
 end
 
 -- 界面销毁的过程中触发
