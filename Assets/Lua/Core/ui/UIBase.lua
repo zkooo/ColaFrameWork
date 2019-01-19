@@ -77,7 +77,8 @@ end
 
 -- 设置界面可见性
 function UIBase:SetVisible(isVisible)
-
+    self.Panel:SetActive(isVisible)
+    self:OnShow(isVisible)
 end
 
 function UIBase:IsVisible()
@@ -112,23 +113,45 @@ function UIBase:OnDestroy()
 end
 
 -- 关联子UI，统一参与管理
-function UIBase:AttachSubPanel()
-
+function UIBase:AttachSubPanel(subPanelPath,subUI,uiLevel)
+    if nil == subPanelPath or subPanelPath == "" then
+        return
+    end
+    local subUIObj = self.Panel:FindChildByPath(subPanelPath)
+    if nil ~= subUIObj then
+        subUI:CreateWithGo(subUIObj,uiLevel)
+        table.insert(self.subUIList,subUI)
+    end
 end
 
 -- 将一个UI界面注册为本UI的子界面，统一参与管理
-function UIBase:RegisterSubPanel()
-
+function UIBase:RegisterSubPanel(subUI)
+    if nil == subUI then
+        return
+    end
+    subUI.uiDepthLayer = self.uiDepthLayer
+    table.insert(self.subUIList,subUI)
 end
 
 -- 解除子UI关联
-function UIBase:DetchSubPanel()
-
+function UIBase:DetchSubPanel(subUI)
+    if nil ~= self.subUIList then
+        table.remove(subUI)
+    end
 end
 
 --  销毁关联的子面板，不要重写
 function UIBase:DestroySubPanels()
-
+    if nil ~= self.subUIList then
+        for _,v in ipairs(self.subUIList) do
+            v:Destroy()
+            v.Panel = nil
+        end
+    end
+    for _,v in pairs(self.subUIList) do
+        v = nil
+    end
+    self.subUIList = {}
 end
 
 -- 将当前UI层级提高，展示在当前Level的最上层
