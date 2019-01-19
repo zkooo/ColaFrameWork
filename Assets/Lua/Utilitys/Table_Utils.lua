@@ -28,4 +28,12 @@ function Table_Utils.DeepCopy(object)
     return Func(object)
 end
 
+-- 清空一个Table
+function Table_Utils.ClearTable(t)
+    for _,v in pairs(t) do
+        v = nil
+    end
+    t = nil
+end
+
 return Table_Utils
