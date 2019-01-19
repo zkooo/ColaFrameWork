@@ -43,6 +43,7 @@ function UIBase:Create()
     end
     self:AttachListener(self.Panel)
     self:OnCreate()
+    self:RegisterEvent()
     self:OnShow(self:isVisible())
 end
 
@@ -62,6 +63,7 @@ function UIBase:CreateWithGo(gameObejct)
     end
     self:AttachListener(self.Panel)
     self:OnCreate()
+    self:RegisterEvent()
     self:OnShow(self:IsVisible())
 end
 
@@ -89,13 +91,14 @@ end
 function UIBase:Destroy()
     if self.sortEnable then
         --TODO:新的UI排序管理
-        CommonHelper.GetUIMgr().GetUISorterMgr().RemovePanel(this)
+        --CommonHelper.GetUIMgr().GetUISorterMgr().RemovePanel(this)
     end
     self:DestroySubPanels()
+    self:UnRegisterEvent()
     self:UnAttachListener(self.Panel)
-    if self.UILevel == UILevel.Level1 then
-        GUIHelper.GetModelOutlineCameraObj().GetComponent("ImageEffectUIBlur").FinalTexture = nil
-    end
+    --if self.UILevel == UILevel.Level1 then
+    --    GUIHelper.GetModelOutlineCameraObj().GetComponent("ImageEffectUIBlur").FinalTexture = nil
+    --end
     if nil ~= self.Panel then
         if 0 ~= self.ResId then
             GameObject.Destroy(self.Panel)
@@ -156,17 +159,21 @@ end
 
 -- 将当前UI层级提高，展示在当前Level的最上层
 function UIBase:BringTop()
-
+    --TODO:新的UISorter
+    --local uiSorterMgr = CommonHelper.GetUIMgr().GetUISorterMgr();
+    --uiSorterMgr.MovePanelToTop(this);
 end
 
 -- 显示UI背景模糊
 function UIBase:ShowUIBlur()
-
+    --TODO:新的UIMgr
+    --CommonHelper.GetUIMgr().ShowUIBlur(this);
 end
 
 -- 设置点击外部关闭(执行该方法以后，当点击其他UI的时候，会自动关闭本UI)
 function UIBase:SetOutTouchDisappear()
-
+    -- TODO:新的UIMgr
+    --CommonHelper.GetUIMgr().SetOutTouchDisappear(this);
 end
 
 -- 注册UIEventListener
