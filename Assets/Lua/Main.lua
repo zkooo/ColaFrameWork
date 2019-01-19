@@ -70,6 +70,11 @@ function Main()
 	initParam()
 	initialize()
 
+	--Test
+	local UILogin = require("Modules.Login.View.UILogin")
+	local uiLoginPanel = UILogin:new()
+	uiLoginPanel:Create()
+
 end
 
 --场景切换通知
