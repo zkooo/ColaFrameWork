@@ -32,14 +32,14 @@ function UIBase:Create()
     self.Panel = UTL.LuaCommon.InstantiateGoById(self.ResId,Common_Utils.GetUIRootObj())
     -- 如果参与UI排序
     if self.sortEnable then
-        self.sorterTag = self.Panel:AddSingleComponent(SorterTag)
-        self.uiCanvas = self.Panel:AddSingleComponent(Canvas)
-        self.Panel:AddSingleComponent(GraphicRaycaster)
+        self.sorterTag = self.Panel:AddSingleComponent(typeof(SorterTag))
+        self.uiCanvas = self.Panel:AddSingleComponent(typeof(UnityEngine.Canvas))
+        self.Panel:AddSingleComponent(typeof(UnityEngine.UI.GraphicRaycaster))
         self.uiCanvas.overrideSorting = true
-        self.Panel:AddSingleComponent(ParticleOrderAutoSorter)
+        self.Panel:AddSingleComponent(typeof(ParticleOrderAutoSorter))
 
         --TODO:新的UI排序管理
-        CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
+        --CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
     end
     self:AttachListener(self.Panel)
     self:OnCreate()
@@ -52,14 +52,14 @@ function UIBase:CreateWithGo(gameObejct)
     self.Panel = gameObejct
     self.Panel = CommonHelper.InstantiateGoByID(self.ResId, GUIHelper.GetUIRootObj())
     if self.sortEnable then
-        self.sorterTag = self.Panel:AddSingleComponent(SorterTag)
-        self.uiCanvas = self.Panel:AddSingleComponent(Canvas)
-        self.Panel:AddSingleComponent(GraphicRaycaster)
+        self.sorterTag = self.Panel:AddSingleComponent(typeof(SorterTag))
+        self.uiCanvas = self.Panel:AddSingleComponent(typeof(UnityEngine.Canvas))
+        self.Panel:AddSingleComponent(typeof(UnityEngine.GraphicRaycaster))
         self.uiCanvas.overrideSorting = true
-        self.Panel:AddSingleComponent(ParticleOrderAutoSorter)
+        self.Panel:AddSingleComponent(typeof(ParticleOrderAutoSorter))
 
         --TODO:新的UI排序管理
-        CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
+        --CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
     end
     self:AttachListener(self.Panel)
     self:OnCreate()
@@ -183,7 +183,7 @@ function UIBase:AttachListener(gameObject)
     end
     local uguiMsgHandler = gameObject:GetComponent("UGUIMsgHandler")
     if uguiMsgHandler == nil then
-        uguiMsgHandler = gameObject:AddComponent("UGUIMsgHandler")
+        uguiMsgHandler = gameObject:AddComponent(typeof(UGUIMsgHandler))
     end
     self.uguiMsgHandler = uguiMsgHandler
     self.uguiMsgHandler:AttachListener(gameObject)

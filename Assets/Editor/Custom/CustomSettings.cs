@@ -64,7 +64,6 @@ public static class CustomSettings
         _GT(typeof(Debugger)).SetNameSpace(null),
         _GT(typeof(TimeHelper)),
         _GT(typeof(ColaHelper)),
-        _GT(typeof(GraphicRaycaster)),
         _GT(typeof(UGUIMsgHandler)),
 
 #if USING_DOTWEENING
@@ -125,6 +124,7 @@ public static class CustomSettings
         _GT(typeof(Image)),
         _GT(typeof(RawImage)),
         _GT(typeof(Canvas)),
+        _GT(typeof(GraphicRaycaster)),
 #endregion
 
 #if UNITY_5_3_OR_NEWER && !UNITY_5_6_OR_NEWER
