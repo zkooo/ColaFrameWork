@@ -19,7 +19,7 @@ function UILogin:OnShow(isShow)
 end
 
 function UILogin:onClick(obj)
-    print("---------------------->UILogin Click",obj)
+    print("---------------------->UILogin Click",obj.name)
 end
 
 function UILogin.OnClick(param)

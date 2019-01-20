@@ -188,14 +188,14 @@ function UIBase:AttachListener(gameObject)
     self.uguiMsgHandler = uguiMsgHandler
 
     -- BindFunction
-    self.uguiMsgHandler.onClick = self.onClick
-    self.uguiMsgHandler.onBoolValueChange = self.onBoolValueChange
-    self.uguiMsgHandler.onEvent = self.onEvent
-    self.uguiMsgHandler.onFloatValueChange = self.onFloatValueChange
-    self.uguiMsgHandler.onStrValueChange = self.onStrValueChange
-    self.uguiMsgHandler.onDrag = self.onDrag
-    self.uguiMsgHandler.onBeginDrag = self.onBeginDrag
-    self.uguiMsgHandler.onEndDrag = self.onEndDrag
+    self.uguiMsgHandler.onClick = function(obj) self:onClick(obj) end
+    self.uguiMsgHandler.onBoolValueChange = function(obj, isSelect) self:onBoolValueChange(obj, isSelect) end
+    self.uguiMsgHandler.onEvent = function(eventName) self:onEvent(eventName) end
+    self.uguiMsgHandler.onFloatValueChange = function(obj, value) self:onFloatValueChange(obj, value) end
+    self.uguiMsgHandler.onStrValueChange = function(obj, text) self:onStrValueChange(obj, text) end
+    self.uguiMsgHandler.onDrag = function (obj, deltaPos, curToucPosition) self:onDrag(obj, deltaPos, curToucPosition)end
+    self.uguiMsgHandler.onBeginDrag = function(obj, deltaPos, curToucPosition) self:onBeginDrag(obj, deltaPos, curToucPosition) end
+    self.uguiMsgHandler.onEndDrag = function(obj, deltaPos, curToucPosition) self:onEndDrag(obj, deltaPos, curToucPosition) end
 
     self.uguiMsgHandler:AttachListener(gameObject)
 end
