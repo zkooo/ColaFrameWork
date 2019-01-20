@@ -186,7 +186,6 @@ function UIBase:AttachListener(gameObject)
         uguiMsgHandler = gameObject:AddComponent(typeof(UGUIMsgHandler))
     end
     self.uguiMsgHandler = uguiMsgHandler
-    self.uguiMsgHandler:AttachListener(gameObject)
 
     -- BindFunction
     self.uguiMsgHandler.onClick = self.onClick
@@ -197,6 +196,8 @@ function UIBase:AttachListener(gameObject)
     self.uguiMsgHandler.onDrag = self.onDrag
     self.uguiMsgHandler.onBeginDrag = self.onBeginDrag
     self.uguiMsgHandler.onEndDrag = self.onEndDrag
+
+    self.uguiMsgHandler:AttachListener(gameObject)
 end
 
 function UIBase:UnAttachListener(gameObject)
@@ -206,10 +207,7 @@ function UIBase:UnAttachListener(gameObject)
     if self.uguiMsgHandler then
         self.uguiMsgHandler:UnAttachListener(gameObject)
     end
-    self.uguiMsgHandler = nil
-
     --UnBindFunction
-    -- BindFunction
     self.uguiMsgHandler.onClick = nil
     self.uguiMsgHandler.onBoolValueChange = nil
     self.uguiMsgHandler.onEvent = nil
@@ -218,6 +216,9 @@ function UIBase:UnAttachListener(gameObject)
     self.uguiMsgHandler.onDrag = nil
     self.uguiMsgHandler.onBeginDrag = nil
     self.uguiMsgHandler.onEndDrag = nil
+
+    self.uguiMsgHandler = nil
+
 end
 
 -- 注册UI事件监听
@@ -232,7 +233,7 @@ end
 
 ------------------- UI事件回调 --------------------------
 function UIBase:onClick(obj)
-
+    
 end
 
 function UIBase:onBoolValueChange(obj, isSelect)
