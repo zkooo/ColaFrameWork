@@ -44,7 +44,7 @@ function UIBase:Create()
     self:AttachListener(self.Panel)
     self:OnCreate()
     self:RegisterEvent()
-    self:OnShow(self:isVisible())
+    self:OnShow(self:IsVisible())
 end
 
 --对外调用，用于创建UI，不走ResId加载，直接由现有gameObject创建
