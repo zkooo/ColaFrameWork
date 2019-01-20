@@ -233,7 +233,7 @@ end
 
 ------------------- UI事件回调 --------------------------
 function UIBase:onClick(obj)
-    
+
 end
 
 function UIBase:onBoolValueChange(obj, isSelect)
