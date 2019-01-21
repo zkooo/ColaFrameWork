@@ -122,5 +122,5 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
             this.onInitializePotentialDrag(gameObject);
         }
     }
-                
+
 }

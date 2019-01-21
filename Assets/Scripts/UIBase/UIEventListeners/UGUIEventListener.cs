@@ -246,7 +246,6 @@ public class UGUIEventListener : MonoBehaviour,
 
     public virtual void OnApplicationQuit()
     {
-        Debug.Log("-------------->OnApplicationQuit");
         this.onClick = null;
         this.onDown = null;
         this.onUp = null;

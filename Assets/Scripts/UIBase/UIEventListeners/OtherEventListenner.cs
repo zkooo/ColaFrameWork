@@ -165,5 +165,17 @@ public class OtherEventListenner : MonoBehaviour
             }
         };
     }
+
+    public virtual void OnApplicationQuit()
+    {
+        this.inputvalueChangeAction = null;
+        this.inputeditEndAction = null;
+        this.togglevalueChangeAction = null;
+        this.scrollbarvalueChangeAction = null;
+        this.slidervalueChangeAction = null;
+        this.dropdownvalueChangeAction = null;
+        this.scrollrectvalueChangeAction = null;
+        this.onEvent = null;
+    }
 }
 
