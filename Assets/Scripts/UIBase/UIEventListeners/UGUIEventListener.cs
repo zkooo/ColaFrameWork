@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -244,6 +244,30 @@ public class UGUIEventListener : MonoBehaviour,
         }
     }
 
+    public virtual void OnApplicationQuit()
+    {
+        Debug.Log("-------------->OnApplicationQuit");
+        this.onClick = null;
+        this.onDown = null;
+        this.onUp = null;
+        this.onDownDetail = null;
+        this.onUpDetail = null; ;
+        this.onDrag = null;
+        this.onExit = null;
+        this.onDrop = null;
+        this.onSelect = null;
+        this.onDeSelect = null;
+        this.onMove = null;
+        this.onBeginDrag = null;
+        this.onEndDrag = null;
+        this.onEnter = null;
+        this.onSubmit = null;
+        this.onScroll = null;
+        this.onCancel = null;
+        this.onUpdateSelected = null;
+        this.onInitializePotentialDrag = null;
+        this.onEvent = null;
+    }
 
     //public static UGUIEventListener GetEventListenner(GameObject obj)
     //{
