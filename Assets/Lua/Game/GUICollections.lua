@@ -5,3 +5,5 @@
 local GUICollections = {
     ["xxx"] = require(""),
 }
+
+return GUICollections

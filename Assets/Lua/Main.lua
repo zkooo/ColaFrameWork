@@ -39,10 +39,13 @@ end
 
 -- 在此处定义注册一些全局变量
 local function gloablDefine()
+	require("Common.ECEnumType")
 	-- 必须首先注册全局Class,顺序敏感
 	define("Class",require("Core.middleclass"))
 	define("LuaLogHelper",require("Utilitys.LuaLogHelper"))
 	define("EventMgr",require("Mgrs.EventMgr"))
+	require("Game.GUICollections")
+	require("Game.Modules")
 	InitUtilitys()
 	define("ConfigMgr",require("Mgrs.ConfigMgr"))
 	define("ModuleManager",require("Mgrs.ModuleManager"))

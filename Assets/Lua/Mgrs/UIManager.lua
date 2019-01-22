@@ -2,6 +2,7 @@
 --- UIManager UI管理器
 ---
 
+local GUICollections = require("Game.GUICollections")
 local UIManager = Class("UIManager")
 
 UIManager._instance = nil
@@ -18,6 +19,10 @@ function UIManager:Instance()
         UIManager._instance = UIManager:new()
     end
     return UIManager._instance
+end
+
+function UIManager:RegisterEvent()
+
 end
 
 return
