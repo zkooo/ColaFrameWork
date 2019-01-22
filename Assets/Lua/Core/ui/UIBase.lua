@@ -241,7 +241,10 @@ function UIBase:onBoolValueChange(obj, isSelect)
 end
 
 function UIBase:onEvent(eventName)
-
+    if eventName == "onClick" then
+        --TODO:新的UIMgr
+        --CommonHelper.GetUIMgr().NotifyDisappear(Name)
+    end
 end
 
 function UIBase:onFloatValueChange(obj, value)
