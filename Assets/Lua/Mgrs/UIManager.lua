@@ -21,7 +21,73 @@ function UIManager:Instance()
     return UIManager._instance
 end
 
+-- 注册事件
 function UIManager:RegisterEvent()
+
+end
+
+-- 设置一个UI界面参与点击其他地方关闭面板管理
+function UIManager:SetOutTouchDisappear(ui)
+
+end
+
+-- 分发处理点击其他地方关闭面板
+function UIManager:NotifyDisappear(panelName)
+
+end
+
+-- 打开一个UI
+function UIManager:Open(UIEnum)
+
+end
+
+-- 关闭一个UI
+function UIManager:Close(UIEnum)
+
+end
+
+-- 根据UI枚举获得UI界面实例
+function UIManager:GetViewByType(UIEnum)
+
+end
+
+-- 打开界面，带有返回值
+function UIManager:OpenUIWithReturn(UIEnum)
+
+end
+
+-- 恢复显示之前记录下来的隐藏UI
+function UIManager:PopAndShowAllUI()
+
+end
+
+-- 记录并隐藏除了指定类型的当前显示的所有UI
+function UIManager:StashAndHideAllUI(extUITypes)
+
+end
+
+-- 统一关闭属于某一UI层
+function UIManager:CloseUIByLevel(level)
+
+end
+
+-- 显示UI背景模糊
+function UIManager:ShowUIBlur(ui)
+
+end
+
+-- 创建UI背景模糊
+function UIManager:CreateUIBlur(ui,blurName)
+
+end
+
+-- 设置背景模糊RawImage
+function UIManager:SetBlurRawImage(rawImage)
+
+end
+
+--  获取UI排序管理器
+function UIManager:GetUISorterMgr()
 
 end
 
