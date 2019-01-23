@@ -166,14 +166,13 @@ end
 
 -- 显示UI背景模糊
 function UIBase:ShowUIBlur()
-    --TODO:新的UIMgr
-    --CommonHelper.GetUIMgr().ShowUIBlur(this);
+    UIManager:Instance():ShowUIBlur(self)
 end
 
 -- 设置点击外部关闭(执行该方法以后，当点击其他UI的时候，会自动关闭本UI)
 function UIBase:SetOutTouchDisappear()
-    -- TODO:新的UIMgr
-    --CommonHelper.GetUIMgr().SetOutTouchDisappear(this);
+    UIManager:Instance():SetOutTouchDisappear(self)
+
 end
 
 -- 注册UIEventListener
@@ -242,8 +241,7 @@ end
 
 function UIBase:onEvent(eventName)
     if eventName == "onClick" then
-        --TODO:新的UIMgr
-        --CommonHelper.GetUIMgr().NotifyDisappear(Name)
+        UIManager:Instance():NotifyDisappear()
     end
 end
 
