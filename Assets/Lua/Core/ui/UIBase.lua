@@ -16,6 +16,7 @@ function UIBase:initialize()
     self.sortEnable = true
     self.sorterTag = nil
     self.uguiMsgHandler = nil
+    self.PanelName = ""
     self:InitParam()
 end
 
@@ -30,6 +31,8 @@ function UIBase:Create()
         GameObject.Destroy(self.Panel)
     end
     self.Panel = UTL.LuaCommon.InstantiateGoById(self.ResId,Common_Utils.GetUIRootObj())
+    self.PanelName = self.Panel.name
+    print("--------------->UI名称",self.PanelName)
     -- 如果参与UI排序
     if self.sortEnable then
         self.sorterTag = self.Panel:AddSingleComponent(typeof(SorterTag))
@@ -50,7 +53,7 @@ end
 --对外调用，用于创建UI，不走ResId加载，直接由现有gameObject创建
 function UIBase:CreateWithGo(gameObejct)
     self.Panel = gameObejct
-    self.Panel = CommonHelper.InstantiateGoByID(self.ResId, GUIHelper.GetUIRootObj())
+    self.PanelName = self.Panel.name
     if self.sortEnable then
         self.sorterTag = self.Panel:AddSingleComponent(typeof(SorterTag))
         self.uiCanvas = self.Panel:AddSingleComponent(typeof(UnityEngine.Canvas))
