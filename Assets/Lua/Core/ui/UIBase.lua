@@ -32,7 +32,6 @@ function UIBase:Create()
     end
     self.Panel = UTL.LuaCommon.InstantiateGoById(self.ResId,Common_Utils.GetUIRootObj())
     self.PanelName = self.Panel.name
-    print("--------------->UI名称",self.PanelName)
     -- 如果参与UI排序
     if self.sortEnable then
         self.sorterTag = self.Panel:AddSingleComponent(typeof(SorterTag))
@@ -244,7 +243,7 @@ end
 
 function UIBase:onEvent(eventName)
     if eventName == "onClick" then
-        UIManager:Instance():NotifyDisappear()
+        UIManager:Instance():NotifyDisappear(self.PanelName)
     end
 end
 
