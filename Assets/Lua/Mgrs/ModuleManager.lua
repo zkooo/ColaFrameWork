@@ -3,7 +3,7 @@
 ---
 
 local ModuleManager = Class("ModuleManager")
-local Modules = require("Game.Modules")
+local Modules = require("Game.Main.Modules")
 
 ModuleManager._instance = nil
 
