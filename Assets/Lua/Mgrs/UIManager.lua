@@ -2,7 +2,7 @@
 --- UIManager UI管理器
 ---
 
-local GUICollections = require("Game.GUICollections")
+local GUICollections = require("Game.Main.GUICollections")
 local UIManager = Class("UIManager")
 
 UIManager._instance = nil
