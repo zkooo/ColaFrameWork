@@ -4,6 +4,6 @@
 
 local NotifyId = {}
 
-NotifyId.Common = require "Game.Common.NotifyId"
+NotifyId.Common = require "Modules.Common.NotifyId"
 
 return NotifyId
