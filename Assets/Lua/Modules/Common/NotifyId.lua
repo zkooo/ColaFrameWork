@@ -6,3 +6,5 @@
      CREATE_PANEL = 0,       -- 创建UIPanel
      DESTROY_PANEL = 1,      -- 销毁UIPanel
  }
+
+return NotifyId

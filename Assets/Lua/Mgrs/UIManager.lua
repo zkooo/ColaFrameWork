@@ -23,7 +23,14 @@ end
 
 -- 注册事件
 function UIManager:RegisterEvent()
-    EventMgr:Instance():RegisterEvent(Modules)
+    -- 创建界面
+    EventMgr:Instance():RegisterEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,function(UIEnum)
+        self:Open(UIEnum)
+    end)
+    -- 销毁界面
+    EventMgr:Instance():RegisterEvent(Modules.moduleId.Common,Modules.notifyId.Common.DESTROY_PANEL,function(UIEnum)
+        self:Close(UIEnum)
+    end)
 end
 
 -- 设置一个UI界面参与点击其他地方关闭面板管理
