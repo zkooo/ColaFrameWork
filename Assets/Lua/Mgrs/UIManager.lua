@@ -23,7 +23,7 @@ end
 
 -- 注册事件
 function UIManager:RegisterEvent()
-
+    EventMgr:Instance():RegisterEvent(Modules)
 end
 
 -- 设置一个UI界面参与点击其他地方关闭面板管理
