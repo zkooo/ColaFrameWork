@@ -45,12 +45,16 @@ end
 
 -- 打开一个UI
 function UIManager:Open(UIEnum)
-
+    if GUICollections and GUICollections[UIEnum] then
+        GUICollections[UIEnum].Instance():Open()
+    end
 end
 
 -- 关闭一个UI
 function UIManager:Close(UIEnum)
-
+    if GUICollections and GUICollections[UIEnum] then
+        GUICollections[UIEnum].Instance():Close()
+    end
 end
 
 -- 根据UI枚举获得UI界面实例
