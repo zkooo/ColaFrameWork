@@ -73,6 +73,7 @@ function Main()
 	initParam()
 	initialize()
 
+
 end
 
 --场景切换通知
