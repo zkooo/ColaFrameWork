@@ -12,6 +12,9 @@ function UIManager:initialize()
     self.outTouchList = {} -- 用于存储参与点击其他地方关闭面板管理的UI的列表
     self.removeList = {} -- 存储要进行统一关闭面板的列表
     self.recordList = {} -- 存储统一隐藏/恢复显示的UI列表
+
+    -- 注册事件
+    self:RegisterEvent()
 end
 
 function UIManager:Instance()
@@ -46,14 +49,14 @@ end
 -- 打开一个UI
 function UIManager:Open(UIEnum)
     if GUICollections and GUICollections[UIEnum] then
-        GUICollections[UIEnum].Instance():Open()
+        GUICollections[UIEnum].Instance():Create()
     end
 end
 
 -- 关闭一个UI
 function UIManager:Close(UIEnum)
     if GUICollections and GUICollections[UIEnum] then
-        GUICollections[UIEnum].Instance():Close()
+        GUICollections[UIEnum].Instance():Destroy()
     end
 end
 
@@ -102,4 +105,4 @@ function UIManager:GetUISorterMgr()
 
 end
 
-return
+return UIManager

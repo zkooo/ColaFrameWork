@@ -1,6 +1,15 @@
 local UIBase = require("Core.ui.UIBase")
 local UILogin = Class("UILogin",UIBase)
 
+local _instance = nil
+
+function UILogin.Instance()
+    if nil == _instance then
+        _instance = UILogin:new()
+    end
+    return _instance
+end
+
 -- virtual 子类可以初始化一些变量,ResId要在这里赋值
 function UILogin:InitParam()
     self.ResId = 100
