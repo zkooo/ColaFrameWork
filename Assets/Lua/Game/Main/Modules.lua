@@ -6,7 +6,7 @@ local Modules = {}
 _G.Modules = Modules
 
 Modules.moduleId = require("Game.Main.ModuleId")
-Modules.notifyId = require("Game.Main.ModuleId")
+Modules.notifyId = require("Game.Main.NotifyId")
 
 Modules.moduleList = {
     ---require("Modules.Login.Module.LoginModule")

@@ -73,7 +73,8 @@ function Main()
 	initParam()
 	initialize()
 
-
+	print("-------------->",Modules)
+	--EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
 end
 
 --场景切换通知
