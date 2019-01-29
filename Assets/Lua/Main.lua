@@ -74,8 +74,12 @@ function Main()
 	initParam()
 	initialize()
 
-	print("--------->派发消息")
 	EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
+
+	-- 5s后自动关闭界面
+	TimeHelper.SetTimer(function()
+		EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.DESTROY_PANEL,ECEnumType.UIEnum.Login)
+	end,5)
 end
 
 --场景切换通知
