@@ -27,18 +27,27 @@ end
 -- 注册事件
 function UIManager:RegisterEvent()
     -- 创建界面
-    EventMgr:Instance():RegisterEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,function(UIEnum)
+    EventMgr:Instance():RegisterEvent(Modules.moduleId.Common, Modules.notifyId.Common.CREATE_PANEL, function(UIEnum)
         self:Open(UIEnum)
     end)
     -- 销毁界面
-    EventMgr:Instance():RegisterEvent(Modules.moduleId.Common,Modules.notifyId.Common.DESTROY_PANEL,function(UIEnum)
+    EventMgr:Instance():RegisterEvent(Modules.moduleId.Common, Modules.notifyId.Common.DESTROY_PANEL, function(UIEnum)
         self:Close(UIEnum)
     end)
 end
 
 -- 设置一个UI界面参与点击其他地方关闭面板管理
 function UIManager:SetOutTouchDisappear(ui)
-
+    -- 把UI加到outlist里面
+    local isContain = false
+    for _, v in ipairs(self.outTouchList) do
+        if v == ui then
+            isContain = true
+        end
+    end
+    if not isContain then
+        table.insert(self.outTouchList, 1, ui)
+    end
 end
 
 -- 分发处理点击其他地方关闭面板
@@ -91,7 +100,7 @@ function UIManager:ShowUIBlur(ui)
 end
 
 -- 创建UI背景模糊
-function UIManager:CreateUIBlur(ui,blurName)
+function UIManager:CreateUIBlur(ui, blurName)
 
 end
 
