@@ -52,7 +52,20 @@ end
 
 -- 分发处理点击其他地方关闭面板
 function UIManager:NotifyDisappear(panelName)
-
+    self.removeList = {}
+    for k,v in ipairs(self.outTouchList) do
+        if nil ~= v and v.PanelName ~= panelName then
+            v:Destroy()
+            self.removeList[k] = true
+            break  --每次只关闭一个界面
+        end
+    end
+    -- 从outTouch列表中移除已经关闭的UI界面
+    for i = #self.outTouchList, 1, -1 do
+        if self.removeList[i] then
+            table.remove(self.outTouchList, i)
+        end
+    end
 end
 
 -- 打开一个UI
