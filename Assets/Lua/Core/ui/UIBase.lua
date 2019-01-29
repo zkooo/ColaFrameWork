@@ -28,7 +28,7 @@ end
 -- 对外调用，用于创建UI
 function UIBase:Create()
     if nil ~= self.Panel then
-        GameObject.Destroy(self.Panel)
+        UnityEngine.GameObject.Destroy(self.Panel)
     end
     self.Panel = UTL.LuaCommon.InstantiateGoById(self.ResId,Common_Utils.GetUIRootObj())
     self.PanelName = self.Panel.name
@@ -103,7 +103,7 @@ function UIBase:Destroy()
     --end
     if nil ~= self.Panel then
         if 0 ~= self.ResId then
-            GameObject.Destroy(self.Panel)
+            UnityEngine.GameObject.Destroy(self.Panel)
             self.Panel = nil
         else
             self:SetVisible(false)
