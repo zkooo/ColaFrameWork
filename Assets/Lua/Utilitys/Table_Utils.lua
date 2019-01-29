@@ -30,10 +30,27 @@ end
 
 -- 清空一个Table
 function Table_Utils.ClearTable(t)
-    for _,v in pairs(t) do
+    for _, v in pairs(t) do
         v = nil
     end
     t = nil
+end
+
+-- 判断table中是否包含某个值
+function Table_Utils.Contains(list, value)
+    local isContain = false
+    if nil == list or nil == value then
+        return false
+    end
+    if "table" ~= type(list) then
+        return false
+    end
+    for _, v in ipairs(list) do
+        if v == value then
+            isContain = true
+        end
+    end
+    return isContain
 end
 
 return Table_Utils

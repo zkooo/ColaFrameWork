@@ -80,6 +80,9 @@ function Main()
 	TimeHelper.SetTimer(function()
 		EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.DESTROY_PANEL,ECEnumType.UIEnum.Login)
 	end,5)
+
+	print(UTL.Table.Contains({1,2,3,4,5},20))
+	print(UTL.Table.Contains({1,2,3,4,5},2))
 end
 
 --场景切换通知
