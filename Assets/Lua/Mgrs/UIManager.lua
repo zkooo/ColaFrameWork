@@ -107,7 +107,14 @@ end
 
 -- 显示UI背景模糊
 function UIManager:ShowUIBlur(ui)
-
+    local uiBlurName = string.format("blur_%s",ui.PanelName)
+    local uiBlurObj = ui.Panel:FindChildByPath(uiBlurName)
+    if nil ~= uiBlurObj then
+        local rawImage = uiBlurObj:GetComponent("RawImage")
+        self:SetBlurRawImage(rawImage)
+    else
+        self:CreateUIBlur(ui, uiBlurName)
+    end
 end
 
 -- 创建UI背景模糊
