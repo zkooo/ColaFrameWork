@@ -84,12 +84,10 @@ end
 
 -- 根据UI枚举获得UI界面实例
 function UIManager:GetViewByType(UIEnum)
-
-end
-
--- 打开界面，带有返回值
-function UIManager:OpenUIWithReturn(UIEnum)
-
+    if GUICollections and GUICollections[UIEnum] then
+        return GUICollections[UIEnum].Instance()
+    end
+    return nil
 end
 
 -- 恢复显示之前记录下来的隐藏UI
