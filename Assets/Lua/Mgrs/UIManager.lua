@@ -92,18 +92,25 @@ end
 
 -- 恢复显示之前记录下来的隐藏UI
 function UIManager:PopAndShowAllUI()
-
+    if self.recordList and next(self.recordList) ~= nil then
+        for _,v in ipairs(self.recordList) do
+            v:SetVisible(true)
+        end
+    end
+    self.recordList = {}
+    EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED,{state = true})
 end
 
 -- 记录并隐藏除了指定类型的当前显示的所有UI
 function UIManager:StashAndHideAllUI(UIEnum, extUI)
     self.recordList = {}
-    for k, v in ipairs(self.uiList) do
+    for _, v in ipairs(self.uiList) do
         if v and v:IsVisible() and v.PanelName ~= extUI.PanelName then
             table.insert(self.recordList,v)
             v:SetVisible(false)
         end
     end
+    EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED,{state = false})
 end
 
 -- 统一关闭属于某一UI层
