@@ -53,7 +53,7 @@ end
 -- 分发处理点击其他地方关闭面板
 function UIManager:NotifyDisappear(panelName)
     self.removeList = {}
-    for k,v in ipairs(self.outTouchList) do
+    for k, v in ipairs(self.outTouchList) do
         if nil ~= v and v.PanelName ~= panelName then
             v:Destroy()
             self.removeList[k] = true
@@ -96,8 +96,14 @@ function UIManager:PopAndShowAllUI()
 end
 
 -- 记录并隐藏除了指定类型的当前显示的所有UI
-function UIManager:StashAndHideAllUI(extUITypes)
-
+function UIManager:StashAndHideAllUI(UIEnum, extUI)
+    self.recordList = {}
+    for k, v in ipairs(self.uiList) do
+        if v and v:IsVisible() and v.PanelName ~= extUI.PanelName then
+            table.insert(self.recordList,v)
+            v:SetVisible(false)
+        end
+    end
 end
 
 -- 统一关闭属于某一UI层
@@ -107,7 +113,7 @@ end
 
 -- 显示UI背景模糊
 function UIManager:ShowUIBlur(ui)
-    local uiBlurName = string.format("blur_%s",ui.PanelName)
+    local uiBlurName = string.format("blur_%s", ui.PanelName)
     local uiBlurObj = ui.Panel:FindChildByPath(uiBlurName)
     if nil ~= uiBlurObj then
         local rawImage = uiBlurObj:GetComponent("RawImage")
