@@ -21,4 +21,15 @@ ECEnumType.UILevel =
     Level3 =3,		-- Level3 的界面之间打开一个新的界面成功后会销毁另外一个
 }
 
+-- UI 的层级，上下级显示，渲染的层级
+ECEnumType.UIDepth =
+{
+    BOTTOMMOST = 1,  -- 最下面的一层
+    BOTTOM = 2,      -- 较低的层级
+    NORMAL = 3,      -- 正常的层级
+    TOP = 4,         -- 顶层
+    TOPMOST = 5,     -- 最顶层，显示在最上面
+    DEBUG = 6,       -- 用于调试的层级
+}
+
 return ECEnumType
