@@ -72,6 +72,7 @@ end
 function UIManager:Open(UIEnum)
     if GUICollections and GUICollections[UIEnum] then
         GUICollections[UIEnum].Instance():Create()
+        table.insert(self.uiList,GUICollections[UIEnum].Instance())
     end
 end
 
