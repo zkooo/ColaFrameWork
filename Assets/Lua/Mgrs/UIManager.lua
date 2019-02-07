@@ -80,16 +80,16 @@ end
 function UIManager:Close(UIEnum)
     if GUICollections and GUICollections[UIEnum] then
         GUICollections[UIEnum].Instance():Destroy()
-    end
 
-    --移除uiList中的UI实例
-    local rmIndex = -1
-    for i = 1, #self.uiList do
-        if self.uiList[i] == GUICollections[UIEnum].Instance() then
-            rmIndex = i
+        --移除uiList中的UI实例
+        local rmIndex = -1
+        for i = 1, #self.uiList do
+            if self.uiList[i] == GUICollections[UIEnum].Instance() then
+                rmIndex = i
+            end
         end
+        table.remove(self.uiList,rmIndex)
     end
-    table.remove(self.uiList,rmIndex)
 end
 
 -- 根据UI枚举获得UI界面实例
