@@ -72,7 +72,16 @@ end
 function UIManager:Open(UIEnum)
     if GUICollections and GUICollections[UIEnum] then
         GUICollections[UIEnum].Instance():Create()
-        table.insert(self.uiList,GUICollections[UIEnum].Instance())
+
+        local index = -1
+        for i = 1,#self.uiList do
+            if self.uiList[i] == GUICollections[UIEnum].Instance() then
+                index = i
+            end
+        end
+        if -1 ~= index then
+            table.insert(self.uiList,GUICollections[UIEnum].Instance())
+        end
     end
 end
 
