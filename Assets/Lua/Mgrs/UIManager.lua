@@ -72,16 +72,7 @@ end
 function UIManager:Open(UIEnum)
     if GUICollections and GUICollections[UIEnum] then
         GUICollections[UIEnum].Instance():Create()
-
-        local index = -1
-        for i = 1,#self.uiList do
-            if self.uiList[i] == GUICollections[UIEnum].Instance() then
-                index = i
-            end
-        end
-        if -1 ~= index then
-            table.insert(self.uiList,GUICollections[UIEnum].Instance())
-        end
+        table.insert(self.uiList, GUICollections[UIEnum].Instance())
     end
 end
 
@@ -92,12 +83,15 @@ function UIManager:Close(UIEnum)
 
         --移除uiList中的UI实例
         local rmIndex = -1
-        for i = 1, #self.uiList do
+        for i = #self.uiList, 1, -1 do
             if self.uiList[i] == GUICollections[UIEnum].Instance() then
                 rmIndex = i
+                break
             end
         end
-        table.remove(self.uiList,rmIndex)
+        if -1 ~= rmIndex then
+            table.remove(self.uiList, rmIndex)
+        end
     end
 end
 
@@ -112,12 +106,12 @@ end
 -- 恢复显示之前记录下来的隐藏UI
 function UIManager:PopAndShowAllUI()
     if self.recordList and next(self.recordList) ~= nil then
-        for _,v in ipairs(self.recordList) do
+        for _, v in ipairs(self.recordList) do
             v:SetVisible(true)
         end
     end
     self.recordList = {}
-    EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED,{state = true})
+    EventMgr:Instance():DispatchEvent(Modules.moduleId.Common, Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED, { state = true })
 end
 
 -- 记录并隐藏除了指定类型的当前显示的所有UI
@@ -125,11 +119,11 @@ function UIManager:StashAndHideAllUI(UIEnum, extUI)
     self.recordList = {}
     for _, v in ipairs(self.uiList) do
         if v and v:IsVisible() and v.PanelName ~= extUI.PanelName then
-            table.insert(self.recordList,v)
+            table.insert(self.recordList, v)
             v:SetVisible(false)
         end
     end
-    EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED,{state = false})
+    EventMgr:Instance():DispatchEvent(Modules.moduleId.Common, Modules.notifyId.Common.ALLUI_SHOWSTATE_CHANGED, { state = false })
 end
 
 -- 统一关闭属于某一UI层
