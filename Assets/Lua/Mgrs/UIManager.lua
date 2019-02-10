@@ -128,6 +128,13 @@ end
 
 -- 统一关闭属于某一UI层
 function UIManager:CloseUIByLevel(level)
+    if self.uiList then
+
+    end
+end
+
+--获取最近一次打开的面板
+function UIManager.GetLastOpenPanel()
 
 end
 
