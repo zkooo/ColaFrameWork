@@ -134,8 +134,11 @@ function UIManager:CloseUIByLevel(level)
 end
 
 --获取最近一次打开的面板
-function UIManager.GetLastOpenPanel()
-
+function UIManager:GetLastOpenPanel()
+    if self.uiList then
+        return self.uiList[#self.uiList]
+    end
+    return nil
 end
 
 -- 显示UI背景模糊
