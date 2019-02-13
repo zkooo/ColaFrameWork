@@ -55,6 +55,8 @@ public class UITableView : MonoBehaviour,IControl
     private float scrollMinRate = 0;//根据滑动不刷新最小距离计算的 min scroll rate
     private float viewStartPos = 0;
     private float viewEndPos = 0f;
+    [SerializeField]
+    private bool loop;
 
     private List<UITableViewCell> reUseCells = new List<UITableViewCell>();
     private List<UITableViewCell> inUseCells = new List<UITableViewCell>();
@@ -92,6 +94,12 @@ public class UITableView : MonoBehaviour,IControl
     /// <param name="value"></param>
     public delegate void OnTableScrolling(float value);
     public OnTableScrolling onTableScrolling;
+
+    public bool Loop
+    {
+        get { return this.loop; }
+        set { this.loop = value; }
+    }
 
     public void Init()
     {
