@@ -35,8 +35,3 @@ public class UITableViewCell : MonoBehaviour
 
 
 }
-
-public class MyCell : UITableViewCell
-{
-
-}
