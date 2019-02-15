@@ -129,7 +129,10 @@ end
 -- 统一关闭属于某一UI层
 function UIManager:CloseUIByLevel(level)
     if self.uiList then
-
+        -- 倒序关闭
+        for i = #self.uiList ,1,-1 do
+            self.uiList[i]:Destroy()
+        end
     end
 end
 
