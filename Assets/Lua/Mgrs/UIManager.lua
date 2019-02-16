@@ -146,6 +146,7 @@ function UIManager:CloseUIByLevel(level)
             self.uiList[i]:Destroy()
         end
     end
+    self.uiList = {}
 end
 
 --获取最近一次打开的面板
@@ -170,7 +171,7 @@ end
 
 -- 创建UI背景模糊
 function UIManager:CreateUIBlur(ui, blurName)
-
+    local uiBlurObj =  GameObject(blurName)
 end
 
 -- 设置背景模糊RawImage
