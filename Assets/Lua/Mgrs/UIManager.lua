@@ -190,7 +190,14 @@ end
 
 -- 设置背景模糊RawImage
 function UIManager:SetBlurRawImage(rawImage)
-
+    if nil ~= rawImage then
+        rawImage.gameObject:SetActive(false)
+        local renderTexture = Common_Utils.GetModelOutlineCameraObj()
+        if renderTexture then
+            rawImage.texture = renderTexture
+        end
+        rawImage.gameObject:SetActive(true)
+    end
 end
 
 --  获取UI排序管理器
