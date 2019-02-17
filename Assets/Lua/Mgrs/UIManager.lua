@@ -171,7 +171,21 @@ end
 
 -- 创建UI背景模糊
 function UIManager:CreateUIBlur(ui, blurName)
-    local uiBlurObj =  GameObject(blurName)
+    local uiBlurObj =  UnityEngine.GameObject.GameObject(blurName)
+    uiBlurObj.transform:SetParent(ui.Panel.transform,false)
+    uiBlurObj.layer = ui.Layer
+    local rawImage = uiBlurObj:AddComponent("RawImage")
+    local button = uiBlurObj:AddComponent("Button")
+    button.transition = Selectable.Transition.None
+    local rectTransform = uiBlurObj:GetComponent("RectTransform")
+    if nil == rectTransform then
+        rectTransform = uiBlurObj:AddComponent("RectTransform")
+    end
+    rectTransform.anchorMin = Vector2.Vector2(-0.1, -0.1)
+    rectTransform.anchorMax = Vector2.Vector2(1.0, 1.0)
+    rectTransform.sizeDelta = Vector2.zero
+    rectTransform:SetAsFirstSibling()
+    self:SetBlurRawImage(rawImage)
 end
 
 -- 设置背景模糊RawImage
