@@ -26,6 +26,7 @@ public static class LuaBinder
 		L.RegFunction("FloatValueChangeAction", FloatValueChangeAction);
 		L.RegFunction("BoolValueChangeAction", BoolValueChangeAction);
 		L.BeginModule("UnityEngine");
+		UnityEngine_PlayerPrefsWrap.Register(L);
 		UnityEngine_ComponentWrap.Register(L);
 		UnityEngine_TransformWrap.Register(L);
 		UnityEngine_MaterialWrap.Register(L);
@@ -68,16 +69,16 @@ public static class LuaBinder
 		UnityEngine_ResourcesWrap.Register(L);
 		UnityEngine_AudioBehaviourWrap.Register(L);
 		L.BeginModule("UI");
-		UnityEngine_UI_GraphicRaycasterWrap.Register(L);
 		UnityEngine_UI_TextWrap.Register(L);
 		UnityEngine_UI_ImageWrap.Register(L);
 		UnityEngine_UI_RawImageWrap.Register(L);
+		UnityEngine_UI_GraphicRaycasterWrap.Register(L);
 		UnityEngine_UI_MaskableGraphicWrap.Register(L);
 		UnityEngine_UI_GraphicWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("EventSystems");
-		UnityEngine_EventSystems_BaseRaycasterWrap.Register(L);
 		UnityEngine_EventSystems_UIBehaviourWrap.Register(L);
+		UnityEngine_EventSystems_BaseRaycasterWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("Events");
 		L.RegFunction("UnityAction", UnityEngine_Events_UnityAction);

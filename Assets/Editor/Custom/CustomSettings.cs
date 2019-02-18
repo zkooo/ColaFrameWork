@@ -65,6 +65,7 @@ public static class CustomSettings
         _GT(typeof(TimeHelper)),
         _GT(typeof(ColaHelper)),
         _GT(typeof(UGUIMsgHandler)),
+        _GT(typeof(PlayerPrefs)),
 
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),
