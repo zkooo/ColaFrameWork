@@ -1,14 +1,21 @@
 ---
---- UISorter UI界面层级排序
+--- uiSorter UI界面层级排序
 ---
 
-local UISorter = Class("UISorter")
+local uiSorter = Class("uiSorter")
 
-function UISorter:initialize()
+function uiSorter:initialize()
     self.minSortIndex = 0
     self.maxSortIndex = 0
     self.uiSortList = {}
     self.canvasSortList = {}
 end
 
-return UISorter
+function uiSorter.Create(minSortIndex,maxSortIndex)
+    local uiSorter = uiSorter:new()
+    uiSorter.minSortIndex = minSortIndex
+    uiSorter.maxSortIndex = maxSortIndex
+    return uiSorter
+end
+
+return uiSorter
