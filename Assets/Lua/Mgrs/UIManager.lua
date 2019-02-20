@@ -3,6 +3,7 @@
 ---
 
 local GUICollections = require("Game.Main.GUICollections")
+local UISorter = require("Mgrs.UISorter")
 local UIManager = Class("UIManager")
 
 UIManager._instance = nil
@@ -13,6 +14,7 @@ function UIManager:initialize()
     self.removeList = {} -- 存储要进行统一关闭面板的列表
     self.recordList = {} -- 存储统一隐藏/恢复显示的UI列表
 
+    self.uiSorter = UISorter.Create(1, 3800)
     -- 注册事件
     self:RegisterEvent()
 end
@@ -202,7 +204,7 @@ end
 
 --  获取UI排序管理器
 function UIManager:GetUISorterMgr()
-
+    return self.uiSorter
 end
 
 return UIManager

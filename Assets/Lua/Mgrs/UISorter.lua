@@ -11,7 +11,7 @@ function uiSorter:initialize()
     self.canvasSortList = {}
 end
 
-function uiSorter.Create(minSortIndex,maxSortIndex)
+function uiSorter.Create(minSortIndex, maxSortIndex)
     local uiSorter = uiSorter:new()
     uiSorter.minSortIndex = minSortIndex
     uiSorter.maxSortIndex = maxSortIndex
