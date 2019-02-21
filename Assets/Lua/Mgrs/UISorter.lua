@@ -8,6 +8,7 @@ function uiSorter:initialize()
     self.minSortIndex = 0
     self.maxSortIndex = 0
     self.is3DHigher = true
+    self.uiDic = {} --key:UI名字,value:UIInfo
     self.uiSortList = {}
     self.canvasSortList = {}
 end
@@ -20,7 +21,7 @@ function uiSorter.Create(minSortIndex, maxSortIndex)
 end
 
 -- 对某个Gameobject下的Canvas进行动态排序功能,识别子canvas，根据sortingOrder对canvas的排序
-function uiSorter:SortIndexSetter(panel,sortIndex)
+function uiSorter:SortIndexSetter(panel, sortIndex)
 
 end
 
@@ -36,7 +37,20 @@ end
 
 -- 添加打开面板时调用，会重排UI
 function uiSorter:AddPanel(uiPanel)
+    if nil == uiPanel then
+        error("invalid param #2 to AddPanel, can not be nil")
+        return
+    end
+    if self.uiDic[uiPanel.PanelName] then
+        error("AddPanel failed, the panel is already added: " .. uiPanel.PanelName)
+        return
+    end
+    local panelInfo = { panelName = uiPanel.PanelName, panel = uiPanel, layer = uiPanel.Layer, index = 0, moveTop = 1 }
+    self.uiDic[uiPanel.PanelName] = panelInfo
+    table.insert(self.uiSortList, panelInfo)
 
+    -- 重排UI界面
+    self:ResortPanels()
 end
 
 --  移除关闭面板时调用，会重排UI
@@ -50,7 +64,7 @@ function uiSorter:MovePanelToTop(uiPanel)
 end
 
 -- 将指定的UI提升到指定UILEVEL的最上层
-function uiSorter:MovePanelToTopOfLayer(uiPanel,layer)
+function uiSorter:MovePanelToTopOfLayer(uiPanel, layer)
 
 end
 
