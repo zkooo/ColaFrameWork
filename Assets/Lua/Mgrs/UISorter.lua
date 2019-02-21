@@ -7,6 +7,7 @@ local uiSorter = Class("uiSorter")
 function uiSorter:initialize()
     self.minSortIndex = 0
     self.maxSortIndex = 0
+    self.is3DHigher = true
     self.uiSortList = {}
     self.canvasSortList = {}
 end
@@ -40,6 +41,22 @@ end
 
 --  移除关闭面板时调用，会重排UI
 function uiSorter:RemovePanel(uiPanel)
+
+end
+
+-- 将指定的UI提升到当前UILEVEL的最上层
+function uiSorter:MovePanelToTop(uiPanel)
+
+end
+
+-- 将指定的UI提升到指定UILEVEL的最上层
+function uiSorter:MovePanelToTopOfLayer(uiPanel,layer)
+
+end
+
+-- 重排UI界面
+-- 根据UI的打开先后顺序先赋值index，然后根据uiDepthLayer\moveTop\index三者权重进行UI重排
+function uiSorter:ResortPanels()
 
 end
 
