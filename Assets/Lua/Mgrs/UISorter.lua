@@ -68,7 +68,13 @@ end
 
 -- 将指定的UI提升到当前UILEVEL的最上层
 function uiSorter:MovePanelToTop(uiPanel)
-
+    local panelInfo = self.uiDic[uiPanel.PanelName]
+    if not panelInfo then
+        warn("Failed to MovePanelToTop: the panel not found: " .. uiPanel.PanelName)
+        return
+    end
+    panelInfo.moveTop = 1
+    self:ResortPanels()
 end
 
 -- 将指定的UI提升到指定UILEVEL的最上层
