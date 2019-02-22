@@ -79,7 +79,14 @@ end
 
 -- 将指定的UI提升到指定UILEVEL的最上层
 function uiSorter:MovePanelToTopOfLayer(uiPanel, layer)
-
+    local panelInfo = self.uiDic[uiPanel.PanelName]
+    if not panelInfo then
+        warn("Failed to MovePanelToTop: the panel not found: " .. uiPanel.PanelName)
+        return
+    end
+    panelInfo.moveTop = 1
+    panelInfo.layer = layer
+    self:ResortPanels()
 end
 
 -- 重排UI界面
