@@ -55,7 +55,15 @@ end
 
 --  移除关闭面板时调用，会重排UI
 function uiSorter:RemovePanel(uiPanel)
+    local panelInfo = self.uiDic[uiPanel.PanelName]
+    if not panelInfo then
+        warn("Failed to RemovePanel: the panel not found: " .. uiPanel.PanelName)
+        return
+    end
+    self.uiDic[uiPanel.PanelName] = nil
 
+    -- 重排UI界面
+    self:ResortPanels()
 end
 
 -- 将指定的UI提升到当前UILEVEL的最上层
