@@ -26,8 +26,16 @@ function uiSorter:SortIndexSetter(panel, sortIndex)
 end
 
 -- 设置UI的SortTag,根据显示修改上下关系做到排序
-function uiSorter:SortTagIndexSetter()
-
+function uiSorter:SortTagIndexSetter(uiPanel,sortIndex)
+    if nil == uiPanel then
+        return 0
+    end
+    if not uiPanel.sorterTag then
+        return sortIndex
+    end
+    uiPanel.sorterTag:SetSorter(sortIndex+1)
+    sortIndex = uiPanel.sorterTag:GetSorter()
+    return sortIndex
 end
 
 -- 设置带有3D模型UI的SortTag，带3d模型的ui需要排序设置
