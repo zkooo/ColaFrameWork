@@ -340,4 +340,9 @@ public static class Common_Utils
     {
         return CommonHelper.CheckLocalFileExist(filePath);
     }
+
+    public static Component[] GetComponentsInChildren(string type, bool includeInactive = false)
+    {
+        return null;
+    }
 }
