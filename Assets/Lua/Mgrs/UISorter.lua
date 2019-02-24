@@ -22,7 +22,10 @@ end
 
 -- 对某个Gameobject下的Canvas进行动态排序功能,识别子canvas，根据sortingOrder对canvas的排序
 function uiSorter:SortIndexSetter(panel, sortIndex)
-
+    if nil == panel then
+        return 0
+    end
+    local allCanvas = panel:GetComponentsInChildren("Canvas",true)
 end
 
 -- 设置UI的SortTag,根据显示修改上下关系做到排序
@@ -53,7 +56,7 @@ function uiSorter:AddPanel(uiPanel)
         error("AddPanel failed, the panel is already added: " .. uiPanel.PanelName)
         return
     end
-    local panelInfo = { panelName = uiPanel.PanelName, panel = uiPanel, layer = uiPanel.Layer, index = 0, moveTop = 1 }
+    local panelInfo = { panelName = uiPanel.PanelName, uiPanel = uiPanel, layer = uiPanel.Layer, index = 0, moveTop = 1 }
     self.uiDic[uiPanel.PanelName] = panelInfo
     table.insert(self.uiSortList, panelInfo)
 
