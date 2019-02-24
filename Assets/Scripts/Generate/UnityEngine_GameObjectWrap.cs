@@ -228,19 +228,36 @@ public class UnityEngine_GameObjectWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 2)
+			if (count == 2 && TypeChecker.CheckTypes<string>(L, 2))
 			{
 				UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
+				string arg0 = ToLua.ToString(L, 2);
 				UnityEngine.Component[] o = obj.GetComponentsInChildren(arg0);
 				ToLua.Push(L, o);
 				return 1;
 			}
-			else if (count == 3)
+			else if (count == 2 && TypeChecker.CheckTypes<System.Type>(L, 2))
 			{
 				UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
-				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				System.Type arg0 = (System.Type)ToLua.ToObject(L, 2);
+				UnityEngine.Component[] o = obj.GetComponentsInChildren(arg0);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes<string, bool>(L, 2))
+			{
+				UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				string arg0 = ToLua.ToString(L, 2);
+				bool arg1 = LuaDLL.lua_toboolean(L, 3);
+				UnityEngine.Component[] o = obj.GetComponentsInChildren(arg0, arg1);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes<System.Type, bool>(L, 2))
+			{
+				UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				System.Type arg0 = (System.Type)ToLua.ToObject(L, 2);
+				bool arg1 = LuaDLL.lua_toboolean(L, 3);
 				UnityEngine.Component[] o = obj.GetComponentsInChildren(arg0, arg1);
 				ToLua.Push(L, o);
 				return 1;

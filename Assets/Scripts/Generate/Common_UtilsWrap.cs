@@ -501,18 +501,20 @@ public class Common_UtilsWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 1)
+			if (count == 2)
 			{
-				string arg0 = ToLua.CheckString(L, 1);
-				UnityEngine.Component[] o = Common_Utils.GetComponentsInChildren(arg0);
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Component[] o = Common_Utils.GetComponentsInChildren(arg0, arg1);
 				ToLua.Push(L, o);
 				return 1;
 			}
-			else if (count == 2)
+			else if (count == 3)
 			{
-				string arg0 = ToLua.CheckString(L, 1);
-				bool arg1 = LuaDLL.luaL_checkboolean(L, 2);
-				UnityEngine.Component[] o = Common_Utils.GetComponentsInChildren(arg0, arg1);
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				string arg1 = ToLua.CheckString(L, 2);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 3);
+				UnityEngine.Component[] o = Common_Utils.GetComponentsInChildren(arg0, arg1, arg2);
 				ToLua.Push(L, o);
 				return 1;
 			}

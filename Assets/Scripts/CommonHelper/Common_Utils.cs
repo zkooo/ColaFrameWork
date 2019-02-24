@@ -341,8 +341,16 @@ public static class Common_Utils
         return CommonHelper.CheckLocalFileExist(filePath);
     }
 
-    public static Component[] GetComponentsInChildren(string type, bool includeInactive = false)
+    public static Component[] GetComponentsInChildren(this GameObject obj, string type, bool includeInactive = false)
     {
-        return null;
+        List<Component> components = new List<Component>();
+        Component component = null;
+        Transform[] objChildren = obj.GetComponentsInChildren<Transform>(true);
+        for (int i = 0; i < objChildren.Length; ++i)
+        {
+            component = objChildren[i].GetComponent(type);
+            components.Add(component);
+        }
+        return components.ToArray();
     }
 }
