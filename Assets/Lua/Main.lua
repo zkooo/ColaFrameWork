@@ -75,6 +75,11 @@ function Main()
 	initialize()
 
 	EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
+
+	local isExist = UIManager:IsExist(ECEnumType.UIEnum.Login)
+	print("------------>是否存在",isExist)
+	local UILoginPanel = UIManager:GetViewByType(ECEnumType.UIEnum.Login)
+	print(UILoginPanel.PanelName)
 end
 
 --场景切换通知
