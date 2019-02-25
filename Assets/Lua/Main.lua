@@ -80,6 +80,8 @@ function Main()
 	print("------------>是否存在",isExist)
 	local UILoginPanel = UIManager:GetViewByType(ECEnumType.UIEnum.Login)
 	print(UILoginPanel.PanelName)
+	local allCanvas = UILoginPanel.Panel:GetComponentsInChildren("Canvas",true)
+	print("----------------->Canvas",allCanvas:ToTable())
 end
 
 --场景切换通知
