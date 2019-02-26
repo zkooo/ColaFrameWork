@@ -25,7 +25,17 @@ function uiSorter:SortIndexSetter(panel, sortIndex)
     if nil == panel then
         return 0
     end
-    local allCanvas = panel:GetComponentsInChildren("Canvas",true)
+
+    self.canvasSortList = {}
+    local allCanvas = panel:GetComponentsInChildren("Canvas",true):ToTable()
+    for i = 1,#allCanvas do
+        if allCanvas[i] then
+            table.insert(self.canvasSortList,allCanvas[i])
+        end
+    end
+    table.sort(self.canvasSortList,function(a,b)
+        return a.sortingOrder < b.sortingOrder
+    end)
 end
 
 -- 设置UI的SortTag,根据显示修改上下关系做到排序
