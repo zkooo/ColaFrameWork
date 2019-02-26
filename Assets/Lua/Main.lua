@@ -76,12 +76,18 @@ function Main()
 
 	EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
 
-	local isExist = UIManager:IsExist(ECEnumType.UIEnum.Login)
-	print("------------>是否存在",isExist)
-	local UILoginPanel = UIManager:GetViewByType(ECEnumType.UIEnum.Login)
-	print(UILoginPanel.PanelName)
-	local allCanvas = UILoginPanel.Panel:GetComponentsInChildren("Canvas",true)
-	print("----------------->Canvas",allCanvas:ToTable())
+
+	local newClass1 = {sortingOrder = 1, name = 1}
+	local newClass2 = {sortingOrder = 2, name = 2}
+	local newClass3 = {sortingOrder = 3, name = 3}
+	local newClass4 = {sortingOrder = 4, name = 4}
+
+	local classList = {newClass2,newClass4,newClass3,newClass1}
+
+	table.sort(classList,function(a,b)
+		return a.sortingOrder < b.sortingOrder
+	end)
+	print("---------->排序结果",classList)
 end
 
 --场景切换通知
