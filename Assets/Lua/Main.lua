@@ -74,22 +74,7 @@ function Main()
 	initParam()
 	initialize()
 
-	error("-------------->测试屏幕打印错误信息",debug.traceback())
-	
 	EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
-
-
-	local newClass1 = {sortingOrder = 1, name = 1}
-	local newClass2 = {sortingOrder = 2, name = 2}
-	local newClass3 = {sortingOrder = 3, name = 3}
-	local newClass4 = {sortingOrder = 4, name = 4}
-
-	local classList = {newClass2,newClass4,newClass3,newClass1}
-
-	table.sort(classList,function(a,b)
-		return a.sortingOrder < b.sortingOrder
-	end)
-	print("---------->排序结果",classList)
 end
 
 --场景切换通知
