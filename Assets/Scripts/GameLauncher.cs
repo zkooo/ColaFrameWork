@@ -54,13 +54,13 @@ public class GameLauncher : MonoBehaviour
 #endif
 
 #if BUILD_DEBUG_LOG || UNITY_EDITOR
-#if UNITY_2017
+#if UNITY_2017_1_OR_NEWER
         Debug.unityLogger.logEnabled = true;
 #else
         Debug.unityLogger.logEnabled = true;
 #endif
 #else
-#if UNITY_2017
+#if UNITY_2017_1_OR_NEWER
         Debug.unityLogger.logEnabled = false;
 #else
         Debug.logger.logEnabled = false;
