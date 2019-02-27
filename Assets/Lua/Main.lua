@@ -74,6 +74,8 @@ function Main()
 	initParam()
 	initialize()
 
+	error("-------------->测试屏幕打印错误信息",debug.traceback())
+	
 	EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
 
 
