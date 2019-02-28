@@ -7,6 +7,7 @@ fieldIdx.resLiveTime = 4
 local data = {
 {100,[[Arts/Gui/Prefabs/uiLoginPanel.prefab]],0,20},
 {101,[[Arts/Gui/Prefabs/uiloading.prefab]],0,-2},
+{102,[[Arts/Gui/Prefabs/UIDebugPanel.prefab]],0,-2},
 {2001,[[Arts/Gui/Textures/atlas/airfightSheet.prefab]],0,-2},
 {300001,[[Arts/Gui/Material/material_defaultgray.mat]],0,-2},
 {400001,[[Arts/Gui/Textures/head_icon/GuChenSha.png]],0,-2},
