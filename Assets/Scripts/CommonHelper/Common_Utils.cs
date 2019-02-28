@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 通用工具类，为导出lua接口调用准备
@@ -352,5 +353,15 @@ public static class Common_Utils
             components.Add(component);
         }
         return components.ToArray();
+    }
+
+    public static void SetLogHelperText(Text text)
+    {
+        GameLauncher.Instance.LogHelper.SetTextComponent(text);
+    }
+
+    public static void ClearLogHelperText()
+    {
+        GameLauncher.Instance.LogHelper.ClearText();
     }
 }

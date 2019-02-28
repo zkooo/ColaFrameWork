@@ -35,6 +35,8 @@ public class Common_UtilsWrap
 		L.RegFunction("GetNavMeshHeight", GetNavMeshHeight);
 		L.RegFunction("CheckLocalFileExist", CheckLocalFileExist);
 		L.RegFunction("GetComponentsInChildren", GetComponentsInChildren);
+		L.RegFunction("SetLogHelperText", SetLogHelperText);
+		L.RegFunction("ClearLogHelperText", ClearLogHelperText);
 		L.EndStaticLibs();
 	}
 
@@ -522,6 +524,37 @@ public class Common_UtilsWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: Common_Utils.GetComponentsInChildren");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetLogHelperText(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.UI.Text arg0 = (UnityEngine.UI.Text)ToLua.CheckObject<UnityEngine.UI.Text>(L, 1);
+			Common_Utils.SetLogHelperText(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ClearLogHelperText(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			Common_Utils.ClearLogHelperText();
+			return 0;
 		}
 		catch (Exception e)
 		{

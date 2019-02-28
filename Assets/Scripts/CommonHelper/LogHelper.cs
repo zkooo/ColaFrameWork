@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Unity日志助手类
@@ -24,6 +25,8 @@ public class LogHelper : MonoBehaviour
     /// </summary>
     public static string fileName = "gamelog.txt";
 
+    private static Text textComponent;
+
     private void Awake()
     {
         outputPath = Path.Combine(CommonHelper.GetAssetPath(), "logs");
@@ -36,7 +39,6 @@ public class LogHelper : MonoBehaviour
         {
             File.Delete(filePath);
         }
-
         LogSysInfo();
     }
 
@@ -53,6 +55,26 @@ public class LogHelper : MonoBehaviour
     }
 
     /// <summary>
+    /// 设置要Log写到的Text组件
+    /// </summary>
+    /// <param name="text"></param>
+    public void SetTextComponent(Text text)
+    {
+        textComponent = text;
+    }
+
+    /// <summary>
+    /// 清空Text组件的Log内容
+    /// </summary>
+    public void ClearText()
+    {
+        if(null != textComponent)
+        {
+            textComponent.text = "";
+        }
+    }
+
+    /// <summary>
     /// 向日志文件中写入一条消息
     /// </summary>
     /// <param name="message"></param>
@@ -62,6 +84,12 @@ public class LogHelper : MonoBehaviour
         {
             string logContent = string.Format("{0:G}: {1}", System.DateTime.Now, message);
             sw.Write(logContent);
+
+            // write to screen
+            if (null != textComponent)
+            {
+                textComponent.text = textComponent.text + logContent;
+            }
         }
     }
 
