@@ -30,6 +30,14 @@ public class GameLauncher : MonoBehaviour
         get { return instance; }
     }
 
+    /// <summary>
+    /// LogHelper实例
+    /// </summary>
+    public LogHelper LogHelper
+    {
+        get { return this.logHelper; }
+    }
+
     void Awake()
     {
         instance = this;
