@@ -3,35 +3,21 @@
 ---  UI的Lua模板
 ---
 
----
---- UIBase基类
----
-
-local UIBase = Class("UIBase")
+local UIBase = require("Core.ui.UIBase")
+local #NAME# = Class(#NAME#,UIBase)
 
 -- override 初始化各种数据
-function UIBase:initialize()
-    self.Panel = nil
-    self.ResId = 0
-    self.Layer = 0
-    self.UILevel = 0
-    self.subUIList = {}
-    self.uiDepthLayer = 0
-    self.uiCanvas = nil
-    self.sortEnable = true
-    self.sorterTag = nil
-    self.uguiMsgHandler = nil
-    self.PanelName = ""
-    self:InitParam()
+function #NAME#:initialize()
+
 end
 
 -- virtual 子类可以初始化一些变量,ResId要在这里赋值
-function UIBase:InitParam()
+function #NAME#:InitParam()
 
 end
 
 -- 对外调用，用于创建UI
-function UIBase:Create()
+function #NAME#:Create()
     if nil ~= self.Panel then
         UnityEngine.GameObject.Destroy(self.Panel)
     end
@@ -55,7 +41,7 @@ function UIBase:Create()
 end
 
 --对外调用，用于创建UI，不走ResId加载，直接由现有gameObject创建
-function UIBase:CreateWithGo(gameObejct)
+function #NAME#:CreateWithGo(gameObejct)
     self.Panel = gameObejct
     self.PanelName = self.Panel.name
     if self.sortEnable then
@@ -75,27 +61,27 @@ function UIBase:CreateWithGo(gameObejct)
 end
 
 -- override UI面板创建结束后调用，可以在这里获取gameObject和component等操作
-function UIBase:OnCreate()
+function #NAME#:OnCreate()
 
 end
 
 -- 界面可见性变化的时候触发
-function UIBase:OnShow(isShow)
+function #NAME#:OnShow(isShow)
 
 end
 
 -- 设置界面可见性
-function UIBase:SetVisible(isVisible)
+function #NAME#:SetVisible(isVisible)
     self.Panel:SetActive(isVisible)
     self:OnShow(isVisible)
 end
 
-function UIBase:IsVisible()
+function #NAME#:IsVisible()
     return nil ~= self.Panel and self.Panel.activeSelf
 end
 
 -- 销毁一个UI界面
-function UIBase:Destroy()
+function #NAME#:Destroy()
     if self.sortEnable then
         --TODO:新的UI排序管理
         --CommonHelper.GetUIMgr().GetUISorterMgr().RemovePanel(this)
@@ -118,12 +104,12 @@ function UIBase:Destroy()
 end
 
 -- 界面销毁的过程中触发
-function UIBase:OnDestroy()
+function #NAME#:OnDestroy()
 
 end
 
 -- 关联子UI，统一参与管理
-function UIBase:AttachSubPanel(subPanelPath,subUI,uiLevel)
+function #NAME#:AttachSubPanel(subPanelPath,subUI,uiLevel)
     if nil == subPanelPath or subPanelPath == "" then
         return
     end
@@ -135,7 +121,7 @@ function UIBase:AttachSubPanel(subPanelPath,subUI,uiLevel)
 end
 
 -- 将一个UI界面注册为本UI的子界面，统一参与管理
-function UIBase:RegisterSubPanel(subUI)
+function #NAME#:RegisterSubPanel(subUI)
     if nil == subUI then
         return
     end
@@ -144,14 +130,14 @@ function UIBase:RegisterSubPanel(subUI)
 end
 
 -- 解除子UI关联
-function UIBase:DetchSubPanel(subUI)
+function #NAME#:DetchSubPanel(subUI)
     if nil ~= self.subUIList then
         table.remove(subUI)
     end
 end
 
 --  销毁关联的子面板，不要重写
-function UIBase:DestroySubPanels()
+function #NAME#:DestroySubPanels()
     if nil ~= self.subUIList then
         for _,v in ipairs(self.subUIList) do
             v:Destroy()
@@ -165,25 +151,25 @@ function UIBase:DestroySubPanels()
 end
 
 -- 将当前UI层级提高，展示在当前Level的最上层
-function UIBase:BringTop()
+function #NAME#:BringTop()
     --TODO:新的UISorter
     --local uiSorterMgr = CommonHelper.GetUIMgr().GetUISorterMgr();
     --uiSorterMgr.MovePanelToTop(this);
 end
 
 -- 显示UI背景模糊
-function UIBase:ShowUIBlur()
+function #NAME#:ShowUIBlur()
     UIManager:Instance():ShowUIBlur(self)
 end
 
 -- 设置点击外部关闭(执行该方法以后，当点击其他UI的时候，会自动关闭本UI)
-function UIBase:SetOutTouchDisappear()
+function #NAME#:SetOutTouchDisappear()
     UIManager:Instance():SetOutTouchDisappear(self)
 
 end
 
 -- 注册UIEventListener
-function UIBase:AttachListener(gameObject)
+function #NAME#:AttachListener(gameObject)
     if nil == gameObject then
         return
     end
@@ -206,7 +192,7 @@ function UIBase:AttachListener(gameObject)
     self.uguiMsgHandler:AttachListener(gameObject)
 end
 
-function UIBase:UnAttachListener(gameObject)
+function #NAME#:UnAttachListener(gameObject)
     if nil == gameObject then
         return
     end
@@ -228,49 +214,49 @@ function UIBase:UnAttachListener(gameObject)
 end
 
 -- 注册UI事件监听
-function UIBase:RegisterEvent()
+function #NAME#:RegisterEvent()
 
 end
 
 -- 取消注册UI事件监听
-function UIBase:UnRegisterEvent()
+function #NAME#:UnRegisterEvent()
 
 end
 
 ------------------- UI事件回调 --------------------------
-function UIBase:onClick(obj)
+function #NAME#:onClick(obj)
 
 end
 
-function UIBase:onBoolValueChange(obj, isSelect)
+function #NAME#:onBoolValueChange(obj, isSelect)
 
 end
 
-function UIBase:onEvent(eventName)
+function #NAME#:onEvent(eventName)
     if eventName == "onClick" then
         UIManager:Instance():NotifyDisappear(self.PanelName)
     end
 end
 
-function UIBase:onFloatValueChange(obj, value)
+function #NAME#:onFloatValueChange(obj, value)
 
 end
 
-function UIBase:onStrValueChange(obj, text)
+function #NAME#:onStrValueChange(obj, text)
 
 end
 
-function UIBase:onDrag(obj, deltaPos, curToucPosition)
+function #NAME#:onDrag(obj, deltaPos, curToucPosition)
 
 end
 
-function UIBase:onBeginDrag(obj, deltaPos, curToucPosition)
+function #NAME#:onBeginDrag(obj, deltaPos, curToucPosition)
 
 end
 
-function UIBase:onEndDrag(obj, deltaPos, curToucPosition)
+function #NAME#:onEndDrag(obj, deltaPos, curToucPosition)
 
 end
 ---------------------- UI事件回调 --------------------------
 
-return UIBase
+return #NAME#
