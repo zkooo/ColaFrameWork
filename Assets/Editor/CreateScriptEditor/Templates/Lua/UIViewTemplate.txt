@@ -3,7 +3,7 @@
 ---
 
 local UIBase = require("Core.ui.UIBase")
-local #NAME# = Class(#NAME#,UIBase)
+local #NAME# = Class("#NAME#",UIBase)
 
 -- virtual 子类可以初始化一些变量,ResId要在这里赋值
 function #NAME#:InitParam()
