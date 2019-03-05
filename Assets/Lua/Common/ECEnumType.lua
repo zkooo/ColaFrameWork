@@ -9,6 +9,7 @@ _G.ECEnumType = ECEnumType
 ECEnumType.UIEnum = {
     Login = 1, -- 登录界面
     Loading = 2, --Loading界面
+    DebugPanel = 3, -- Debug信息界面
 }
 
 -- UI Level逻辑层级

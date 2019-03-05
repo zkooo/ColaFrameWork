@@ -47,9 +47,9 @@ local function gloablDefine()
 	require("Game.Main.Modules")
 	require("Game.Main.GUICollections")
 	InitUtilitys()
-	define("UIManager",require("Mgrs.UIManager"):Instance())
+	define("UIManager",require("Mgrs.UIManager"))
 	define("ConfigMgr",require("Mgrs.ConfigMgr"))
-	define("ModuleManager",require("Mgrs.ModuleManager"):Instance())
+	define("ModuleManager",require("Mgrs.ModuleManager"))
 	--控制全局变量的新建与访问
 	require("Utilitys.LuaGlobalCheck")
 end
@@ -74,6 +74,7 @@ function Main()
 	initParam()
 	initialize()
 
+	UIManager:Instance():Open(ECEnumType.UIEnum.DebugPanel)
 	EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
 end
 
