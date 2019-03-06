@@ -65,6 +65,11 @@ public class LogHelper : MonoBehaviour
     public void AttachScreenText(Text text)
     {
         textComponent = text;
+        //关联后同步一下log
+        if (null != textComponent)
+        {
+            textComponent.text = stringBuilder.ToString();
+        }
     }
 
     public void UnAttachScreenText()
