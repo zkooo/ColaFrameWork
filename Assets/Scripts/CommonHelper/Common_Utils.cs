@@ -355,13 +355,18 @@ public static class Common_Utils
         return components.ToArray();
     }
 
-    public static void SetLogHelperText(Text text)
+    public static void AttachScreenText(Text text)
     {
-        GameLauncher.Instance.LogHelper.AttachText(text);
+        GameLauncher.Instance.LogHelper.AttachScreenText(text);
     }
 
-    public static void ClearLogHelperText()
+    public static void UnAttachScreenText()
     {
-        GameLauncher.Instance.LogHelper.ClearText();
+        GameLauncher.Instance.LogHelper.UnAttachScreenText();
+    }
+
+    public static void ClearSreenLog()
+    {
+        GameLauncher.Instance.LogHelper.ClearSreenLog();
     }
 }

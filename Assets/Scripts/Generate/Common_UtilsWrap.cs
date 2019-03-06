@@ -35,8 +35,9 @@ public class Common_UtilsWrap
 		L.RegFunction("GetNavMeshHeight", GetNavMeshHeight);
 		L.RegFunction("CheckLocalFileExist", CheckLocalFileExist);
 		L.RegFunction("GetComponentsInChildren", GetComponentsInChildren);
-		L.RegFunction("SetLogHelperText", SetLogHelperText);
-		L.RegFunction("ClearLogHelperText", ClearLogHelperText);
+		L.RegFunction("AttachScreenText", AttachScreenText);
+		L.RegFunction("UnAttachScreenText", UnAttachScreenText);
+		L.RegFunction("ClearSreenLog", ClearSreenLog);
 		L.EndStaticLibs();
 	}
 
@@ -532,13 +533,13 @@ public class Common_UtilsWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetLogHelperText(IntPtr L)
+	static int AttachScreenText(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
 			UnityEngine.UI.Text arg0 = (UnityEngine.UI.Text)ToLua.CheckObject<UnityEngine.UI.Text>(L, 1);
-			Common_Utils.SetLogHelperText(arg0);
+			Common_Utils.AttachScreenText(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -548,12 +549,27 @@ public class Common_UtilsWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ClearLogHelperText(IntPtr L)
+	static int UnAttachScreenText(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 0);
-			Common_Utils.ClearLogHelperText();
+			Common_Utils.UnAttachScreenText();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ClearSreenLog(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			Common_Utils.ClearSreenLog();
 			return 0;
 		}
 		catch (Exception e)
