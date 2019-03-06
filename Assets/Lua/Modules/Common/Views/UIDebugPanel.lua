@@ -24,7 +24,7 @@ end
 function UIDebugPanel:OnCreate()
     self.DebugText = self.Panel:FindChildByPath("ScrollView/Viewport/Text"):GetComponent("UnityEngine.UI.Text")
     if self.DebugText then
-        Common_Utils.SetLogHelperText(self.DebugText)
+        Common_Utils.AttachScreenText(self.DebugText)
     end
 end
 
@@ -51,9 +51,10 @@ end
 ------------------- UI事件回调 --------------------------
 function UIDebugPanel:onClick(obj)
     if obj.name == "BtnClose" then
+        Common_Utils.UnAttachScreenText()
         UIMangaer.Close(ECEnumType.UIEnum.DebugPanel)
     elseif obj.name == "BtnClear" then
-        Common_Utils.ClearLogHelperText()
+        Common_Utils.ClearSreenLog()
     end
 end
 
