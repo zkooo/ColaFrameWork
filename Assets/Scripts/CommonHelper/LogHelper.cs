@@ -26,6 +26,7 @@ public class LogHelper : MonoBehaviour
     public static string fileName = "gamelog.txt";
 
     private static Text textComponent;
+    private static StringBuilder stringBuilder;
 
     private void Awake()
     {
@@ -39,6 +40,9 @@ public class LogHelper : MonoBehaviour
         {
             File.Delete(filePath);
         }
+#if SHOW_SCREEN_LOG
+        stringBuilder = new StringBuilder();
+#endif
         LogSysInfo();
     }
 
@@ -55,19 +59,28 @@ public class LogHelper : MonoBehaviour
     }
 
     /// <summary>
-    /// 设置要Log写到的Text组件
+    /// 关联Log写到的Text组件
     /// </summary>
     /// <param name="text"></param>
-    public void SetTextComponent(Text text)
+    public void AttachScreenText(Text text)
     {
         textComponent = text;
+    }
+
+    public void UnAttachScreenText()
+    {
+        textComponent = null;
     }
 
     /// <summary>
     /// 清空Text组件的Log内容
     /// </summary>
-    public void ClearText()
+    public void ClearSreenLog()
     {
+        if(null != stringBuilder)
+        {
+            stringBuilder.Length = 0;
+        }
         if(null != textComponent)
         {
             textComponent.text = "";
@@ -86,10 +99,13 @@ public class LogHelper : MonoBehaviour
             sw.Write(logContent);
 
             // write to screen
+#if SHOW_SCREEN_LOG
+            stringBuilder.Append(logContent);
             if (null != textComponent)
             {
-                textComponent.text = textComponent.text + logContent;
+                textComponent.text = stringBuilder.ToString();
             }
+#endif
         }
     }
 

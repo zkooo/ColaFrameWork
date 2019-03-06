@@ -357,7 +357,7 @@ public static class Common_Utils
 
     public static void SetLogHelperText(Text text)
     {
-        GameLauncher.Instance.LogHelper.SetTextComponent(text);
+        GameLauncher.Instance.LogHelper.AttachText(text);
     }
 
     public static void ClearLogHelperText()
