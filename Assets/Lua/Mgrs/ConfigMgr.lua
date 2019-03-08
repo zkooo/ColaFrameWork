@@ -8,7 +8,7 @@ local cfgPath = UTL.LuaCommon.LuaDir .. "/LuaConfigs/%s.lua"
 ConfigMgr._instance = nil
 
 -- 获取单例
-function ConfigMgr:Instance()
+function ConfigMgr.Instance()
 	if ConfigMgr._instance == nil then
 		ConfigMgr._instance = ConfigMgr:new()
 	end

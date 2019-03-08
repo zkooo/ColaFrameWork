@@ -16,7 +16,7 @@ function LuaCommon_Utils.initialize()
 end
 
 function LuaCommon_Utils.InstantiateGoById(id,parent)
-    local resConfig = ConfigMgr:Instance():GetItem("ResPathConfig",id)
+    local resConfig = ConfigMgr.Instance():GetItem("ResPathConfig",id)
     if resConfig and resConfig.path then
         return Common_Utils.InstantiateGoByPath(resConfig.path,parent)
     else

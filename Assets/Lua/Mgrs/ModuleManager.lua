@@ -7,7 +7,7 @@ local Modules = require("Game.Main.Modules")
 
 ModuleManager._instance = nil
 
-function ModuleManager:Instance()
+function ModuleManager.Instance()
     if nil == ModuleManager._instance then
         ModuleManager._instance = ModuleManager:new()
     end
@@ -37,7 +37,7 @@ end
 
 function ModuleManager:InitAllModules()
     for i = 1,#Modules.moduleList do
-        local module = Modules.moduleList[i]:Instance()
+        local module = Modules.moduleList[i].Instance()
         if(module and false == module:IsInit()) then
             module:Init()
         end
@@ -46,7 +46,7 @@ end
 
 function ModuleManager:RegisterAllModules()
     for i =1,#Modules.moduleList do
-        local module = Modules.moduleList[i]:Instance()
+        local module = Modules.moduleList[i].Instance()
         self:RegisterModule(module)
     end
 end
@@ -57,7 +57,7 @@ end
 
 function ModuleManager:ResetAllModulesWithExcept(exceptList)
     for i =1,#Modules.moduleList do
-        local module = Modules.moduleList[i]:Instance()
+        local module = Modules.moduleList[i].Instance()
         local moduleId = module:GetModuleId()
         if nil == exceptList or not exceptList[moduleId] then
             module:Reset()
@@ -71,7 +71,7 @@ end
 
 function ModuleManager:ExitAllModulesWithExcept(exceptList)
     for i =1,#Modules.moduleList do
-        local module = Modules.moduleList[i]:Instance()
+        local module = Modules.moduleList[i].Instance()
         local moduleId = module:GetModuleId()
         if nil == exceptList or not exceptList[moduleId] then
             module:Exit()

@@ -9,7 +9,7 @@ local bit = require "bit"
 local _instance = nil
 
 -- 获取单例接口
-function EventMgr:Instance()
+function EventMgr.Instance()
     if _instance == nil then
         _instance = EventMgr:new()
     end

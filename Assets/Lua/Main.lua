@@ -33,8 +33,8 @@ end
 local function initialize()
 	LuaLogHelper.initialize()
 	-- 模块初始化
-	ModuleManager:Instance():RegisterAllModules()
-	ModuleManager:Instance():InitAllModules()
+	ModuleManager.Instance():RegisterAllModules()
+	ModuleManager.Instance():InitAllModules()
 end
 
 -- 在此处定义注册一些全局变量
@@ -74,8 +74,8 @@ function Main()
 	initParam()
 	initialize()
 
-	UIManager:Instance():Open(ECEnumType.UIEnum.DebugPanel)
-	EventMgr:Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
+	UIManager.Instance():Open(ECEnumType.UIEnum.DebugPanel)
+	EventMgr.Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
 end
 
 --场景切换通知

@@ -168,12 +168,12 @@ end
 
 -- 显示UI背景模糊
 function UIBase:ShowUIBlur()
-    UIManager:Instance():ShowUIBlur(self)
+    UIManager.Instance():ShowUIBlur(self)
 end
 
 -- 设置点击外部关闭(执行该方法以后，当点击其他UI的时候，会自动关闭本UI)
 function UIBase:SetOutTouchDisappear()
-    UIManager:Instance():SetOutTouchDisappear(self)
+    UIManager.Instance():SetOutTouchDisappear(self)
 
 end
 
@@ -243,7 +243,7 @@ end
 
 function UIBase:onEvent(eventName)
     if eventName == "onClick" then
-        UIManager:Instance():NotifyDisappear(self.PanelName)
+        UIManager.Instance():NotifyDisappear(self.PanelName)
     end
 end
 
