@@ -52,7 +52,7 @@ end
 function UIDebugPanel:onClick(obj)
     if obj.name == "BtnClose" then
         Common_Utils.UnAttachScreenText()
-        UIMangaer.Close(ECEnumType.UIEnum.DebugPanel)
+        UIManager.Instance():Close(ECEnumType.UIEnum.DebugPanel)
     elseif obj.name == "BtnClear" then
         Common_Utils.ClearSreenLog()
     end
