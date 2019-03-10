@@ -11,7 +11,7 @@ function UIBase:initialize()
     self.Layer = 0
     self.UILevel = 0
     self.subUIList = {}
-    self.uiDepthLayer = 0
+    self.uiDepthLayer = ECEnumType.UIDepth.NORMAL
     self.uiCanvas = nil
     self.sortEnable = true
     self.sorterTag = nil
