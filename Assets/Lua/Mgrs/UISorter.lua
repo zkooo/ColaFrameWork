@@ -66,7 +66,7 @@ function uiSorter:AddPanel(uiPanel)
         error("AddPanel failed, the panel is already added: " .. uiPanel.PanelName)
         return
     end
-    local panelInfo = { panelName = uiPanel.PanelName, uiPanel = uiPanel, layer = uiPanel.Layer, index = 0, moveTop = 1 }
+    local panelInfo = { panelName = uiPanel.PanelName, uiPanel = uiPanel, depthLayer = uiPanel.uiDepthLayer, index = 0, moveTop = 1 }
     self.uiDic[uiPanel.PanelName] = panelInfo
     table.insert(self.uiSortList, panelInfo)
 
@@ -99,14 +99,14 @@ function uiSorter:MovePanelToTop(uiPanel)
 end
 
 -- 将指定的UI提升到指定UILEVEL的最上层
-function uiSorter:MovePanelToTopOfLayer(uiPanel, layer)
+function uiSorter:MovePanelToTopOfLayer(uiPanel, depthLayer)
     local panelInfo = self.uiDic[uiPanel.PanelName]
     if not panelInfo then
         warn("Failed to MovePanelToTop: the panel not found: " .. uiPanel.PanelName)
         return
     end
     panelInfo.moveTop = 1
-    panelInfo.layer = layer
+    panelInfo.depthLayer = depthLayer
     self:ResortPanels()
 end
 
