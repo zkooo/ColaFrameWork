@@ -26,7 +26,9 @@ function UILogin:OnShow(isShow)
 end
 
 function UILogin:onClick(obj)
-
+    if obj.name == "showLogBtn" then
+        UIManager.Instance():Open(ECEnumType.UIEnum.DebugPanel)
+    end
 end
 
 return UILogin

@@ -9,7 +9,7 @@ local _instance = nil
 -- virtual 子类可以初始化一些变量,ResId要在这里赋值
 function UILoading:InitParam()
     self.ResId = 101
-    self.uiDepthLayer = ECEnumType.UIDepth.NORMAL
+    self.uiDepthLayer = ECEnumType.UIDepth.BOTTOMMOST
 end
 
 function UILoading.Instance()
