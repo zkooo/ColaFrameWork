@@ -32,6 +32,9 @@ end
 
 local function initialize()
 	LuaLogHelper.initialize()
+    ConfigMgr.Instance()
+    EventMgr.Instance()
+    UIManager.Instance()
 	-- 模块初始化
 	ModuleManager.Instance():RegisterAllModules()
 	ModuleManager.Instance():InitAllModules()
