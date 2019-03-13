@@ -75,6 +75,8 @@ function UIManager:Open(UIEnum)
     if GUICollections and GUICollections[UIEnum] then
         GUICollections[UIEnum].Instance():Create()
         table.insert(self.uiList, GUICollections[UIEnum].Instance())
+        --TODO:解决UI重复被添加到self.uiList的问题
+        print("----------->self.uilist",#self.uiList)
     end
 end
 
