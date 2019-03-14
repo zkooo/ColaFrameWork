@@ -17,6 +17,7 @@ function UIBase:initialize()
     self.sorterTag = nil
     self.uguiMsgHandler = nil
     self.PanelName = ""
+    self.isExist = false
     self:InitParam()
 end
 
@@ -43,6 +44,7 @@ function UIBase:Create()
         --TODO:新的UI排序管理
         --CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
     end
+    self.isExist = true
     self:AttachListener(self.Panel)
     self:OnCreate()
     self:RegisterEvent()
@@ -63,6 +65,7 @@ function UIBase:CreateWithGo(gameObejct)
         --TODO:新的UI排序管理
         --CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
     end
+    self.isExist = true
     self:AttachListener(self.Panel)
     self:OnCreate()
     self:RegisterEvent()
@@ -85,8 +88,14 @@ function UIBase:SetVisible(isVisible)
     self:OnShow(isVisible)
 end
 
+-- 返回界面的可见性
 function UIBase:IsVisible()
     return nil ~= self.Panel and self.Panel.activeSelf
+end
+
+-- 返回界面实例是否存在
+function UIBase:IsExist()
+    return self.isExist
 end
 
 -- 销毁一个UI界面
@@ -109,6 +118,7 @@ function UIBase:Destroy()
             self:SetVisible(false)
         end
     end
+    self.isExist = false
     self:OnDestroy()
 end
 
