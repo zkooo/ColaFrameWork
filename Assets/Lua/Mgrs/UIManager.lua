@@ -107,14 +107,19 @@ end
 
 -- 判断一个UI是否存在于界面上
 function UIManager:IsExist(UIEnum)
-    if self.uiList then
-        for _, v in ipairs(self.uiList) do
-            if GUICollections[UIEnum].Instance() == v then
-                return true
-            end
-        end
+    if GUICollections and GUICollections[UIEnum] then
+        return GUICollections[UIEnum].Instance():IsExist()
     end
     return false
+    -- 不用这种遍历的判断方式了
+    --if self.uiList then
+    --    for _, v in ipairs(self.uiList) do
+    --        if GUICollections[UIEnum].Instance() == v then
+    --            return true
+    --        end
+    --    end
+    --end
+    --return false
 end
 
 -- 恢复显示之前记录下来的隐藏UI
