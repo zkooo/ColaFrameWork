@@ -59,7 +59,7 @@ function uiSorter:SortTagIndexSetter(uiPanel, sortIndex)
 end
 
 -- 设置带有3D模型UI的SortTag，带3d模型的ui需要排序设置
-function uiSorter:SortTag3DSetter(uiPanel, pos3D, is3DHigher)
+function uiSorter:SortTag3DSetter(uiPanel, pos3D, isHigher)
     if uiPanel == nil then
         return 0
     end
@@ -71,7 +71,7 @@ function uiSorter:SortTag3DSetter(uiPanel, pos3D, is3DHigher)
         return pos3D
     end
     local space3d = uiPanel.sorterTag.Space3D
-    if is3DHigher then
+    if isHigher then
         if space3d > 0 or pos3D ~= 0 then
             pos3D = pos3D - space3d
             uiPanel.sorterTag:SetSpace3D(pos3D)
