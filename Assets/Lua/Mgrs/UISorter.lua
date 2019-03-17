@@ -27,17 +27,17 @@ function uiSorter:SortIndexSetter(panel, sortIndex)
     end
 
     self.canvasSortList = {}
-    local allCanvas = panel:GetComponentsInChildren("Canvas",true):ToTable()
-    for i = 1,#allCanvas do
+    local allCanvas = panel:GetComponentsInChildren("Canvas", true):ToTable()
+    for i = 1, #allCanvas do
         if allCanvas[i] then
-            table.insert(self.canvasSortList,allCanvas[i])
+            table.insert(self.canvasSortList, allCanvas[i])
         end
     end
-    table.sort(self.canvasSortList,function(a,b)
+    table.sort(self.canvasSortList, function(a, b)
         return a.sortingOrder < b.sortingOrder
     end)
 
-    for i=1,#self.canvasSortList do
+    for i = 1, #self.canvasSortList do
         self.canvasSortList[i].sortingOrder = sortIndex
         --- Canvas 层级 +2 间隔一个空层级，某些组件比如UGUI Dropdown组件关闭按钮为dropdown层级减一，无间隔会与其他层级冲突导致关闭功能异常
         sortIndex = sortIndex + 2
@@ -46,21 +46,41 @@ function uiSorter:SortIndexSetter(panel, sortIndex)
 end
 
 -- 设置UI的SortTag,根据显示修改上下关系做到排序
-function uiSorter:SortTagIndexSetter(uiPanel,sortIndex)
+function uiSorter:SortTagIndexSetter(uiPanel, sortIndex)
     if nil == uiPanel then
         return 0
     end
     if not uiPanel.sorterTag then
         return sortIndex
     end
-    uiPanel.sorterTag:SetSorter(sortIndex+1)
+    uiPanel.sorterTag:SetSorter(sortIndex + 1)
     sortIndex = uiPanel.sorterTag:GetSorter()
     return sortIndex
 end
 
 -- 设置带有3D模型UI的SortTag，带3d模型的ui需要排序设置
-function uiSorter:SortTag3DSetter()
+function uiSorter:SortTag3DSetter(uiPanel, pos3D, is3DHigher)
+    if uiPanel == nil then
+        return 0
+    end
+    if not uiPanel:IsVisible() then
+        return pos3D
+    end
 
+    if not uiPanel.sorterTag then
+        return pos3D
+    end
+    local space3d = uiPanel.sorterTag.Space3D
+    if is3DHigher then
+        if space3d > 0 or pos3D ~= 0 then
+            pos3D = pos3D - space3d
+            uiPanel.sorterTag:SetSpace3D(pos3D)
+        else
+            uiPanel.sorterTag:SetSpace3D(pos3D)
+            pos3D = pos3D + space3d
+        end
+    end
+    return pos3D
 end
 
 -- 添加打开面板时调用，会重排UI
