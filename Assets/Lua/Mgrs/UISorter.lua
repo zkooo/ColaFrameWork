@@ -36,6 +36,13 @@ function uiSorter:SortIndexSetter(panel, sortIndex)
     table.sort(self.canvasSortList,function(a,b)
         return a.sortingOrder < b.sortingOrder
     end)
+
+    for i=1,#self.canvasSortList do
+        self.canvasSortList[i].sortingOrder = sortIndex
+        --- Canvas 层级 +2 间隔一个空层级，某些组件比如UGUI Dropdown组件关闭按钮为dropdown层级减一，无间隔会与其他层级冲突导致关闭功能异常
+        sortIndex = sortIndex + 2
+    end
+    return sortIndex + 2
 end
 
 -- 设置UI的SortTag,根据显示修改上下关系做到排序
