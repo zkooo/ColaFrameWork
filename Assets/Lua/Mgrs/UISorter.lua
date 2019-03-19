@@ -140,6 +140,29 @@ end
 -- 重排UI界面
 -- 根据UI的打开先后顺序先赋值index，然后根据uiDepthLayer\moveTop\index三者权重进行UI重排
 function uiSorter:ResortPanels()
+    for i =1,#self.uiSortList do
+        self.uiSortList[i].index = i
+    end
+
+    -- 对UI进行排序
+    table.sort(self.uiSortList,function (a,b)
+        local leftRemoved = self.uiDic[a.panelName] == nil
+        local rightRemoved = self.uiDic[b.panelName] == nil
+        -- 判空处理
+        if leftRemoved ~= rightRemoved then
+            return not leftRemoved
+        end
+
+        if a.depthLayer ~= b.depthLayer then
+            return a.depthLayer < b.depthLayer
+        end
+
+        if a.moveTop ~= b.moveTop then
+            return a.moveTop < b.moveTop
+        end
+        return a.index < b.index
+    end)
+
 
 end
 
