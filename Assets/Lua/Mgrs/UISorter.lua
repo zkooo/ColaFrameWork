@@ -140,12 +140,12 @@ end
 -- 重排UI界面
 -- 根据UI的打开先后顺序先赋值index，然后根据uiDepthLayer\moveTop\index三者权重进行UI重排
 function uiSorter:ResortPanels()
-    for i =1,#self.uiSortList do
+    for i = 1, #self.uiSortList do
         self.uiSortList[i].index = i
     end
 
     -- 对UI进行排序
-    table.sort(self.uiSortList,function (a,b)
+    table.sort(self.uiSortList, function(a, b)
         local leftRemoved = self.uiDic[a.panelName] == nil
         local rightRemoved = self.uiDic[b.panelName] == nil
         -- 判空处理
@@ -163,6 +163,39 @@ function uiSorter:ResortPanels()
         return a.index < b.index
     end)
 
+    -- 从uiSortList中移除已经关闭的UI
+    -- 倒序删除
+    for i = #self.uiSortList, 1, -1 do
+        local panelName = self.uiSortList[i].panelName
+        if not self.uiDic[panelName] then
+            table.remove(self.uiSortList)
+        else
+            break
+        end
+    end
+
+    local _index = self.minSortIndex
+    local _sortIndex = -1
+    local space3d = 0
+
+    for k, v in ipairs(self.uiSortList) do
+        v.moveTop = 0  -- 重置moveTop标志位
+
+        if _index > self.maxSortIndex then
+            _index = self.maxSortIndex
+        end
+        _index = self:SortIndexSetter(v, _index)
+        _sortIndex = self:SortTagIndexSetter(v, _sortIndex)
+        if self.is3DHigher then
+            space3d = self:SortTag3DSetter(v, space3d, true)
+        end
+    end
+
+    if not self.is3DHigher then
+        for i = #self.uiSortList, 1, -1 do
+            space3d = self:SortTag3DSetter(v, space3d, false)
+        end
+    end
 
 end
 
