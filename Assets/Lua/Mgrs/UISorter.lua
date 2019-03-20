@@ -1,10 +1,10 @@
 ---
---- uiSorter UI界面层级排序
+--- UISorter UI界面层级排序
 ---
 
-local uiSorter = Class("uiSorter")
+local UISorter = Class("UISorter")
 
-function uiSorter:initialize()
+function UISorter:initialize()
     self.minSortIndex = 0
     self.maxSortIndex = 0
     self.is3DHigher = true
@@ -13,15 +13,15 @@ function uiSorter:initialize()
     self.canvasSortList = {}
 end
 
-function uiSorter.Create(minSortIndex, maxSortIndex)
-    local uiSorter = uiSorter:new()
-    uiSorter.minSortIndex = minSortIndex
-    uiSorter.maxSortIndex = maxSortIndex
-    return uiSorter
+function UISorter.Create(minSortIndex, maxSortIndex)
+    local UISorter = UISorter:new()
+    UISorter.minSortIndex = minSortIndex
+    UISorter.maxSortIndex = maxSortIndex
+    return UISorter
 end
 
 -- 对某个Gameobject下的Canvas进行动态排序功能,识别子canvas，根据sortingOrder对canvas的排序
-function uiSorter:SortIndexSetter(panel, sortIndex)
+function UISorter:SortIndexSetter(panel, sortIndex)
     if nil == panel then
         return 0
     end
@@ -46,7 +46,7 @@ function uiSorter:SortIndexSetter(panel, sortIndex)
 end
 
 -- 设置UI的SortTag,根据显示修改上下关系做到排序
-function uiSorter:SortTagIndexSetter(uiPanel, sortIndex)
+function UISorter:SortTagIndexSetter(uiPanel, sortIndex)
     if nil == uiPanel then
         return 0
     end
@@ -59,7 +59,7 @@ function uiSorter:SortTagIndexSetter(uiPanel, sortIndex)
 end
 
 -- 设置带有3D模型UI的SortTag，带3d模型的ui需要排序设置
-function uiSorter:SortTag3DSetter(uiPanel, pos3D, isHigher)
+function UISorter:SortTag3DSetter(uiPanel, pos3D, isHigher)
     if uiPanel == nil then
         return 0
     end
@@ -84,7 +84,7 @@ function uiSorter:SortTag3DSetter(uiPanel, pos3D, isHigher)
 end
 
 -- 添加打开面板时调用，会重排UI
-function uiSorter:AddPanel(uiPanel)
+function UISorter:AddPanel(uiPanel)
     if nil == uiPanel then
         error("invalid param #2 to AddPanel, can not be nil")
         return
@@ -102,7 +102,7 @@ function uiSorter:AddPanel(uiPanel)
 end
 
 --  移除关闭面板时调用，会重排UI
-function uiSorter:RemovePanel(uiPanel)
+function UISorter:RemovePanel(uiPanel)
     local panelInfo = self.uiDic[uiPanel.PanelName]
     if not panelInfo then
         warn("Failed to RemovePanel: the panel not found: " .. uiPanel.PanelName)
@@ -115,7 +115,7 @@ function uiSorter:RemovePanel(uiPanel)
 end
 
 -- 将指定的UI提升到当前UILEVEL的最上层
-function uiSorter:MovePanelToTop(uiPanel)
+function UISorter:MovePanelToTop(uiPanel)
     local panelInfo = self.uiDic[uiPanel.PanelName]
     if not panelInfo then
         warn("Failed to MovePanelToTop: the panel not found: " .. uiPanel.PanelName)
@@ -126,7 +126,7 @@ function uiSorter:MovePanelToTop(uiPanel)
 end
 
 -- 将指定的UI提升到指定UILEVEL的最上层
-function uiSorter:MovePanelToTopOfLayer(uiPanel, depthLayer)
+function UISorter:MovePanelToTopOfLayer(uiPanel, depthLayer)
     local panelInfo = self.uiDic[uiPanel.PanelName]
     if not panelInfo then
         warn("Failed to MovePanelToTop: the panel not found: " .. uiPanel.PanelName)
@@ -139,7 +139,7 @@ end
 
 -- 重排UI界面
 -- 根据UI的打开先后顺序先赋值index，然后根据uiDepthLayer\moveTop\index三者权重进行UI重排
-function uiSorter:ResortPanels()
+function UISorter:ResortPanels()
     for i = 1, #self.uiSortList do
         self.uiSortList[i].index = i
     end
@@ -199,4 +199,4 @@ function uiSorter:ResortPanels()
 
 end
 
-return uiSorter
+return UISorter
