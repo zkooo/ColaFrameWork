@@ -203,6 +203,7 @@ public class LuaResourceMgr
     {
         path2ResourceDic.Clear();
         Resources.UnloadUnusedAssets();
+        System.GC.Collect();
         //清理bundle
     }
 
