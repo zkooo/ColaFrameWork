@@ -40,9 +40,7 @@ function UIBase:Create()
         self.Panel:AddSingleComponent(typeof(UnityEngine.UI.GraphicRaycaster))
         self.uiCanvas.overrideSorting = true
         self.Panel:AddSingleComponent(typeof(ParticleOrderAutoSorter))
-
-        --TODO:新的UI排序管理
-        --CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
+        UIManager.Instance():GetUISorterMgr():AddPanel(self)
     end
     self.isExist = true
     self:AttachListener(self.Panel)
@@ -61,9 +59,7 @@ function UIBase:CreateWithGo(gameObejct)
         self.Panel:AddSingleComponent(typeof(UnityEngine.GraphicRaycaster))
         self.uiCanvas.overrideSorting = true
         self.Panel:AddSingleComponent(typeof(ParticleOrderAutoSorter))
-
-        --TODO:新的UI排序管理
-        --CommonHelper.GetUIMgr().GetUISorterMgr().AddPanel(self)
+        UIManager.Instance():GetUISorterMgr():AddPanel(self)
     end
     self.isExist = true
     self:AttachListener(self.Panel)
@@ -101,8 +97,7 @@ end
 -- 销毁一个UI界面
 function UIBase:Destroy()
     if self.sortEnable then
-        --TODO:新的UI排序管理
-        --CommonHelper.GetUIMgr().GetUISorterMgr().RemovePanel(this)
+        UIManager.Instance():GetUISorterMgr():RemovePanel(self)
     end
     self:DestroySubPanels()
     self:UnRegisterEvent()
@@ -171,9 +166,7 @@ end
 
 -- 将当前UI层级提高，展示在当前Level的最上层
 function UIBase:BringTop()
-    --TODO:新的UISorter
-    --local uiSorterMgr = CommonHelper.GetUIMgr().GetUISorterMgr();
-    --uiSorterMgr.MovePanelToTop(this);
+    UIManager.Instance():GetUISorterMgr():MovePanelToTop(self)
 end
 
 -- 显示UI背景模糊
