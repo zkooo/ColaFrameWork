@@ -59,7 +59,7 @@ function UI_Utils.SetImageSpriteFromAtlas(atlasID, image, spriteName, keepNative
         return
     end
     --TODO:新的加载方式
-    local atlasObj = ResourceMgr.GetInstance().GetResourceById < UnityEngine.GameObject > (atlasID)
+    local atlasObj = LuaResourceMgr.GetInstance().GetResourceById < UnityEngine.GameObject > (atlasID)
     if nil ~= atlasObj then
         local spriteAsset = atlasObj:GetComponent("SpriteAsset")
         if nil ~= spriteAsset then
