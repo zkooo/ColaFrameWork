@@ -58,8 +58,7 @@ function UI_Utils.SetImageSpriteFromAtlas(atlasID, image, spriteName, keepNative
     if image.overrideSprite and image.overrideSprite.name == spriteName then
         return
     end
-    --TODO:新的加载方式
-    local atlasObj = LuaResourceMgr.GetInstance().GetResourceById < UnityEngine.GameObject > (atlasID)
+    local atlasObj = UTL.LuaCommon.GetResourceById(atlasID,typeof(UnityEngine.GameObject),0)
     if nil ~= atlasObj then
         local spriteAsset = atlasObj:GetComponent("SpriteAsset")
         if nil ~= spriteAsset then
@@ -80,8 +79,7 @@ function UI_Utils.SetRawImage(rawImage, resID, keepNativeSize)
         warn("需要指定RawImage")
         return
     end
-    --TODO:新的加载方式
-    local texture2D = ResourceMgr.GetInstance().GetResourceById < Texture2D > (resID)
+    local texture2D = UTL.LuaCommon.GetResourceById(resID,typeof(UnityEngine.Texture2D),0)
     if nil ~= texture2D then
         rawImage.texture = texture2D
         if keepNativeSize then
@@ -105,8 +103,7 @@ function UI_Utils.SetRawImageGray(rawImage, isGray)
         return
     end
     if isGray then
-        --TODO:新的加载方
-        local garyMat = ResourceMgr.GetInstance().GetResourceById < Material > (300001)
+        local garyMat = UTL.LuaCommon.GetResourceById(300001,typeof(UnityEngine.Material),0)
         rawImage.material = garyMat
         rawImage.color = COMMON_COLORS.Black
     else
