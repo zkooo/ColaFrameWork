@@ -43,4 +43,13 @@ function LuaCommon_Utils.GetResourceById(id,type,resLoadMode)
     end
 end
 
+function LuaCommon_Utils.GetResourceByIdAsync(id,type,resLoadMode,callback)
+    local resConfig = ConfigMgr.Instance():GetItem("ResPathConfig",id)
+    if resConfig and resConfig.path then
+        LuaResourceMgr.GetInstance().GetResourceByPathAsync(resConfig.path,type,resLoadMode,callback)
+    else
+        error("ResPathConfig表中未配置"..id)
+    end
+end
+
 return LuaCommon_Utils
