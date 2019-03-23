@@ -173,7 +173,7 @@ public class Common_UtilsWrap
 			ToLua.CheckArgsCount(L, 3);
 			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
 			string arg1 = ToLua.CheckString(L, 2);
-			System.Type arg2 = ToLua.CheckMonoType(L, 3);
+			string arg2 = ToLua.CheckString(L, 3);
 			UnityEngine.Component o = Common_Utils.GetComponentByPath(arg0, arg1, arg2);
 			ToLua.Push(L, o);
 			return 1;

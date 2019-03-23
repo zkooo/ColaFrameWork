@@ -131,7 +131,7 @@ public static class Common_Utils
     /// <param name="childPath"></param>
     /// <param name="type"></param>
     /// <returns></returns>
-    public static Component GetComponentByPath(this GameObject obj, string childPath, Type type)
+    public static Component GetComponentByPath(this GameObject obj, string childPath, string type)
     {
         GameObject childObj = FindChildByPath(obj, childPath);
         if (null == childObj)

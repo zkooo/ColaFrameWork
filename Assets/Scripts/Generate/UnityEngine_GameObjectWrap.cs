@@ -782,7 +782,7 @@ public class UnityEngine_GameObjectWrap
 			ToLua.CheckArgsCount(L, 3);
 			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
 			string arg0 = ToLua.CheckString(L, 2);
-			System.Type arg1 = ToLua.CheckMonoType(L, 3);
+			string arg1 = ToLua.CheckString(L, 3);
 			UnityEngine.Component o = obj.GetComponentByPath(arg0, arg1);
 			ToLua.Push(L, o);
 			return 1;
