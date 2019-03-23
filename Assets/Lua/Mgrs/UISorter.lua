@@ -21,13 +21,13 @@ function UISorter.Create(minSortIndex, maxSortIndex)
 end
 
 -- 对某个Gameobject下的Canvas进行动态排序功能,识别子canvas，根据sortingOrder对canvas的排序
-function UISorter:SortIndexSetter(panel, sortIndex)
-    if nil == panel then
+function UISorter:SortIndexSetter(uiPanel, sortIndex)
+    if nil == uiPanel then
         return 0
     end
 
     self.canvasSortList = {}
-    local allCanvas = panel:GetComponentsInChildren("Canvas", true):ToTable()
+    local allCanvas = uiPanel.Panel:GetComponentsInChildren("Canvas", true):ToTable()
     for i = 1, #allCanvas do
         if allCanvas[i] then
             table.insert(self.canvasSortList, allCanvas[i])
@@ -184,7 +184,7 @@ function UISorter:ResortPanels()
         if _index > self.maxSortIndex then
             _index = self.maxSortIndex
         end
-        _index = self:SortIndexSetter(v, _index)
+        _index = self:SortIndexSetter(v.uiPanel, _index)
         _sortIndex = self:SortTagIndexSetter(v, _sortIndex)
         if self.is3DHigher then
             space3d = self:SortTag3DSetter(v, space3d, true)
