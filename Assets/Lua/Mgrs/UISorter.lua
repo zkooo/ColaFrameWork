@@ -22,7 +22,7 @@ end
 
 -- 对某个Gameobject下的Canvas进行动态排序功能,识别子canvas，根据sortingOrder对canvas的排序
 function UISorter:SortIndexSetter(uiPanel, sortIndex)
-    if nil == uiPanel then
+    if nil == uiPanel or nil == uiPanel.Panel then
         return 0
     end
 
@@ -47,7 +47,7 @@ end
 
 -- 设置UI的SortTag,根据显示修改上下关系做到排序
 function UISorter:SortTagIndexSetter(uiPanel, sortIndex)
-    if nil == uiPanel then
+    if nil == uiPanel or nil == uiPanel.Panel then
         return 0
     end
     if not uiPanel.sorterTag then
@@ -60,7 +60,7 @@ end
 
 -- 设置带有3D模型UI的SortTag，带3d模型的ui需要排序设置
 function UISorter:SortTag3DSetter(uiPanel, pos3D, isHigher)
-    if uiPanel == nil then
+    if uiPanel == nil or nil == uiPanel.Panel then
         return 0
     end
     if not uiPanel:IsVisible() then
@@ -185,15 +185,15 @@ function UISorter:ResortPanels()
             _index = self.maxSortIndex
         end
         _index = self:SortIndexSetter(v.uiPanel, _index)
-        _sortIndex = self:SortTagIndexSetter(v, _sortIndex)
+        _sortIndex = self:SortTagIndexSetter(v.uiPanel, _sortIndex)
         if self.is3DHigher then
-            space3d = self:SortTag3DSetter(v, space3d, true)
+            space3d = self:SortTag3DSetter(v.uiPanel, space3d, true)
         end
     end
 
     if not self.is3DHigher then
         for i = #self.uiSortList, 1, -1 do
-            space3d = self:SortTag3DSetter(v, space3d, false)
+            space3d = self:SortTag3DSetter(self.uiSortList[i].uiPanel, space3d, false)
         end
     end
 
