@@ -42,7 +42,7 @@ function UISorter:SortIndexSetter(uiPanel, sortIndex)
         --- Canvas 层级 +2 间隔一个空层级，某些组件比如UGUI Dropdown组件关闭按钮为dropdown层级减一，无间隔会与其他层级冲突导致关闭功能异常
         sortIndex = sortIndex + 2
     end
-    return sortIndex + 2
+    return sortIndex
 end
 
 -- 设置UI的SortTag,根据显示修改上下关系做到排序
