@@ -5,6 +5,16 @@
 local UIBase = require("Core.ui.UIBase")
 local #NAME# = Class("#NAME#",UIBase)
 
+local _instance = nil
+
+-- 获取UI实例的接口
+function #NAME#.Instance()
+    if nil == _instance then
+        _instance = #NAME#:new()
+    end
+    return _instance
+end
+
 -- virtual 子类可以初始化一些变量,ResId要在这里赋值
 function #NAME#:InitParam()
 
