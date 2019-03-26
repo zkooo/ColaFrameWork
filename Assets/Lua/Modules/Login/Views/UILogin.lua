@@ -20,6 +20,9 @@ end
 function UILogin:OnCreate()
     local logoImage = self.Panel:GetComponentByPath("logo","Image")
     UTL.UI.SetImageSpriteFromAtlas(2001, logoImage, "airfightSheet_3", false)
+    TimeHelper.SetTimer(function ()
+        UIManager.Instance():Open(ECEnumType.UIEnum.Setting)
+    end,6)
 end
 
 -- 界面可见性变化的时候触发
