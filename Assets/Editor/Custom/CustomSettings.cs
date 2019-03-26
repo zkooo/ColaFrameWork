@@ -66,6 +66,7 @@ public static class CustomSettings
         _GT(typeof(ColaHelper)),
         _GT(typeof(UGUIMsgHandler)),
         _GT(typeof(PlayerPrefs)),
+        _GT(typeof(SpriteAsset)),
 
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),

@@ -17,6 +17,7 @@ public static class LuaBinder
 		TimeHelperWrap.Register(L);
 		ColaHelperWrap.Register(L);
 		UGUIMsgHandlerWrap.Register(L);
+		SpriteAssetWrap.Register(L);
 		LuaProfilerWrap.Register(L);
 		L.RegFunction("UIEventHandler", UIEventHandler);
 		L.RegFunction("UIDragEventHandlerDetail", UIDragEventHandlerDetail);
