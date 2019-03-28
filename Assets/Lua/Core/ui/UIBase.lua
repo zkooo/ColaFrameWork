@@ -31,7 +31,7 @@ function UIBase:Create()
     if nil ~= self.Panel then
         UnityEngine.GameObject.Destroy(self.Panel)
     end
-    self.Panel = UTL.LuaCommon.InstantiateGoById(self.ResId,Common_Utils.GetUIRootObj())
+    self.Panel = UTL.LuaCommon.InstantiateGoById(self.ResId, Common_Utils.GetUIRootObj())
     self.PanelName = self.Panel.name
     -- 如果参与UI排序
     if self.sortEnable then
@@ -123,14 +123,14 @@ function UIBase:OnDestroy()
 end
 
 -- 关联子UI，统一参与管理
-function UIBase:AttachSubPanel(subPanelPath,subUI,uiLevel)
+function UIBase:AttachSubPanel(subPanelPath, subUI, uiLevel)
     if nil == subPanelPath or subPanelPath == "" then
         return
     end
     local subUIObj = self.Panel:FindChildByPath(subPanelPath)
     if nil ~= subUIObj then
-        subUI:CreateWithGo(subUIObj,uiLevel)
-        table.insert(self.subUIList,subUI)
+        subUI:CreateWithGo(subUIObj, uiLevel)
+        table.insert(self.subUIList, subUI)
     end
 end
 
@@ -140,7 +140,7 @@ function UIBase:RegisterSubPanel(subUI)
         return
     end
     subUI.uiDepthLayer = self.uiDepthLayer
-    table.insert(self.subUIList,subUI)
+    table.insert(self.subUIList, subUI)
 end
 
 -- 解除子UI关联
@@ -153,12 +153,12 @@ end
 --  销毁关联的子面板，不要重写
 function UIBase:DestroySubPanels()
     if nil ~= self.subUIList then
-        for _,v in ipairs(self.subUIList) do
+        for _, v in ipairs(self.subUIList) do
             v:Destroy()
             v.Panel = nil
         end
     end
-    for _,v in pairs(self.subUIList) do
+    for _, v in pairs(self.subUIList) do
         v = nil
     end
     self.subUIList = {}
@@ -167,6 +167,11 @@ end
 -- 将当前UI层级提高，展示在当前Level的最上层
 function UIBase:BringTop()
     UIManager.Instance():GetUISorterMgr():MovePanelToTop(self)
+end
+
+-- 将当前UI提升到指定UIDepthLayer的最上层
+function UIBase:BringToTopOfLayer(depthLayer)
+    UIManager.Instance():GetUISorterMgr():MovePanelToTopOfLayer(self, depthLayer)
 end
 
 -- 显示UI背景模糊
@@ -192,14 +197,30 @@ function UIBase:AttachListener(gameObject)
     self.uguiMsgHandler = uguiMsgHandler
 
     -- BindFunction
-    self.uguiMsgHandler.onClick = function(obj) self:onClick(obj) end
-    self.uguiMsgHandler.onBoolValueChange = function(obj, isSelect) self:onBoolValueChange(obj, isSelect) end
-    self.uguiMsgHandler.onEvent = function(eventName) self:onEvent(eventName) end
-    self.uguiMsgHandler.onFloatValueChange = function(obj, value) self:onFloatValueChange(obj, value) end
-    self.uguiMsgHandler.onStrValueChange = function(obj, text) self:onStrValueChange(obj, text) end
-    self.uguiMsgHandler.onDrag = function (obj, deltaPos, curToucPosition) self:onDrag(obj, deltaPos, curToucPosition)end
-    self.uguiMsgHandler.onBeginDrag = function(obj, deltaPos, curToucPosition) self:onBeginDrag(obj, deltaPos, curToucPosition) end
-    self.uguiMsgHandler.onEndDrag = function(obj, deltaPos, curToucPosition) self:onEndDrag(obj, deltaPos, curToucPosition) end
+    self.uguiMsgHandler.onClick = function(obj)
+        self:onClick(obj)
+    end
+    self.uguiMsgHandler.onBoolValueChange = function(obj, isSelect)
+        self:onBoolValueChange(obj, isSelect)
+    end
+    self.uguiMsgHandler.onEvent = function(eventName)
+        self:onEvent(eventName)
+    end
+    self.uguiMsgHandler.onFloatValueChange = function(obj, value)
+        self:onFloatValueChange(obj, value)
+    end
+    self.uguiMsgHandler.onStrValueChange = function(obj, text)
+        self:onStrValueChange(obj, text)
+    end
+    self.uguiMsgHandler.onDrag = function(obj, deltaPos, curToucPosition)
+        self:onDrag(obj, deltaPos, curToucPosition)
+    end
+    self.uguiMsgHandler.onBeginDrag = function(obj, deltaPos, curToucPosition)
+        self:onBeginDrag(obj, deltaPos, curToucPosition)
+    end
+    self.uguiMsgHandler.onEndDrag = function(obj, deltaPos, curToucPosition)
+        self:onEndDrag(obj, deltaPos, curToucPosition)
+    end
 
     self.uguiMsgHandler:AttachListener(gameObject)
 end
