@@ -23,6 +23,9 @@ function UILogin:OnCreate()
     TimeHelper.SetTimer(function ()
         UIManager.Instance():Open(ECEnumType.UIEnum.Setting)
     end,6)
+    TimeHelper.SetTimer(function ()
+        self:BringTop()
+    end,10)
 end
 
 -- 界面可见性变化的时候触发
