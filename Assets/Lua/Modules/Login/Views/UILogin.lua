@@ -24,7 +24,7 @@ function UILogin:OnCreate()
         UIManager.Instance():Open(ECEnumType.UIEnum.Setting)
     end,6)
     TimeHelper.SetTimer(function ()
-        self:BringTop()
+        self:BringToTopOfLayer(ECEnumType.UIDepth.DEBUG)
     end,10)
 end
 
