@@ -18,14 +18,6 @@ end
 
 -- override UI面板创建结束后调用，可以在这里获取gameObject和component等操作
 function UILogin:OnCreate()
-    local logoImage = self.Panel:GetComponentByPath("logo","Image")
-    UTL.UI.SetImageSpriteFromAtlas(2001, logoImage, "airfightSheet_3", false)
-    TimeHelper.SetTimer(function ()
-        UIManager.Instance():Open(ECEnumType.UIEnum.Setting)
-    end,6)
-    TimeHelper.SetTimer(function ()
-        self:BringToTopOfLayer(ECEnumType.UIDepth.DEBUG)
-    end,10)
 end
 
 -- 界面可见性变化的时候触发
