@@ -127,6 +127,7 @@ public static class CustomSettings
         _GT(typeof(RawImage)),
         _GT(typeof(Canvas)),
         _GT(typeof(GraphicRaycaster)),
+        _GT(typeof(Sprite)),
 #endregion
 
 #if UNITY_5_3_OR_NEWER && !UNITY_5_6_OR_NEWER

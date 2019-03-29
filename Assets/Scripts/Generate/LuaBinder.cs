@@ -56,6 +56,7 @@ public static class LuaBinder
 		UnityEngine_LightTypeWrap.Register(L);
 		UnityEngine_SleepTimeoutWrap.Register(L);
 		UnityEngine_CanvasWrap.Register(L);
+		UnityEngine_SpriteWrap.Register(L);
 		UnityEngine_AnimatorWrap.Register(L);
 		UnityEngine_InputWrap.Register(L);
 		UnityEngine_KeyCodeWrap.Register(L);
