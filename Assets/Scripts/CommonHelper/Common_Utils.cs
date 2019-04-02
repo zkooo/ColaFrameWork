@@ -73,6 +73,22 @@ public static class Common_Utils
         return null;
     }
 
+    public static Component AddCustomComponent(this GameObject go,string type)
+    {
+        if (null != go)
+        {
+            switch (type)
+            {
+                case "Image":
+                    return go.AddComponent<Image>();
+                default:
+                    return null;
+            }
+        }
+        Debug.LogWarning("要添加组件的物体为空！");
+        return null;
+    }
+
     /// <summary>
     /// 获取某个物体下对应名字的子物体(如果有重名的，就返回第一个符合的)
     /// </summary>

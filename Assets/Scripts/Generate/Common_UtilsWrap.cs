@@ -12,6 +12,7 @@ public class Common_UtilsWrap
 		L.RegFunction("InstantiateGoByPath", InstantiateGoByPath);
 		L.RegFunction("InstantiateGoByPrefab", InstantiateGoByPrefab);
 		L.RegFunction("AddSingleComponent", AddSingleComponent);
+		L.RegFunction("AddCustomComponent", AddCustomComponent);
 		L.RegFunction("GetGameObjectByName", GetGameObjectByName);
 		L.RegFunction("FindChildByPath", FindChildByPath);
 		L.RegFunction("GetComponentByPath", GetComponentByPath);
@@ -120,6 +121,24 @@ public class Common_UtilsWrap
 			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
 			System.Type arg1 = ToLua.CheckMonoType(L, 2);
 			UnityEngine.Component o = Common_Utils.AddSingleComponent(arg0, arg1);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AddCustomComponent(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg1 = ToLua.CheckString(L, 2);
+			UnityEngine.Component o = Common_Utils.AddCustomComponent(arg0, arg1);
 			ToLua.Push(L, o);
 			return 1;
 		}

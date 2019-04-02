@@ -29,6 +29,7 @@ public class UnityEngine_GameObjectWrap
 		L.RegFunction("GetComponentByPath", GetComponentByPath);
 		L.RegFunction("FindChildByPath", FindChildByPath);
 		L.RegFunction("GetGameObjectByName", GetGameObjectByName);
+		L.RegFunction("AddCustomComponent", AddCustomComponent);
 		L.RegFunction("AddSingleComponent", AddSingleComponent);
 		L.RegFunction("New", _CreateUnityEngine_GameObject);
 		L.RegFunction("__eq", op_Equality);
@@ -821,6 +822,24 @@ public class UnityEngine_GameObjectWrap
 			string arg0 = ToLua.CheckString(L, 2);
 			UnityEngine.GameObject o = obj.GetGameObjectByName(arg0);
 			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AddCustomComponent(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject obj = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg0 = ToLua.CheckString(L, 2);
+			UnityEngine.Component o = obj.AddCustomComponent(arg0);
+			ToLua.Push(L, o);
 			return 1;
 		}
 		catch (Exception e)
