@@ -114,13 +114,6 @@ public static class GUIHelper
             //主相机的根节点
             GameObject mainCameraRootObj = new GameObject("Main Camera Root");
 
-            GameObject cameraPushObj = new GameObject("Camera Push");
-            cameraPushObj.transform.SetParent(mainCameraRootObj.transform, false);
-            //cameraPushObj.AddComponent<CameraPush>();
-            GameObject cameraShakeObj = new GameObject("Camera Shake");
-            cameraShakeObj.transform.SetParent(cameraPushObj.transform, false);
-            //cameraShakeObj.AddComponent<CameraShake>();
-
             //创建主相机并设置参数
             mainCameraObj = new GameObject("Main Camera");
             mainCamera = mainCameraObj.AddComponent<Camera>();
