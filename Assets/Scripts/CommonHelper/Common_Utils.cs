@@ -81,6 +81,16 @@ public static class Common_Utils
             {
                 case "Image":
                     return go.AddComponent<Image>();
+                case "RawImage":
+                    return go.AddComponent<RawImage>();
+                case "Canvas":
+                    return go.AddComponent<Canvas>();
+                case "Button":
+                    return go.AddComponent<Button>();
+                case "RectTransform":
+                    return go.AddComponent<RectTransform>();
+                case "UGUIMsgHandler":
+                    return go.AddComponent<UGUIMsgHandler>();
                 default:
                     return null;
             }
