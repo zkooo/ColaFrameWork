@@ -178,7 +178,7 @@ end
 
 -- 创建UI背景模糊
 function UIManager:CreateUIBlur(ui, blurName)
-    local uiBlurObj =  UnityEngine.GameObject.GameObject(blurName)
+    local uiBlurObj =  UnityEngine.GameObject.New(blurName)
     uiBlurObj.transform:SetParent(ui.Panel.transform,false)
     uiBlurObj.layer = ui.Layer
     local rawImage = uiBlurObj:AddComponent("RawImage")
