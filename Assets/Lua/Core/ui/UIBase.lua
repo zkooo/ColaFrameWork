@@ -33,6 +33,7 @@ function UIBase:Create()
     end
     self.Panel = UTL.LuaCommon.InstantiateGoById(self.ResId, Common_Utils.GetUIRootObj())
     self.PanelName = self.Panel.name
+    self.Layer = self.Panel.layer
     -- 如果参与UI排序
     if self.sortEnable then
         self.sorterTag = self.Panel:AddSingleComponent(typeof(SorterTag))
@@ -53,6 +54,7 @@ end
 function UIBase:CreateWithGo(gameObejct)
     self.Panel = gameObejct
     self.PanelName = self.Panel.name
+    self.Layer = self.Panel.layer
     if self.sortEnable then
         self.sorterTag = self.Panel:AddSingleComponent(typeof(SorterTag))
         self.uiCanvas = self.Panel:AddSingleComponent(typeof(UnityEngine.Canvas))
