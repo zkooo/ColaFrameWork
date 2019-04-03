@@ -94,7 +94,7 @@ public static class Common_Utils
         return null;
     }
 
-    public static Component AddCustomComponent(this GameObject go,string type)
+    public static Component AddCustomComponent(this GameObject go, string type)
     {
         if (null != go)
         {
@@ -112,7 +112,14 @@ public static class Common_Utils
                     return go.AddComponent<RectTransform>();
                 case "UGUIMsgHandler":
                     return go.AddComponent<UGUIMsgHandler>();
+                case "SorterTag":
+                    return go.AddComponent<SorterTag>();
+                case "GraphicRaycaster":
+                    return go.AddComponent<GraphicRaycaster>();
+                case "ParticleOrderAutoSorter":
+                    return go.AddComponent<ParticleOrderAutoSorter>();
                 default:
+                    Debug.LogWarning(string.Format("期望添加的类型{0}未做处理!", type));
                     return null;
             }
         }
