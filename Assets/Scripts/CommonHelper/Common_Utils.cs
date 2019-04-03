@@ -73,6 +73,27 @@ public static class Common_Utils
         return null;
     }
 
+    /// <summary>
+    /// 给物体添加一个单一组件
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static Component AddSingleComponent(this GameObject go, string type)
+    {
+        if (null != go)
+        {
+            Component component = go.GetComponent(type);
+            if (null == component)
+            {
+                component = go.AddCustomComponent(type);
+            }
+            return component;
+        }
+        Debug.LogWarning("要添加组件的物体为空！");
+        return null;
+    }
+
     public static Component AddCustomComponent(this GameObject go,string type)
     {
         if (null != go)

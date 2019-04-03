@@ -117,12 +117,28 @@ public class Common_UtilsWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
-			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
-			System.Type arg1 = ToLua.CheckMonoType(L, 2);
-			UnityEngine.Component o = Common_Utils.AddSingleComponent(arg0, arg1);
-			ToLua.Push(L, o);
-			return 1;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2 && TypeChecker.CheckTypes<string>(L, 2))
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				string arg1 = ToLua.ToString(L, 2);
+				UnityEngine.Component o = Common_Utils.AddSingleComponent(arg0, arg1);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes<System.Type>(L, 2))
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				System.Type arg1 = (System.Type)ToLua.ToObject(L, 2);
+				UnityEngine.Component o = Common_Utils.AddSingleComponent(arg0, arg1);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Common_Utils.AddSingleComponent");
+			}
 		}
 		catch (Exception e)
 		{
