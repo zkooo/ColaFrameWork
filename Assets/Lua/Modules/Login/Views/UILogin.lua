@@ -18,6 +18,7 @@ end
 
 -- override UI面板创建结束后调用，可以在这里获取gameObject和component等操作
 function UILogin:OnCreate()
+    self.trans = self.Panel:GetComponent("RectTransform")
 end
 
 -- 界面可见性变化的时候触发
