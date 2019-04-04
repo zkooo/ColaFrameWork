@@ -149,7 +149,7 @@ end
 function UIManager:CloseUIByLevel(level)
     if self.uiList then
         -- 倒序关闭
-        for i = #self.uiList ,1,-1 do
+        for i = #self.uiList, 1, -1 do
             self.uiList[i]:Destroy()
         end
     end
@@ -178,11 +178,11 @@ end
 
 -- 创建UI背景模糊
 function UIManager:CreateUIBlur(ui, blurName)
-    local uiBlurObj =  UnityEngine.GameObject.New(blurName)
-    uiBlurObj.transform:SetParent(ui.Panel.transform,false)
+    local uiBlurObj = UnityEngine.GameObject.New(blurName)
+    uiBlurObj.transform:SetParent(ui.Panel.transform, false)
     uiBlurObj.layer = ui.Layer
-    local rawImage = uiBlurObj:AddComponent("RawImage")
-    local button = uiBlurObj:AddComponent("Button")
+    local rawImage = uiBlurObj:AddCustomComponent("RawImage")
+    local button = uiBlurObj:AddCustomComponent("Button")
     button.transition = Selectable.Transition.None
     local rectTransform = uiBlurObj:GetComponent("RectTransform")
     if nil == rectTransform then

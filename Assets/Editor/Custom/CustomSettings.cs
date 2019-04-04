@@ -67,7 +67,6 @@ public static class CustomSettings
         _GT(typeof(UGUIMsgHandler)),
         _GT(typeof(PlayerPrefs)),
         _GT(typeof(SpriteAsset)),
-        _GT(typeof(RectTransform)),
 
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),
@@ -101,7 +100,7 @@ public static class CustomSettings
 #endif
       
         _GT(typeof(Behaviour)),
-        _GT(typeof(MonoBehaviour)),        
+        _GT(typeof(MonoBehaviour)),
         _GT(typeof(GameObject)).AddExtendType(typeof(Common_Utils)),
         _GT(typeof(TrackedReference)),
         _GT(typeof(Application)),
@@ -129,6 +128,9 @@ public static class CustomSettings
         _GT(typeof(Canvas)),
         _GT(typeof(GraphicRaycaster)),
         _GT(typeof(Sprite)),
+        _GT(typeof(RectTransform)),
+        _GT(typeof(Button)),
+        _GT(typeof(Selectable)),
 #endregion
 
 #if UNITY_5_3_OR_NEWER && !UNITY_5_6_OR_NEWER
