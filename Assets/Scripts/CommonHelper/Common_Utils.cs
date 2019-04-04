@@ -94,6 +94,12 @@ public static class Common_Utils
         return null;
     }
 
+    /// <summary>
+    /// 给物体添加组件，注意：未导出的类型可能会产生警告，脚本类型会被强制转换为基类
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public static Component AddCustomComponent(this GameObject go, string type)
     {
         if (null != go)
