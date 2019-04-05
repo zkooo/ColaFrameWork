@@ -121,7 +121,14 @@ end
 
 -- 界面销毁的过程中触发
 function UIBase:OnDestroy()
-
+    print("------------->基类的Destroy")
+    self.Panel = nil
+    self.Layer = 0
+    self.uiCanvas = nil
+    self.sorterTag = nil
+    self.uguiMsgHandler = nil
+    self.PanelName = ""
+    self.isExist = false
 end
 
 -- 关联子UI，统一参与管理
