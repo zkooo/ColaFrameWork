@@ -32,7 +32,7 @@ end
 
 -- 界面销毁的过程中触发
 function #NAME#:OnDestroy()
-	UIBase:OnDestroy()
+	UIBase.OnDestroy(self)
 end
 
 -- 注册UI事件监听

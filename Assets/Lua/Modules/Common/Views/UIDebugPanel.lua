@@ -35,8 +35,10 @@ end
 
 -- 界面销毁的过程中触发
 function UIDebugPanel:OnDestroy()
-    UIBase:OnDestroy()
+    UIBase.OnDestroy(self)
     self.DebugText = nil
+    print("-------->PanelName",self.PanelName)
+    print("-------->uiCanvas",self.uiCanvas)
 end
 
 -- 注册UI事件监听
