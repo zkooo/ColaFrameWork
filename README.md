@@ -207,16 +207,16 @@ Xls转lua小工具
 直接将文件夹拖到项目中即可使用。  
 使用示例  
 右键需要查找引用的文件或文件夹，点击Find References进行查找。  
-![](ReadmeDoc/Start.png)  
+![](./Doc/image/ReferenceFinder/Start.png)  
 **按钮含义：**  
 Refresh Data:刷新缓存
 Model:切换引用和依赖
 NeedUpdateState:是否需要根据当前文件的状态更新State栏。  
 Expand:展开列表
 Collapse:折叠列表
-![](ReadmeDoc/SingleSearch.png)  
-![](ReadmeDoc/BatchSearch.png)  
-&emsp;&emsp;第三列的State为Changed代表这个资源被修改了，Missing代表资源被删除了，No Data代表缓存中没有该资源的信息。  
+![](./Doc/image/ReferenceFinder/SingleSearch.png)  
+![](./Doc/image/ReferenceFinder/BatchSearch.png)  
+第三列的State为Changed代表这个资源被修改了，Missing代表资源被删除了，No Data代表缓存中没有该资源的信息。  
 实现方案  
 **方案选择**  
 1.在每次需要查找时进行一次全局查找，保证查找的正确性。但是进行全局查找会很慢，因为查找资源依赖信息的接口GetDependencies本质上其实是对文本的查找(比如prefab中会以文本的形式记录prefab所引用资源的guiid和fileid)，在不进行多线程查询优化的情况下这是一个很慢的过程，存储在机械硬盘上时会更慢。  
