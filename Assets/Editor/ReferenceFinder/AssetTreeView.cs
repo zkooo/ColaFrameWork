@@ -91,6 +91,8 @@ public class AssetTreeView : TreeView
                 allowToggleVisibility = true,
                 canSort = false          
             },
+
+            //TODO:资源类型
         };
         var state = new MultiColumnHeaderState(columns);
         return state;
