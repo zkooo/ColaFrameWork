@@ -36,100 +36,10 @@ ColaFramework 一款简洁的MVC结构的Unity客户端框架，尤其支持快�
 ![](./Doc/image/ColaFramework框架启动流程与机制.png)  
 ![](./Doc/image/ColaFramework框架核心类.png)  
 
-#### 数据节点管理   
+#### 数据配置表管理   
+ColaFramework框架提供了CSV版本和原生lua版本的数据配置表管理，可以根据自己的实际需要进行选择。  
+详情请见[数据配置表管理Wiki页面](https://github.com/XINCGer/ColaFrameWork/wiki/%E6%95%B0%E6%8D%AE%E9%85%8D%E7%BD%AE%E8%A1%A8%E7%AE%A1%E7%90%86)  
 
-* CSV&C#版数据节点管理  
-策划使用Excel表进行数据的配置，然后通过[转表工具](https://github.com/XINCGer/Unity3DTraining/tree/master/XlsxTools/xls2csv)(位于ColaFrameWork\Tools\XlsxTools\xls2csv目录下，内有详细的使用指南)将Excel表转为csv结构的数据结构供客户端读取。  
-每一份csv数据表，都应对应一个数据解析类以及一个数据集合类，其中数据解析类用于解析并存储csv中的单条数据（一行），数据集合类将存储多个数据解析类的对象。  
-数据解析类都应继承自 **LocalDataBase** (本地数据表中的单条数据的抽象基类)：  
-```C#
-/// <summary>
-/// 本地数据表中的单条数据的抽象基类
-/// </summary>
-public abstract class LocalDataBase
-{
-    /// <summary>
-    /// ID
-    /// </summary>
-    public int id;
-
-    /// <summary>
-    /// 初始化数据
-    /// </summary>
-    /// <param name="strData"></param>
-    public abstract void InitWithStr(string strData, char splitChar = ',');
-
-    /// <summary>
-    /// 得到Int数据
-    /// </summary>
-    /// <param name="str"></param>
-    /// <returns></returns>
-    protected int GetInt(string str)
-    {
-        if (!string.IsNullOrEmpty(str))
-        {
-            return int.Parse(str);
-        }
-
-        return 0;
-    }
-
-    /// <summary>
-    /// 得到float数据
-    /// </summary>
-    /// <param name="str"></param>
-    /// <returns></returns>
-    protected float GetFloat(string str)
-    {
-        if (!string.IsNullOrEmpty(str))
-        {
-            return float.Parse(str);
-        }
-
-        return 0;
-    }
-
-    /// <summary>
-    /// 得到bool数据
-    /// </summary>
-    /// <param name="str"></param>
-    /// <returns></returns>
-    protected bool GetBool(string str)
-    {
-        if (!string.IsNullOrEmpty(str))
-        {
-            return bool.Parse(str);
-        }
-
-        return false;
-    }
-}
-
-```
-**LocalDataBase** 该抽象类提供了一些基本的数据类型转换方法，id字段用来存储索引id，InitWithStr接口用来解析数据，将数据表中的单行文本传入到该接口以后，通过splitChar标识将数据进行拆分、解析。框架中已经包含了**I18NData**解析类，编写其他数据解析类时可以参考此类。  
-数据集合类都应实现 **ILocalDataMapBase** 接口(DataMap，数据集合的接口，实现该接口用于管理LocalDataBase)  
-```C#
-/// <summary>
-/// DataMap，数据集合的接口，实现该接口用于管理LocalDataBase
-/// </summary>
-public interface ILocalDataMapBase
-{
-    /// <summary>
-    /// 对多行字符串进行处理，保存成LocalDataBase集合
-    /// </summary>
-    /// <param name="rows"></param>
-    void SetMapCsv(string[] rows);
-}
-```  
-**ILocalDataMapBase** 接口内只有一个 **void SetMapCsv(string[] rows)** 抽象方法，该方法用来对多行字符串进行处理，保存成LocalDataBase集合。
-框架中已经包含了**I18NDataMap**数据集合类，编写其他数据集合类时可以参考此类。  
-
-* LuaConfig&Lua版数据结构管理  
-
-同样本框架也支持将Excel表格数据转为lua形式的配置文件，这样便于接入Lua开发以后数据的访问，提高访问效率。  
-Lua格式的转表工具位于[Lua转表工具](./Tools/XlsxTools/xls2lua),其中config配置文件用来配置原始数据的目录和导出的Lua配置文件的目录
-如果没有特殊需求的话，无需变更配置文件，直接执行同级目录下的Xls2Lua.exe工具即可进行转表操作。  
-可以通过 configMgr:GetConfig(name) 方法获取到对应表格的全部配置数据。通过ConfigMgr:GetItem(name,id)可以获取到对应表格的指定id的数据，ConfigMgr在数据加载与读取过程中做了懒加载的缓存策略，在尽可能节省空间的情况下提高数据加载与读取的速度。  
 #### 事件/消息处理中心(Controller层)    
 框架支持C#版和Lua版两套消息监听与派发机制，用来充当普通的Controller层，用于V和M的解耦等操作。具体的实现原理和用法可以看以下这篇博客：  
 [【Unity游戏开发】用C#和Lua实现Unity中的事件分发机制EventDispatcher](https://www.cnblogs.com/msxh/p/9539231.html)  
