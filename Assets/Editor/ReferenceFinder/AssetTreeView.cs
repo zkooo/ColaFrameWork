@@ -92,7 +92,18 @@ public class AssetTreeView : TreeView
                 canSort = false          
             },
 
-            //TODO:资源类型
+            //资源类型
+            new MultiColumnHeaderState.Column
+            {
+                headerContent = new GUIContent("Type"),
+                headerTextAlignment = TextAlignment.Center,
+                sortedAscending = false,
+                width = 30,
+                minWidth = 60,
+                autoResize = false,
+                allowToggleVisibility = true,
+                canSort = false
+            },
         };
         var state = new MultiColumnHeaderState(columns);
         return state;
