@@ -10,6 +10,12 @@ using UnityEngine.UI;
 public static class Common_Utils
 {
     /// <summary>
+    /// 设置共用的临时变量，避免频繁创建
+    /// </summary>
+    private static Vector3 vec3Tmp = Vector3.zero;
+    private static Vector2 vec2Tmp = Vector2.zero;
+
+    /// <summary>
     /// 给按钮添加点击事件(以后可以往这里添加点击声音)
     /// </summary>
     /// <param name="go"></param>
@@ -383,16 +389,6 @@ public static class Common_Utils
     }
 
     /// <summary>
-    /// 获取导航点距离地面的高度
-    /// </summary>
-    /// <param name="vPos"></param>
-    /// <returns></returns>
-    public static float GetNavMeshHeight(Vector3 vPos)
-    {
-        return CommonHelper.GetNavMeshHeight(vPos);
-    }
-
-    /// <summary>
     /// 检查本地文件是否存在,如果目录不存在则创建目录
     /// </summary>
     /// <param name="filePath"></param>
@@ -428,5 +424,17 @@ public static class Common_Utils
     public static void ClearSreenLog()
     {
         GameLauncher.Instance.LogHelper.ClearSreenLog();
+    }
+
+    /// <summary>
+    /// 获取当前位置距离地面的高度
+    /// </summary>
+    /// <param name="vPos"></param>
+    /// <param name="fRadius"></param>
+    /// <returns></returns>
+    public static float GetTerrainHeight(float x,float y, float z, float fRadius = 0)
+    {
+        vec3Tmp.Set(x, y, z);
+        return CommonHelper.GetTerrainHeight(vec3Tmp, fRadius);
     }
 }

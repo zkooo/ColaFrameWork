@@ -33,12 +33,12 @@ public class Common_UtilsWrap
 		L.RegFunction("GetHostIp", GetHostIp);
 		L.RegFunction("ChildCount", ChildCount);
 		L.RegFunction("GetChild", GetChild);
-		L.RegFunction("GetNavMeshHeight", GetNavMeshHeight);
 		L.RegFunction("CheckLocalFileExist", CheckLocalFileExist);
 		L.RegFunction("GetComponentsInChildren", GetComponentsInChildren);
 		L.RegFunction("AttachScreenText", AttachScreenText);
 		L.RegFunction("UnAttachScreenText", UnAttachScreenText);
 		L.RegFunction("ClearSreenLog", ClearSreenLog);
+		L.RegFunction("GetTerrainHeight", GetTerrainHeight);
 		L.EndStaticLibs();
 	}
 
@@ -499,23 +499,6 @@ public class Common_UtilsWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int GetNavMeshHeight(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 1);
-			float o = Common_Utils.GetNavMeshHeight(arg0);
-			LuaDLL.lua_pushnumber(L, o);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int CheckLocalFileExist(IntPtr L)
 	{
 		try
@@ -606,6 +589,43 @@ public class Common_UtilsWrap
 			ToLua.CheckArgsCount(L, 0);
 			Common_Utils.ClearSreenLog();
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetTerrainHeight(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 3)
+			{
+				float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float o = Common_Utils.GetTerrainHeight(arg0, arg1, arg2);
+				LuaDLL.lua_pushnumber(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				float arg0 = (float)LuaDLL.luaL_checknumber(L, 1);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float o = Common_Utils.GetTerrainHeight(arg0, arg1, arg2, arg3);
+				LuaDLL.lua_pushnumber(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Common_Utils.GetTerrainHeight");
+			}
 		}
 		catch (Exception e)
 		{
