@@ -1,7 +1,6 @@
 # ColaFrameWork  
 
 ### ColaFrameWork 自研Unity客户端框架  
-架构阶段，暂时没有项目使用过。  
 
 ### 框架简介  
 ColaFramework 一款简洁的MVC结构的Unity客户端框架，尤其支持快速开发3D战斗卡牌和mmo类型的游戏。目前已经接入了Tolua，进行Lua层的架构工作。暂时还不支持热更，下一步准备完善这方面的内容，希望有兴趣的可以一起来维护。  
