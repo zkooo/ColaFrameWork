@@ -58,22 +58,7 @@ ColaFrameWork框架在UI开发方面提供了编辑器拓展。通过编辑器�
 Module的基类为ModuleBase，游戏内所有的系统的业务逻辑层均继承自该类。框架采用厚Module类型的MVC结构，弱化了C层的作用，强化了M层。游戏中的业务逻辑大部分都放在M层进行处理处理。M层负责处理业务逻辑、监听网络消息、请求网络消息、派发事件通知其他模块或者UI等更新。M层不应该了解View层的存在，不可以直接调用View层，应该通过消息机制通知View做出动作。
 
 #### 组件与实体获取  
-ColaFrameWork框架中支持两种种获取组件或者Gameobject等其他实体的方式，分别为传统直接获取式、AutoInject依赖注入式两种，下面详细介绍一下区别与使用：  
->* 传统直接获取式:函数接口位于CommonHelper通用助手类下面,以下方法均为拓展方法形式，方便调用,具体为：  
-```C# 
-T GetComponentByName<T>(this GameObject go, string name) 
-T[] GetComponentsByName<T>(this GameObject go)   
-GameObject GetGameObjectByName(this GameObject go, string childName) 
-List<GameObject> GetGameObjectsByName(this GameObject go, string childName) 
-GameObject FindChildByPath(this GameObject obj, string childPath) 
-T GetComponentByPath<T>(this GameObject obj, string childPath) 
-```    
-
->* AutoInject依赖注入式:通过给需要注入的字段或者属性打上AutoInjectAttribute标签，然后再调用AutoInject.Inject(Panel, this);方法，底层会在内部通过反射
-机制完成对应字段或属性的注入，然后直接即可像正常的Component或者Gameobject等实体来使用了。具体使用方法如下所示:  
-![](./Doc/image/AutoInject1.png) ![](./Doc/image/AutoInject2.png)  
-
-* TODO:Lua端的获取组件的方法  
+  
 #### Execl策划表格规范与转表  
 ![](.//Doc/image/Excel1.png)  
 如上图所示，在ColaFramework框架中，规定Excel表格的前四行为固定形式。第一行为说明，解释每一项的意义。第二行为所填数据类型，比如int,string等。第三行为索引字段，表示我们在代码里面如何读取该字段内容。第四行为备用行，可以依据自己的需要进行制定。
