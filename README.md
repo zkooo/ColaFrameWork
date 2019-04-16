@@ -59,35 +59,7 @@ Module的基类为ModuleBase，游戏内所有的系统的业务逻辑层均继�
 #### 组件与实体获取  
 分别支持C#端的和lua端的组件获取，详见[组件与实体获取wiki页面](https://github.com/XINCGer/ColaFrameWork/wiki/%E7%BB%84%E4%BB%B6%E4%B8%8E%E5%AE%9E%E4%BD%93%E8%8E%B7%E5%8F%96)  
 #### Execl策划表格规范与转表  
-![](.//Doc/image/Excel1.png)  
-如上图所示，在ColaFramework框架中，规定Excel表格的前四行为固定形式。第一行为说明，解释每一项的意义。第二行为所填数据类型，比如int,string等。第三行为索引字段，表示我们在代码里面如何读取该字段内容。第四行为备用行，可以依据自己的需要进行制定。
-除了以上四行以外，其他的行我们就可以填写自己的数据配置了。  
-ColaFramework框架配置了两款转表工具，分别为xls2csv和xls2lua，顾名思义分别是把Excel表格配置转换为csv和lua形式的数据文件。  
-**xls2csv**  
-本工具支持将xls xlsx 格式的文件转换为csv  
-需要安装xlrd模块：   
-* 首先到：https://pypi.python.org/pypi/xlrd 下载xlrd源码包  
-* 在解压后的源码包内执行 python setup.py install  
-* 重启命令行即可生效  
-使用方法：
-* 打开 config.ini 配置文件，配置输入路径以及输出路径  
-* 执行 xlsx2csv.py 脚本进行自动导表  
-教程地址  
-* [点我点我](http://www.cnblogs.com/msxh/p/7858346.html)  
-
----  
-**Xls2lua**  
-Xls转lua小工具
-本工具支持将xls 格式的文件转换为lua，并且配有简单的ConfigMgr读取类  
-目录结构    
-* Excel目录存放的是用于测试的文件，表格规定前4行为一些说明与配置信息，不可为空，必填项；  
-* ConfigMgr目录存放的是一个简单的读取转出的lua文件信息的类；  
-* LuaData 存放的是转出来的Lua文件；  
-* Xls2Lua目录包含的是转表工具的源代码；  
-使用方法  
-配置bin目录下的config.ini文件，指定Excel输入目录和Lua输出目录，然后执行编译出来的exe文件即可。  
-教程地址  
-[【游戏开发】Excel表格批量转换成lua的转表工具](https://www.cnblogs.com/msxh/p/8539108.html)  
+本框架支持将Excel表格转为csv和lua原生格式的配置数据文件，详见[Execl策划表格规范与转表Wiki页面](https://github.com/XINCGer/ColaFrameWork/wiki/Execl%E7%AD%96%E5%88%92%E8%A1%A8%E6%A0%BC%E8%A7%84%E8%8C%83%E4%B8%8E%E8%BD%AC%E8%A1%A8)  
 
 #### 资源管理  
 
