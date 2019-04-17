@@ -222,6 +222,12 @@ public static class Common_Utils
         return CommonHelper.GetDeviceInfo();
     }
 
+
+    public static void SetSelectableTransition(Selectable selectable,int type)
+    {
+        selectable.transition = (Selectable.Transition)type;
+    }
+
     /// <summary>
     /// 返回UI画布的根节点
     /// </summary>
