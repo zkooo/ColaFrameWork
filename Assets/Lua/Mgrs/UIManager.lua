@@ -183,7 +183,7 @@ function UIManager:CreateUIBlur(ui, blurName)
     uiBlurObj.layer = ui.Layer
     local rawImage = uiBlurObj:AddCustomComponent("RawImage")
     local button = uiBlurObj:AddCustomComponent("Button")
-    button.transition = Selectable.Transition.None
+    --button.transition = UnityEngine.UI.Selectable.transition.None
     local rectTransform = uiBlurObj:GetComponent("RectTransform")
     if nil == rectTransform then
         rectTransform = uiBlurObj:AddComponent("RectTransform")

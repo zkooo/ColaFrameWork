@@ -23,7 +23,7 @@ end
 
 -- 界面可见性变化的时候触发
 function UILogin:OnShow(isShow)
-    --self:ShowUIBlur()
+    self:ShowUIBlur()
 end
 
 function UILogin:onClick(obj)
