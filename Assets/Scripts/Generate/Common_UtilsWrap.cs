@@ -17,6 +17,7 @@ public class Common_UtilsWrap
 		L.RegFunction("FindChildByPath", FindChildByPath);
 		L.RegFunction("GetComponentByPath", GetComponentByPath);
 		L.RegFunction("GetDeviceInfo", GetDeviceInfo);
+		L.RegFunction("SetSelectableTransition", SetSelectableTransition);
 		L.RegFunction("GetUIRootObj", GetUIRootObj);
 		L.RegFunction("GetUICameraObj", GetUICameraObj);
 		L.RegFunction("GetUIRoot", GetUIRoot);
@@ -39,6 +40,7 @@ public class Common_UtilsWrap
 		L.RegFunction("UnAttachScreenText", UnAttachScreenText);
 		L.RegFunction("ClearSreenLog", ClearSreenLog);
 		L.RegFunction("GetTerrainHeight", GetTerrainHeight);
+		L.RegFunction("ShowUIBlur", ShowUIBlur);
 		L.EndStaticLibs();
 	}
 
@@ -228,6 +230,23 @@ public class Common_UtilsWrap
 			string o = Common_Utils.GetDeviceInfo();
 			LuaDLL.lua_pushstring(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetSelectableTransition(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.UI.Selectable arg0 = (UnityEngine.UI.Selectable)ToLua.CheckObject<UnityEngine.UI.Selectable>(L, 1);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+			Common_Utils.SetSelectableTransition(arg0, arg1);
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -626,6 +645,23 @@ public class Common_UtilsWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: Common_Utils.GetTerrainHeight");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ShowUIBlur(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			string arg1 = ToLua.CheckString(L, 2);
+			Common_Utils.ShowUIBlur(arg0, arg1);
+			return 0;
 		}
 		catch (Exception e)
 		{

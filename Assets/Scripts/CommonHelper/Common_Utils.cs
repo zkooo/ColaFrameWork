@@ -443,4 +443,69 @@ public static class Common_Utils
         vec3Tmp.Set(x, y, z);
         return CommonHelper.GetTerrainHeight(vec3Tmp, fRadius);
     }
+
+    /// <summary>
+    /// 显示UI背景模糊
+    /// </summary>
+    /// <param name="ui"></param>
+    public static void ShowUIBlur(GameObject uiPanel,string panelName)
+    {
+        string uiBlurName = string.Format("blur_{0}", panelName);
+        GameObject uiBlurObj = uiPanel.FindChildByPath(uiBlurName);
+        if (null != uiBlurObj)
+        {
+            RawImage rawImage = uiBlurObj.GetComponent<RawImage>();
+            SetBlurRawImage(rawImage);
+        }
+        else
+        {
+            CreateUIBlur(uiPanel, uiBlurName);
+        }
+    }
+
+    /// <summary>
+    /// 创建UI背景模糊
+    /// </summary>
+    /// <param name="ui"></param>
+    /// <param name="blurName"></param>
+    private static void CreateUIBlur(GameObject uiPanel, string blurName)
+    {
+        GameObject uiBlurObj = new GameObject(blurName);
+        uiBlurObj.transform.SetParent(uiPanel.transform, false);
+        uiBlurObj.layer = uiPanel.layer;
+        RawImage rawImage = uiBlurObj.AddComponent<RawImage>();
+        Button button = uiBlurObj.AddComponent<Button>();
+        button.transition = Selectable.Transition.None;
+        RectTransform rectTransform = uiBlurObj.GetComponent<RectTransform>();
+        if (null == rectTransform)
+        {
+            rectTransform = uiBlurObj.AddComponent<RectTransform>();
+        }
+        rectTransform.anchorMin = new Vector2(-0.1f, -0.1f);
+        rectTransform.anchorMax = new Vector2(1.0f, 1.0f);
+        rectTransform.sizeDelta = Vector2.zero;
+        rectTransform.SetAsFirstSibling();
+        SetBlurRawImage(rawImage);
+    }
+
+    /// <summary>
+    /// 设置背景模糊RawImage
+    /// </summary>
+    /// <param name="rawImage"></param>
+    /// <param name="blurName"></param>
+    /// <returns></returns>
+    private static void SetBlurRawImage(RawImage rawImage)
+    {
+        if (null != rawImage)
+        {
+            rawImage.gameObject.SetActive(false);
+            RenderTexture texture = GUIHelper.GetModelOutlineCameraObj().GetComponent<ImageEffectUIBlur>().FinalTexture;
+            if (texture)
+            {
+                rawImage.texture = texture;
+            }
+            rawImage.gameObject.SetActive(true);
+        }
+    }
+
 }
