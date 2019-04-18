@@ -166,45 +166,7 @@ end
 
 -- 显示UI背景模糊
 function UIManager:ShowUIBlur(ui)
-    local uiBlurName = string.format("blur_%s", ui.PanelName)
-    local uiBlurObj = ui.Panel:FindChildByPath(uiBlurName)
-    if nil ~= uiBlurObj then
-        local rawImage = uiBlurObj:GetComponent("RawImage")
-        self:SetBlurRawImage(rawImage)
-    else
-        self:CreateUIBlur(ui, uiBlurName)
-    end
-end
-
--- 创建UI背景模糊
-function UIManager:CreateUIBlur(ui, blurName)
-    local uiBlurObj = UnityEngine.GameObject.New(blurName)
-    uiBlurObj.transform:SetParent(ui.Panel.transform, false)
-    uiBlurObj.layer = ui.Layer
-    local rawImage = uiBlurObj:AddCustomComponent("RawImage")
-    local button = uiBlurObj:AddCustomComponent("Button")
-    --button.transition = UnityEngine.UI.Selectable.transition.None
-    local rectTransform = uiBlurObj:GetComponent("RectTransform")
-    if nil == rectTransform then
-        rectTransform = uiBlurObj:AddComponent("RectTransform")
-    end
-    rectTransform.anchorMin = Vector2.Vector2(-0.1, -0.1)
-    rectTransform.anchorMax = Vector2.Vector2(1.0, 1.0)
-    rectTransform.sizeDelta = Vector2.zero
-    rectTransform:SetAsFirstSibling()
-    self:SetBlurRawImage(rawImage)
-end
-
--- 设置背景模糊RawImage
-function UIManager:SetBlurRawImage(rawImage)
-    if nil ~= rawImage then
-        rawImage.gameObject:SetActive(false)
-        local renderTexture = Common_Utils.GetModelOutlineCameraObj()
-        if renderTexture then
-            rawImage.texture = renderTexture
-        end
-        rawImage.gameObject:SetActive(true)
-    end
+    Common_Utils.ShowUIBlur(ui.Panel,ui.PanelName)
 end
 
 --  获取UI排序管理器
