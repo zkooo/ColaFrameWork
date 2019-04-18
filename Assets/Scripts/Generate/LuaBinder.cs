@@ -77,9 +77,9 @@ public static class LuaBinder
 		UnityEngine_UI_RawImageWrap.Register(L);
 		UnityEngine_UI_GraphicRaycasterWrap.Register(L);
 		UnityEngine_UI_ButtonWrap.Register(L);
-		UnityEngine_UI_SelectableWrap.Register(L);
 		UnityEngine_UI_MaskableGraphicWrap.Register(L);
 		UnityEngine_UI_GraphicWrap.Register(L);
+		UnityEngine_UI_SelectableWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("EventSystems");
 		UnityEngine_EventSystems_UIBehaviourWrap.Register(L);

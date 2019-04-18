@@ -130,7 +130,6 @@ public static class CustomSettings
         _GT(typeof(Sprite)),
         _GT(typeof(RectTransform)),
         _GT(typeof(Button)),
-        _GT(typeof(Selectable)),
 #endregion
 
 #if UNITY_5_3_OR_NEWER && !UNITY_5_6_OR_NEWER
