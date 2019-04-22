@@ -17,6 +17,7 @@ end
 -- virtual 子类可以初始化一些变量,ResId要在这里赋值
 function UISettingPanel:InitParam()
     self.ResId = 103
+    self:ShowUIBlur(false)
 end
 
 -- override UI面板创建结束后调用，可以在这里获取gameObject和component等操作

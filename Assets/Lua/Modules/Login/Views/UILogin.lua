@@ -14,6 +14,7 @@ end
 function UILogin:InitParam()
     self.ResId = 100
     self.uiDepthLayer = ECEnumType.UIDepth.NORMAL
+    self:ShowUIBlur(true)
 end
 
 -- override UI面板创建结束后调用，可以在这里获取gameObject和component等操作
@@ -23,7 +24,6 @@ end
 
 -- 界面可见性变化的时候触发
 function UILogin:OnShow(isShow)
-    self:ShowUIBlur()
 end
 
 function UILogin:onClick(obj)

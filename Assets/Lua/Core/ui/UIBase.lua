@@ -18,6 +18,7 @@ function UIBase:initialize()
     self.uguiMsgHandler = nil
     self.PanelName = ""
     self.isExist = false
+    self.isShowUIBlur = false
     self:InitParam()
 end
 
@@ -44,6 +45,9 @@ function UIBase:Create()
         UIManager.Instance():GetUISorterMgr():AddPanel(self)
     end
     self.isExist = true
+    if self.isShowUIBlur then
+        UIManager.Instance():ShowUIBlur(self)
+    end
     self:AttachListener(self.Panel)
     self:OnCreate()
     self:RegisterEvent()
@@ -64,6 +68,9 @@ function UIBase:CreateWithGo(gameObejct)
         UIManager.Instance():GetUISorterMgr():AddPanel(self)
     end
     self.isExist = true
+    if self.isShowUIBlur then
+        UIManager.Instance():ShowUIBlur(self)
+    end
     self:AttachListener(self.Panel)
     self:OnCreate()
     self:RegisterEvent()
@@ -128,6 +135,7 @@ function UIBase:OnDestroy()
     self.uguiMsgHandler = nil
     self.PanelName = ""
     self.isExist = false
+    self.isShowUIBlur = false
 end
 
 -- 关联子UI，统一参与管理
@@ -183,8 +191,8 @@ function UIBase:BringToTopOfLayer(depthLayer)
 end
 
 -- 显示UI背景模糊
-function UIBase:ShowUIBlur()
-    UIManager.Instance():ShowUIBlur(self)
+function UIBase:ShowUIBlur(isShow)
+    self.isShowUIBlur = isShow
 end
 
 -- 设置点击外部关闭(执行该方法以后，当点击其他UI的时候，会自动关闭本UI)
