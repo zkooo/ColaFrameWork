@@ -355,8 +355,8 @@ public class UIMgr : IViewManager, IEventHandler
         {
             rectTransform = uiBlurObj.AddComponent<RectTransform>();
         }
-        rectTransform.anchorMin = new Vector2(-0.1f, -0.1f);
-        rectTransform.anchorMax = new Vector2(1.0f, 1.0f);
+        rectTransform.anchorMin = Vector2.zero;
+        rectTransform.anchorMax = Vector2.one;
         rectTransform.sizeDelta = Vector2.zero;
         rectTransform.SetAsFirstSibling();
         SetBlurRawImage(rawImage);
