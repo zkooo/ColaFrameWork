@@ -78,7 +78,7 @@ function UIManager:Open(UIEnum)
     end
 end
 
--- 关闭一个UI
+-- 通过传入UI枚举关闭一个UI
 function UIManager:Close(UIEnum)
     if GUICollections and GUICollections[UIEnum] then
         GUICollections[UIEnum].Instance():Destroy()
@@ -94,6 +94,23 @@ function UIManager:Close(UIEnum)
         if -1 ~= rmIndex then
             table.remove(self.uiList, rmIndex)
         end
+    end
+end
+
+function UIManager:CloseUISelf(ui)
+    if ui then
+        ui.Instance():Destroy()
+    end
+    --移除uiList中的UI实例
+    local rmIndex = -1
+    for i = #self.uiList, 1, -1 do
+        if self.uiList[i] == ui.Instance() then
+            rmIndex = i
+            break
+        end
+    end
+    if -1 ~= rmIndex then
+        table.remove(self.uiList, rmIndex)
     end
 end
 

@@ -103,7 +103,7 @@ function UIBase:IsExist()
     return self.isExist
 end
 
--- 销毁一个UI界面
+-- 销毁一个UI界面，不要直接调用，通过UIManger关闭、派发消息关闭或者直接调用DestroySelf函数关闭
 function UIBase:Destroy()
     if self.sortEnable then
         UIManager.Instance():GetUISorterMgr():RemovePanel(self)
@@ -136,6 +136,11 @@ function UIBase:OnDestroy()
     self.PanelName = ""
     self.isExist = false
     self.isShowUIBlur = false
+end
+
+-- 销毁自身，可以在自身的方法中调用，同时会去UIManager中清理
+function UIBase:DestroySelf()
+    UIManager.Instance():CloseUISelf(self)
 end
 
 -- 关联子UI，统一参与管理
@@ -213,6 +218,10 @@ function UIBase:AttachListener(gameObject)
 
     -- BindFunction
     self.uguiMsgHandler.onClick = function(obj)
+        -- 添加对点击Blur的判断
+        if self.isShowUIBlur and obj.name == "" then
+            self:Destroy()
+        end
         self:onClick(obj)
     end
     self.uguiMsgHandler.onBoolValueChange = function(obj, isSelect)
