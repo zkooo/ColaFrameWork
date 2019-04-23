@@ -29,6 +29,8 @@ end
 function UILogin:onClick(obj)
     if obj.name == "showLogBtn" then
         UIManager.Instance():Open(ECEnumType.UIEnum.DebugPanel)
+    elseif obj.name == "cancelBtn" then
+        self:DestroySelf()
     end
 end
 
