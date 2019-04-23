@@ -41,6 +41,7 @@ public class Common_UtilsWrap
 		L.RegFunction("ClearSreenLog", ClearSreenLog);
 		L.RegFunction("GetTerrainHeight", GetTerrainHeight);
 		L.RegFunction("ShowUIBlur", ShowUIBlur);
+		L.RegFunction("DestroyUIBlur", DestroyUIBlur);
 		L.EndStaticLibs();
 	}
 
@@ -661,6 +662,21 @@ public class Common_UtilsWrap
 			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
 			string arg1 = ToLua.CheckString(L, 2);
 			Common_Utils.ShowUIBlur(arg0, arg1);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DestroyUIBlur(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			Common_Utils.DestroyUIBlur();
 			return 0;
 		}
 		catch (Exception e)

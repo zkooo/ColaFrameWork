@@ -509,4 +509,12 @@ public static class Common_Utils
         }
     }
 
+    /// <summary>
+    /// 销毁渲染出来的临时UIBlur RenderTexture
+    /// </summary>
+    public static void DestroyUIBlur()
+    {
+        GUIHelper.GetModelOutlineCameraObj().GetComponent<ImageEffectUIBlur>().FinalTexture = null;
+    }
+
 }

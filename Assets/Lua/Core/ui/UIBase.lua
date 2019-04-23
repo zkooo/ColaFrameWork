@@ -111,9 +111,9 @@ function UIBase:Destroy()
     self:DestroySubPanels()
     self:UnRegisterEvent()
     self:UnAttachListener(self.Panel)
-    --if self.UILevel == UILevel.Level1 then
-    --    GUIHelper.GetModelOutlineCameraObj().GetComponent("ImageEffectUIBlur").FinalTexture = nil
-    --end
+    if self.isShowUIBlur then
+        Common_Utils.DestroyUIBlur()
+    end
     if nil ~= self.Panel then
         if 0 ~= self.ResId then
             UnityEngine.GameObject.Destroy(self.Panel)
@@ -198,7 +198,6 @@ end
 -- 设置点击外部关闭(执行该方法以后，当点击其他UI的时候，会自动关闭本UI)
 function UIBase:SetOutTouchDisappear()
     UIManager.Instance():SetOutTouchDisappear(self)
-
 end
 
 -- 注册UIEventListener

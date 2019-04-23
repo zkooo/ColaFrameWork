@@ -11,6 +11,7 @@ local _instance = nil
 function UIDebugPanel:InitParam()
     self.ResId = 102
     self.uiDepthLayer = ECEnumType.UIDepth.DEBUG
+    self:ShowUIBlur(true)
 end
 
 function UIDebugPanel.Instance()
@@ -37,8 +38,6 @@ end
 function UIDebugPanel:OnDestroy()
     UIBase.OnDestroy(self)
     self.DebugText = nil
-    print("-------->PanelName",self.PanelName)
-    print("-------->uiCanvas",self.uiCanvas)
 end
 
 -- 注册UI事件监听
