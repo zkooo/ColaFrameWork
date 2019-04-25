@@ -23,7 +23,7 @@ public class GameManager
     /// <summary>
     /// 场景/关卡管理器
     /// </summary>
-    private LevelMgr levelMgr;
+    private SceneMgr sceneMgr;
 
     /// <summary>
     /// 资源管理器
@@ -75,7 +75,7 @@ public class GameManager
 
         uiMgr = new UIMgr();
         moduleMgr = new ModuleMgr();
-        levelMgr = gameObject.AddComponent<LevelMgr>();
+        sceneMgr = gameObject.AddComponent<SceneMgr>();
 
         luaClient = gameObject.AddComponent<LuaEngine>();
 
