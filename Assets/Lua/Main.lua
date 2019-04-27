@@ -77,7 +77,12 @@ function Main()
 	initParam()
 	initialize()
 
-	EventMgr.Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
+    UIManager.Instance():Open(ECEnumType.UIEnum.Loading)
+    Common_Utils.GetSceneMgr():LoadAdditiveLevelAsync("",function(sceneName)
+        print("-------------->成功加载场景")
+        UIManager.Instance():Close(ECEnumType.UIEnum.Loading)
+        EventMgr.Instance():DispatchEvent(Modules.moduleId.Common,Modules.notifyId.Common.CREATE_PANEL,ECEnumType.UIEnum.Login)
+    end)
 end
 
 --场景切换通知
