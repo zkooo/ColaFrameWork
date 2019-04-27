@@ -132,7 +132,7 @@ public class SceneMgr : MonoBehaviour
             yield return asyncOperation;
         }
         currentScene = SceneManager.GetActiveScene();
-        yield return new WaitForEndOfFrame();
+        yield return null;
         if (null != onLevelLoaded)
         {
             onLevelLoaded(levelName);
