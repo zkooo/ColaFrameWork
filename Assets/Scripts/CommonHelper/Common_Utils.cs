@@ -517,4 +517,9 @@ public static class Common_Utils
         GUIHelper.GetModelOutlineCameraObj().GetComponent<ImageEffectUIBlur>().FinalTexture = null;
     }
 
+
+    public static SceneMgr GetSceneMgr()
+    {
+        return GameManager.GetInstance().GetSceneMgr();
+    }
 }

@@ -42,6 +42,7 @@ public class Common_UtilsWrap
 		L.RegFunction("GetTerrainHeight", GetTerrainHeight);
 		L.RegFunction("ShowUIBlur", ShowUIBlur);
 		L.RegFunction("DestroyUIBlur", DestroyUIBlur);
+		L.RegFunction("GetSceneMgr", GetSceneMgr);
 		L.EndStaticLibs();
 	}
 
@@ -678,6 +679,22 @@ public class Common_UtilsWrap
 			ToLua.CheckArgsCount(L, 0);
 			Common_Utils.DestroyUIBlur();
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetSceneMgr(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			SceneMgr o = Common_Utils.GetSceneMgr();
+			ToLua.Push(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{

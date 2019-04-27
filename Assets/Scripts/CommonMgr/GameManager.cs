@@ -166,6 +166,16 @@ public class GameManager
         return null;
     }
 
+    public SceneMgr GetSceneMgr()
+    {
+        if(null != sceneMgr)
+        {
+            return sceneMgr;
+        }
+        Debug.LogWarning("sceneMgr构造异常");
+        return null;
+    }
+
     /// <summary>
     /// 退出游戏
     /// </summary>
