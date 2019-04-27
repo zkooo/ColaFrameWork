@@ -37,6 +37,8 @@ public class DelegateFactory
 		dict.Add(typeof(FloatValueChangeAction), factory.FloatValueChangeAction);
 		dict.Add(typeof(BoolValueChangeAction), factory.BoolValueChangeAction);
 		dict.Add(typeof(System.Action<string>), factory.System_Action_string);
+		dict.Add(typeof(OnAdditiveLevelLoaded), factory.OnAdditiveLevelLoaded);
+		dict.Add(typeof(OnLevelLoaded), factory.OnLevelLoaded);
 		dict.Add(typeof(UnityEngine.Camera.CameraCallback), factory.UnityEngine_Camera_CameraCallback);
 		dict.Add(typeof(UnityEngine.Application.AdvertisingIdentifierCallback), factory.UnityEngine_Application_AdvertisingIdentifierCallback);
 		dict.Add(typeof(UnityEngine.Application.LowMemoryCallback), factory.UnityEngine_Application_LowMemoryCallback);
@@ -68,6 +70,8 @@ public class DelegateFactory
 		DelegateTraits<FloatValueChangeAction>.Init(factory.FloatValueChangeAction);
 		DelegateTraits<BoolValueChangeAction>.Init(factory.BoolValueChangeAction);
 		DelegateTraits<System.Action<string>>.Init(factory.System_Action_string);
+		DelegateTraits<OnAdditiveLevelLoaded>.Init(factory.OnAdditiveLevelLoaded);
+		DelegateTraits<OnLevelLoaded>.Init(factory.OnLevelLoaded);
 		DelegateTraits<UnityEngine.Camera.CameraCallback>.Init(factory.UnityEngine_Camera_CameraCallback);
 		DelegateTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Init(factory.UnityEngine_Application_AdvertisingIdentifierCallback);
 		DelegateTraits<UnityEngine.Application.LowMemoryCallback>.Init(factory.UnityEngine_Application_LowMemoryCallback);
@@ -99,6 +103,8 @@ public class DelegateFactory
 		TypeTraits<FloatValueChangeAction>.Init(factory.Check_FloatValueChangeAction);
 		TypeTraits<BoolValueChangeAction>.Init(factory.Check_BoolValueChangeAction);
 		TypeTraits<System.Action<string>>.Init(factory.Check_System_Action_string);
+		TypeTraits<OnAdditiveLevelLoaded>.Init(factory.Check_OnAdditiveLevelLoaded);
+		TypeTraits<OnLevelLoaded>.Init(factory.Check_OnLevelLoaded);
 		TypeTraits<UnityEngine.Camera.CameraCallback>.Init(factory.Check_UnityEngine_Camera_CameraCallback);
 		TypeTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Init(factory.Check_UnityEngine_Application_AdvertisingIdentifierCallback);
 		TypeTraits<UnityEngine.Application.LowMemoryCallback>.Init(factory.Check_UnityEngine_Application_LowMemoryCallback);
@@ -130,6 +136,8 @@ public class DelegateFactory
 		StackTraits<FloatValueChangeAction>.Push = factory.Push_FloatValueChangeAction;
 		StackTraits<BoolValueChangeAction>.Push = factory.Push_BoolValueChangeAction;
 		StackTraits<System.Action<string>>.Push = factory.Push_System_Action_string;
+		StackTraits<OnAdditiveLevelLoaded>.Push = factory.Push_OnAdditiveLevelLoaded;
+		StackTraits<OnLevelLoaded>.Push = factory.Push_OnLevelLoaded;
 		StackTraits<UnityEngine.Camera.CameraCallback>.Push = factory.Push_UnityEngine_Camera_CameraCallback;
 		StackTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Push = factory.Push_UnityEngine_Application_AdvertisingIdentifierCallback;
 		StackTraits<UnityEngine.Application.LowMemoryCallback>.Push = factory.Push_UnityEngine_Application_LowMemoryCallback;
@@ -1411,6 +1419,120 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_string(IntPtr L, System.Action<string> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class OnAdditiveLevelLoaded_Event : LuaDelegate
+	{
+		public OnAdditiveLevelLoaded_Event(LuaFunction func) : base(func) { }
+		public OnAdditiveLevelLoaded_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(string param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(string param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public OnAdditiveLevelLoaded OnAdditiveLevelLoaded(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			OnAdditiveLevelLoaded fn = delegate(string param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			OnAdditiveLevelLoaded_Event target = new OnAdditiveLevelLoaded_Event(func);
+			OnAdditiveLevelLoaded d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			OnAdditiveLevelLoaded_Event target = new OnAdditiveLevelLoaded_Event(func, self);
+			OnAdditiveLevelLoaded d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_OnAdditiveLevelLoaded(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(OnAdditiveLevelLoaded), L, pos);
+	}
+
+	void Push_OnAdditiveLevelLoaded(IntPtr L, OnAdditiveLevelLoaded o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class OnLevelLoaded_Event : LuaDelegate
+	{
+		public OnLevelLoaded_Event(LuaFunction func) : base(func) { }
+		public OnLevelLoaded_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(int param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(int param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public OnLevelLoaded OnLevelLoaded(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			OnLevelLoaded fn = delegate(int param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			OnLevelLoaded_Event target = new OnLevelLoaded_Event(func);
+			OnLevelLoaded d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			OnLevelLoaded_Event target = new OnLevelLoaded_Event(func, self);
+			OnLevelLoaded d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_OnLevelLoaded(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(OnLevelLoaded), L, pos);
+	}
+
+	void Push_OnLevelLoaded(IntPtr L, OnLevelLoaded o)
 	{
 		ToLua.Push(L, o);
 	}

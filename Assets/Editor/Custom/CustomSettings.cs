@@ -67,6 +67,7 @@ public static class CustomSettings
         _GT(typeof(UGUIMsgHandler)),
         _GT(typeof(PlayerPrefs)),
         _GT(typeof(SpriteAsset)),
+        _GT(typeof(SceneMgr)),
 
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),
