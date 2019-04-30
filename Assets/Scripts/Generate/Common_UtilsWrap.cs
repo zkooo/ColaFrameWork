@@ -43,6 +43,7 @@ public class Common_UtilsWrap
 		L.RegFunction("ShowUIBlur", ShowUIBlur);
 		L.RegFunction("DestroyUIBlur", DestroyUIBlur);
 		L.RegFunction("GetSceneMgr", GetSceneMgr);
+		L.RegFunction("ResetMainCameraPostion", ResetMainCameraPostion);
 		L.EndStaticLibs();
 	}
 
@@ -695,6 +696,21 @@ public class Common_UtilsWrap
 			SceneMgr o = Common_Utils.GetSceneMgr();
 			ToLua.Push(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ResetMainCameraPostion(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			Common_Utils.ResetMainCameraPostion();
+			return 0;
 		}
 		catch (Exception e)
 		{

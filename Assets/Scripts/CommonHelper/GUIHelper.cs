@@ -45,6 +45,11 @@ public static class GUIHelper
     private static GameObject modelOutlineCameraObj;
 
     /// <summary>
+    /// 主相机的控制脚本
+    /// </summary>
+    private static MainCameraController mainCameraController;
+
+    /// <summary>
     /// 场景相机的culling mask
     /// </summary>
     public static int DefaultSceneCullMask = LayerMask.GetMask("Default") + LayerMask.GetMask("Water") + LayerMask.GetMask("Terrain") +
