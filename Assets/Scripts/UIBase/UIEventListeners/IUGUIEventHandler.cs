@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//TODO:重构这些事件回调，obj优化为string
 public delegate void UIEventHandler(GameObject obj);
 public delegate void UIDragEventHandlerDetail(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition);
 public delegate void StrValueChangeAction(GameObject obj, string text);
