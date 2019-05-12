@@ -958,19 +958,19 @@ public class DelegateFactory
 		public UIEventHandler_Event(LuaFunction func) : base(func) { }
 		public UIEventHandler_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(UnityEngine.GameObject param0)
+		public void Call(string param0)
 		{
 			func.BeginPCall();
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.PCall();
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(UnityEngine.GameObject param0)
+		public void CallWithSelf(string param0)
 		{
 			func.BeginPCall();
 			func.Push(self);
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.PCall();
 			func.EndPCall();
 		}
@@ -980,7 +980,7 @@ public class DelegateFactory
 	{
 		if (func == null)
 		{
-			UIEventHandler fn = delegate(UnityEngine.GameObject param0) { };
+			UIEventHandler fn = delegate(string param0) { };
 			return fn;
 		}
 
@@ -1015,21 +1015,21 @@ public class DelegateFactory
 		public UIDragEventHandlerDetail_Event(LuaFunction func) : base(func) { }
 		public UIDragEventHandlerDetail_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(UnityEngine.GameObject param0, UnityEngine.Vector2 param1, UnityEngine.Vector2 param2)
+		public void Call(string param0, UnityEngine.Vector2 param1, UnityEngine.Vector2 param2)
 		{
 			func.BeginPCall();
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.Push(param2);
 			func.PCall();
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(UnityEngine.GameObject param0, UnityEngine.Vector2 param1, UnityEngine.Vector2 param2)
+		public void CallWithSelf(string param0, UnityEngine.Vector2 param1, UnityEngine.Vector2 param2)
 		{
 			func.BeginPCall();
 			func.Push(self);
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.Push(param2);
 			func.PCall();
@@ -1041,7 +1041,7 @@ public class DelegateFactory
 	{
 		if (func == null)
 		{
-			UIDragEventHandlerDetail fn = delegate(UnityEngine.GameObject param0, UnityEngine.Vector2 param1, UnityEngine.Vector2 param2) { };
+			UIDragEventHandlerDetail fn = delegate(string param0, UnityEngine.Vector2 param1, UnityEngine.Vector2 param2) { };
 			return fn;
 		}
 
@@ -1076,20 +1076,20 @@ public class DelegateFactory
 		public StrValueChangeAction_Event(LuaFunction func) : base(func) { }
 		public StrValueChangeAction_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(UnityEngine.GameObject param0, string param1)
+		public void Call(string param0, string param1)
 		{
 			func.BeginPCall();
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(UnityEngine.GameObject param0, string param1)
+		public void CallWithSelf(string param0, string param1)
 		{
 			func.BeginPCall();
 			func.Push(self);
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
@@ -1100,7 +1100,7 @@ public class DelegateFactory
 	{
 		if (func == null)
 		{
-			StrValueChangeAction fn = delegate(UnityEngine.GameObject param0, string param1) { };
+			StrValueChangeAction fn = delegate(string param0, string param1) { };
 			return fn;
 		}
 
@@ -1135,20 +1135,20 @@ public class DelegateFactory
 		public IntValueChangeAction_Event(LuaFunction func) : base(func) { }
 		public IntValueChangeAction_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(UnityEngine.GameObject param0, int param1)
+		public void Call(string param0, int param1)
 		{
 			func.BeginPCall();
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(UnityEngine.GameObject param0, int param1)
+		public void CallWithSelf(string param0, int param1)
 		{
 			func.BeginPCall();
 			func.Push(self);
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
@@ -1159,7 +1159,7 @@ public class DelegateFactory
 	{
 		if (func == null)
 		{
-			IntValueChangeAction fn = delegate(UnityEngine.GameObject param0, int param1) { };
+			IntValueChangeAction fn = delegate(string param0, int param1) { };
 			return fn;
 		}
 
@@ -1194,20 +1194,20 @@ public class DelegateFactory
 		public RectValueChangeAction_Event(LuaFunction func) : base(func) { }
 		public RectValueChangeAction_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(UnityEngine.GameObject param0, UnityEngine.Vector2 param1)
+		public void Call(string param0, UnityEngine.Vector2 param1)
 		{
 			func.BeginPCall();
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(UnityEngine.GameObject param0, UnityEngine.Vector2 param1)
+		public void CallWithSelf(string param0, UnityEngine.Vector2 param1)
 		{
 			func.BeginPCall();
 			func.Push(self);
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
@@ -1218,7 +1218,7 @@ public class DelegateFactory
 	{
 		if (func == null)
 		{
-			RectValueChangeAction fn = delegate(UnityEngine.GameObject param0, UnityEngine.Vector2 param1) { };
+			RectValueChangeAction fn = delegate(string param0, UnityEngine.Vector2 param1) { };
 			return fn;
 		}
 
@@ -1253,20 +1253,20 @@ public class DelegateFactory
 		public FloatValueChangeAction_Event(LuaFunction func) : base(func) { }
 		public FloatValueChangeAction_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(UnityEngine.GameObject param0, float param1)
+		public void Call(string param0, float param1)
 		{
 			func.BeginPCall();
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(UnityEngine.GameObject param0, float param1)
+		public void CallWithSelf(string param0, float param1)
 		{
 			func.BeginPCall();
 			func.Push(self);
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
@@ -1277,7 +1277,7 @@ public class DelegateFactory
 	{
 		if (func == null)
 		{
-			FloatValueChangeAction fn = delegate(UnityEngine.GameObject param0, float param1) { };
+			FloatValueChangeAction fn = delegate(string param0, float param1) { };
 			return fn;
 		}
 
@@ -1312,20 +1312,20 @@ public class DelegateFactory
 		public BoolValueChangeAction_Event(LuaFunction func) : base(func) { }
 		public BoolValueChangeAction_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(UnityEngine.GameObject param0, bool param1)
+		public void Call(string param0, bool param1)
 		{
 			func.BeginPCall();
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(UnityEngine.GameObject param0, bool param1)
+		public void CallWithSelf(string param0, bool param1)
 		{
 			func.BeginPCall();
 			func.Push(self);
-			func.PushSealed(param0);
+			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
 			func.EndPCall();
@@ -1336,7 +1336,7 @@ public class DelegateFactory
 	{
 		if (func == null)
 		{
-			BoolValueChangeAction fn = delegate(UnityEngine.GameObject param0, bool param1) { };
+			BoolValueChangeAction fn = delegate(string param0, bool param1) { };
 			return fn;
 		}
 

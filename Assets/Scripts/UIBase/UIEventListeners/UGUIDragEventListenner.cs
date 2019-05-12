@@ -25,7 +25,7 @@ public class UGUIDragEventListenner : UGUIEventListener, IBeginDragHandler, IDra
         }
         if (this.onDrag != null)
         {
-            this.onDrag(gameObject, eventData.delta, eventData.position);
+            this.onDrag(gameObject.name, eventData.delta, eventData.position);
         }
     }
 
@@ -57,7 +57,7 @@ public class UGUIDragEventListenner : UGUIEventListener, IBeginDragHandler, IDra
         }
         if (this.onBeginDrag != null)
         {
-            this.onBeginDrag(gameObject, eventData.delta, eventData.position);
+            this.onBeginDrag(gameObject.name, eventData.delta, eventData.position);
         }
     }
 
@@ -73,7 +73,7 @@ public class UGUIDragEventListenner : UGUIEventListener, IBeginDragHandler, IDra
         }
         if (this.onEndDrag != null)
         {
-            this.onEndDrag(gameObject, eventData.delta, eventData.position);
+            this.onEndDrag(gameObject.name, eventData.delta, eventData.position);
         }
     }
 

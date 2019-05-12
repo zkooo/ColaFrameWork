@@ -75,7 +75,7 @@ public class OtherEventListenner : MonoBehaviour
         }
         if (inputvalueChangeAction != null)
         {
-            inputvalueChangeAction(gameObject, text);
+            inputvalueChangeAction(gameObject.name, text);
         }
     }
 
@@ -87,7 +87,7 @@ public class OtherEventListenner : MonoBehaviour
         }
         if (inputeditEndAction != null)
         {
-            inputeditEndAction(gameObject, text);
+            inputeditEndAction(gameObject.name, text);
         }
     }
 
@@ -99,7 +99,7 @@ public class OtherEventListenner : MonoBehaviour
         }
         if (togglevalueChangeAction != null)
         {
-            togglevalueChangeAction(gameObject, select);
+            togglevalueChangeAction(gameObject.name, select);
         }
     }
 
@@ -111,7 +111,7 @@ public class OtherEventListenner : MonoBehaviour
         }
         if (slidervalueChangeAction != null)
         {
-            slidervalueChangeAction(gameObject, value);
+            slidervalueChangeAction(gameObject.name, value);
         }
     }
 
@@ -123,7 +123,7 @@ public class OtherEventListenner : MonoBehaviour
         }
         if (scrollbarvalueChangeAction != null)
         {
-            scrollbarvalueChangeAction(gameObject, value);
+            scrollbarvalueChangeAction(gameObject.name, value);
         }
     }
 
@@ -135,7 +135,7 @@ public class OtherEventListenner : MonoBehaviour
         }
         if (dropdownvalueChangeAction != null)
         {
-            dropdownvalueChangeAction(gameObject, value);
+            dropdownvalueChangeAction(gameObject.name, value);
         }
     }
 
@@ -147,7 +147,7 @@ public class OtherEventListenner : MonoBehaviour
         }
         if (scrollrectvalueChangeAction != null)
         {
-            scrollrectvalueChangeAction(gameObject, rect);
+            scrollrectvalueChangeAction(gameObject.name, rect);
         }
     }
 
@@ -161,7 +161,7 @@ public class OtherEventListenner : MonoBehaviour
             }
             if (scrollrectvalueChangeAction != null)
             {
-                scrollrectvalueChangeAction(gameObject, rect);
+                scrollrectvalueChangeAction(gameObject.name, rect);
             }
         };
     }

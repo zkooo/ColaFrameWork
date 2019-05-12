@@ -105,7 +105,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onDownDetail != null)
         {
-            this.onDownDetail(gameObject, eventData.delta, eventData.position);
+            this.onDownDetail(gameObject.name, eventData.delta, eventData.position);
         }
     }
 
@@ -126,7 +126,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onUpDetail != null)
         {
-            this.onUpDetail(gameObject, eventData.delta, eventData.position);
+            this.onUpDetail(gameObject.name, eventData.delta, eventData.position);
         }
     }
 
