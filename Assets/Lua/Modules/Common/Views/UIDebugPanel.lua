@@ -51,16 +51,16 @@ function UIDebugPanel:UnRegisterEvent()
 end
 
 ------------------- UI事件回调 --------------------------
-function UIDebugPanel:onClick(obj)
-    if obj.name == "BtnClose" then
+function UIDebugPanel:onClick(name)
+    if name == "BtnClose" then
         Common_Utils.UnAttachScreenText()
         self:DestroySelf()
-    elseif obj.name == "BtnClear" then
+    elseif name == "BtnClear" then
         Common_Utils.ClearSreenLog()
     end
 end
 
-function UIDebugPanel:onBoolValueChange(obj, isSelect)
+function UIDebugPanel:onBoolValueChange(name, isSelect)
 
 end
 

@@ -217,33 +217,33 @@ function UIBase:AttachListener(gameObject)
     self.uguiMsgHandler = uguiMsgHandler
 
     -- BindFunction
-    self.uguiMsgHandler.onClick = function(obj)
+    self.uguiMsgHandler.onClick = function(name)
         -- 添加对点击Blur的判断
-        if self.isShowUIBlur and obj.name == "" then
+        if self.isShowUIBlur and name == "" then
             self:Destroy()
         end
-        self:onClick(obj)
+        self:onClick(name)
     end
-    self.uguiMsgHandler.onBoolValueChange = function(obj, isSelect)
-        self:onBoolValueChange(obj, isSelect)
+    self.uguiMsgHandler.onBoolValueChange = function(name, isSelect)
+        self:onBoolValueChange(name, isSelect)
     end
     self.uguiMsgHandler.onEvent = function(eventName)
         self:onEvent(eventName)
     end
-    self.uguiMsgHandler.onFloatValueChange = function(obj, value)
-        self:onFloatValueChange(obj, value)
+    self.uguiMsgHandler.onFloatValueChange = function(name, value)
+        self:onFloatValueChange(name, value)
     end
-    self.uguiMsgHandler.onStrValueChange = function(obj, text)
-        self:onStrValueChange(obj, text)
+    self.uguiMsgHandler.onStrValueChange = function(name, text)
+        self:onStrValueChange(name, text)
     end
-    self.uguiMsgHandler.onDrag = function(obj, deltaPos, curToucPosition)
-        self:onDrag(obj, deltaPos, curToucPosition)
+    self.uguiMsgHandler.onDrag = function(name, deltaPos, curToucPosition)
+        self:onDrag(name, deltaPos, curToucPosition)
     end
-    self.uguiMsgHandler.onBeginDrag = function(obj, deltaPos, curToucPosition)
-        self:onBeginDrag(obj, deltaPos, curToucPosition)
+    self.uguiMsgHandler.onBeginDrag = function(name, deltaPos, curToucPosition)
+        self:onBeginDrag(name, deltaPos, curToucPosition)
     end
-    self.uguiMsgHandler.onEndDrag = function(obj, deltaPos, curToucPosition)
-        self:onEndDrag(obj, deltaPos, curToucPosition)
+    self.uguiMsgHandler.onEndDrag = function(name, deltaPos, curToucPosition)
+        self:onEndDrag(name, deltaPos, curToucPosition)
     end
 
     self.uguiMsgHandler:AttachListener(gameObject)
@@ -281,11 +281,11 @@ function UIBase:UnRegisterEvent()
 end
 
 ------------------- UI事件回调 --------------------------
-function UIBase:onClick(obj)
+function UIBase:onClick(name)
 
 end
 
-function UIBase:onBoolValueChange(obj, isSelect)
+function UIBase:onBoolValueChange(name, isSelect)
 
 end
 
@@ -295,23 +295,23 @@ function UIBase:onEvent(eventName)
     end
 end
 
-function UIBase:onFloatValueChange(obj, value)
+function UIBase:onFloatValueChange(name, value)
 
 end
 
-function UIBase:onStrValueChange(obj, text)
+function UIBase:onStrValueChange(name, text)
 
 end
 
-function UIBase:onDrag(obj, deltaPos, curToucPosition)
+function UIBase:onDrag(name, deltaPos, curToucPosition)
 
 end
 
-function UIBase:onBeginDrag(obj, deltaPos, curToucPosition)
+function UIBase:onBeginDrag(name, deltaPos, curToucPosition)
 
 end
 
-function UIBase:onEndDrag(obj, deltaPos, curToucPosition)
+function UIBase:onEndDrag(name, deltaPos, curToucPosition)
 
 end
 ---------------------- UI事件回调 --------------------------

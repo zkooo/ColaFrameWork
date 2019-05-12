@@ -46,11 +46,11 @@ function UISettingPanel:UnRegisterEvent()
 end
 
 ------------------- UI事件回调 --------------------------
-function UISettingPanel:onClick(obj)
+function UISettingPanel:onClick(name)
 
 end
 
-function UISettingPanel:onBoolValueChange(obj, isSelect)
+function UISettingPanel:onBoolValueChange(name, isSelect)
 
 end
 
