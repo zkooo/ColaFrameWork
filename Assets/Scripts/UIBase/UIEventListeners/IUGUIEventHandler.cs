@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //TODO:重构这些事件回调，obj优化为string
-public delegate void UIEventHandler(GameObject obj);
-public delegate void UIDragEventHandlerDetail(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition);
-public delegate void StrValueChangeAction(GameObject obj, string text);
-public delegate void FloatValueChangeAction(GameObject obj, float value);
-public delegate void IntValueChangeAction(GameObject obj, int value);
-public delegate void BoolValueChangeAction(GameObject obj, bool isSelect);
-public delegate void RectValueChangeAction(GameObject obj, Vector2 rect);
+public delegate void UIEventHandler(string name);
+public delegate void UIDragEventHandlerDetail(string name, Vector2 deltaPos, Vector2 curToucPosition);
+public delegate void StrValueChangeAction(string name, string text);
+public delegate void FloatValueChangeAction(string name, float value);
+public delegate void IntValueChangeAction(string name, int value);
+public delegate void BoolValueChangeAction(string name, bool isSelect);
+public delegate void RectValueChangeAction(string name, Vector2 rect);
 
 /// <summary>
 /// UGUI事件的处理容器

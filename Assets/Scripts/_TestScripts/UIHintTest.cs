@@ -19,9 +19,9 @@ public class UIHintTest : UIBase
         SetOutTouchDisappear();
     }
 
-    protected override void onClick(GameObject obj)
+    protected override void onClick(string name)
     {
-        if (obj.name == "bg")
+        if (name == "bg")
         {
             Debug.LogWarning("点击了bg按钮");
         }

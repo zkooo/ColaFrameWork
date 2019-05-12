@@ -76,12 +76,4 @@ public class Setting_UIView : UIBase
     {
         base.OnDestroy();
     }
-
-    protected override void onClick(GameObject obj)
-    {
-    }
-
-    protected override void onBoolValueChange(GameObject obj, bool isSelect)
-    {
-    }
 }

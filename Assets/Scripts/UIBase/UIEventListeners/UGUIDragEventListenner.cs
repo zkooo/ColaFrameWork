@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragHandler,
-                                  IEndDragHandler,IDropHandler,IScrollHandler,IUpdateSelectedHandler,IInitializePotentialDragHandler {
+public class UGUIDragEventListenner : UGUIEventListener, IBeginDragHandler, IDragHandler,
+                                  IEndDragHandler, IDropHandler, IScrollHandler, IUpdateSelectedHandler, IInitializePotentialDragHandler
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
     public virtual void OnDrag(PointerEventData eventData)
     {
         if (CheckNeedHideEvent())
@@ -23,7 +25,7 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         }
         if (this.onDrag != null)
         {
-            this.onDrag(gameObject, eventData.delta,eventData.position);
+            this.onDrag(gameObject, eventData.delta, eventData.position);
         }
     }
 
@@ -39,7 +41,7 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         }
         if (this.onDrop != null)
         {
-            this.onDrop(gameObject);
+            this.onDrop(gameObject.name);
         }
     }
 
@@ -87,7 +89,7 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         }
         if (this.onScroll != null)
         {
-            this.onScroll(gameObject);
+            this.onScroll(gameObject.name);
         }
     }
 
@@ -103,7 +105,7 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         }
         if (this.onUpdateSelected != null)
         {
-            this.onUpdateSelected(gameObject);
+            this.onUpdateSelected(gameObject.name);
         }
     }
 
@@ -119,7 +121,7 @@ public class UGUIDragEventListenner : UGUIEventListener,IBeginDragHandler,IDragH
         }
         if (this.onInitializePotentialDrag != null)
         {
-            this.onInitializePotentialDrag(gameObject);
+            this.onInitializePotentialDrag(gameObject.name);
         }
     }
 

@@ -58,7 +58,7 @@ public class UILogin : UIBase
         {
             if (obj.name == "okBtn")
             {
-               // CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
+                // CommonHelper.SetImageSpriteFromAtlas(2001, titleImage, "airfightSheet_3", false);
                 Texture2D texture2D = ResourceMgr.GetInstance().GetResourceById<Texture2D>(400002);
                 Sprite sprite = CommonHelper.SliceTextureToSprite(texture2D, 200, 300, 600, 100);
                 titleImage.sprite = sprite;
@@ -87,14 +87,14 @@ public class UILogin : UIBase
         base.UpdateUI(eventData);
     }
 
-    protected override void onClick(GameObject obj)
+    protected override void onClick(string name)
     {
-        if ("cancelBtn" == obj.name)
+        if ("cancelBtn" == name)
         {
             //GameEventMgr.GetInstance().DispatchEvent("CloseUI", EventType.UIMsg, "UILogin");
         }
 
-        if (obj.name == "okBtn")
+        if (name == "okBtn")
         {
             Debug.LogWarning("点击了OK按钮！");
             uiHintTest.Open();
@@ -121,23 +121,23 @@ public class UILogin : UIBase
                 Debug.LogWarning("下载进度" + progress);
             });
         }
-        if (obj.name == "bg")
+        if (name == "bg")
         {
             Debug.LogWarning("点击了bg按钮");
         }
-        if(obj.name == "calcelBtn")
+        if (name == "calcelBtn")
         {
             DownloadMovHelper.Stop();
         }
     }
 
-    protected override void onEditEnd(GameObject obj, string text)
+    protected override void onEditEnd(string name, string text)
     {
-        if (obj.name == "usernameInput")
+        if (name == "usernameInput")
         {
             Debug.LogWarning("输入用户名：" + text);
         }
-        else if (obj.name == "passwordInput")
+        else if (name == "passwordInput")
         {
             Debug.LogWarning("输入密码：" + text);
         }

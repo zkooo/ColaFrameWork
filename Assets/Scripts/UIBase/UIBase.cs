@@ -606,107 +606,107 @@ public class UIBase : IEventHandler,IUGUIEventHandler
 
     #region UI回调事件
 
-    protected virtual void onClick(GameObject obj)
+    protected virtual void onClick(string name)
     {
     }
 
-    protected virtual void onDown(GameObject obj)
+    protected virtual void onDown(string name)
     {
     }
 
-    protected virtual void onUp(GameObject obj)
+    protected virtual void onUp(string name)
     {
     }
 
-    protected virtual void onEnter(GameObject obj)
+    protected virtual void onEnter(string name)
     {
     }
 
-    protected virtual void onInitializePotentialDragHandle(GameObject obj)
+    protected virtual void onInitializePotentialDragHandle(string name)
     {
     }
 
-    protected virtual void onUpdateSelected(GameObject obj)
+    protected virtual void onUpdateSelected(string name)
     {
     }
 
-    protected virtual void onMove(GameObject obj)
+    protected virtual void onMove(string name)
     {
     }
 
-    protected virtual void onSubmit(GameObject obj)
+    protected virtual void onSubmit(string name)
     {
     }
 
-    protected virtual void onCancel(GameObject obj)
+    protected virtual void onCancel(string name)
     {
     }
 
-    protected virtual void onScroll(GameObject obj)
+    protected virtual void onScroll(string name)
     {
     }
 
-    protected virtual void onDeSelect(GameObject obj)
+    protected virtual void onDeSelect(string name)
     {
     }
 
-    protected virtual void onSelect(GameObject obj)
+    protected virtual void onSelect(string name)
     {
     }
 
-    protected virtual void onEndDrag(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
+    protected virtual void onEndDrag(string name, Vector2 deltaPos, Vector2 curToucPosition)
     {
     }
 
-    protected virtual void onDrag(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
+    protected virtual void onDrag(string name, Vector2 deltaPos, Vector2 curToucPosition)
     {
     }
 
-    protected virtual void onBeginDrag(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
+    protected virtual void onBeginDrag(string name, Vector2 deltaPos, Vector2 curToucPosition)
     {
     }
 
-    protected virtual void onDrop(GameObject obj)
+    protected virtual void onDrop(string name)
     {
     }
 
-    protected virtual void onExit(GameObject obj)
+    protected virtual void onExit(string name)
     {
     }
 
-    protected virtual void onStrValueChange(GameObject obj, string text)
+    protected virtual void onStrValueChange(string name, string text)
     {
     }
 
-    protected virtual void onIntValueChange(GameObject obj, int value)
+    protected virtual void onIntValueChange(string name, int value)
     {
     }
 
-    protected virtual void onRectValueChange(GameObject obj, Vector2 rect)
+    protected virtual void onRectValueChange(string name, Vector2 rect)
     {
     }
 
-    protected virtual void onFloatValueChange(GameObject obj, float value)
+    protected virtual void onFloatValueChange(string name, float value)
     {
     }
 
-    protected virtual void onBoolValueChange(GameObject obj, bool isSelect)
+    protected virtual void onBoolValueChange(string name, bool isSelect)
     {
     }
 
-    protected virtual void onEditEnd(GameObject obj, string text)
+    protected virtual void onEditEnd(string name, string text)
     {
     }
 
-    protected virtual void onInitializePotentialDrag(GameObject obj)
+    protected virtual void onInitializePotentialDrag(string name)
     {
     }
 
-    protected virtual void onUpDetail(GameObject obj, Vector2 deltapos, Vector2 curtoucposition)
+    protected virtual void onUpDetail(string name, Vector2 deltapos, Vector2 curtoucposition)
     {
     }
 
-    protected virtual void onDownDetail(GameObject obj, Vector2 deltaPos, Vector2 curToucPosition)
+    protected virtual void onDownDetail(string name, Vector2 deltaPos, Vector2 curToucPosition)
     {
     }
 

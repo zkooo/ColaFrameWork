@@ -84,7 +84,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onClick != null)
         {
-            this.onClick(gameObject);
+            this.onClick(gameObject.name);
         }
     }
 
@@ -101,7 +101,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onDown != null)
         {
-            this.onDown(gameObject);
+            this.onDown(gameObject.name);
         }
         if (this.onDownDetail != null)
         {
@@ -122,7 +122,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onUp != null)
         {
-            this.onUp(gameObject);
+            this.onUp(gameObject.name);
         }
         if (this.onUpDetail != null)
         {
@@ -142,7 +142,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onExit != null)
         {
-            this.onExit(gameObject);
+            this.onExit(gameObject.name);
         }
     }
 
@@ -158,7 +158,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onSelect != null)
         {
-            this.onSelect(gameObject);
+            this.onSelect(gameObject.name);
         }
     }
 
@@ -176,7 +176,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onMove != null)
         {
-            this.onMove(gameObject);
+            this.onMove(gameObject.name);
         }
     }
 
@@ -192,7 +192,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onEnter != null)
         {
-            this.onEnter(gameObject);
+            this.onEnter(gameObject.name);
         }
     }
 
@@ -208,7 +208,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onSubmit != null)
         {
-            this.onSubmit(gameObject);
+            this.onSubmit(gameObject.name);
         }
     }
 
@@ -224,7 +224,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onCancel != null)
         {
-            this.onCancel(gameObject);
+            this.onCancel(gameObject.name);
         }
     }
 
@@ -240,7 +240,7 @@ public class UGUIEventListener : MonoBehaviour,
         }
         if (this.onDeSelect != null)
         {
-            this.onDeSelect(gameObject);
+            this.onDeSelect(gameObject.name);
         }
     }
 
