@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using UnityEngine;
 
@@ -140,7 +139,13 @@ public class ColaLoom : MonoBehaviour
         lock (_delayed)
         {
             _currentDelayed.Clear();
-            _currentDelayed.AddRange(_delayed.Where(d => d.time <= Time.time));
+            for(int i =0; i< _delayed.Count; i++)
+            {
+                if(_delayed[i].time <= Time.time)
+                {
+                    _currentDelayed.Add(_delayed[i]);
+                }
+            }
             foreach (var item in _currentDelayed)
                 _delayed.Remove(item);
         }
@@ -148,6 +153,5 @@ public class ColaLoom : MonoBehaviour
         {
             delayed.action();
         }
-
     }
 }
