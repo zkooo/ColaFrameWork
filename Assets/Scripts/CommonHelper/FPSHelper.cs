@@ -47,9 +47,6 @@ public class FPSHelper : MonoBehaviour
                                                              + "  MonoHeapSize:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetMonoHeapSizeLong())
                                                              + "  MonoUsedSize:" + GetMemoryMB(UnityEngine.Profiling.Profiler.GetMonoUsedSizeLong())
         );
-        string versionStr = GameClient.GetClientVersion();
-        versionStr = System.String.Format("版本号:{0}", versionStr);
-        GUI.Label(new Rect(0, 100, 200, 200), versionStr);
         if (fps > 50)
         {
             GUI.color = new Color(0, 1, 0);
