@@ -42,10 +42,6 @@ public static class GloablDefine
     public static Color ColorYellow = Color.yellow;
     public static Color ColorGray = Color.gray;
 
-    public static EPateColor PateBlue = new EPateColor(new Color(39 / 255f, 193 / 255f, 255 / 255f, 1), new Color(10 / 255f, 16 / 255f, 39 / 255f, 1));
-    public static EPateColor PateRed = new EPateColor(new Color(230 / 255f, 46 / 255f, 46 / 255f, 1), new Color(20 / 255f, 2 / 255f, 2 / 255f, 1));
-    public static EPateColor PateGreen = new EPateColor(new Color(0 / 255f, 255 / 255f, 0 / 255f, 1), new Color(20 / 255f, 2 / 255f, 2 / 255f, 1));
-
     /// <summary>
     /// Bundle的资源后缀名
     /// </summary>
