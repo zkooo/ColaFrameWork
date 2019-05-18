@@ -1,10 +1,9 @@
 # ColaFrameWork  
 
-### ColaFrameWork 自研Unity客户端框架  
+### ColaFrameWork 自研测试性Unity客户端框架  
 
 ### 框架简介  
-ColaFramework 一款简洁的MVC结构的Unity客户端框架，尤其支持快速开发3D战斗卡牌和mmo类型的游戏。目前已经接入了Tolua，进行Lua层的架构工作。暂时还不支持热更，下一步准备完善这方面的内容，希望有兴趣的可以一起来维护。  
-
+ColaFramework 一款简洁的MVC架构的测试性Unity客户端框架。目前已经接入了Tolua，进行Lua层的开发工作。暂时还不支持热更，下一步准备完善这方面的内容。    
 ### 开发计划  
 马三把近一个月内要开发的任务都放在本项目的敏捷开发面板中了。可以直接按照下面的方式查看看板中的开发计划与进度。
 ![](./Doc/image/codePlan.png)  
@@ -94,6 +93,10 @@ ColaFramework框架集成了DoTween、iTween两款比较常见的插值动画/�
 >* UGUITweenPosition  
 >* UGUITweenAlpha  
 >* UGUITweenRotation  
+
+#### 联系方式  
+* QQ群：421527940  
+![](./Doc/image/ColaFramework交流群群二维码.png)  
 
 
 
