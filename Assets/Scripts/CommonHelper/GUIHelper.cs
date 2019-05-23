@@ -134,7 +134,6 @@ public static class GUIHelper
             mainCamera.cullingMask = DefaultSceneCullMask;
             mainCamera.layerCullSpherical = true;
             mainCameraObj.AddComponent<AudioListener>();
-            mainCameraObj.AddComponent<CameraTouchController>();
             mainCameraObj.transform.SetParent(mainCameraRootObj.transform, false);
         }
     }
